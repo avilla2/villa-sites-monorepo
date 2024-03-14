@@ -47,7 +47,6 @@
     "eslint-plugin-react": "latest",
     "lerna": "^8.1.2",
     "react-scripts": "^5.0.1"
-
   },
   "browserslist": {
     "production": [

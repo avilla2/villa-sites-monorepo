@@ -3,11 +3,11 @@ import LoadingSVG from './loading'
 import { VillaComponentSystem } from '@villa-components/system'
 
 export default function App () {
-  const DEFAULT_SITE_ID = 3
+  const DEFAULT_SITE_ID = 1
   const [page, setPage] = useState('Home')
 
   useEffect(() => {
-    document.title = `${page} | CV Landscaping`
+    document.title = `${page} | PacWest Pressure Washing`
   }, [page])
 
   return (

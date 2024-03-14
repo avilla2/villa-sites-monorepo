@@ -13562,6 +13562,14 @@ __metadata:
   languageName: node
   linkType: hard
 
+"pacwest@workspace:websites/pacwest":
+  version: 0.0.0-use.local
+  resolution: "pacwest@workspace:websites/pacwest"
+  dependencies:
+    "@villa-components/system": "*"
+  languageName: unknown
+  linkType: soft
+
 "param-case@npm:^3.0.4":
   version: 3.0.4
   resolution: "param-case@npm:3.0.4"
