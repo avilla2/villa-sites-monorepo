@@ -5,6 +5,7 @@
     "villa-components/system",
     "websites/*"
   ],
+  "private": true,
   "scripts": {
     "start": "npx lerna run start --scope",
     "build": "npx lerna run build --scope",
