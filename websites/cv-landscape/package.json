@@ -8,7 +8,7 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "villa-component-system": "*"
+    "@villa-components/system": "*"
   },
   "browserslist": {
     "production": [

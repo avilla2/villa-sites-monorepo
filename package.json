@@ -2,14 +2,16 @@
   "name": "villa-sites-monorepo",
   "version": "1.0.0",
   "workspaces": [
-    "villa-component-system",
+    "villa-components/system",
     "websites/*"
   ],
   "scripts": {
-    "start": "npx lerna run start",
-    "build": "npx lerna run build",
+    "start": "npx lerna run start --scope",
+    "build": "npx lerna run build --scope",
+    "build-watch": "npx lerna run build-watch --scope @villa-components/system",
+    "build-all": "npx lerna run build",
     "test": "npx lerna run test",
-    "generate": "npx lerna run --scope villa-component-system generate"
+    "generate": "npx lerna run --scope @villa-components/system generate"
   },
   "eslintConfig": {
     "extends": [
@@ -23,11 +25,6 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.11",
     "@mui/material": "^5.14.1",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^14.0.0",
-    "@testing-library/user-event": "^14.4.3",
-    "cross-fetch": "^4.0.0",
-    "dotenv": "^16.3.1",
     "graphql": "^16.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -35,18 +32,22 @@
     "react-parallax": "^3.5.1",
     "react-pdf": "^7.1.3",
     "react-router-dom": "^6.14.2",
-    "react-scripts": "^5.0.1",
     "react-visibility-sensor": "^5.1.1",
     "web-vitals": "^3.4.0"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
     "eslint": "^8.0.1",
     "eslint-config-standard": "latest",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-n": "^15.0.0 || ^16.0.0 ",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "latest",
-    "lerna": "^8.1.2"
+    "lerna": "^8.1.2",
+    "react-scripts": "^5.0.1"
+
   },
   "browserslist": {
     "production": [
