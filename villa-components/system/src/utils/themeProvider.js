@@ -5,7 +5,7 @@ const createThemeConfigs = (palette, fonts) => {
   const colors = ['primary', 'secondary', 'info', 'success', 'warning']
   const filteredColors = colors.filter(val => palette[val] != null)
   const formatedPalette = Object.fromEntries(filteredColors.map(val => [val, { main: palette[val] }]))
-  console.log(fonts, palette, formatedPalette)
+
   return createTheme({
     palette: formatedPalette,
     typography: {
