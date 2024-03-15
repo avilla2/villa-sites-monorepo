@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from './images/pacwest_logo_lg.png'
+import logo from './images/cv-landscape-logo-clear.png'
 
 export default function Loading () {
   return (

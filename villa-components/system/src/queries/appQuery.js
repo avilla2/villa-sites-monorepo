@@ -59,6 +59,7 @@ query Website($id: ID) {
           data {
             attributes {
               Name
+              Title
               Link
               Content {
                 ...Content

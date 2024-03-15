@@ -70,8 +70,7 @@ const classes = {
 
 export default function InstantQuoteCalculator ({ content }) {
   const [componentPhase, setComponentPhase] = useState(0)
-  const [pricePer, setPricePer] = useState(0)
-  const [jobType, setJobType] = useState('')
+  const [quoteDetails, setQuoteDetails] = useState({ pricePer: 0, jobType: '', minimum: 0 })
   const [sizeEntry, setSizeEntry] = useState(0)
   const [estimate, setEstimate] = useState(0)
   const [loading, setLoading] = useState(false)
@@ -87,14 +86,13 @@ export default function InstantQuoteCalculator ({ content }) {
     failure: false
   })
 
-  const handlePhase1Change = (amount, type) => {
-    setPricePer(amount)
-    setJobType(type)
+  const handlePhase1Change = (amount, type, minimum) => {
+    setQuoteDetails({ pricePer: amount, jobType: type, priceMinimum: minimum })
     setComponentPhase(2)
   }
 
   const calculateEstimate = () => {
-    const priceEstimate = pricePer * sizeEntry < 200 ? 200 : pricePer * sizeEntry
+    const priceEstimate = quoteDetails.pricePer * sizeEntry < quoteDetails.priceMinimum ? quoteDetails.priceMinimum : quoteDetails.pricePer * sizeEntry
     const priceEstimateFormatted = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(
       priceEstimate
     )
@@ -136,7 +134,7 @@ export default function InstantQuoteCalculator ({ content }) {
           from: content.SendFrom,
           replyTo: regex.test(data.email) ? data.email : null,
           subject: `New Instant Quote Request from ${data.first} ${data.last}`,
-          text: `${data.first} ${data.last} recieved an instant quote of ${estimate} for a ${sizeEntry} sqft ${jobType} job. Contact info for the customer: ${data.email}`
+          text: `${data.first} ${data.last} recieved an instant quote of ${estimate} for a ${sizeEntry} sqft ${quoteDetails.jobType} job. Contact info for the customer: ${data.email}`
         })
       })
         .then(response => {
@@ -192,7 +190,7 @@ export default function InstantQuoteCalculator ({ content }) {
                         key={index}
                         buttonStyle={content?.FormButtonStyle}
                         color={content?.ButtonColor}
-                        onClick={() => handlePhase1Change(entry.PricePer, entry.JobType)}
+                        onClick={() => handlePhase1Change(entry.PricePer, entry.JobType, entry.PriceMinimum)}
                     >
                       {entry.JobType}
                     </Button>
@@ -205,7 +203,7 @@ export default function InstantQuoteCalculator ({ content }) {
           <Box>
             <CardHeader
                 style={content?.ButtonColor ? { backgroundColor: content.ButtonColor } : null}
-                title={jobType === 'Gutters' ? 'What is the total length of your gutters?' : `What is the square footage of your ${jobType}?`}
+                title={quoteDetails.jobType === 'Gutters' ? 'What is the total length of your gutters?' : `What is the square footage of your ${quoteDetails.jobType}?`}
             />
             <CardContent style={classes.cardContent}>
               <Box style={content?.ButtonColor ? { backgroundColor: content.ButtonColor, ...classes.inputSmall } : classes.inputSmall}>
@@ -215,7 +213,7 @@ export default function InstantQuoteCalculator ({ content }) {
                   value={sizeEntry}
                   onChange={event => event.target.value >= 0 ? setSizeEntry(event.target.value) : {}}
                   id="size-input"
-                  label={ jobType === 'Gutters' ? 'Feet' : 'Square Feet'}
+                  label={ quoteDetails.jobType === 'Gutters' ? 'Feet' : 'Square Feet'}
                   required
                   color='primary'
                   type="number"
@@ -229,7 +227,7 @@ export default function InstantQuoteCalculator ({ content }) {
                         <Typography
                           style={content?.Style?.TextColor ? { color: content?.Style?.TextColor } : null}
                         >
-                          { jobType === 'Gutters' ? 'ft' : 'sqft'}
+                          { quoteDetails.jobType === 'Gutters' ? 'ft' : 'sqft'}
                         </Typography>
                       </InputAdornment>
                     ),

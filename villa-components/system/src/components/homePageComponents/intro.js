@@ -24,6 +24,7 @@ const styles = {
     height: '100%',
     bottom: 0,
     display: 'flex',
+    flexDirection: 'column',
     padding: '3%',
     boxSizing: 'border-box',
     fontFamily: theme.typography.fontFamily,
@@ -48,8 +49,8 @@ const styles = {
     textAlign: 'center'
   },
   bottomLeft: {
-    justifyContent: 'flex-start',
-    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-start',
     textAlign: 'left'
   },
   bottomRight: {

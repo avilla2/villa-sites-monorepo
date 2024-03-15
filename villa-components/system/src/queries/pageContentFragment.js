@@ -175,6 +175,7 @@ fragment Content on ContentPageContentDynamicZone {
           id
           PricePer
           JobType
+          PriceMinimum
         }
     }
 }

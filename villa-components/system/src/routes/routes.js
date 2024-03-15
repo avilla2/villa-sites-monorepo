@@ -31,7 +31,7 @@ export default function VillaRoutes ({ children, siteContent, page, setPage, sit
                     setNavIndex={setNavIndex}
                     path={item.attributes.Link}
                     setPage={setPage}
-                    name={item.attributes.Name}
+                    name={item.attributes.Title}
                     content={item.attributes.Content}
                   />
                 }
