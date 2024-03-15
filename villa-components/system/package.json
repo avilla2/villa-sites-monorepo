@@ -2,6 +2,7 @@
   "name": "@villa-components/system",
   "version": "1.0.0",
   "module": "./dist/bundle.js",
+  "license": "MIT",
   "scripts": {
     "lint": "eslint --ignore-path .eslintignore --ext .js,.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
