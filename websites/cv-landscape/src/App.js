@@ -7,7 +7,7 @@ export default function App () {
   const [page, setPage] = useState('Home')
 
   useEffect(() => {
-    document.title = `${page} | CV Landscaping`
+    document.title = `${page} | CV Landscaping Medford, OR`
   }, [page])
 
   return (
@@ -17,7 +17,7 @@ export default function App () {
         setPage={setPage}
         defaultSiteId={DEFAULT_SITE_ID}
         loadingComponent={<LoadingSVG />}
-        fonts={['"Russo One"', '"Roboto Flex"']}
+        fonts={['"Francois One"', '"Jost"']}
       >
       </VillaComponentSystem>
     </div>
