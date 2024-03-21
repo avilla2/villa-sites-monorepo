@@ -13,7 +13,6 @@ const classes = {
     margin: '40px 5% 40px 5%'
   },
   input: {
-    margin: '0px 5px 20px 5px'
   },
   inputSmall: {
   },
