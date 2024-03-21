@@ -9,22 +9,32 @@ fragment StyleFragment on ComponentContentPageComponentsStyle {
 fragment Content on ContentPageContentDynamicZone {
     __typename
     ... on ComponentHomePageComponentsIntro {
-        id
-        File {
-            data {
-                attributes {
-                    mime
-                    url
-                    width
-                    alternativeText
-                }
-            }
+      id
+      Style {
+        ...StyleFragment
+      }
+      File {
+          data {
+              attributes {
+                  mime
+                  url
+                  width
+                  alternativeText
+              }
+          }
+      }
+      IntroText
+      TextPosition
+      MobileFile {
+        data {
+          attributes {
+            mime
+            url
+            width
+            alternativeText
+          }
         }
-        Style {
-            ...StyleFragment
-        }
-        IntroText
-        TextPosition
+      }
     }
     ... on ComponentHomePageComponentsGallery {
         id
@@ -106,6 +116,7 @@ fragment Content on ContentPageContentDynamicZone {
             ...StyleFragment
         }
         Body
+        textAlign
     }
     ... on ComponentContentPageComponentsFaq {
         id
@@ -123,11 +134,19 @@ fragment Content on ContentPageContentDynamicZone {
         id
         Title
         Style {
-            ...StyleFragment
+            BackgroundColor
+            Animation
         }
         bodyTitle
         sendTo
-        sendFrom
+        fields {
+          name
+          label
+          validation
+          includeInSubjectLine
+          fullWidth
+          type
+        }
     }
     ... on ComponentContentPageComponentsGrid {
         id
@@ -176,6 +195,36 @@ fragment Content on ContentPageContentDynamicZone {
           PricePer
           JobType
           PriceMinimum
+        }
+    }
+    ... on ComponentContentPageComponentsVideo {
+        caption
+        autoplay
+        loop
+        muted
+        width
+        controls
+        asset {
+          data {
+              attributes {
+              url
+              width
+              }
+          }
+        }
+    }
+  ... on ComponentContentPageComponentsImage {
+        caption
+        imageStyle
+        width
+        height
+        asset {
+          data {
+              attributes {
+              url
+              width
+              }
+          }
         }
     }
 }

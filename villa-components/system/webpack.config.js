@@ -1,8 +1,17 @@
 const path = require('path')
+const dotenv = require('dotenv')
+const webpack = require('webpack')
+
+dotenv.config()
 
 module.exports = {
   entry: path.resolve(__dirname, './src/index.js'),
   mode: 'production',
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(process.env)
+    })
+  ],
   module: {
     rules: [
       {

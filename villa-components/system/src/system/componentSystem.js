@@ -17,6 +17,7 @@ export default function ComponentSystem ({ children, fonts, defaultSiteId, page,
       <Query query={appQuery} variables={{ id: defaultSiteId }} loadingComponent={loadingComponent}>
         {({ data }) => {
           const websiteContent = data?.website?.data?.attributes
+          localStorage.setItem('siteName', websiteContent.Name)
           if (!websiteContent) return (<NoContentPage setPage={setPage} />)
 
           return (

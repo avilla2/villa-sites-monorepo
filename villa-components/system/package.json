@@ -7,7 +7,7 @@
     "lint": "eslint --ignore-path .eslintignore --ext .js,.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
-    "build-watch": "webpack --watch",
+    "build-watch": "webpack --watch --mode=development --devtool=eval",
     "generate": "node src/scripts/generateTypes.js"
   },
   "devDependencies": {
