@@ -9,7 +9,7 @@ const classes = {
     width: '100%'
   },
   title: (theme) => ({
-    margin: 'auto 2%',
+    margin: 'auto 5%',
     fontSize: '2.3rem',
     [theme.breakpoints.down('md')]: {
       fontSize: '1.5rem'
@@ -21,13 +21,15 @@ const fullHeightComponents = ['ComponentHomePageComponentsIntro', 'ComponentHome
 
 export default function GenerateHomePageContent ({ content, lastComponent }) {
   const padding = calculatePadding(lastComponent, fullHeightComponents, content.__typename)
+  const textAlign = content?.Style?.textAlign || 'center'
   return (
         <Box
             sx={classes.root}
             style={{
               color: content?.Style?.TextColor ? content.Style.TextColor : null,
               backgroundColor: content?.Style?.BackgroundColor ? content.Style.BackgroundColor : null,
-              padding
+              padding,
+              textAlign
             }}
         >
             {

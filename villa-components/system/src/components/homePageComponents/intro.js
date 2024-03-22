@@ -64,15 +64,19 @@ const getMime = (mime) => {
   return mime.split('/')[0]
 }
 
-const GenerateMedia = ({ data }) => {
-  const hidden = useMediaQuery(theme => theme.breakpoints.up('sm'))
-
+const GenerateMedia = ({ mobile, data }) => {
   if (data.length <= 1) {
     const attributes = data[0].attributes
     const mime = getMime(attributes.mime)
     if (mime === 'video') {
       return (
-        <video style={hidden ? styles.video : styles.videoMobile} loop autoPlay muted playsInline>
+        <video
+          style={mobile ? styles.videoMobile : styles.video}
+          loop
+          autoPlay
+          muted
+          playsInline
+        >
           <source
             src={`${process.env.REACT_APP_BACKEND_URL}${attributes.url}`}
             type={attributes.mime}
@@ -83,7 +87,7 @@ const GenerateMedia = ({ data }) => {
     } else if (mime === 'image') {
       return (
         <img
-          style={hidden ? styles.video : styles.videoMobile}
+          style={mobile ? styles.videoMobile : styles.video}
           src={`${process.env.REACT_APP_BACKEND_URL}${attributes.url}`}
           alt={attributes.alternativeText}
         />
@@ -111,9 +115,14 @@ const getIntroStyle = (style) => {
 }
 
 export default function Intro ({ content }) {
+  const mobile = useMediaQuery(theme => theme.breakpoints.down('sm'))
+
   return (
     <Box sx={styles.base}>
-      <GenerateMedia data={content.File.data} />
+      {mobile
+        ? <GenerateMedia data={content.MobileFile.data} mobile={true}/>
+        : <GenerateMedia data={content.File.data} />
+      }
       <AnimationProvider animation={content?.Style?.Animation}>
         <Box sx={[styles.overlay, getIntroStyle(content.TextPosition)]}>
           <ReactMarkdown>{content.IntroText}</ReactMarkdown>

@@ -5,6 +5,7 @@ fragment StyleFragment on ComponentContentPageComponentsStyle {
     BackgroundColor
     Animation
     TextColor
+    textAlign
 }
 fragment Content on ContentPageContentDynamicZone {
     __typename
@@ -116,7 +117,6 @@ fragment Content on ContentPageContentDynamicZone {
             ...StyleFragment
         }
         Body
-        textAlign
     }
     ... on ComponentContentPageComponentsFaq {
         id
@@ -204,11 +204,15 @@ fragment Content on ContentPageContentDynamicZone {
         muted
         width
         controls
+        Style {
+            ...StyleFragment
+        }
         asset {
           data {
               attributes {
               url
               width
+              alternativeText
               }
           }
         }
@@ -218,11 +222,15 @@ fragment Content on ContentPageContentDynamicZone {
         imageStyle
         width
         height
+        Style {
+            ...StyleFragment
+        }
         asset {
           data {
               attributes {
               url
               width
+              alternativeText
               }
           }
         }

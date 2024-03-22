@@ -3,9 +3,10 @@ import Box from '@mui/material/Box'
 import ReactMarkdown from 'react-markdown'
 import Typography from '@mui/material/Typography'
 import AnimationProvider from '../utils/animationProvider'
+
 const classes = {
   root: {
-    margin: 'auto 6%'
+    margin: 'auto 5%'
   },
   text: {
     '& p': {
@@ -16,12 +17,12 @@ const classes = {
 
 export default function Paragraph ({ content }) {
   return (
-        <Box sx={classes.root}>
-            <AnimationProvider animation={content?.Style?.Animation} direction="down">
-                <Typography component="div" sx={classes.text}>
-                    <ReactMarkdown style={classes.text}>{content.Body}</ReactMarkdown>
-                </Typography>
-            </AnimationProvider>
-        </Box>
+    <Box sx={classes.root}>
+        <AnimationProvider animation={content?.Style?.Animation} direction="down">
+            <Typography component="div" sx={classes.text}>
+                <ReactMarkdown style={classes.text}>{content.Body}</ReactMarkdown>
+            </Typography>
+        </AnimationProvider>
+    </Box>
   )
 }

@@ -11,6 +11,8 @@ import TextGrid from '../homePageComponents/textGrid'
 import Media from '../homePageComponents/media'
 import Cards from '../homePageComponents/cards'
 import Freestyle from '../homePageComponents/freestyle'
+import Image from '../contentPageComponents/image'
+import Video from '../contentPageComponents/video'
 
 const renderComponent = (object) => {
   switch (object.__typename) {
@@ -38,6 +40,10 @@ const renderComponent = (object) => {
       return <Cards content={object} />
     case 'ComponentHomePageComponentsFreestyle':
       return <Freestyle content={object} />
+    case 'ComponentContentPageComponentsImage':
+      return <Image content={object} />
+    case 'ComponentContentPageComponentsVideo':
+      return <Video content={object} />
     default:
       return <h2>Error: Page Content Not Found</h2>
   }
