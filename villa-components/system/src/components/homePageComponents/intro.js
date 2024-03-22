@@ -21,6 +21,11 @@ const styles = {
     objectFit: 'cover',
     verticalAlign: 'bottom'
   },
+  imageMobile: {
+    height: '80vh',
+    width: 'auto',
+    verticalAlign: 'bottom'
+  },
   overlay: (theme) => ({
     position: 'absolute',
     width: '100%',
@@ -90,7 +95,7 @@ const GenerateMedia = ({ mobile, data }) => {
     } else if (mime === 'image') {
       return (
         <img
-          style={mobile ? styles.videoMobile : styles.video}
+          style={mobile ? styles.imageMobile : styles.video}
           src={`${process.env.REACT_APP_BACKEND_URL}${attributes.url}`}
           alt={attributes.alternativeText}
         />
@@ -122,9 +127,9 @@ export default function Intro ({ content }) {
 
   return (
     <Box sx={styles.base}>
-      {mobile
+      {mobile && content?.MobileFile?.data?.length
         ? <GenerateMedia data={content.MobileFile.data} mobile={true}/>
-        : <GenerateMedia data={content.File.data} />
+        : <GenerateMedia data={content.File.data} mobile={mobile}/>
       }
       <AnimationProvider animation={content?.Style?.Animation}>
         <Box sx={[styles.overlay, getIntroStyle(content.TextPosition)]}>
