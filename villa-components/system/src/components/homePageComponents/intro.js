@@ -14,8 +14,11 @@ const styles = {
     verticalAlign: 'bottom'
   },
   videoMobile: {
-    height: '80vh',
-    width: 'auto',
+    width: '100%',
+    height: '92vh',
+    maxWidth: '100%',
+    maxHeight: '100%',
+    objectFit: 'cover',
     verticalAlign: 'bottom'
   },
   overlay: (theme) => ({
