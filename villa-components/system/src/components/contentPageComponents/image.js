@@ -14,7 +14,7 @@ export default function Image ({ content }) {
   const mobile = useMediaQuery(theme => theme.breakpoints.down('md'))
   const height = content.height === 0 ? 'auto' : `${content.height}vh`
   return (
-    <Box style={classes.root}>
+    <Box sx={classes.root} pt={content.imageStyle !== 'Parallax' ? 4 : 0}>
         { content.imageStyle === 'Parallax'
           ? <Parallax
               bgImage={`${process.env.REACT_APP_BACKEND_URL}${content.asset.data.attributes.url}`}
@@ -30,7 +30,9 @@ export default function Image ({ content }) {
             />
         }
         { content?.caption &&
-          <Paragraph content={{ Style: content.Style, Body: content.caption }} />
+          <Box pb={4}>
+            <Paragraph content={{ Style: content.Style, Body: content.caption }} />
+          </Box>
         }
     </Box>
   )
