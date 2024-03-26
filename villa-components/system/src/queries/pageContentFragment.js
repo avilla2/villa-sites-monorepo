@@ -222,6 +222,7 @@ fragment Content on ContentPageContentDynamicZone {
         imageStyle
         width
         height
+        captionLocation
         Style {
             ...StyleFragment
         }

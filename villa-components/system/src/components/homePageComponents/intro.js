@@ -22,8 +22,11 @@ const styles = {
     verticalAlign: 'bottom'
   },
   imageMobile: {
+    width: '100%',
     height: '80vh',
-    width: 'auto',
+    maxWidth: '100%',
+    maxHeight: '100%',
+    objectFit: 'cover',
     verticalAlign: 'bottom'
   },
   overlay: (theme) => ({
