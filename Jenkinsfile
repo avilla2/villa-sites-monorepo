@@ -1,5 +1,8 @@
 pipeline { 
     agent any 
+    options {
+        skipStagesAfterUnstable()
+    }
     stages {
         stage('Build') { 
             steps { 
@@ -8,7 +11,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'yarn deploy-all' 
+                sh 'yarn publish' 
             }
         }
     }
