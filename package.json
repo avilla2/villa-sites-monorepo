@@ -12,7 +12,9 @@
     "build-watch": "npx lerna run build-watch --scope @villa-components/system",
     "build-all": "npx lerna run build",
     "test": "npx lerna run test",
-    "generate": "npx lerna run --scope @villa-components/system generate"
+    "generate": "npx lerna run --scope @villa-components/system generate",
+    "deploy": "npx lerna run deploy --scope",
+    "deploy-all": "npx lerna run deploy"
   },
   "eslintConfig": {
     "extends": [
@@ -49,7 +51,8 @@
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "latest",
     "lerna": "^8.1.2",
-    "react-scripts": "^5.0.1"
+    "react-scripts": "^5.0.1",
+    "wrangler": "^3.38.0"
   },
   "browserslist": {
     "production": [
