@@ -15,14 +15,14 @@ yarn build-all
 
 Coming Soon
 
-### Deploy Websites
+## Deploy Websites
 
 ```bash
 npx wrangler login
 yarn deploy-all
 ```
 
-### Add a New Website
+## Add a New Website
 
 - Copy an exisiting website from `/websites`
 - Create new website in api.villawebsolutions.com/admin
