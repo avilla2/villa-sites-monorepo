@@ -1,12 +1,21 @@
 pipeline { 
-    agent any 
+    agent { 
+        docker { 
+            image 'node:18.20.0-alpine' 
+        } 
+    }
     options {
         skipStagesAfterUnstable()
     }
     stages {
+        stage("Install") {
+            steps {
+                sh 'yarn install'
+            }
+        }
         stage('Build') { 
             steps { 
-                sh 'yarn && yarn build-all' 
+                sh 'yarn build-all' 
             }
         }
         stage('Deploy') {
