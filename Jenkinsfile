@@ -1,5 +1,9 @@
 pipeline { 
-    agent any
+    agent { 
+        docker { 
+            image 'node:18.20.0-alpine' 
+        } 
+    }
     options {
         skipStagesAfterUnstable()
     }
@@ -16,7 +20,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'yarn publish' 
+                sh 'yarn deploy-all' 
             }
         }
     }
