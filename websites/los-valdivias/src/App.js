@@ -17,7 +17,7 @@ export default function App () {
         setPage={setPage}
         defaultSiteId={DEFAULT_SITE_ID}
         loadingComponent={<LoadingSVG />}
-        fonts={['"DM Serif Display"', '"Dai Banna SIL"']}
+        fonts={['"Alfa Slab One"', '"Dai Banna SIL"']}
       >
       </VillaComponentSystem>
     </div>
