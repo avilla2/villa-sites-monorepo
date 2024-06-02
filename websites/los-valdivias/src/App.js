@@ -3,7 +3,7 @@ import LoadingSVG from './loading'
 import { VillaComponentSystem } from '@villa-components/system'
 
 export default function App () {
-  const DEFAULT_SITE_ID = 1
+  const DEFAULT_SITE_ID = 5
   const [page, setPage] = useState('Home')
 
   useEffect(() => {
