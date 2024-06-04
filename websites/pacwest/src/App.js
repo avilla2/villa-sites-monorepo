@@ -7,7 +7,7 @@ export default function App () {
   const [page, setPage] = useState('Landscaping')
 
   useEffect(() => {
-    document.title = `${page} | Los Valdivias Portland, OR`
+    document.title = `${page} | PacWest Pressure Washing`
   }, [page])
 
   return (
