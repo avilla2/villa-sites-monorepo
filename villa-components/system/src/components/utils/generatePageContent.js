@@ -20,9 +20,10 @@ const classes = {
 }
 
 const fullHeightComponents = ['ComponentHomePageComponentsIntro', 'ComponentContentPageComponentsImage', 'ComponentHomePageComponentsMedia']
+const halfHeightComponents = []
 
 export default function GeneratePageContent ({ content, lastComponent }) {
-  const padding = calculatePadding(lastComponent, fullHeightComponents, content.__typename)
+  const padding = calculatePadding(lastComponent, fullHeightComponents, halfHeightComponents, content.__typename)
   const textAlign = content?.Style?.textAlign || 'center'
   return (
         <Box
