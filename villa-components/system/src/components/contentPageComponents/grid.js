@@ -10,7 +10,8 @@ const classes = {
     margin: `${theme.spacing(2)} 10%`
   }),
   image: {
-    width: '95%'
+    width: '95%',
+    marginTop: '7%'
   },
   caption: {
     fontSize: '18px',
