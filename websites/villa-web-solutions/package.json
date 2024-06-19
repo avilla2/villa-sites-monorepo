@@ -1,12 +1,12 @@
 {
-  "name": "vws",
+  "name": "villa-web-solutions",
   "version": "1.0.0",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "npx wrangler pages deploy build --project-name=pacwest"
+    "deploy": "npx wrangler pages deploy build --project-name=villa-web-solutions"
   },
   "dependencies": {
     "@villa-components/system": "*"
