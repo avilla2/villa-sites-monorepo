@@ -8,11 +8,11 @@ import Button from '../pageFeatures/button'
 
 const classes = {
   root: {
-    margin: 'auto 5% 1% 5%'
+    margin: 'auto 16px'
   },
   buttonGroup: {
     display: 'flex',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
   }
 }
 export default function Buttons ({ content }) {

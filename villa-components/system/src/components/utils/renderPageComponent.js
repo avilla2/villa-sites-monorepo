@@ -13,6 +13,7 @@ import Cards from '../homePageComponents/cards'
 import Freestyle from '../homePageComponents/freestyle'
 import Image from '../contentPageComponents/image'
 import Video from '../contentPageComponents/video'
+import CardGroup from '../contentPageComponents/cardGroup'
 
 const renderComponent = (object) => {
   switch (object.__typename) {
@@ -44,6 +45,8 @@ const renderComponent = (object) => {
       return <Image content={object} />
     case 'ComponentContentPageComponentsVideo':
       return <Video content={object} />
+    case 'ComponentContentPageComponentsCardGroup':
+      return <CardGroup content={object} />
     default:
       return <h2>Error: Page Content Not Found</h2>
   }

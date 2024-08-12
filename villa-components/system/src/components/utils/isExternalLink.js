@@ -1,5 +1,5 @@
 const isExternal = (text) => {
-  if (text.charAt(0) === '/') {
+  if (text && text.charAt(0) === '/') {
     return false
   }
   return true

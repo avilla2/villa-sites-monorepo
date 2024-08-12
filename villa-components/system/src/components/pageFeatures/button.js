@@ -1,8 +1,18 @@
 import React from 'react'
 import Button from '@mui/material/Button'
 import isExternal from '../utils/isExternalLink'
-import { useTheme } from '@mui/material/styles'
 import { Link } from 'react-router-dom'
+import { styled, useTheme, alpha } from '@mui/material/styles'
+
+const StyledButton = styled(Button, {
+  shouldForwardProp: (prop) => prop !== 'borderColor'
+})(({ borderColor }) => ({
+  '&:hover': {
+    border: `1px solid ${alpha(borderColor, 0.2)}`,
+    backgroundColor: alpha(borderColor, 0.05)
+  }
+})
+)
 
 const getButtonColor = (color, style, def) => {
   const trueColor = color || def
@@ -12,7 +22,7 @@ const getButtonColor = (color, style, def) => {
     case 'text':
       return { color: trueColor }
     default:
-      return { borderColor: trueColor, color: 'inherit' }
+      return { borderColor: trueColor, color: 'inherit', backgroundColor: alpha(trueColor, 0.35) }
   }
 }
 
@@ -21,31 +31,33 @@ export default function CustomButton ({ buttonStyle, children, link, onClick, mo
 
   if (onClick) {
     return (
-        <Button
+        <StyledButton
             variant={buttonStyle || 'outlined'}
             size={mobile ? 'regular' : 'large'}
             sx={getButtonColor(color, buttonStyle, theme.palette.primary.main)}
             onClick={onClick}
             disabled={disabled}
+            borderColor={color || theme.palette.secondary.main}
             {...props}
         >
             {children}
-        </Button>
+        </StyledButton>
     )
   } else {
     return (
-        <Button
+        <StyledButton
             variant={buttonStyle || 'outlined'}
             size={mobile ? 'regular' : 'large'}
             component={isExternal(link) ? 'a' : Link}
             href={link}
             to={link}
             sx={getButtonColor(color, buttonStyle, theme.palette.primary.main)}
+            borderColor={color || theme.palette.secondary.main}
             disabled={disabled}
             {...props}
         >
             {children}
-        </Button>
+        </StyledButton>
     )
   }
 }

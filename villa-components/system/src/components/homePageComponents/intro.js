@@ -3,37 +3,56 @@ import Box from '@mui/material/Box'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import ReactMarkdown from 'react-markdown'
 import AnimationProvider from '../utils/animationProvider'
+import ButtonGroup from '../contentPageComponents/buttonGroup'
+import Contact from '../contentPageComponents/contact'
+import Grid from '@mui/material/Grid'
 
 const styles = {
   base: {
     overflow: 'hidden',
-    position: 'relative'
+    position: 'relative',
+  },
+  contentWrapper: {
+    position: 'absolute', 
+    width: '100%',
+    minHeight: '98vh',
   },
   video: {
     width: '100%',
-    verticalAlign: 'bottom'
+    verticalAlign: 'bottom',
+    minHeight: 'inherit',
   },
   videoMobile: {
     width: '100%',
-    height: '92vh',
     maxWidth: '100%',
     maxHeight: '100%',
     objectFit: 'cover',
-    verticalAlign: 'bottom'
+    verticalAlign: 'bottom',
+    minHeight: 'inherit',
   },
   imageMobile: {
     width: '100%',
-    height: '80vh',
     maxWidth: '100%',
-    maxHeight: '100%',
     objectFit: 'cover',
-    verticalAlign: 'bottom'
+    verticalAlign: 'bottom',
+    minHeight: 'inherit',
   },
-  overlay: (theme) => ({
-    position: 'absolute',
+  overlayWrapper: (theme) => ({
+    position: 'relative',
+    bottom: 0,
+    padding: 3,
     width: '100%',
     height: '100%',
-    bottom: 0,
+    [theme.breakpoints.between('xs', 'md')]: {
+      minHeight: '75vh',
+    },
+    [theme.breakpoints.up('md')]: {
+      minHeight: '98vh',
+    },
+  }),
+  overlay: (theme) => ({
+    width: '100%',
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     padding: '3%',
@@ -48,10 +67,12 @@ const styles = {
       fontSize: '1.125rem'
     },
     [theme.breakpoints.between('sm', 'md')]: {
-      fontSize: '.85rem'
+      fontSize: '.85rem',
+      minHeight: '30vh',
     },
     [theme.breakpoints.between('xs', 'sm')]: {
-      fontSize: '.75rem'
+      fontSize: '.75rem',
+      minHeight: '30vh'
     }
   }),
   centered: {
@@ -126,19 +147,48 @@ const getIntroStyle = (style) => {
 }
 
 export default function Intro ({ content }) {
-  const mobile = useMediaQuery(theme => theme.breakpoints.down('sm'))
+  const mobile = useMediaQuery(theme => theme.breakpoints.down('md'))
 
   return (
     <Box sx={styles.base}>
-      {mobile && content?.MobileFile?.data?.length
-        ? <GenerateMedia data={content.MobileFile.data} mobile={true}/>
-        : <GenerateMedia data={content.File.data} mobile={mobile}/>
-      }
-      <AnimationProvider animation={content?.Style?.Animation}>
-        <Box sx={[styles.overlay, getIntroStyle(content.TextPosition)]}>
-          <ReactMarkdown>{content.IntroText}</ReactMarkdown>
-        </Box>
-      </AnimationProvider>
+      <Box sx={styles.contentWrapper}>
+        {mobile && content?.MobileFile?.data?.length
+          ? <GenerateMedia data={content.MobileFile.data} mobile={true}/>
+          : <GenerateMedia data={content.File.data} mobile={mobile}/>
+        }
+      </Box>
+      <Grid 
+      container
+      justifyContent='space-evenly'
+      sx={styles.overlayWrapper}>
+        <Grid item xs={12} md={content?.FormData && content?.FormFields ? 8 : 12}>
+          <Box sx={[styles.overlay, getIntroStyle(content.TextPosition)]}>
+            <AnimationProvider animation={content?.Style?.Animation}>
+              <ReactMarkdown>{content.IntroText}</ReactMarkdown>
+              {content?.Buttons && <ButtonGroup content={{ ButtonArrangement: 'center', GroupButtonStyle: 'outlined', Entry: content.Buttons }}/>}
+            </AnimationProvider>
+          </Box>
+        </Grid>
+        {content?.FormData && content?.FormFields &&
+          <Grid 
+            xs={12}
+            md={4}
+            item 
+            sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}
+          >
+            <Box sx={{backgroundColor: 'white', margin: 'auto 16px', borderRadius: 3, maxWidth: 400}}>
+            <Contact 
+              content={{
+                fields: content.FormFields,
+                sendTo: content.FormData.SendTo,
+                sendFrom: content.FormData.SendFrom,
+                bodyTitle: content.FormData.BodyTitle
+              }}
+            />
+            </Box>
+          </Grid>
+        }
+      </Grid>
     </Box>
   )
 }

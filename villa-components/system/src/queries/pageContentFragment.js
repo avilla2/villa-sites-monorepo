@@ -36,6 +36,24 @@ fragment Content on ContentPageContentDynamicZone {
           }
         }
       }
+      Buttons {
+        Text
+        Link
+        ButtonColor
+      }
+      FormData {
+        SendTo
+        SendFrom
+        BodyTitle
+      }
+      FormFields {
+        name
+        validation
+        label
+        type
+        includeInSubjectLine
+        fullWidth
+      }
     }
     ... on ComponentHomePageComponentsGallery {
         id
@@ -236,6 +254,30 @@ fragment Content on ContentPageContentDynamicZone {
           }
         }
     }
+    ...on ComponentContentPageComponentsCardGroup {
+    Title
+    Cards {
+      Image {
+        data {
+          attributes {
+            url
+            width
+            alternativeText
+          }
+        }
+      }
+      Title
+      Text
+      ButtonText
+      ButtonColor
+      CardColor
+      CardStyle
+      Link
+    }
+    Style {
+        ...StyleFragment
+    }
+  }
 }
 `
 export default PAGE_CONTENT_FRAGMENT
