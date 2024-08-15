@@ -22,7 +22,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 const classes = {
   toolbarSpaced: {
     justifyContent: 'flex-start',
-    margin: '0 2% 0 2%;',
+    padding: '0 2% 0 2%;',
     minHeight: 128,
     alignItems: 'center',
     '& a:first-of-type': {
@@ -71,6 +71,13 @@ const classes = {
     paddingLeft: theme.spacing(3),
     paddingRight: theme.spacing(3)
   }),
+  mobileImageButton: (theme) => ({
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
+    '& a': {
+      display: 'flex'
+    }
+  }),
   mobileNav: {
     justifyContent: 'space-between'
   },
@@ -98,7 +105,8 @@ const classes = {
     alignSelf: 'center',
     display: 'flex',
     flexDirection: 'column',
-    rowGap: theme.spacing(2)
+    rowGap: theme.spacing(2),
+    width: '100%'
   }),
   textColor: (color) => { if (color) return ({ color }) }
 }
@@ -203,8 +211,9 @@ export default function Navbar ({
           {links.map((item, index) => {
             if (item.__typename === 'ComponentNavbarComponentsNavButton') {
               navButtonList.push(item)
-            }
-            if (item.__typename === 'ComponentNavbarComponentsTextLink') {
+            } else if (item.__typename === 'ComponentNavbarComponentsImageLink' && item.showInMobile) { 
+              navButtonList.push(item)
+            } else if (item.__typename === 'ComponentNavbarComponentsTextLink') {
               return (
                 <ListItemButton key={index} onClick={() => setActive(item.Link)} component={isExternal(item.Link) ? 'a' : Link} href={item.Link} to={item.Link}>
                     <ListItemText primaryTypographyProps={{ variant: 'subtitle1' }} sx={[classes.title, active === item.Link ? classes.hovered : classes.textColor(fontColor)]} primary={item.Title} />
@@ -217,14 +226,26 @@ export default function Navbar ({
           </List>
           <List sx={classes.mobileDrawerBottom}>
             {navButtonList.map((item, index) => (
-              <NavButton
-                key={index}
-                id={item.Link}
-                external={isExternal(item.Link)}
-                link={item.Link}
-                color={item.Color}
-                text={item.Text}
-              />
+              item.__typename === 'ComponentNavbarComponentsImageLink' ? (
+                <Box sx={classes.mobileImageButton}>
+                  <NavButtonIcon 
+                    id={item.Link}
+                    external={isExternal(item.Link)}
+                    width={item.Width} link={item.Link}
+                    src={`${process.env.REACT_APP_BACKEND_URL}${item.Image.data.attributes.url}`}
+                    alt={item.Image.data.attributes.name} 
+                  />
+                </Box>
+              ) : (
+                <NavButton
+                  key={index}
+                  id={item.Link}
+                  external={isExternal(item.Link)}
+                  link={item.Link}
+                  color={item.Color}
+                  text={item.Text}
+                />
+              )
             ))}
           </List>
         </List>
@@ -261,11 +282,24 @@ export default function Navbar ({
       {/* Desktop Navbar */}
       {hidden
         ? (
+          <>
+            {style === 'Split' ? (
+              <AppBar sx={classes.toolbar} position="fixed" elevation={!trigger ? 0 : 1} color={!trigger && appearance === 'fade_in' ? 'transparent' : 'primary'} >
+                <Toolbar sx={{...classes.toolbarSpaced, backgroundColor: 'white' }}>
+                  {content.map((item, index) => item.__typename !== 'ComponentNavbarComponentsTextLink' && <NavComponentDesktop item={item} key={index} />)}
+                </Toolbar>
+                <Toolbar sx={classes.toolbarSpread}>
+                  {content.map((item, index) => item.__typename === 'ComponentNavbarComponentsTextLink' && <NavComponentDesktop item={item} key={index} />)}
+                </Toolbar>
+              </AppBar>
+            ) : (
             <AppBar sx={classes.toolbar} position="fixed" elevation={!trigger ? 0 : 1} color={!trigger && appearance === 'fade_in' ? 'transparent' : 'primary' } >
               <Toolbar sx={pickStyle()}>
                 {content.map((item, index) => <NavComponentDesktop item={item} key={index} />)}
               </Toolbar>
             </AppBar>
+            )}
+          </>
           )
         : <>
             {/* Mobile Navbar */}

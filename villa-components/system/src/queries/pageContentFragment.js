@@ -254,7 +254,7 @@ fragment Content on ContentPageContentDynamicZone {
           }
         }
     }
-    ...on ComponentContentPageComponentsCardGroup {
+    ... on ComponentContentPageComponentsCardGroup {
     Title
     Cards {
       Image {
@@ -273,6 +273,26 @@ fragment Content on ContentPageContentDynamicZone {
       CardColor
       CardStyle
       Link
+    }
+    Style {
+        ...StyleFragment
+    }
+  }
+  ... on ComponentContentPageComponentsList {
+    Title
+    Icon {
+      data {
+        attributes {
+          url
+          width
+          alternativeText
+        }
+      }
+    }
+    Caption
+    Items {
+      id
+      Text
     }
     Style {
         ...StyleFragment

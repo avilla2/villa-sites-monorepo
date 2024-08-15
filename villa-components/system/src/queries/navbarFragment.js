@@ -30,6 +30,7 @@ fragment NavbarFragment on WebsiteNavbar {
       }
       Link
       Width
+      showInMobile
     }
   }
   MobileConfig {

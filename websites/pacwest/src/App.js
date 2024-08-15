@@ -4,10 +4,10 @@ import { VillaComponentSystem } from '@villa-components/system'
 
 export default function App () {
   const DEFAULT_SITE_ID = 1
-  const [page, setPage] = useState('Pressure Washing Medford, OR')
+  const [page, setPage] = useState('PacWest | Pressure Washing Medford, OR')
 
   useEffect(() => {
-    document.title = `${page} | Pacwest Softwash`
+    document.title = `${page} | Pressure Washing Medford, OR`
   }, [page])
 
   return (

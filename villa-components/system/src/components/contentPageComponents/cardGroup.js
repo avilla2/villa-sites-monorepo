@@ -65,6 +65,7 @@ const SingleCard = ({
               backgroundColor: CardColor,
               position: 'relative',
               height: '100%',
+              width: '100%',
               padding: 2,
               ...classes.flexBox
             }}
@@ -73,14 +74,16 @@ const SingleCard = ({
               <BlocksRenderer content={Text} />
             </CardContent>
             <CardActions>
-              <Button
-                color={ButtonColor}
-                buttonStyle='outlined'
-                mobile
-                link={Link}
-              >
+              {Link && 
+                <Button
+                  color={ButtonColor}
+                  buttonStyle='outlined'
+                  mobile
+                  link={Link}
+                >
                 {ButtonText}
               </Button>
+              }
             </CardActions>
           </Card>
         </Slide>
@@ -101,14 +104,16 @@ const SingleCard = ({
           <BlocksRenderer content={Text} />
       </CardContent>
       <CardActions sx={{ p: 2 }}>
-        <Button
-          color={ButtonColor}
-          buttonStyle='outlined'
-          mobile
-          link={Link}
-        >
-          {ButtonText}
-        </Button>
+        {Link && 
+          <Button
+            color={ButtonColor}
+            buttonStyle='outlined'  
+            mobile
+            link={Link}
+          >
+            {ButtonText}
+          </Button>
+        }
       </CardActions>
     </Card>
   )
