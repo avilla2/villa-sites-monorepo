@@ -17,11 +17,11 @@ export default function ComponentSystem ({ children, fonts, defaultSiteId, page,
       <Query query={appQuery} variables={{ id: defaultSiteId }} loadingComponent={loadingComponent}>
         {({ data }) => {
           const websiteContent = data?.website?.data?.attributes
-          localStorage.setItem('siteName', websiteContent.Name)
+          localStorage.setItem('siteName', websiteContent.name)
           if (!websiteContent) return (<NoContentPage setPage={setPage} />)
 
           return (
-            <ThemeProvider palette={websiteContent.SiteSettings.data.attributes.Palette} fonts={fonts}>
+            <ThemeProvider palette={websiteContent.site_settings.data.attributes.Palette} fonts={fonts}>
               <Routes
                 navIndex={navIndex}
                 setNavIndex={setNavIndex}

@@ -17,17 +17,17 @@ export default function VillaRoutes ({ children, siteContent, page, setPage, sit
           setSiteId={setSiteId}
           page={page}
           navIndex={navIndex}
-          minSize={siteContent.SiteSettings.data.attributes.DesktopBreakpoint}
-          {...siteContent.Navbar.data.attributes}
+          minSize={siteContent.site_settings.data.attributes.DesktopBreakpoint}
+          {...siteContent.navbar.data.attributes}
         />
           <Routes>
-            {siteContent.ContentPages.data.map((item, key) => (
+            {siteContent.content_pages.data.map((item, key) => (
               <Route
                 key={key}
                 path={item.attributes.Link}
                 element={
                   <ContentPage
-                    minSize={siteContent.SiteSettings.data.attributes.DesktopBreakpoint}
+                    minSize={siteContent.site_settings.data.attributes.DesktopBreakpoint}
                     setNavIndex={setNavIndex}
                     path={item.attributes.Link}
                     setPage={setPage}
@@ -45,14 +45,14 @@ export default function VillaRoutes ({ children, siteContent, page, setPage, sit
                   setNavIndex={setNavIndex}
                   setPage={setPage}
                   path="/"
-                  pageName={siteContent.Homepage.data.attributes.PageName}
-                  content={siteContent.Homepage.data.attributes.Content}
+                  pageName={siteContent.homepage.data.attributes.PageName}
+                  content={siteContent.homepage.data.attributes.Content}
                 />
               }
             />
             <Route path="*" element={<NotFoundPage setPage={setPage} />} />
           </Routes>
-        <SiteFooter {...siteContent.Footer.data.attributes} />
+        <SiteFooter {...siteContent.footer.data.attributes} />
       </Router>
   )
 }

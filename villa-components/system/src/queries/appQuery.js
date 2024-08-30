@@ -10,7 +10,7 @@ query Website($id: ID) {
     data {
       id
       attributes {
-        Name
+        name
         locale
         localizations {
           data {
@@ -20,7 +20,7 @@ query Website($id: ID) {
             }
           }
         }
-        Navbar{
+        navbar{
           data {
             id
             attributes {
@@ -28,7 +28,7 @@ query Website($id: ID) {
             }
           }
         }
-        Footer {
+        footer {
           data {
             id
             attributes {
@@ -36,7 +36,7 @@ query Website($id: ID) {
             }
           }
         }
-        SiteSettings {
+        site_settings {
           data {
             id
             attributes {
@@ -44,7 +44,7 @@ query Website($id: ID) {
             }
           }
         }
-        Homepage {
+        homepage {
           data {
             id
             attributes {
@@ -55,7 +55,7 @@ query Website($id: ID) {
             }
           }
         }
-        ContentPages {
+        content_pages {
           data {
             attributes {
               Name

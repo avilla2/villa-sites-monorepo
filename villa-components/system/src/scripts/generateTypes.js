@@ -1,7 +1,8 @@
 const fetch = require('cross-fetch')
 const fs = require('fs')
-require('dotenv').config()
+require('dotenv').config({ path: '../../.env.development', override: true })
 
+console.log(process.env.REACT_APP_BACKEND_URL)
 fetch(`${process.env.REACT_APP_BACKEND_URL}/graphql`, {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
