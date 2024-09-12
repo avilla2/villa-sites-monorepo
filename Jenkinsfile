@@ -1,9 +1,5 @@
 pipeline { 
-    agent { 
-        docker { 
-            image 'node:18.20.0-alpine' 
-        } 
-    }
+    agent any
     options {
         skipStagesAfterUnstable()
     }
@@ -15,12 +11,12 @@ pipeline {
         }
         stage('Build') { 
             steps { 
-                sh 'yarn build-all' 
+                sh 'yarn build @villa-components/system' 
             }
         }
         stage('Deploy') {
             steps {
-                sh 'yarn deploy-all' 
+                sh 'yarn @villa-components/system' 
             }
         }
     }
