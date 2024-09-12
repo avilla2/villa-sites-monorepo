@@ -3,6 +3,10 @@ pipeline {
     options {
         skipStagesAfterUnstable()
     }
+    environment {
+        CLOUDFLARE_ACCOUNT_ID = credentials('CLOUDFLARE_ACCOUNT_ID')
+        CLOUDFLARE_API_TOKEN  = credentials('CLOUDFLARE_API_TOKEN')
+    }
     stages {
         stage("Install") {
             steps {
