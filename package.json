@@ -8,10 +8,10 @@
   "private": true,
   "scripts": {
     "develop": "yarn concurrently -- --",
-    "concurrently": "concurrently -P \"yarn start {@}\" \"yarn build-watch\"",
+    "concurrently": "concurrently -P \"yarn start {@}\" \"yarn serve\"",
     "start": "npx lerna run start --scope",
     "build": "npx lerna run build --scope",
-    "build-watch": "npx lerna run build-watch --scope @villa-components/system",
+    "serve": "npx lerna run start --scope @villa-components/system",
     "build-all": "npx lerna run build",
     "test": "npx lerna run test",
     "generate": "npx lerna run --scope @villa-components/system generate",

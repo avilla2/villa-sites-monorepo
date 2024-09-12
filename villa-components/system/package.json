@@ -6,9 +6,10 @@
   "scripts": {
     "lint": "eslint --ignore-path .eslintignore --ext .js,.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack",
-    "build-watch": "REACT_APP_BACKEND_URL=http://localhost:1337 webpack --watch --mode=development --devtool=eval",
-    "generate": "node src/scripts/generateTypes.js"
+    "build": "webpack --config webpack.prod.js",
+    "generate": "node src/scripts/generateTypes.js",
+    "start": "webpack serve --config webpack.dev.js",
+    "deploy": "npx wrangler pages deploy dist --project-name=villa-components"
   },
   "devDependencies": {
     "@babel/core": "^7.24.0",
@@ -18,7 +19,8 @@
     "css-loader": "^6.10.0",
     "dotenv": "^16.3.1",
     "webpack": "^5.90.3",
-    "webpack-cli": "^5.1.4"
+    "webpack-cli": "^5.1.4",
+    "webpack-merge": "^6.0.1"
   },
   "babel": {
     "presets": [
