@@ -16,7 +16,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'yarn @villa-components/system' 
+                sh 'yarn deploy @villa-components/system' 
             }
         }
     }
