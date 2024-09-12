@@ -2,14 +2,14 @@
   "name": "pacwest",
   "version": "1.0.0",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "mf-cra start",
+    "build": "mf-cra build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy": "npx wrangler pages deploy build --project-name=pacwest"
   },
   "dependencies": {
-    "@villa-components/system": "*"
+    "mf-cra": "^0.0.5"
   },
   "browserslist": {
     "production": [

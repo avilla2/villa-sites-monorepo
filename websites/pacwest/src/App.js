@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import LoadingSVG from './loading'
-import { VillaComponentSystem } from '@villa-components/system'
+const VillaComponentSystem = React.lazy(() => import('villa_components/VillaComponentSystem'))
 
 export default function App () {
   const DEFAULT_SITE_ID = 1

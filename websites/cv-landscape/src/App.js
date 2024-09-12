@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import LoadingSVG from './loading'
-import { VillaComponentSystem } from '@villa-components/system'
+const VillaComponentSystem = React.lazy(() => import('villa_components/VillaComponentSystem'))
 
 export default function App () {
   const DEFAULT_SITE_ID = 3
-  const [page, setPage] = useState('Home')
+  const [page, setPage] = useState('CV Landscaping Medford, OR')
 
   useEffect(() => {
     document.title = `${page} | CV Landscaping Medford, OR`
