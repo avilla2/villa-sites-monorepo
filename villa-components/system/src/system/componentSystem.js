@@ -8,9 +8,16 @@ import appQuery from '../queries/appQuery'
 import { ApolloProvider } from '@apollo/client'
 import '../index.css'
 
-export default function ComponentSystem ({ children, fonts, defaultSiteId, page, setPage, loadingComponent }) {
+export default function ComponentSystem ({ children, fonts, defaultSiteId, loadingComponent }) {
   const [navIndex, setNavIndex] = useState(0)
   const [siteId, setSiteId] = useState(defaultSiteId)
+  const [siteTitle, setSiteTitle] = useState('')
+  const [pageName, setPageName] = useState('')
+
+  const setPage = (text) => {
+    document.title = `${text} ${siteTitle}`
+    setPageName(text);
+  }
 
   return (
     <ApolloProvider client={apolloClient}>
@@ -18,6 +25,7 @@ export default function ComponentSystem ({ children, fonts, defaultSiteId, page,
         {({ data }) => {
           const websiteContent = data?.website?.data?.attributes
           localStorage.setItem('siteName', websiteContent.name)
+          setSiteTitle(websiteContent.site_settings.data.attributes.SiteTitle)
           if (!websiteContent) return (<NoContentPage setPage={setPage} />)
 
           return (
@@ -27,7 +35,7 @@ export default function ComponentSystem ({ children, fonts, defaultSiteId, page,
                 setNavIndex={setNavIndex}
                 siteId={siteId}
                 setSiteId={setSiteId}
-                page={page}
+                page={pageName}
                 setPage={setPage}
                 siteContent={websiteContent}
               >

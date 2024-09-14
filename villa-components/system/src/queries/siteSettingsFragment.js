@@ -4,6 +4,7 @@ const SITESETTINGS_FRAGMENT = gql`
 fragment SiteSettingsFragment on WebsiteSetting {
   DesktopBreakpoint
   EnableLocalization
+  SiteTitle
   Palette {
     primary
     success
