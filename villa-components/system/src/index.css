@@ -169,3 +169,7 @@ code {
     left: 0;
     transform: translateZ(0);
   }
+
+  .carousel {
+    justify-content: center;
+  }

@@ -12,11 +12,12 @@ const styles = {
     overflow: 'hidden',
     position: 'relative',
   },
-  contentWrapper: {
-    position: 'absolute', 
+  contentWrapper: (theme) => ({
     width: '100%',
-    minHeight: '98vh',
-  },
+    [theme.breakpoints.between('xs', 'md')]: {
+      minHeight: '90vh',
+    },
+  }),
   video: {
     width: '100%',
     verticalAlign: 'bottom',
@@ -38,16 +39,17 @@ const styles = {
     minHeight: 'inherit',
   },
   overlayWrapper: (theme) => ({
-    position: 'relative',
+    position: 'absolute',
     bottom: 0,
-    padding: 3,
+    padding: 2,
     width: '100%',
     height: '100%',
     [theme.breakpoints.between('xs', 'md')]: {
-      minHeight: '75vh',
+      minHeight: '85vh',
+      maxHeight: '90vh'
     },
     [theme.breakpoints.up('md')]: {
-      minHeight: '98vh',
+      paddingTop: 10
     },
   }),
   overlay: (theme) => ({
@@ -68,11 +70,13 @@ const styles = {
     },
     [theme.breakpoints.between('sm', 'md')]: {
       fontSize: '.85rem',
-      minHeight: '30vh',
+      minHeight: '10vh',
+      marginBottom: 3,
     },
     [theme.breakpoints.between('xs', 'sm')]: {
       fontSize: '.75rem',
-      minHeight: '30vh'
+      minHeight: '10vh',
+      marginBottom: 3,
     }
   }),
   centered: {

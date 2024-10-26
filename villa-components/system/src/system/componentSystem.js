@@ -7,6 +7,8 @@ import apolloClient from '../utils/apolloClient'
 import appQuery from '../queries/appQuery'
 import { ApolloProvider } from '@apollo/client'
 import '../index.css'
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+
 
 export default function ComponentSystem ({ children, fonts, defaultSiteId, loadingComponent }) {
   const [navIndex, setNavIndex] = useState(0)

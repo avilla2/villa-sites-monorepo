@@ -6,6 +6,7 @@ fragment StyleFragment on ComponentContentPageComponentsStyle {
     Animation
     TextColor
     textAlign
+    size
 }
 fragment Content on ContentPageContentDynamicZone {
     __typename
@@ -293,6 +294,32 @@ fragment Content on ContentPageContentDynamicZone {
     Items {
       id
       Text
+    }
+    Style {
+        ...StyleFragment
+    }
+  }
+  ... on ComponentHomePageComponentsSlideshow {
+    Title
+		slidesDesktop {
+      data {
+        attributes {
+          url
+          alternativeText
+          width
+          caption
+        }
+      }
+    }
+    slidesMobile {
+      data {
+        attributes {
+          url
+          alternativeText
+          width
+          caption
+        }
+      }
     }
     Style {
         ...StyleFragment

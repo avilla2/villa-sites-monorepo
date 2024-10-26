@@ -24,7 +24,7 @@ export default function Template ({ content }) {
         justifyContent={content.Style.textAlign === 'left' ? 'flex-start' : 'center'}
         alignItems="center"
         rowSpacing={3}
-        columnSpacing={3}
+        columnSpacing={16}
         py={3}
       >
         { content?.Caption &&

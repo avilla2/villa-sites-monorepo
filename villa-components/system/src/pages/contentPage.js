@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import Box from '@mui/material/Box'
+import Grid from '@mui/material/Grid2'
 import Typography from '@mui/material/Typography'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import GeneratePageContent from '../components/utils/generatePageContent'
@@ -25,16 +26,16 @@ const classes = {
     fontSize: '1.5rem',
     marginBottom: '18px'
   },
-  page: (theme, minSize) => ({
+  page: (theme, minSize, showTitle) => ({
     [theme.breakpoints.up(minSize)]: {
-      marginTop: titleHeight,
+      marginTop: showTitle ? titleHeight : 'unset',
       backgroundColor: 'white',
       paddingTop: '0px'
     }
   })
 }
 
-export default function ContentPage ({ setPage, setNavIndex, name, content, path, minSize }) {
+export default function ContentPage ({ setPage, setNavIndex, name, content, path, minSize, showTitle }) {
   const hidden = useMediaQuery(theme => theme.breakpoints.up(minSize))
 
   useEffect(() => {
@@ -43,13 +44,13 @@ export default function ContentPage ({ setPage, setNavIndex, name, content, path
   })
   return (
         <Box sx={classes.root}>
-            {hidden &&
+            {hidden && showTitle &&
                 <Box sx={classes.base}>
                     <Typography variant="h2" sx={classes.title}>{name}</Typography>
                 </Box>
 
             }
-                <Box sx={(theme) => classes.page(theme, minSize)}>
+                <Grid container sx={(theme) => classes.page(theme, minSize, showTitle)}>
                     {content.map((item, index) => {
                       return (
                         <GeneratePageContent
@@ -59,7 +60,7 @@ export default function ContentPage ({ setPage, setNavIndex, name, content, path
                         />
                       )
                     })}
-                </Box>
+                </Grid>
         </Box>
   )
 }

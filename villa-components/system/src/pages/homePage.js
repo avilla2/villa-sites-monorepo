@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import Box from '@mui/material/Box'
+import Grid from '@mui/material/Grid2'
 import GenerateHomeContent from '../components/utils/generateHomeContent'
 
 const classes = {
@@ -15,7 +15,7 @@ export default function ContentPage ({ setPage, setNavIndex, path, content, page
     setNavIndex(path)
   })
   return (
-        <Box sx={classes.root}>
+        <Grid container sx={classes.root}>
             {content.map((item, index) => {
               return (
                 <GenerateHomeContent
@@ -25,6 +25,6 @@ export default function ContentPage ({ setPage, setNavIndex, path, content, page
                 />
               )
             })}
-        </Box>
+        </Grid>
   )
 }

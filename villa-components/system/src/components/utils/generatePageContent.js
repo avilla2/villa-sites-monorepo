@@ -1,5 +1,5 @@
 import React from 'react'
-import Box from '@mui/material/Box'
+import Grid from '@mui/material/Grid2'
 import Typography from '@mui/material/Typography'
 import renderComponent from './renderPageComponent'
 import calculatePadding from './calculatePadding'
@@ -24,13 +24,15 @@ const halfHeightComponents = []
 
 export default function GeneratePageContent ({ content, lastComponent }) {
   const padding = calculatePadding(lastComponent, fullHeightComponents, halfHeightComponents, content.__typename)
-  const textAlign = content?.Style?.textAlign || 'center'
+  const styles = content?.Style;
+  const textAlign = styles?.textAlign || 'center'
   return (
-        <Box
+        <Grid
+            size={{ xs: 12, lg: styles?.size ? styles.size : 12 }}
             sx={classes.root}
             style={{
-              color: content?.Style?.TextColor ? content.Style.TextColor : null,
-              backgroundColor: content?.Style?.BackgroundColor ? content.Style.BackgroundColor : null,
+              color: styles?.TextColor ? styles.TextColor : null,
+              backgroundColor: styles?.BackgroundColor ? styles.BackgroundColor : null,
               padding,
               textAlign
             }}
@@ -41,6 +43,6 @@ export default function GeneratePageContent ({ content, lastComponent }) {
                   : <></>
             }
             {renderComponent(content)}
-        </Box>
+        </Grid>
   )
 }

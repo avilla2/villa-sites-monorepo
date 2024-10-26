@@ -9,6 +9,7 @@ import SiteFooter from '../pageElements/footer'
 import '../index.css'
 
 export default function VillaRoutes ({ children, siteContent, page, setPage, siteId, setSiteId, navIndex, setNavIndex }) {
+  const showTitle = siteContent?.navbar?.data?.attributes?.Style !== 'Split'
   return (
       <Router>
         <ScrollToTop />
@@ -33,6 +34,7 @@ export default function VillaRoutes ({ children, siteContent, page, setPage, sit
                     setPage={setPage}
                     name={item.attributes.Title}
                     content={item.attributes.Content}
+                    showTitle={showTitle}
                   />
                 }
               />

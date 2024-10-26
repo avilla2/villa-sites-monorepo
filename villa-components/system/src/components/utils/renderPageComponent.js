@@ -15,6 +15,7 @@ import Image from '../contentPageComponents/image'
 import Video from '../contentPageComponents/video'
 import CardGroup from '../contentPageComponents/cardGroup'
 import List from '../contentPageComponents/list'
+import Slideshow from '../homePageComponents/slideshow'
 
 const renderComponent = (object) => {
   switch (object.__typename) {
@@ -50,6 +51,8 @@ const renderComponent = (object) => {
       return <CardGroup content={object} />
     case 'ComponentContentPageComponentsList':
       return <List content={object} />
+    case 'ComponentHomePageComponentsSlideshow':
+      return <Slideshow content={object} />
     default:
       return <h2>Error: Page Content Not Found</h2>
   }
