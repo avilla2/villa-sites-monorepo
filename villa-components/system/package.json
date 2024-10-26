@@ -9,7 +9,7 @@
     "build": "webpack --config webpack.prod.js",
     "generate": "node src/scripts/generateTypes.js",
     "start": "webpack serve --config webpack.dev.js",
-    "deploy": "npx wrangler pages deploy dist --project-name=villa-components --branch=production"
+    "deploy": "npx wrangler pages deploy dist --project-name=villa-components --branch=main"
   },
   "devDependencies": {
     "@babel/core": "^7.24.0",
