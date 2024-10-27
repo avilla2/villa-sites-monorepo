@@ -25,6 +25,7 @@ const styles = {
   video: {
     width: '100%',
     verticalAlign: 'bottom',
+    objectFit: 'cover',
     minHeight: 'inherit',
   },
   videoMobile: {
