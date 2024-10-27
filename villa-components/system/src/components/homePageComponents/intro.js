@@ -9,7 +9,6 @@ import Grid from '@mui/material/Grid'
 
 const styles = {
   base: {
-    overflow: 'hidden',
     position: 'relative',
   },
   contentWrapper: (theme) => ({
@@ -46,10 +45,10 @@ const styles = {
     height: '100%',
     [theme.breakpoints.between('xs', 'md')]: {
       minHeight: '85vh',
-      maxHeight: '90vh'
     },
     [theme.breakpoints.up('md')]: {
-      paddingTop: 10
+      paddingTop: 12,
+      minHeight: '95vh',
     },
   }),
   overlay: (theme) => ({
