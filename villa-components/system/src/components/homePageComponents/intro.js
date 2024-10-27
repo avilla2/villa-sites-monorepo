@@ -10,10 +10,15 @@ import Grid from '@mui/material/Grid'
 const styles = {
   base: {
     position: 'relative',
+    overflow: 'hidden'
   },
   contentWrapper: (theme) => ({
     width: '100%',
+    position: 'absolute',
     [theme.breakpoints.between('xs', 'md')]: {
+      minHeight: '90vh',
+    },
+    [theme.breakpoints.up('md')]: {
       minHeight: '90vh',
     },
   }),
@@ -38,17 +43,17 @@ const styles = {
     minHeight: 'inherit',
   },
   overlayWrapper: (theme) => ({
-    position: 'absolute',
+    position: 'relative',
     bottom: 0,
     padding: 2,
     width: '100%',
     height: '100%',
     [theme.breakpoints.between('xs', 'md')]: {
-      minHeight: '85vh',
+      minHeight: '80vh',
     },
     [theme.breakpoints.up('md')]: {
       paddingTop: 12,
-      minHeight: '95vh',
+      minHeight: '90vh',
     },
   }),
   overlay: (theme) => ({
