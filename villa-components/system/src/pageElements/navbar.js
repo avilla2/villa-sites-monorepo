@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import AppBar from '@mui/material/AppBar'
@@ -56,7 +56,9 @@ const classes = {
     display: 'block',
     fontSize: '16px',
     lineHeight: '16px',
-    textShadow: '1px 1px 3px #2f2f2f',
+  },
+  shadow: {
+    textShadow: '1px 1px 3px #2f2f2f'
   },
   activeLink: {
     color: 'secondary.main'
@@ -143,7 +145,7 @@ const classes = {
   }
 }
 
-const NavLink = ({ title, link, id, active, ...props }) => {
+const NavLink = ({ title, link, id, active, shadow, ...props }) => {
   return (
     <ButtonBase 
       className="link"
@@ -157,12 +159,12 @@ const NavLink = ({ title, link, id, active, ...props }) => {
     >
       <Container className={`mask ${active === id ? 'active' : ''}`}>
         <Box className={`link-container link-transition ${active === id ? 'active' : ''}`}>
-          <Typography variant='subtitle1' sx={classes.title} className={`link-title1 link-transition ${active === id ? 'active' : ''}`}>
+          <Typography variant='subtitle1' sx={[classes.title, shadow && classes.shadow]} className={`link-title1 link-transition ${active === id ? 'active' : ''}`}>
             {title}
           </Typography>
           <Typography
             variant='subtitle1' 
-            sx={[classes.activeLink, classes.title]} 
+            sx={[classes.activeLink, classes.title, shadow && classes.shadow]} 
             className={`link-title2 ${active === id ? 'active' : ''}`}
           >
             {title}
@@ -198,7 +200,7 @@ const NavButton = ({ text, color, link, fontColor }) => {
   )
 }
 
-const NavMenu = ({ title, menuItem, active }) => {
+const NavMenu = ({ title, menuItem, active, shadow }) => {
   return (
     <Box sx={[classes.navMenuContainer, menuItem.some(item => item.link === active) && classes.activeLink]}>
       <ButtonBase 
@@ -210,7 +212,7 @@ const NavMenu = ({ title, menuItem, active }) => {
         >
           <Typography 
             variant='subtitle1'
-            sx={classes.title} 
+            sx={[classes.title, shadow && classes.shadow]} 
           >
             {title}
           </Typography>
@@ -376,6 +378,21 @@ const MobileDrawer = ({ links, drawerLink, drawerText, toggleDrawer, fontColor, 
   )
 }
 
+const NavComponentDesktop = ({ item, active, fontColor, shadow }) => {
+  switch (item.__typename) {
+    case 'ComponentNavbarComponentsTextLink':
+      return <NavLink id={item.Link} title={item.Title} link={item.Link} active={active} shadow={shadow} />
+    case 'ComponentNavbarComponentsImageLink':
+      return <NavButtonIcon id={item.Link} external={isExternal(item.Link)} width={item.Width} link={item.Link} src={`${process.env.REACT_APP_BACKEND_URL}${item.Image.data.attributes.url}`} alt={item.Image.data.attributes.name} />
+    case 'ComponentNavbarComponentsNavButton':
+      return <NavButton id={item.Link} link={item.Link} color={item.Color} text={item.Text} fontColor={fontColor} />
+    case 'ComponentNavbarComponentsNavMenu':
+      return <NavMenu id={item.title} title={item.title} active={active} menuItem={item.menuItem} shadow={shadow}/>
+    default:
+      return <></>
+  }
+}
+
 export default function Navbar ({
   page,
   navIndex,
@@ -395,7 +412,7 @@ export default function Navbar ({
   const [active, setActive] = useState(-1)
   const [isOpen, setIsOpen] = useState(false)
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (navIndex) {
       setActive(navIndex)
     }
@@ -424,21 +441,6 @@ export default function Navbar ({
     }
   }
 
-  const NavComponentDesktop = ({ item }) => {
-    switch (item.__typename) {
-      case 'ComponentNavbarComponentsTextLink':
-        return <NavLink id={item.Link} title={item.Title} link={item.Link} active={active} />
-      case 'ComponentNavbarComponentsImageLink':
-        return <NavButtonIcon id={item.Link} external={isExternal(item.Link)} width={item.Width} link={item.Link} src={`${process.env.REACT_APP_BACKEND_URL}${item.Image.data.attributes.url}`} alt={item.Image.data.attributes.name} />
-      case 'ComponentNavbarComponentsNavButton':
-        return <NavButton id={item.Link} link={item.Link} color={item.Color} text={item.Text} fontColor={fontColor} />
-      case 'ComponentNavbarComponentsNavMenu':
-        return <NavMenu id={item.title} title={item.title} active={active} menuItem={item.menuItem} />
-      default:
-        return <></>
-    }
-  }
-
   return (
     <Box sx={classes.textColor(fontColor)}>
       {/* Desktop Navbar */}
@@ -446,18 +448,23 @@ export default function Navbar ({
         ? (
           <>
             {style === 'Split' ? (
-              <AppBar sx={classes.toolbar} position="fixed" elevation={!trigger ? 0 : 1} color={!trigger && appearance === 'fade_in' ? 'transparent' : 'primary'} >
+              <AppBar 
+                sx={classes.toolbar} 
+                position="fixed" 
+                elevation={!trigger ? 0 : 1} 
+                color={!trigger && appearance === 'fade_in' ? 'transparent' : 'primary'} 
+              >
                 <Toolbar sx={{...classes.toolbarSpaced, backgroundColor: 'white' }}>
-                  {content.map((item, index) => item.__typename !== 'ComponentNavbarComponentsTextLink' && <NavComponentDesktop item={item} key={index} active={active} />)}
+                  {content.map((item, index) => (item.__typename !== 'ComponentNavbarComponentsTextLink' && item.__typename !== 'ComponentNavbarComponentsNavMenu') && <NavComponentDesktop item={item} key={index} active={active} fontColor={fontColor} />)}
                 </Toolbar>
                 <Toolbar sx={classes.toolbarSpread}>
-                  {content.map((item, index) => item.__typename === 'ComponentNavbarComponentsTextLink' && <NavComponentDesktop item={item} key={index}  active={active} />)}
+                  {content.map((item, index) => (item.__typename === 'ComponentNavbarComponentsTextLink' || item.__typename === 'ComponentNavbarComponentsNavMenu') && <NavComponentDesktop item={item} key={index} active={active} fontColor={fontColor} shadow={appearance === 'fade_in'} />)}
                 </Toolbar>
               </AppBar>
             ) : (
             <AppBar sx={classes.toolbar} position="fixed" elevation={!trigger ? 0 : 1} color={!trigger && appearance === 'fade_in' ? 'transparent' : 'primary' } >
               <Toolbar sx={pickStyle()}>
-                {content.map((item, index) => <NavComponentDesktop item={item} key={index} />)}
+                {content.map((item, index) => <NavComponentDesktop item={item} key={index} fontColor={fontColor} active={active}  shadow={appearance === 'fade_in'} />)}
               </Toolbar>
             </AppBar>
             )}
