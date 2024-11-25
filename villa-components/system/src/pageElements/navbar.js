@@ -369,6 +369,7 @@ const MobileDrawer = ({ links, drawerLink, drawerText, toggleDrawer, fontColor, 
                 link={item.Link}
                 color={item.Color}
                 text={item.Text}
+                fontColor={fontColor}
               />
             )
           ))}
@@ -409,7 +410,7 @@ export default function Navbar ({
   const navigate = useNavigate()
   const trigger = useScrollTrigger({ disableHysteresis: true, threshold: 65 })
   const [showBackButton, setShowBackButton] = useState(false)
-  const [active, setActive] = useState(-1)
+  const [active, setActive] = useState(undefined)
   const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
@@ -440,6 +441,8 @@ export default function Navbar ({
         return classes.toolbarSpread
     }
   }
+  
+  const isNavText = (itemType) => itemType === 'ComponentNavbarComponentsTextLink' || itemType === 'ComponentNavbarComponentsNavMenu'
 
   return (
     <Box sx={classes.textColor(fontColor)}>
@@ -455,16 +458,52 @@ export default function Navbar ({
                 color={!trigger && appearance === 'fade_in' ? 'transparent' : 'primary'} 
               >
                 <Toolbar sx={{...classes.toolbarSpaced, backgroundColor: 'white' }}>
-                  {content.map((item, index) => (item.__typename !== 'ComponentNavbarComponentsTextLink' && item.__typename !== 'ComponentNavbarComponentsNavMenu') && <NavComponentDesktop item={item} key={index} active={active} fontColor={fontColor} />)}
+                  {content.map((item, index) => {
+                    if (!isNavText(item.__typename)) {
+                      return (
+                        <NavComponentDesktop 
+                          item={item} 
+                          key={index} 
+                          active={active} 
+                          fontColor={fontColor} 
+                        />
+                      )
+                    }
+                  })}
                 </Toolbar>
                 <Toolbar sx={classes.toolbarSpread}>
-                  {content.map((item, index) => (item.__typename === 'ComponentNavbarComponentsTextLink' || item.__typename === 'ComponentNavbarComponentsNavMenu') && <NavComponentDesktop item={item} key={index} active={active} fontColor={fontColor} shadow={appearance === 'fade_in'} />)}
+                  {content.map((item, index) => {
+                    if (isNavText(item.__typename)) {
+                      return (
+                        <NavComponentDesktop 
+                          item={item} 
+                          key={index} 
+                          active={active} 
+                          fontColor={fontColor} 
+                          shadow={appearance === 'fade_in'} 
+                        />
+                      )
+                    }
+                  })}
                 </Toolbar>
               </AppBar>
             ) : (
-            <AppBar sx={classes.toolbar} position="fixed" elevation={!trigger ? 0 : 1} color={!trigger && appearance === 'fade_in' ? 'transparent' : 'primary' } >
+            <AppBar 
+              sx={classes.toolbar} 
+              position="fixed" 
+              elevation={!trigger ? 0 : 1} 
+              color={!trigger && appearance === 'fade_in' ? 'transparent' : 'primary' } 
+            >
               <Toolbar sx={pickStyle()}>
-                {content.map((item, index) => <NavComponentDesktop item={item} key={index} fontColor={fontColor} active={active}  shadow={appearance === 'fade_in'} />)}
+                {content.map((item, index) => (
+                  <NavComponentDesktop 
+                    item={item} 
+                    key={index} 
+                    fontColor={fontColor} 
+                    active={active} 
+                    shadow={appearance === 'fade_in'} 
+                  />
+                ))}
               </Toolbar>
             </AppBar>
             )}
