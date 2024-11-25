@@ -32,6 +32,22 @@ fragment NavbarFragment on WebsiteNavbar {
       Width
       showInMobile
     }
+    ... on ComponentNavbarComponentsNavMenu {
+      title
+      menuItem {
+        text
+        link
+        icon {
+          data {
+            attributes {
+              url
+              width
+              alternativeText
+            }
+          }
+        }
+      }
+    }
   }
   MobileConfig {
     MobileIcon {

@@ -21,14 +21,13 @@ export default function ComponentSystem ({ children, fonts, defaultSiteId, loadi
     setPageName(text);
   }
 
+
   return (
     <ApolloProvider client={apolloClient}>
       <Query query={appQuery} variables={{ id: defaultSiteId }} loadingComponent={loadingComponent}>
         {({ data }) => {
           const websiteContent = data?.website?.data?.attributes
-          localStorage.setItem('siteName', websiteContent.name)
-          setSiteTitle(websiteContent.site_settings.data.attributes.SiteTitle)
-          if (!websiteContent) return (<NoContentPage setPage={setPage} />)
+          if (!websiteContent) return (<NoContentPage />)
 
           return (
             <ThemeProvider palette={websiteContent.site_settings.data.attributes.Palette} fonts={fonts}>
@@ -40,6 +39,7 @@ export default function ComponentSystem ({ children, fonts, defaultSiteId, loadi
                 page={pageName}
                 setPage={setPage}
                 siteContent={websiteContent}
+                setSiteTitle={setSiteTitle}
               >
                 {children}
               </Routes>

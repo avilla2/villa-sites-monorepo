@@ -49,7 +49,7 @@ export default function Slideshow ({ content }) {
   return (
     <Box>
         <Box>
-            <Carousel autoPlay infiniteLoop showStatus={false}>
+            <Carousel showThumbs={false} autoPlay infiniteLoop showStatus={false}>
                 {isDesktop ? 
                     content.slidesDesktop.data.map((slide, index) => (
                         <Slide slide={slide} key={index} />

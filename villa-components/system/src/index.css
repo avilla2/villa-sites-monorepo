@@ -98,13 +98,15 @@ code {
 }
 
 .link-container {
-  transition: transform 0.4s ease;
   padding: 0 5px;
+}
+
+.link-transition {
+  transition: transform 0.4s ease;
 }
 
 .link-title1 {
   transform-origin: right center;
-  text-shadow: 1px 1px 3px #2f2f2f;
 }
 
 .link-title2 {
@@ -115,7 +117,7 @@ code {
 /* Hover Action*/
 
 /* Move up two texts (20px = font-size) */
-.link:hover .link-container {
+.link:hover .link-transition {
   transform: translateY(-16px);
 }
 
@@ -144,32 +146,32 @@ code {
   display: flex;
   flex-direction: column;
   align-items: center;
-  }
+}
 
 .pdf-page > canvas {
   max-width: 100% !important;
   width: unset !important;
   height: auto !important;
-  }
+}
   
-  .parallax-container {
-    height: 100vh;
+.parallax-container {
+  height: 100vh;
 
-    overflow-x: hidden;
-    overflow-y: auto;
-  
-    perspective: 1px;
-  }
-  
-  .parallax-child {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    transform: translateZ(0);
-  }
+  overflow-x: hidden;
+  overflow-y: auto;
 
-  .carousel {
-    justify-content: center;
-  }
+  perspective: 1px;
+}
+  
+.parallax-child {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateZ(0);
+}
+
+.carousel {
+  justify-content: center;
+}

@@ -10,14 +10,20 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 import Typography from '@mui/material/Typography'
+import Paper from '@mui/material/Paper';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemIcon from '@mui/material/ListItemIcon';
 import List from '@mui/material/List'
 import Drawer from '@mui/material/Drawer'
 import ListItemButton from '@mui/material/ListItemButton'
-import ListItemText from '@mui/material/ListItemText'
 import Divider from '@mui/material/Divider'
 import { Link, useNavigate } from 'react-router-dom'
 import isExternal from '../components/utils/isExternalLink'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import Collapse from '@mui/material/Collapse';
 
 const classes = {
   toolbarSpaced: {
@@ -50,11 +56,11 @@ const classes = {
     display: 'block',
     fontSize: '16px',
     lineHeight: '16px',
-    transition: 'transform 0.4s ease'
+    textShadow: '1px 1px 3px #2f2f2f',
   },
-  hovered: (theme) => ({
-    color: theme.palette.secondary.main
-  }),
+  activeLink: {
+    color: 'secondary.main'
+  },
   mobileLogo: {
     width: '2.2rem'
   },
@@ -108,7 +114,266 @@ const classes = {
     rowGap: theme.spacing(2),
     width: '100%'
   }),
-  textColor: (color) => { if (color) return ({ color }) }
+  textColor: (color) => ({ ...(color && { color }) }),
+  hoverMenu: {
+    position: 'absolute',
+    zIndex: 22,
+    left: -5,
+    top: 30,
+    minWidth: 130,
+    display: 'none',
+  },
+  navMenuContainer: {
+    position: 'relative',
+    "&:hover .MuiPaper-root": {
+      display: 'block',
+    },
+    "&:hover > .MuiButtonBase-root": {
+      color: 'secondary.main'
+    }
+  },
+  subMenuLink: {
+    "&:hover": {
+      color: 'secondary.main',
+    },
+  },
+  menuButton: {
+    display: 'flex',
+    alignItems: 'center'
+  }
+}
+
+const NavLink = ({ title, link, id, active, ...props }) => {
+  return (
+    <ButtonBase 
+      className="link"
+      color="inherit" 
+      {...( link && { 
+        href: link,
+        to: link,
+        component: isExternal(link) ? 'a' : Link
+      })}
+      {...props}
+    >
+      <Container className={`mask ${active === id ? 'active' : ''}`}>
+        <Box className={`link-container link-transition ${active === id ? 'active' : ''}`}>
+          <Typography variant='subtitle1' sx={classes.title} className={`link-title1 link-transition ${active === id ? 'active' : ''}`}>
+            {title}
+          </Typography>
+          <Typography
+            variant='subtitle1' 
+            sx={[classes.activeLink, classes.title]} 
+            className={`link-title2 ${active === id ? 'active' : ''}`}
+          >
+            {title}
+          </Typography>
+        </Box>
+      </Container>
+    </ButtonBase>
+  )
+}
+
+const NavButtonIcon = ({ link, external, src, alt, width }) => {
+  return (
+    <Button component={external ? 'a' : Link} href={link} to={link} sx={classes.title}>
+      <img width={width || 80} src={src} alt={alt} />
+    </Button>
+  )
+}
+
+const NavButton = ({ text, color, link, fontColor }) => {
+  return (
+    <Button
+      variant='contained'
+      size='small'
+      component={isExternal(link) ? 'a' : Link}
+      href={link}
+      to={link}
+      sx={[classes.navButton, color && { backgroundColor: color }, { borderRadius: 20 }]}
+    >
+      <Typography variant='subtitle1' sx={[classes.textColor(fontColor), { fontSize: 14 }]}>
+        {text}
+      </Typography>
+    </Button>
+  )
+}
+
+const NavMenu = ({ title, menuItem, active }) => {
+  return (
+    <Box sx={[classes.navMenuContainer, menuItem.some(item => item.link === active) && classes.activeLink]}>
+      <ButtonBase 
+        className="link"
+      >
+        <Container 
+          className='link-container'
+          style={classes.menuButton}
+        >
+          <Typography 
+            variant='subtitle1'
+            sx={classes.title} 
+          >
+            {title}
+          </Typography>
+          <ExpandMore />
+        </Container>
+      </ButtonBase>
+      <Paper
+        sx={classes.hoverMenu}
+      >
+        {menuItem.map((item, index) => (
+          <MenuItem 
+            key={index}
+            component={isExternal(item.link) ? 'a' : Link}
+            href={item.link}
+            to={item.link}
+            sx={[classes.subMenuLink, active === item.link && classes.activeLink]}
+            dense
+          >
+            {item.icon.data && 
+              <ListItemIcon>
+                  <img 
+                    style={{maxWidth: 20, maxHeight: 20}} 
+                    src={`${process.env.REACT_APP_BACKEND_URL}${item.icon.data.attributes.url}`} 
+                    alt={item.icon.data.attributes.name}
+                  />
+              </ListItemIcon>
+            }
+            <ListItemText 
+              inset={!item.icon.data}
+              primaryTypographyProps={{
+                variant: 'subtitle1',
+                sx: {width: 'fit-content'},
+              }}
+              sx={{paddingRight: 4}}
+            >
+              {item.text}
+            </ListItemText>
+          </MenuItem>
+        ))}
+      </Paper>
+    </Box>
+  )
+}
+
+const MobileDrawer = ({ links, drawerLink, drawerText, toggleDrawer, fontColor, active }) => {
+  const navButtonList = []
+  const [openButtons, setOpenButtons] = useState({});
+
+  const handlePress = (buttonName) => {
+    setOpenButtons({ ...openButtons, [buttonName]: !openButtons[buttonName] });
+  };
+
+  return (
+    <Box
+      sx={classes.mobileDrawer}
+      role="presentation"
+    >
+      <List style={classes.mobileDrawerList}>
+        <Box>
+          <ListItemButton 
+            component={Link} 
+            to={drawerLink}
+            onClick={toggleDrawer(false)}
+          >
+            <ListItemText primaryTypographyProps={{ variant: 'h6' }} primary={drawerText} sx={classes.textColor(fontColor)} />
+          </ListItemButton>
+          <Divider variant="middle" sx={fontColor ? { backgroundColor: fontColor } : null} />
+        </Box>
+        <List style={classes.mobileDrawerMiddle}>
+        {links.map((item, index) => {
+          if (item.__typename === 'ComponentNavbarComponentsNavButton') {
+            navButtonList.push(item)
+          } else if (item.__typename === 'ComponentNavbarComponentsImageLink' && item.showInMobile) { 
+            navButtonList.push(item)
+          } else if (item.__typename === 'ComponentNavbarComponentsNavMenu') {
+            return (
+              <Box key={index}>
+                <ListItemButton 
+                  onClick={() => handlePress(item.title)} 
+                  sx={[classes.textColor(fontColor), item.menuItem.some(subItem => subItem.link === active) && classes.activeLink]}
+                >
+                  <ListItemText
+                    primaryTypographyProps={{ variant: 'subtitle1' }} 
+                    sx={[classes.title]} 
+                    primary={item.title} 
+                  />
+                  {openButtons[item.title] ? <ExpandLess /> : <ExpandMore />}
+                </ListItemButton>
+                <Collapse in={openButtons[item.title]} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    {item.menuItem.map((subItem, subIndex) => (
+                      <ListItemButton 
+                        key={subIndex} 
+                        sx={{ pl: 4 }}
+                        component={isExternal(subItem.link) ? 'a' : Link} 
+                        href={subItem.link}
+                        to={subItem.link}
+                        onClick={toggleDrawer(false)}
+                      >
+                        <ListItemText                     
+                          primaryTypographyProps={{ variant: 'subtitle1' }} 
+                          sx={[classes.title, active === subItem.link ? classes.activeLink : classes.textColor(fontColor)]} 
+                          primary={subItem.text}
+                        />
+                      </ListItemButton>
+                    ))}
+                  </List>
+                </Collapse>
+              </Box>
+            )
+          } else if (item.__typename === 'ComponentNavbarComponentsTextLink') {
+            return (
+              <ListItemButton 
+                key={index} 
+                component={isExternal(item.Link) ? 'a' : Link} 
+                href={item.Link} 
+                to={item.Link}
+                onClick={toggleDrawer(false)}
+              >
+                  <ListItemText 
+                    primaryTypographyProps={{ variant: 'subtitle1' }} 
+                    sx={[classes.title, active === item.Link ? classes.activeLink : classes.textColor(fontColor)]} 
+                    primary={item.Title} />
+              </ListItemButton>
+            )
+          } else {
+            return null
+          }
+        })}
+        </List>
+        <List 
+          sx={classes.mobileDrawerBottom}
+          onClick={toggleDrawer(false)}
+        >
+          {navButtonList.map((item, index) => (
+            item.__typename === 'ComponentNavbarComponentsImageLink' ? (
+              <Box
+                key={index}
+                sx={classes.mobileImageButton}
+              >
+                <NavButtonIcon 
+                  id={item.Link}
+                  external={isExternal(item.Link)}
+                  width={item.Width} link={item.Link}
+                  src={`${process.env.REACT_APP_BACKEND_URL}${item.Image.data.attributes.url}`}
+                  alt={item.Image.data.attributes.name} 
+                />
+              </Box>
+            ) : (
+              <NavButton
+                key={index}
+                id={item.Link}
+                external={isExternal(item.Link)}
+                link={item.Link}
+                color={item.Color}
+                text={item.Text}
+              />
+            )
+          ))}
+        </List>
+      </List>
+    </Box>
+  )
 }
 
 export default function Navbar ({
@@ -126,9 +391,9 @@ export default function Navbar ({
   const hidden = useMediaQuery(theme => theme.breakpoints.up(minSize))
   const navigate = useNavigate()
   const trigger = useScrollTrigger({ disableHysteresis: true, threshold: 65 })
-  const [isOpen, setIsOpen] = useState(false)
   const [showBackButton, setShowBackButton] = useState(false)
   const [active, setActive] = useState(-1)
+  const [isOpen, setIsOpen] = useState(false)
 
   React.useEffect(() => {
     if (navIndex) {
@@ -148,111 +413,6 @@ export default function Navbar ({
     setIsOpen(open)
   }
 
-  const NavLink = ({ title, link, external, id }) => {
-    return (
-      <ButtonBase component={external ? 'a' : Link} onClick={() => setActive(id)} href={link} to={link} className="link" color="inherit">
-        <Container className={`mask ${active === id ? 'active' : ''}`}>
-          <Box className={`link-container ${active === id ? 'active' : ''}`}>
-            <Typography variant='subtitle1' sx={classes.title} className={`link-title1 ${active === id ? 'active' : ''}`}>
-              {title}
-            </Typography>
-            <Typography variant='subtitle1' sx={[classes.hovered, classes.title]} className={`link-title2 ${active === id ? 'active' : ''}`}>
-              {title}
-            </Typography>
-          </Box>
-        </Container>
-      </ButtonBase>
-    )
-  }
-
-  const NavButtonIcon = ({ link, external, src, alt, id, width }) => {
-    return (
-      <Button onClick={() => setActive(id)} component={external ? 'a' : Link} href={link} to={link} sx={classes.title}>
-        <img width={width || 80} src={src} alt={alt} />
-      </Button>
-    )
-  }
-
-  const NavButton = ({ text, color, link, external, id }) => {
-    return (
-      <Button
-        variant='contained'
-        size='small'
-        onClick={() => setActive(id)}
-        component={external ? 'a' : Link}
-        href={link}
-        to={link}
-        sx={[classes.navButton, color ? { backgroundColor: color } : {}, { borderRadius: 20 }]}
-      >
-        <Typography variant='subtitle1' sx={[fontColor ? { color: fontColor } : {}, { fontSize: 14 }]}>
-          {text}
-        </Typography>
-      </Button>
-    )
-  }
-
-  const MobileDrawer = ({ links, drawerLink, drawerText }) => {
-    const navButtonList = []
-    return (
-      <Box
-        sx={classes.mobileDrawer}
-        role="presentation"
-        onClick={toggleDrawer(false)}
-        onKeyDown={toggleDrawer(false)}
-      >
-        <List style={classes.mobileDrawerList}>
-          <Box>
-            <ListItemButton onClick={() => setActive(-1)} component={Link} to={drawerLink}>
-              <ListItemText primaryTypographyProps={{ variant: 'h6' }} primary={drawerText} sx={classes.textColor(fontColor)} />
-            </ListItemButton>
-            <Divider variant="middle" sx={fontColor ? { backgroundColor: fontColor } : null} />
-          </Box>
-          <List style={classes.mobileDrawerMiddle}>
-          {links.map((item, index) => {
-            if (item.__typename === 'ComponentNavbarComponentsNavButton') {
-              navButtonList.push(item)
-            } else if (item.__typename === 'ComponentNavbarComponentsImageLink' && item.showInMobile) { 
-              navButtonList.push(item)
-            } else if (item.__typename === 'ComponentNavbarComponentsTextLink') {
-              return (
-                <ListItemButton key={index} onClick={() => setActive(item.Link)} component={isExternal(item.Link) ? 'a' : Link} href={item.Link} to={item.Link}>
-                    <ListItemText primaryTypographyProps={{ variant: 'subtitle1' }} sx={[classes.title, active === item.Link ? classes.hovered : classes.textColor(fontColor)]} primary={item.Title} />
-                </ListItemButton>
-              )
-            } else {
-              return null
-            }
-          })}
-          </List>
-          <List sx={classes.mobileDrawerBottom}>
-            {navButtonList.map((item, index) => (
-              item.__typename === 'ComponentNavbarComponentsImageLink' ? (
-                <Box sx={classes.mobileImageButton}>
-                  <NavButtonIcon 
-                    id={item.Link}
-                    external={isExternal(item.Link)}
-                    width={item.Width} link={item.Link}
-                    src={`${process.env.REACT_APP_BACKEND_URL}${item.Image.data.attributes.url}`}
-                    alt={item.Image.data.attributes.name} 
-                  />
-                </Box>
-              ) : (
-                <NavButton
-                  key={index}
-                  id={item.Link}
-                  external={isExternal(item.Link)}
-                  link={item.Link}
-                  color={item.Color}
-                  text={item.Text}
-                />
-              )
-            ))}
-          </List>
-        </List>
-      </Box>
-    )
-  }
-
   const pickStyle = () => {
     switch (style) {
       case 'Spaced':
@@ -267,18 +427,20 @@ export default function Navbar ({
   const NavComponentDesktop = ({ item }) => {
     switch (item.__typename) {
       case 'ComponentNavbarComponentsTextLink':
-        return <NavLink id={item.Link} external={isExternal(item.Link)} title={item.Title} link={item.Link} />
+        return <NavLink id={item.Link} title={item.Title} link={item.Link} active={active} />
       case 'ComponentNavbarComponentsImageLink':
         return <NavButtonIcon id={item.Link} external={isExternal(item.Link)} width={item.Width} link={item.Link} src={`${process.env.REACT_APP_BACKEND_URL}${item.Image.data.attributes.url}`} alt={item.Image.data.attributes.name} />
       case 'ComponentNavbarComponentsNavButton':
-        return <NavButton id={item.Link} external={isExternal(item.Link)} link={item.Link} color={item.Color} text={item.Text} />
+        return <NavButton id={item.Link} link={item.Link} color={item.Color} text={item.Text} fontColor={fontColor} />
+      case 'ComponentNavbarComponentsNavMenu':
+        return <NavMenu id={item.title} title={item.title} active={active} menuItem={item.menuItem} />
       default:
         return <></>
     }
   }
 
   return (
-    <Box sx={ fontColor ? { color: fontColor } : null }>
+    <Box sx={classes.textColor(fontColor)}>
       {/* Desktop Navbar */}
       {hidden
         ? (
@@ -286,10 +448,10 @@ export default function Navbar ({
             {style === 'Split' ? (
               <AppBar sx={classes.toolbar} position="fixed" elevation={!trigger ? 0 : 1} color={!trigger && appearance === 'fade_in' ? 'transparent' : 'primary'} >
                 <Toolbar sx={{...classes.toolbarSpaced, backgroundColor: 'white' }}>
-                  {content.map((item, index) => item.__typename !== 'ComponentNavbarComponentsTextLink' && <NavComponentDesktop item={item} key={index} />)}
+                  {content.map((item, index) => item.__typename !== 'ComponentNavbarComponentsTextLink' && <NavComponentDesktop item={item} key={index} active={active} />)}
                 </Toolbar>
                 <Toolbar sx={classes.toolbarSpread}>
-                  {content.map((item, index) => item.__typename === 'ComponentNavbarComponentsTextLink' && <NavComponentDesktop item={item} key={index} />)}
+                  {content.map((item, index) => item.__typename === 'ComponentNavbarComponentsTextLink' && <NavComponentDesktop item={item} key={index}  active={active} />)}
                 </Toolbar>
               </AppBar>
             ) : (
@@ -306,20 +468,45 @@ export default function Navbar ({
             <AppBar position="fixed" sx={classes.toolbar}>
               <Toolbar sx={classes.mobileNav}>
                 {showBackButton
-                  ? <IconButton onClick={() => navigate(-1)} edge="start" style={classes.mobileBack}>
+                  ? <IconButton onClick={() => navigate(-1)} edge="start" sx={[classes.mobileBack, classes.textColor(fontColor)]}>
                       <ArrowBackIcon />
                     </IconButton>
-                  : <IconButton onClick={() => setActive('')} component={Link} to={mobileData.IconLink} edge="start" style={classes.mobileBack}>
-                      <img style={classes.mobileLogo} src={`${process.env.REACT_APP_BACKEND_URL}${mobileData.MobileIcon.data.attributes.url}`} alt="Logo"/>
+                  : <IconButton
+                      component={Link} 
+                      to={mobileData.IconLink} 
+                      edge="start" 
+                      sx={[classes.mobileBack, fontColor && {color: fontColor} ]}
+                    >
+                      <img 
+                        style={classes.mobileLogo} 
+                        src={`${process.env.REACT_APP_BACKEND_URL}${mobileData.MobileIcon.data.attributes.url}`} 
+                        alt="Logo"
+                      />
                     </IconButton>
                 }
-                <Drawer anchor="right" open={isOpen} onClose={toggleDrawer(false)}>
-                  <MobileDrawer links={content} drawerLink={mobileData.DrawerLink} drawerText={mobileData.DrawerText} />
+                <Drawer 
+                  anchor="right" 
+                  open={isOpen} 
+                  onClose={toggleDrawer(false)}
+                >
+                  <MobileDrawer 
+                    links={content} 
+                    drawerLink={mobileData.DrawerLink} 
+                    drawerText={mobileData.DrawerText} 
+                    toggleDrawer={toggleDrawer}
+                    fontColor={fontColor}
+                    active={active}
+                  />
                 </Drawer>
                 <Typography variant="h6" sx={classes.mobileTitle}>
                   {page}
                 </Typography>
-                <IconButton edge="end" onClick={toggleDrawer(true)} color="inherit" aria-label="menu">
+                <IconButton 
+                  edge="end" 
+                  onClick={toggleDrawer(true)} 
+                  color="inherit" 
+                  aria-label="menu"
+                >
                   <MenuIcon style={ fontColor ? { color: fontColor } : null }/>
                 </IconButton>
               </Toolbar>

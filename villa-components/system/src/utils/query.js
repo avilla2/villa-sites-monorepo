@@ -7,7 +7,7 @@ const Query = ({ children, query, variables, loadingComponent }) => {
     fetchPolicy: 'cache-first'
   })
   if (loading) return loadingComponent
-  if (error) return <p>Error: {JSON.stringify(error)}</p>
+  if (error) return children({data: undefined})
   return children({ data })
 }
 

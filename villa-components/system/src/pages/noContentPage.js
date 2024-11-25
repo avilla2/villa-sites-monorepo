@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 
@@ -9,14 +9,11 @@ const classes = {
   }
 }
 
-export default function ContentPage ({ setPage }) {
-  useEffect(() => {
-    setPage('Website is Unavailable')
-  })
+export default function NoContentPage () {
   return (
         <Box sx={classes.root}>
-            <Typography component="h1" mt={5} gutterBottom>Sorry for the Inconvenient</Typography>
-            <Typography component="h2" gutterBottom>Website is down for Maintenence...</Typography>
+            <Typography component="h1" mt={5} gutterBottom>Sorry for the inconvenience</Typography>
+            <Typography component="h2" gutterBottom>Website is down for maintenence...</Typography>
         </Box>
   )
 }

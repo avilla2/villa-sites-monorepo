@@ -51,7 +51,7 @@ export default function Template ({ content }) {
               direction="row" 
               alignItems="flex-start"
               justifyContent="flex-start"
-              wrap='no-wrap'
+              wrap='nowrap'
               key={index}
               rowSpacing={6}
               columnSpacing={2}
