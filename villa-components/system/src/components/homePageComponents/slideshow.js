@@ -47,20 +47,18 @@ export default function Slideshow ({ content }) {
 
 
   return (
-    <Box>
-        <Box>
-            <Carousel showThumbs={false} autoPlay infiniteLoop showStatus={false}>
-                {isDesktop ? 
-                    content.slidesDesktop.data.map((slide, index) => (
-                        <Slide slide={slide} key={index} />
-                    ))
-                :
-                    content.slidesMobile.data.map((slide, index) => (
-                        <Slide slide={slide} key={index} />
-                    ))
-                }
-            </Carousel>
-        </Box>
+    <Box px={isDesktop ? 2 : 0}>
+        <Carousel showThumbs={false} autoPlay infiniteLoop showStatus={false}>
+            {isDesktop ? 
+                content.slidesDesktop.data.map((slide, index) => (
+                    <Slide slide={slide} key={index} />
+                ))
+            :
+                content.slidesMobile.data.map((slide, index) => (
+                    <Slide slide={slide} key={index} />
+                ))
+            }
+        </Carousel>
     </Box>
   )
 }
