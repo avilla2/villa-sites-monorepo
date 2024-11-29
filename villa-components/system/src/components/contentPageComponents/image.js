@@ -41,7 +41,6 @@ export default function Image ({ content }) {
         justifyContent="center"
         alignItems="center"
         rowSpacing={3}
-        py={4}
       >
         <Grid md={content?.caption ? 6 : 12} sm={12} xs={12} item>
           <img
@@ -51,7 +50,7 @@ export default function Image ({ content }) {
           />
         </Grid>
         { content?.caption &&
-          <Grid md={6} sm={12} xs={12} item>
+          <Grid md={6} sm={12} xs={12} py={3} item>
             <Box>
               <Paragraph content={{ Style: content.Style, Body: content.caption }} />
             </Box>
