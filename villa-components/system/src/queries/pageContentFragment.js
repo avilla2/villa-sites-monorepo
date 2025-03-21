@@ -301,7 +301,7 @@ fragment Content on ContentPageContentDynamicZone {
   }
   ... on ComponentHomePageComponentsSlideshow {
     Title
-		slidesDesktop {
+    slidesDesktop {
       data {
         attributes {
           url
@@ -325,6 +325,14 @@ fragment Content on ContentPageContentDynamicZone {
         ...StyleFragment
     }
   }
+  ... on ComponentHomePageComponentsRichText {
+        id
+        Title
+        Style {
+            ...StyleFragment
+        }
+        RichText
+    }
 }
 `
 export default PAGE_CONTENT_FRAGMENT

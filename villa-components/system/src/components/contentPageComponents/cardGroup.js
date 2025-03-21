@@ -74,7 +74,7 @@ const SingleCard = ({
               <BlocksRenderer content={Text} />
             </CardContent>
             <CardActions>
-              {Link && 
+              {Link &&
                 <Button
                   color={ButtonColor}
                   buttonStyle='outlined'
@@ -104,10 +104,10 @@ const SingleCard = ({
           <BlocksRenderer content={Text} />
       </CardContent>
       <CardActions sx={{ p: 2 }}>
-        {Link && 
+        {Link &&
           <Button
             color={ButtonColor}
-            buttonStyle='outlined'  
+            buttonStyle='outlined'
             mobile
             link={Link}
           >

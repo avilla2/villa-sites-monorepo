@@ -7,7 +7,7 @@ import calculatePadding from './calculatePadding'
 
 const classes = {
   root: {
-    width: '100%',
+    width: '100%'
   },
   title: (theme) => ({
     margin: 'auto 5%',
@@ -23,7 +23,7 @@ const halfHeightComponents = ['ComponentContentPageComponentsButtons']
 
 export default function GenerateHomePageContent ({ content, lastComponent }) {
   const padding = calculatePadding(lastComponent, fullHeightComponents, halfHeightComponents, content.__typename)
-  const styles = content?.Style;
+  const styles = content?.Style
   const textAlign = styles?.textAlign || 'center'
   return (
         <Grid

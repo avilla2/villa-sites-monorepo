@@ -41,8 +41,6 @@ const renderComponent = (object) => {
       return <Media content={object} />
     case 'ComponentHomePageComponentsCards':
       return <Cards content={object} />
-    case 'ComponentHomePageComponentsFreestyle':
-      return <Freestyle content={object} />
     case 'ComponentContentPageComponentsImage':
       return <Image content={object} />
     case 'ComponentContentPageComponentsVideo':
@@ -53,6 +51,8 @@ const renderComponent = (object) => {
       return <List content={object} />
     case 'ComponentHomePageComponentsSlideshow':
       return <Slideshow content={object} />
+    case 'ComponentHomePageComponentsRichText':
+      return <Freestyle content={object} />
     default:
       return <h2>Error: Page Content Not Found</h2>
   }
