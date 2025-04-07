@@ -9,7 +9,7 @@ const classes = {
   }
 }
 
-export default function ContentPage ({ setPage, setNavIndex, path, content, pageName }) {
+export default function HomePage ({ setPage, setNavIndex, path, content, pageName }) {
   useEffect(() => {
     setPage(pageName)
     setNavIndex(path)

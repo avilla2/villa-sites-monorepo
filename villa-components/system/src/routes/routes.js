@@ -25,6 +25,7 @@ export default function SiteRoutes ({ children, siteContent, page, setPage, site
           page={page}
           navIndex={navIndex}
           minSize={siteContent.site_settings.data.attributes.DesktopBreakpoint}
+          mobileTitle={siteContent.homepage.data.attributes.Title}
           {...siteContent.navbar.data.attributes}
         />
           <Routes>

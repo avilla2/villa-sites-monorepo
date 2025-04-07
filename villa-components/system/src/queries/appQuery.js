@@ -49,6 +49,7 @@ query Website($id: ID) {
             id
             attributes {
               PageName
+              Title
               Content {
                 ...Content
               }
