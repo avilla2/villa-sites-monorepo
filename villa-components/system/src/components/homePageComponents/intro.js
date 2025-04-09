@@ -16,17 +16,17 @@ const styles = {
     width: '100%',
     position: 'absolute',
     [theme.breakpoints.between('xs', 'md')]: {
-      minHeight: '90vh',
+      minHeight: '95vh'
     },
     [theme.breakpoints.up('md')]: {
-      minHeight: '90vh',
-    },
+      minHeight: '100vh'
+    }
   }),
   video: {
     width: '100%',
     verticalAlign: 'bottom',
     objectFit: 'cover',
-    minHeight: 'inherit',
+    minHeight: 'inherit'
   },
   videoMobile: {
     width: '100%',
@@ -34,14 +34,14 @@ const styles = {
     maxHeight: '100%',
     objectFit: 'cover',
     verticalAlign: 'bottom',
-    minHeight: 'inherit',
+    minHeight: 'inherit'
   },
   imageMobile: {
     width: '100%',
     maxWidth: '100%',
     objectFit: 'cover',
     verticalAlign: 'bottom',
-    minHeight: 'inherit',
+    minHeight: 'inherit'
   },
   overlayWrapper: (theme) => ({
     position: 'relative',
@@ -50,12 +50,12 @@ const styles = {
     width: '100%',
     height: '100%',
     [theme.breakpoints.between('xs', 'md')]: {
-      minHeight: '80vh',
+      minHeight: '90vh'
     },
     [theme.breakpoints.up('md')]: {
       paddingTop: 12,
-      minHeight: '90vh',
-    },
+      minHeight: '100vh'
+    }
   }),
   overlay: (theme) => ({
     width: '100%',
@@ -76,12 +76,12 @@ const styles = {
     [theme.breakpoints.between('sm', 'md')]: {
       fontSize: '.85rem',
       minHeight: '10vh',
-      marginBottom: 3,
+      marginBottom: 3
     },
     [theme.breakpoints.between('xs', 'sm')]: {
       fontSize: '.75rem',
       minHeight: '10vh',
-      marginBottom: 3,
+      marginBottom: 3
     }
   }),
   centered: {
@@ -166,7 +166,7 @@ export default function Intro ({ content }) {
           : <GenerateMedia data={content.File.data} mobile={mobile}/>
         }
       </Box>
-      <Grid 
+      <Grid
       container
       justifyContent='space-evenly'
       sx={styles.overlayWrapper}>
@@ -179,14 +179,14 @@ export default function Intro ({ content }) {
           </Box>
         </Grid>
         {content?.FormData && content?.FormFields &&
-          <Grid 
+          <Grid
             xs={12}
             md={4}
-            item 
-            sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}
+            item
+            sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
           >
-            <Box sx={{backgroundColor: 'white', margin: 'auto 16px', borderRadius: 3, maxWidth: 400}}>
-            <Contact 
+            <Box sx={{ backgroundColor: 'white', margin: 'auto 16px', borderRadius: 3, maxWidth: 400 }}>
+            <Contact
               content={{
                 fields: content.FormFields,
                 sendTo: content.FormData.SendTo,

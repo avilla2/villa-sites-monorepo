@@ -33,7 +33,10 @@ export default function GenerateHomePageContent ({ content, lastComponent }) {
             color: styles?.TextColor ? styles.TextColor : null,
             backgroundColor: styles?.BackgroundColor ? styles.BackgroundColor : null,
             padding,
-            textAlign
+            textAlign,
+            ...(styles?.paddingTop && { paddingTop: styles.paddingTop }),
+            ...(styles?.paddingBottom && { paddingBottom: styles.paddingBottom })
+
           }}
         >
             {

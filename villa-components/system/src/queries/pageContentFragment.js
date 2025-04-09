@@ -7,6 +7,8 @@ fragment StyleFragment on ComponentContentPageComponentsStyle {
     TextColor
     textAlign
     size
+    paddingTop
+    paddingBottom
 }
 fragment Content on ContentPageContentDynamicZone {
     __typename

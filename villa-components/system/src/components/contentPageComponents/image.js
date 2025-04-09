@@ -1,5 +1,6 @@
 import React from 'react'
 import Box from '@mui/material/Box'
+import Paper from '@mui/material/Paper'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { Parallax } from 'react-parallax'
 import Paragraph from './paragraph'
@@ -43,11 +44,25 @@ export default function Image ({ content }) {
         rowSpacing={3}
       >
         <Grid md={content?.caption ? 6 : 12} sm={12} xs={12} item>
-          <img
-            src={`${process.env.REACT_APP_BACKEND_URL}${content.asset.data.attributes.url}`}
-            alt={content.asset.data.attributes.alternativeText}
-            style={{ width: mobile ? '100%' : `${content.width}%`, height, display: 'block', margin: 'auto' }}
-          />
+          {
+            content.imageStyle === 'Paper'
+              ? (
+              <Paper elevation={8} style={{ width: mobile ? '100%' : `${content.width}%`, height, margin: 'auto', borderRadius: 25, display: 'flex' }}>
+              <img
+                src={`${process.env.REACT_APP_BACKEND_URL}${content.asset.data.attributes.url}`}
+                alt={content.asset.data.attributes.alternativeText}
+                style={{ width: '100%', borderRadius: 'inherit' }}
+              />
+            </Paper>
+                )
+              : (
+              <img
+                src={`${process.env.REACT_APP_BACKEND_URL}${content.asset.data.attributes.url}`}
+                alt={content.asset.data.attributes.alternativeText}
+                style={{ width: mobile ? '100%' : `${content.width}%`, height, display: 'block', margin: 'auto' }}
+              />
+                )
+          }
         </Grid>
         { content?.caption &&
           <Grid md={6} sm={12} xs={12} py={3} item>

@@ -12,19 +12,19 @@ const classes = {
   },
   buttonGroup: {
     display: 'flex',
-    flexWrap: 'wrap',
+    flexWrap: 'wrap'
   }
 }
 export default function Buttons ({ content }) {
   const theme = useTheme()
   const mobile = useMediaQuery(theme.breakpoints.down('sm'))
 
-  const getButtonSpacing = () => {
+  const getButtonSpacing = (alignment) => {
     switch (content.ButtonArrangement) {
       case 'spaced_evenly':
         return { justifyContent: 'space-evenly' }
       default:
-        return { justifyContent: 'center', gap: theme.spacing(2) }
+        return { justifyContent: alignment ?? 'center', gap: theme.spacing(2) }
     }
   }
 
@@ -33,9 +33,10 @@ export default function Buttons ({ content }) {
     if (content.ButtonArrangement === 'together' || content.ButtonArrangement === null) {
       return <ButtonGroup orientation={mobileXS ? 'horizontal' : 'vertical'}>{children}</ButtonGroup>
     } else {
-      return <Box sx={classes.buttonGroup} style={getButtonSpacing()}>{children}</Box>
+      return <Box sx={classes.buttonGroup} style={getButtonSpacing(content?.Style?.textAlign)}>{children}</Box>
     }
   }
+
   return (
     <AnimationProvider animation={content?.Style?.Animation} direction="down">
         <Box sx={classes.root}>
