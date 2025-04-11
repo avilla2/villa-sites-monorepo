@@ -47,7 +47,7 @@ export default function Image ({ content }) {
           {
             content.imageStyle === 'Paper'
               ? (
-              <Paper elevation={8} style={{ width: mobile ? '100%' : `${content.width}%`, height, margin: 'auto', borderRadius: 25, display: 'flex' }}>
+              <Paper elevation={8} style={{ width: mobile ? '90%' : `${content.width}%`, height, margin: 'auto', borderRadius: 25, display: 'flex' }}>
               <img
                 src={`${process.env.REACT_APP_BACKEND_URL}${content.asset.data.attributes.url}`}
                 alt={content.asset.data.attributes.alternativeText}
