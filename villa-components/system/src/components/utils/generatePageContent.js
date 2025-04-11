@@ -24,7 +24,7 @@ const halfHeightComponents = []
 
 export default function GeneratePageContent ({ content, lastComponent }) {
   const padding = calculatePadding(lastComponent, fullHeightComponents, halfHeightComponents, content.__typename)
-  const styles = content?.Style;
+  const styles = content?.Style
   const textAlign = styles?.textAlign || 'center'
   return (
         <Grid
@@ -34,7 +34,9 @@ export default function GeneratePageContent ({ content, lastComponent }) {
               color: styles?.TextColor ? styles.TextColor : null,
               backgroundColor: styles?.BackgroundColor ? styles.BackgroundColor : null,
               padding,
-              textAlign
+              textAlign,
+              ...(styles?.paddingTop && { paddingTop: styles.paddingTop }),
+              ...(styles?.paddingBottom && { paddingBottom: styles.paddingBottom })
             }}
         >
             {
