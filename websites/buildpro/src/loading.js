@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from './images/pacwest_logo_lg.png'
+import logo from './images/buildpro_logo_blue.jpg'
 
 export default function Loading () {
   return (
