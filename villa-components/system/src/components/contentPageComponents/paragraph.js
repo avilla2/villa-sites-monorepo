@@ -6,7 +6,7 @@ import AnimationProvider from '../utils/animationProvider'
 
 const classes = {
   root: {
-    margin: 'auto 5%'
+    margin: 'auto 68px'
   },
   text: {
     '& p': {

@@ -10,7 +10,7 @@ import { IMaskMixin } from 'react-imask'
 
 const classes = {
   root: {
-    margin: '40px 5% 40px 5%'
+    margin: '40px 68px 40px 68px'
   },
   input: {
   },

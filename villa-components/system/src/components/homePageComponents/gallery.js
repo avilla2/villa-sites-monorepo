@@ -7,7 +7,7 @@ import AnimationProvider from '../utils/animationProvider'
 
 const classes = {
   root: {
-    margin: '2% 3% 5% 3%'
+    margin: '2% 68px 5% 68px'
   },
   imageList: (theme) => ({
     width: '100%',
