@@ -10,7 +10,7 @@ const classes = {
   },
   title: (theme) => ({
     letterSpacing: 1,
-    margin: 'auto 68px',
+    margin: 'auto 5%',
     paddingTop: theme.spacing(2),
     fontSize: '1.6rem',
     [theme.breakpoints.down('md')]: {

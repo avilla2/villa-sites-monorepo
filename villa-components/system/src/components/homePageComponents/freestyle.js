@@ -3,7 +3,7 @@ import { BlocksRenderer } from '@strapi/blocks-react-renderer'
 
 const classes = {
   root: {
-    margin: 'auto 68px'
+    margin: 'auto 5%'
   }
 }
 

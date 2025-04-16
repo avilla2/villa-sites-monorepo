@@ -8,7 +8,7 @@ import Button from '../pageFeatures/button'
 
 const classes = {
   root: {
-    margin: 'auto 68px'
+    margin: 'auto 5%'
   },
   buttonGroup: {
     display: 'flex',
