@@ -6,7 +6,7 @@ import { BlocksRenderer } from '@strapi/blocks-react-renderer'
 
 const classes = {
   root: (theme) => ({
-    margin: `${theme.spacing(1)} 5%`
+    margin: `${theme.spacing(1)} 5vw`
   }),
   paragraph: {
     '& p': {
