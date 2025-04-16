@@ -28,27 +28,27 @@ export default function Template ({ content }) {
         py={3}
       >
         { content?.Caption &&
-          <Grid 
-            md={6} 
-            sm={12} 
-            xs={12} 
-            item 
+          <Grid
+            md={6}
+            sm={12}
+            xs={12}
+            item
             alignSelf="flex-start"
             sx={classes.paragraph}
           >
               <BlocksRenderer content={content?.Caption} />
           </Grid>
         }
-        <Grid 
+        <Grid
           md={content?.Caption ? 6 : 12}
           sm={12} xs={12}
           item
-          style={{textAlign: 'left', maxWidth: '80vw' }}
+          style={{ textAlign: 'left', maxWidth: '80vw' }}
         >
           {content?.Items.map((item, index) => (
-            <Grid 
+            <Grid
               container
-              direction="row" 
+              direction="row"
               alignItems="flex-start"
               justifyContent="flex-start"
               wrap='nowrap'
