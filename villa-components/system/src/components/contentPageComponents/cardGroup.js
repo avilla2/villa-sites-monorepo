@@ -12,7 +12,7 @@ import { BlocksRenderer } from '@strapi/blocks-react-renderer'
 
 const classes = {
   root: (theme) => ({
-    margin: theme.spacing(3, 3)
+    margin: 'auto 5vw'
   }),
   flexBox: {
     display: 'flex',
