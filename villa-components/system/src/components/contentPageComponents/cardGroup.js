@@ -1,6 +1,6 @@
 import React from 'react'
 import Box from '@mui/material/Box'
-import Grid from '@mui/material/Grid'
+import Grid from '@mui/material/Grid2'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
@@ -123,16 +123,17 @@ export default function CardGroup ({ content }) {
   const [activeCard, setActiveCard] = React.useState(-1)
   return (
     <Box sx={classes.root}>
-      <Grid container columnSpacing={{ xs: 4, sm: 4, md: 4, lg: 4, xl: 10 }} rowSpacing={4} justifyContent='center' alignItems='stretch'>
+      <Grid container columnSpacing={{ xs: 4, sm: 4, md: 4, lg: 4, xl: 10 }} rowSpacing={4} sx={{ justifyContent: 'center', alignItems: 'stretch' }}>
         {content.Cards.map((card, index) => (
             <Grid
               key={index}
-              xs={12}
-              sm={6}
-              md={4}
-              lg={4}
-              xl={3}
-              item
+              size={{
+                xs: 12,
+                sm: 6,
+                md: 4,
+                lg: 4,
+                xl: 3
+              }}
               sx={{ textAlign: content.Style.textAlign }}>
               <SingleCard
                 {...card}
