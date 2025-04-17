@@ -122,7 +122,7 @@ const SingleCard = ({
 export default function CardGroup ({ content }) {
   const [activeCard, setActiveCard] = React.useState(-1)
   return (
-    <Box sx={classes.root}>
+    <Box sx={classes.root} style={content?.Title && { marginTop: '18px' }}>
       <Grid container columnSpacing={{ xs: 4, sm: 4, md: 4, lg: 4, xl: 10 }} rowSpacing={4} sx={{ justifyContent: 'center', alignItems: 'stretch' }}>
         {content.Cards.map((card, index) => (
             <Grid
