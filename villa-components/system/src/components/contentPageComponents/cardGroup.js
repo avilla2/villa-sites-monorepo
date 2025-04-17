@@ -46,6 +46,7 @@ const SingleCard = ({
           color: Color,
           minHeight: 275,
           backgroundImage: `url('${process.env.REACT_APP_BACKEND_URL}${Image.data.attributes.url}')`,
+          backgroundSize: 'cover',
           position: 'relative',
           ...classes.flexBox
         }}

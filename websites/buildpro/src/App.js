@@ -10,7 +10,7 @@ export default function App () {
       <VillaComponentSystem
         defaultSiteId={DEFAULT_SITE_ID}
         loadingComponent={<LoadingSVG />}
-        fonts={['"Russo One"', '"Roboto Flex"']}
+        fonts={['"Zen Dots"', '"Roboto Flex"']}
       >
       </VillaComponentSystem>
     </div>
