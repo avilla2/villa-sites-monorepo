@@ -16,7 +16,7 @@ const styles = {
     width: '100%',
     position: 'absolute',
     [theme.breakpoints.between('xs', 'md')]: {
-      minHeight: '95vh'
+      minHeight: '85vh'
     },
     [theme.breakpoints.up('md')]: {
       minHeight: '100vh'
@@ -50,7 +50,7 @@ const styles = {
     width: '100%',
     height: '100%',
     [theme.breakpoints.between('xs', 'md')]: {
-      minHeight: '90vh'
+      minHeight: '80vh'
     },
     [theme.breakpoints.up('md')]: {
       paddingTop: 12,
