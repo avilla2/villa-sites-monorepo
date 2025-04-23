@@ -7,6 +7,7 @@ pipeline {
         CLOUDFLARE_ACCOUNT_ID = credentials('CLOUDFLARE_ACCOUNT_ID')
         CLOUDFLARE_API_TOKEN  = credentials('CLOUDFLARE_API_TOKEN')
         REACT_APP_BACKEND_URL = 'https://api.villawebsolutions.com'
+        REACT_APP_API_TOKEN   = credentials('STRAPI_API_TOKEN')
     }
     stages {
         stage("Install") {
