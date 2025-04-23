@@ -13,11 +13,11 @@ pipeline {
         stage("Install") {
             steps {
                 sh 'yarn install'
-                sh 'echo "REACT_APP_BACKEND_URL=$REACT_APP_BACKEND_URL" > villa-components/system/.env'
+                sh 'echo -e "REACT_APP_BACKEND_URL=$REACT_APP_BACKEND_URL\nREACT_APP_API_TOKEN=$REACT_APP_API_TOKEN" > villa-components/system/.env'
             }
         }
         stage('Build') { 
-            steps { 
+            steps {
                 sh 'yarn build @villa-components/system' 
             }
         }
