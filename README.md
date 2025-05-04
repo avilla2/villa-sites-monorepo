@@ -33,4 +33,4 @@ yarn deploy-all
 
 ## CI/CD
 
-Coming Soon
+@villa-component/system will be built and deployed by a Jenkins pipeline on every push to main.
