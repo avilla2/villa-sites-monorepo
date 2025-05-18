@@ -42,6 +42,7 @@ export default function SiteRoutes ({ children, siteContent, page, setPage, site
                     name={item.attributes.Title}
                     content={item.attributes.Content}
                     showTitle={showTitle}
+                    titleColor={siteContent.navbar.data.attributes.FontColor ?? 'white'}
                   />
                 }
               />

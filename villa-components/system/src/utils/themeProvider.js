@@ -21,6 +21,17 @@ const createThemeConfigs = (palette, fonts) => {
       body1: {
         fontWeight: 400
       },
+      h1: {
+        fontFamily: [
+          ...fonts,
+          '"sans-serif"',
+          '"Segoe UI"',
+          'Roboto',
+          '"Apple Color Emoji"',
+          '"Segoe UI Emoji"',
+          '"Segoe UI Symbol"'
+        ].join(',')
+      },
       h2: {
         fontFamily: [
           ...fonts,

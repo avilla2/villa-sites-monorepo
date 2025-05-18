@@ -6,6 +6,7 @@ import AnimationProvider from '../utils/animationProvider'
 import ButtonGroup from '../contentPageComponents/buttonGroup'
 import Contact from '../contentPageComponents/contact'
 import Grid from '@mui/material/Grid'
+import Slideshow from './slideshow'
 
 const styles = {
   base: {
@@ -105,7 +106,8 @@ const getMime = (mime) => {
   return mime.split('/')[0]
 }
 
-const GenerateMedia = ({ mobile, data }) => {
+const GenerateMedia = ({ mobile, files }) => {
+  const { data } = files
   if (data.length <= 1) {
     const attributes = data[0].attributes
     const mime = getMime(attributes.mime)
@@ -136,8 +138,7 @@ const GenerateMedia = ({ mobile, data }) => {
     }
   } else if (data.length > 1) {
     return (
-      // TODO Implement Carousel
-      <></>
+      <Slideshow content={mobile ? { slidesMobile: files } : { slidesDesktop: files }} />
     )
   } else {
     return <></>
@@ -162,8 +163,8 @@ export default function Intro ({ content }) {
     <Box sx={styles.base}>
       <Box sx={styles.contentWrapper}>
         {mobile && content?.MobileFile?.data?.length
-          ? <GenerateMedia data={content.MobileFile.data} mobile={true}/>
-          : <GenerateMedia data={content.File.data} mobile={mobile}/>
+          ? <GenerateMedia files={content.MobileFile} mobile={true}/>
+          : <GenerateMedia files={content.File} mobile={mobile}/>
         }
       </Box>
       <Grid
