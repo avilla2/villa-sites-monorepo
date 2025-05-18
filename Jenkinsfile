@@ -7,6 +7,7 @@ pipeline {
         string(name: 'app', defaultValue: '@villa-components/system', description: 'which app/website to deploy')
     }
     environment {
+        CI                    = 'false'
         CLOUDFLARE_ACCOUNT_ID = credentials('CLOUDFLARE_ACCOUNT_ID')
         CLOUDFLARE_API_TOKEN  = credentials('CLOUDFLARE_API_TOKEN')
         REACT_APP_BACKEND_URL = 'https://api.villawebsolutions.com'
