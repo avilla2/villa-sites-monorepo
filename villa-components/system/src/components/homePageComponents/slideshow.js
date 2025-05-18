@@ -45,7 +45,7 @@ export default function Slideshow ({ content }) {
   )
 
   return (
-    <Box px={isDesktop ? 2 : 0}>
+    <Box sx={{ margin: `auto ${isDesktop ? '5vw' : 0}` }}>
         <Carousel showThumbs={false} autoPlay infiniteLoop showStatus={false}>
             {isDesktop
               ? content.slidesDesktop.data.map((slide, index) => (
