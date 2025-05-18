@@ -22,7 +22,6 @@ const classes = {
     zIndex: -2
   }),
   title: {
-    color: 'white',
     fontSize: '1.5rem',
     marginBottom: '18px'
   },
@@ -35,7 +34,7 @@ const classes = {
   })
 }
 
-export default function ContentPage ({ setPage, setNavIndex, name, content, path, minSize, showTitle }) {
+export default function ContentPage ({ setPage, setNavIndex, name, content, path, minSize, showTitle, titleColor }) {
   const hidden = useMediaQuery(theme => theme.breakpoints.up(minSize))
 
   useEffect(() => {
@@ -46,7 +45,7 @@ export default function ContentPage ({ setPage, setNavIndex, name, content, path
         <Box sx={classes.root}>
             {hidden && showTitle &&
                 <Box sx={classes.base}>
-                    <Typography variant="h2" sx={classes.title}>{name}</Typography>
+                    <Typography variant="h2" sx={{ ...classes.title, color: titleColor }}>{name}</Typography>
                 </Box>
 
             }

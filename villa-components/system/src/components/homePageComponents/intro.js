@@ -7,6 +7,7 @@ import ButtonGroup from '../contentPageComponents/buttonGroup'
 import Contact from '../contentPageComponents/contact'
 import Grid from '@mui/material/Grid'
 import Slideshow from './slideshow'
+import Typography from '@mui/material/Typography'
 
 const styles = {
   base: {
@@ -174,7 +175,9 @@ export default function Intro ({ content }) {
         <Grid item xs={12} md={content?.FormData && content?.FormFields ? 8 : 12}>
           <Box sx={[styles.overlay, getIntroStyle(content.TextPosition)]}>
             <AnimationProvider animation={content?.Style?.Animation}>
-              <ReactMarkdown>{content.IntroText}</ReactMarkdown>
+              <Typography>
+                <ReactMarkdown>{content.IntroText}</ReactMarkdown>
+              </Typography>
               {content?.Buttons && <ButtonGroup content={{ ButtonArrangement: 'center', GroupButtonStyle: 'outlined', Entry: content.Buttons }}/>}
             </AnimationProvider>
           </Box>
