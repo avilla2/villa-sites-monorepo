@@ -22,7 +22,7 @@ pipeline {
         }
         stage('Build') { 
             steps {
-                sh 'yarn build @villa-components/system' 
+                sh "yarn build ${params.app}"
             }
         }
         stage('Deploy') {
