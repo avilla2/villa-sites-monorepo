@@ -12,7 +12,7 @@ export default function Freestyle ({ content }) {
   return (
         <div style={classes.root}>
           <Typography>
-            <BlocksRenderer content={content.RichText} />
+            {content.RichText && <BlocksRenderer content={content.RichText} />}
           </Typography>
         </div>
   )
