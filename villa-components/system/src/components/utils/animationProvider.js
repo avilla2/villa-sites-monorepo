@@ -2,6 +2,7 @@ import React from 'react'
 import VizSensor from 'react-visibility-sensor'
 import Slide from '@mui/material/Slide'
 import Fade from '@mui/material/Fade'
+import Box from '@mui/material/Box'
 
 const Wrapper = ({ children, active, animation, containerRef, timeout, direction }) => {
   switch (animation) {
@@ -19,7 +20,7 @@ const AnimationProvider = ({ children, animation, timeout = 1500, direction = 'u
   const ref = React.useRef('')
 
   if (!animation || animation === 'None') {
-    return <>{children}</>
+    return <Box>{children}</Box>
   }
 
   return (

@@ -55,7 +55,7 @@ const styles = {
       minHeight: '80vh'
     },
     [theme.breakpoints.up('md')]: {
-      paddingTop: 12,
+      paddingTop: 10,
       minHeight: '100vh'
     }
   }),
@@ -168,21 +168,20 @@ export default function Intro ({ content }) {
           : <GenerateMedia files={content.File} mobile={mobile}/>
         }
       </Box>
+      <Typography>
       <Grid
       container
       justifyContent='space-evenly'
       sx={styles.overlayWrapper}>
         <Grid item xs={12} md={content?.FormData && content?.FormFields ? 8 : 12}>
-          <Box sx={[styles.overlay, getIntroStyle(content.TextPosition)]}>
-            <AnimationProvider animation={content?.Style?.Animation}>
-              <Typography>
-                <ReactMarkdown>
-                    {content.IntroText}
-                </ReactMarkdown>
-              </Typography>
-              {content?.Buttons && <ButtonGroup content={{ ButtonArrangement: 'center', GroupButtonStyle: 'outlined', Entry: content.Buttons }}/>}
-            </AnimationProvider>
-          </Box>
+            <Box sx={[styles.overlay, getIntroStyle(content.TextPosition)]}>
+              <AnimationProvider animation={content?.Style?.Animation}>
+                  <ReactMarkdown>
+                      {content.IntroText}
+                  </ReactMarkdown>
+                {content?.Buttons && <ButtonGroup content={{ ButtonArrangement: 'center', GroupButtonStyle: 'outlined', Entry: content.Buttons }}/>}
+              </AnimationProvider>
+            </Box>
         </Grid>
         {content?.FormData && content?.FormFields &&
           <Grid
@@ -204,6 +203,7 @@ export default function Intro ({ content }) {
           </Grid>
         }
       </Grid>
+      </Typography>
     </Box>
   )
 }
