@@ -17,7 +17,7 @@ const classes = {
   }
 }
 
-export default function Slideshow ({ content }) {
+export default function Slideshow ({ content, fullscreen }) {
   const theme = useTheme()
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
 
@@ -45,7 +45,7 @@ export default function Slideshow ({ content }) {
   )
 
   return (
-    <Box sx={{ margin: `auto ${isDesktop ? '5vw' : 0}` }}>
+    <Box sx={{ margin: `auto ${isDesktop && !fullscreen ? '5vw' : 0}` }}>
         <Carousel showThumbs={false} autoPlay infiniteLoop showStatus={false}>
             {isDesktop
               ? content.slidesDesktop.data.map((slide, index) => (

@@ -1,5 +1,6 @@
 import React from 'react'
 import { BlocksRenderer } from '@strapi/blocks-react-renderer'
+import Typography from '../pageFeatures/typography'
 
 const classes = {
   root: {
@@ -10,7 +11,9 @@ const classes = {
 export default function Freestyle ({ content }) {
   return (
         <div style={classes.root}>
+          <Typography>
             <BlocksRenderer content={content.RichText} />
+          </Typography>
         </div>
   )
 }
