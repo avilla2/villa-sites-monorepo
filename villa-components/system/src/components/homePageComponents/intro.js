@@ -55,7 +55,7 @@ const styles = {
       minHeight: '80vh'
     },
     [theme.breakpoints.up('md')]: {
-      paddingTop: 8,
+      paddingTop: 2,
       minHeight: '100vh'
     }
   }),
