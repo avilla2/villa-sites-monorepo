@@ -29,7 +29,7 @@ const classes = {
     [theme.breakpoints.up(minSize)]: {
       marginTop: showTitle ? titleHeight : 'unset',
       backgroundColor: 'white',
-      paddingTop: '0px'
+      paddingTop: showTitle ? '0px' : '160px'
     }
   })
 }
@@ -47,7 +47,6 @@ export default function ContentPage ({ setPage, setNavIndex, name, content, path
                 <Box sx={classes.base}>
                     <Typography variant="h2" sx={{ ...classes.title, color: titleColor }}>{name}</Typography>
                 </Box>
-
             }
                 <Grid container sx={(theme) => classes.page(theme, minSize, showTitle)}>
                     {content.map((item, index) => {
