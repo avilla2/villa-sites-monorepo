@@ -45,7 +45,7 @@ export default function Slideshow ({ content, fullscreen }) {
   )
 
   return (
-    <Box sx={{ margin: `auto ${isDesktop && !fullscreen ? '5vw' : 0}`, paddingTop: content.Title ? '24px' : '0' }}>
+    <Box sx={{ margin: `auto ${isDesktop && !fullscreen ? '5vw' : 0}`, pt: content.Title ? 3 : 0 }}>
         <Carousel showThumbs={false} autoPlay infiniteLoop showStatus={false}>
             {isDesktop
               ? content.slidesDesktop.data.map((slide, index) => (
