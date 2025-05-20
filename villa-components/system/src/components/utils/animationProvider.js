@@ -17,6 +17,11 @@ const Wrapper = ({ children, active, animation, containerRef, timeout, direction
 const AnimationProvider = ({ children, animation, timeout = 1500, direction = 'up', partialVisibility = false }) => {
   const [active, setActive] = React.useState(false)
   const ref = React.useRef('')
+
+  if (!animation || animation === 'None') {
+    return <>{children}</>
+  }
+
   return (
     <div ref={ref}>
       <VizSensor

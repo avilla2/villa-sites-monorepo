@@ -18,11 +18,13 @@ const classes = {
 export default function Paragraph ({ content }) {
   return (
     <Box sx={classes.root}>
+      <Typography component="div" sx={classes.text}>
         <AnimationProvider animation={content?.Style?.Animation} direction="down">
-            <Typography component="div" sx={classes.text}>
-                <ReactMarkdown style={classes.text}>{content.Body}</ReactMarkdown>
-            </Typography>
+          <Box>
+            <ReactMarkdown style={classes.text}>{content.Body}</ReactMarkdown>
+          </Box>
         </AnimationProvider>
+      </Typography>
     </Box>
   )
 }
