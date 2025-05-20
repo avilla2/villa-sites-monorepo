@@ -35,8 +35,8 @@ export default function GeneratePageContent ({ content, lastComponent }) {
               backgroundColor: styles?.BackgroundColor ? styles.BackgroundColor : null,
               padding,
               textAlign,
-              ...(styles?.paddingTop !== null && { paddingTop: styles.paddingTop }),
-              ...(styles?.paddingBottom !== null && { paddingBottom: styles.paddingBottom })
+              ...(styles && styles?.paddingTop !== null && { paddingTop: styles.paddingTop }),
+              ...(styles && styles?.paddingBottom !== null && { paddingBottom: styles.paddingBottom })
             }}
         >
             {
