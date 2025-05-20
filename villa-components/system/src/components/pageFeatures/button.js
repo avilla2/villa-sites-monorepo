@@ -7,6 +7,7 @@ import { styled, useTheme, alpha } from '@mui/material/styles'
 const StyledButton = styled(Button, {
   shouldForwardProp: (prop) => prop !== 'borderColor'
 })(({ borderColor }) => ({
+  textTransform: 'none',
   '&:hover': {
     border: `1px solid ${alpha(borderColor, 0.2)}`,
     backgroundColor: alpha(borderColor, 0.05)
