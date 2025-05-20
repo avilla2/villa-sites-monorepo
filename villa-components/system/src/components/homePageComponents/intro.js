@@ -175,7 +175,7 @@ export default function Intro ({ content }) {
         <Grid item xs={12} md={content?.FormData && content?.FormFields ? 8 : 12}>
           <Box sx={[styles.overlay, getIntroStyle(content.TextPosition)]}>
             <AnimationProvider animation={content?.Style?.Animation}>
-            <Typography variant='h1'>
+            <Typography>
                 <ReactMarkdown>
                     {content.IntroText}
                 </ReactMarkdown>
