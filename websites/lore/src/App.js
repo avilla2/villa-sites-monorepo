@@ -15,7 +15,7 @@ export default function App () {
             path='/es-US/*'
             element={
               <VillaRenderingSystem
-                defaultSiteId={DEFAULT_SITE_ID}
+                defaultSiteId={ES_US_SITE_ID}
                 loadingComponent={<LoadingSVG />}
                 fonts={['"Cookie"', 'Poppins']}
               >
@@ -26,7 +26,7 @@ export default function App () {
             path="*"
             element={
               <VillaRenderingSystem
-                defaultSiteId={ES_US_SITE_ID}
+                defaultSiteId={DEFAULT_SITE_ID}
                 loadingComponent={<LoadingSVG />}
                 fonts={['"Cookie"', 'Poppins']}
               >
