@@ -12,7 +12,8 @@ const classes = {
   returnButton: (theme) => ({
     color: theme.palette.warning.main,
     borderColor: theme.palette.warning.main,
-    marginTop: 3
+    marginTop: 3,
+    textTransform: 'none'
   })
 }
 

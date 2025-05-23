@@ -168,41 +168,41 @@ export default function Intro ({ content }) {
           : <GenerateMedia files={content.File} mobile={mobile}/>
         }
       </Box>
-      <Typography>
-      <Grid
-      container
-      justifyContent='space-evenly'
-      sx={styles.overlayWrapper}>
-        <Grid item xs={12} md={content?.FormData && content?.FormFields ? 8 : 12}>
-            <Box sx={[styles.overlay, getIntroStyle(content.TextPosition)]}>
-              <AnimationProvider animation={content?.Style?.Animation}>
-                  <ReactMarkdown>
-                      {content.IntroText}
-                  </ReactMarkdown>
-                {content?.Buttons && <ButtonGroup content={{ ButtonArrangement: 'center', GroupButtonStyle: 'outlined', Entry: content.Buttons }}/>}
-              </AnimationProvider>
-            </Box>
-        </Grid>
-        {content?.FormData && content?.FormFields &&
-          <Grid
-            xs={12}
-            md={4}
-            item
-            sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-          >
-            <Box sx={{ backgroundColor: 'white', margin: 'auto 16px', borderRadius: 3, maxWidth: 400 }}>
-            <Contact
-              content={{
-                fields: content.FormFields,
-                sendTo: content.FormData.SendTo,
-                sendFrom: content.FormData.SendFrom,
-                bodyTitle: content.FormData.BodyTitle
-              }}
-            />
-            </Box>
+      <Typography component="div">
+        <Grid
+        container
+        justifyContent='space-evenly'
+        sx={styles.overlayWrapper}>
+          <Grid item xs={12} md={content?.FormData && content?.FormFields ? 8 : 12}>
+              <Box sx={[styles.overlay, getIntroStyle(content.TextPosition)]}>
+                <AnimationProvider animation={content?.Style?.Animation}>
+                    <ReactMarkdown>
+                        {content.IntroText}
+                    </ReactMarkdown>
+                  {content?.Buttons && <ButtonGroup content={{ ButtonArrangement: 'center', GroupButtonStyle: 'outlined', Entry: content.Buttons }}/>}
+                </AnimationProvider>
+              </Box>
           </Grid>
-        }
-      </Grid>
+          {content?.FormData && content?.FormFields &&
+            <Grid
+              xs={12}
+              md={4}
+              item
+              sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            >
+              <Box sx={{ backgroundColor: 'white', margin: 'auto 16px', borderRadius: 3, maxWidth: 400 }}>
+              <Contact
+                content={{
+                  fields: content.FormFields,
+                  sendTo: content.FormData.SendTo,
+                  sendFrom: content.FormData.SendFrom,
+                  bodyTitle: content.FormData.BodyTitle
+                }}
+              />
+              </Box>
+            </Grid>
+          }
+        </Grid>
       </Typography>
     </Box>
   )

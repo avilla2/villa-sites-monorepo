@@ -341,7 +341,7 @@ const MobileDrawer = ({ links, drawerLink, drawerText, toggleDrawer, fontColor, 
               </ListItemButton>
             )
           }
-          return <></>
+          return
         })}
         </List>
         <List
@@ -400,8 +400,6 @@ const NavComponentDesktop = ({ item, active, fontColor, shadow }) => {
 export default function Navbar ({
   page,
   navIndex,
-  setSiteId,
-  siteId,
   Items: content,
   MobileConfig: mobileData,
   Style: style,

@@ -19,6 +19,10 @@ module.exports = {
       singleton: true,
       requiredVersion: dependencies['react-dom']
     },
+    'react-router-dom': {
+      singleton: true,
+      requiredVersion: dependencies['react-router-dom']
+    },
     '@mui/material': {
       singleton: true,
       requiredVersion: dependencies['@mui/material']
