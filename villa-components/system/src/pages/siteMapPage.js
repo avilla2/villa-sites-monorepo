@@ -11,7 +11,7 @@ const classes = {
   }
 }
 
-export default function ContentPage ({ setPage, contentPages, locale }) {
+export default function SiteMap ({ setPage, contentPages, locale }) {
   useEffect(() => {
     setPage('Site Map')
   })
@@ -23,7 +23,7 @@ export default function ContentPage ({ setPage, contentPages, locale }) {
                 key={index}
                 component={RouterLink}
                 to={`${locale === 'en' ? '' : '/' + locale}${attributes.Link}`}
-                sx={{ pr: 2, py: 2 }}
+                sx={{ pr: 2, py: 2, color: '#000000' }}
               >
               {attributes.Title}
             </Link>
