@@ -17,7 +17,7 @@ export default function App () {
               <VillaRenderingSystem
                 defaultSiteId={ES_US_SITE_ID}
                 loadingComponent={<LoadingSVG />}
-                fonts={['"Cookie"', 'Poppins']}
+                fonts={['"DM Serif Text"', 'Poppins']}
               >
               </VillaRenderingSystem>
             }
@@ -28,7 +28,7 @@ export default function App () {
               <VillaRenderingSystem
                 defaultSiteId={DEFAULT_SITE_ID}
                 loadingComponent={<LoadingSVG />}
-                fonts={['"Cookie"', 'Poppins']}
+                fonts={['"DM Serif Text"', 'Poppins']}
               >
               </VillaRenderingSystem>
             }

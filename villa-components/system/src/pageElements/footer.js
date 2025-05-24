@@ -42,6 +42,7 @@ export default function Footer ({ Content, FontColor: fontColor, enableLocalizat
           </Grid>
           <Grid
             container
+            spacing={1}
             sx={{
               pt: 2,
               mt: 5,

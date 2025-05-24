@@ -21,9 +21,10 @@ export default function SiteMap ({ setPage, contentPages, locale }) {
             {contentPages.map(({ attributes }, index) => (
               <Link
                 key={index}
+                underline="always"
                 component={RouterLink}
                 to={`${locale === 'en' ? '' : '/' + locale}${attributes.Link}`}
-                sx={{ pr: 2, py: 2, color: '#000000' }}
+                sx={{ pr: 2, py: 2, color: '#000000', textDecorationColor: '#000000' }}
               >
               {attributes.Title}
             </Link>
