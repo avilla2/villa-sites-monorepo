@@ -16,7 +16,7 @@
 }
 
 #animate-flicker {
-   -webkit-animation: flickerAnimation 6s ease-in-out infinite;
-   -moz-animation: flickerAnimation 6s ease-in-out infinite;
-    animation: flickerAnimation 6s ease-in-out infinite;
+   -webkit-animation: flickerAnimation 4s ease-in-out infinite;
+   -moz-animation: flickerAnimation 4s ease-in-out infinite;
+    animation: flickerAnimation 4s ease-in-out infinite;
 }
