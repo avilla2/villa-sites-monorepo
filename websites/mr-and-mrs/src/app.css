@@ -15,7 +15,7 @@
   
   #loadingframefloat {
 	animation: float 6s ease-in-out 0s infinite;
-	border-radius: 35px;
+	border-radius: 60px;
 	padding: 4px;
-	background-color: #000000;
+	background-color: #F5F5F5;
   }
