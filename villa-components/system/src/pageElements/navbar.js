@@ -341,7 +341,7 @@ const MobileDrawer = ({ links, drawerLink, drawerText, toggleDrawer, fontColor, 
               </ListItemButton>
             )
           }
-          return
+          return undefined
         })}
         </List>
         <List

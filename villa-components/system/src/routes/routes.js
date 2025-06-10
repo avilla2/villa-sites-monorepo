@@ -59,19 +59,19 @@ export default function SiteRoutes ({ children, siteContent, page, setPage, navI
                 />
               }
             />
-            <Route 
-              path="/sitemap" 
+            <Route
+              path="/sitemap"
               element={
-                <Sitemap 
-                  setPage={setPage} 
-                  contentPages={siteContent.content_pages.data} 
+                <Sitemap
+                  setPage={setPage}
+                  contentPages={siteContent.content_pages.data}
                   locale={siteContent.locale}
                 />
-              } 
+              }
             />
             <Route path="*" element={<NotFoundPage setPage={setPage} />} />
           </Routes>
-        <SiteFooter 
+        <SiteFooter
           enableLocalization={siteContent.site_settings.data.attributes.EnableLocalization}
           locale={siteContent.locale}
           {...siteContent.footer.data.attributes}
