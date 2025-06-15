@@ -178,7 +178,7 @@ const NavLink = ({ title, link, id, active, shadow, ...props }) => {
 
 const NavButtonIcon = ({ link, external, src, alt, width }) => {
   return (
-    <Button component={external ? 'a' : Link} href={link} to={link} sx={classes.title}>
+    <Button component={external ? 'a' : Link} href={link} to={link} sx={{ ...classes.title, display: 'flex' }}>
       <img width={width || 80} src={src} alt={alt} />
     </Button>
   )
