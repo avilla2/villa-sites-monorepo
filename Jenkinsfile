@@ -16,11 +16,8 @@ pipeline {
     stages {
         stage('Setup Environment') {
             steps {
-                sh 'set +ex'
-                sh 'export NVM_DIR="$HOME/.nvm"'
-                sh '. ~/.nvm/nvm.sh'
-                sh 'nvm use 20'
-                sh 'set -ex'
+                sh '#!/bin/bash'
+                sh 'source $HOME/.bash_profile'
             }
         }
         stage("Install") {
