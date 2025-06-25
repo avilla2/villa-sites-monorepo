@@ -17,8 +17,10 @@ pipeline {
         stage('Setup Environment') {
             steps {
                 sh '''
-                #!/bin/bash
-                source $HOME/.bashrc
+                set +ex
+                export NVM_DIR="$HOME/.nvm"
+                . ~/.nvm/nvm.sh
+                set -ex    
                 '''
             }
         }
