@@ -19,6 +19,7 @@ pipeline {
                 sh 'set +ex'
                 sh 'export NVM_DIR="$HOME/.nvm"'
                 sh '. ~/.nvm/nvm.sh'
+                sh 'nvm use 20'
                 sh 'set -ex'
             }
         }
