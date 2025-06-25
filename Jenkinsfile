@@ -17,7 +17,7 @@ pipeline {
         stage('Setup Environment') {
             steps {
                 sh '''
-                #!/bin/bash -l
+                #!/bin/bash
                 source $HOME/.bashrc
                 '''
             }
