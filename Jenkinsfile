@@ -16,12 +16,10 @@ pipeline {
     stages {
         stage('Setup Environment') {
             steps {
-                sh '''
-                set +ex
-                export NVM_DIR="$HOME/.nvm"
-                . ~/.nvm/nvm.sh
-                set -ex    
-                '''
+                sh 'set +ex'
+                sh 'export NVM_DIR="$HOME/.nvm"'
+                sh '. ~/.nvm/nvm.sh'
+                sh 'set -ex'
             }
         }
         stage("Install") {
