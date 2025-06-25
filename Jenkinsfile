@@ -17,7 +17,7 @@ pipeline {
         stage('Setup Environment') {
             steps {
                 sh '#!/bin/bash'
-                sh 'source $HOME/.bash_profile'
+                sh 'source $HOME/.bashrc'
             }
         }
         stage("Install") {
