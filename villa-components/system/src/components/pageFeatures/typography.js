@@ -7,7 +7,8 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
     fontFamily: theme.typography.h1.fontFamily
   },
   '& h2': {
-    fontFamily: theme.typography.h2.fontFamily
+    fontFamily: theme.typography.h2.fontFamily,
+    fontWeight: 300
   }
 })
 )
