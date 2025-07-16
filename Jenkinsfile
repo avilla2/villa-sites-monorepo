@@ -14,12 +14,12 @@ pipeline {
         REACT_APP_API_TOKEN   = credentials('STRAPI_API_TOKEN')
     }
     stages {
-        stage('Setup Environment') {
-            steps {
-                sh '#!/bin/bash'
-                sh 'source $HOME/.bashrc'
-            }
-        }
+        // stage('Setup Environment') {
+        //     steps {
+        //         sh '#!/bin/bash'
+        //         sh 'source $HOME/.bashrc'
+        //     }
+        // }
         stage("Install") {
             steps {
                 sh 'yarn install'
