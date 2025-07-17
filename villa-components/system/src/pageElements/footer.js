@@ -10,6 +10,7 @@ import Query from '../utils/query'
 import localesQuery from '../queries/localesQuery'
 import Skeleton from '@mui/material/Skeleton'
 import { Typography } from '@mui/material'
+import isExternal from '../components/utils/isExternalLink'
 
 const classes = {
   root: {
@@ -18,7 +19,7 @@ const classes = {
   }
 }
 
-export default function Footer ({ Content, FontColor: fontColor, enableLocalization, locale }) {
+export default function Footer ({ Content, FontColor: fontColor, enableLocalization, locale, links }) {
   const [modalOpen, setModalOpen] = useState(false)
 
   return (
@@ -62,6 +63,19 @@ export default function Footer ({ Content, FontColor: fontColor, enableLocalizat
                 Site Map
               </Link>
             </Grid>
+            {links.map((item, index) => (
+              <Grid key={index}>
+                <Link
+                  component={isExternal(item.link) ? 'a' : RouterLink}
+                  underline="hover"
+                  to={item.link}
+                  href={item.link}
+                  sx={{ color: fontColor }}
+                >
+                  {item.text}
+                </Link>
+              </Grid>
+            ))}
             {enableLocalization &&
             <Query
               query={localesQuery}

@@ -3,6 +3,10 @@ import gql from 'graphql-tag'
 const FOOTER_FRAGMENT = gql`
 fragment FooterFragment on WebsiteFooter {
   FontColor
+  links {
+    text
+    link
+  }
   Content {
     __typename
     ... on ComponentFooterComponentsImage {

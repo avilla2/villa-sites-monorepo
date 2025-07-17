@@ -45,9 +45,9 @@ const SingleCard = ({
           height: '100%',
           color: Color,
           minHeight: 275,
-          backgroundImage: `url('${process.env.REACT_APP_BACKEND_URL}${Image.data.attributes.url}')`,
           backgroundSize: 'cover',
           position: 'relative',
+          ...(Image.data && { backgroundImage: `url('${process.env.REACT_APP_BACKEND_URL}${Image.data.attributes.url}')` }),
           ...classes.flexBox
         }}
         onClick={setActiveCard}
@@ -92,13 +92,21 @@ const SingleCard = ({
     )
   }
   return (
-    <Card sx={{ color: Color, backgroundColor: CardColor, height: '100%' }}>
-      <CardMedia
-        sx={{ height: 140 }}
-        image={`${process.env.REACT_APP_BACKEND_URL}${Image.data.attributes.url}`}
-        title={Image.data.attributes.alternativeText}
-      />
-      <CardContent>
+    <Card sx={{
+      color: Color,
+      backgroundColor: CardColor,
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column'
+    }}>
+      {Image.data &&
+        <CardMedia
+          sx={{ height: 140 }}
+          image={`${process.env.REACT_APP_BACKEND_URL}${Image.data.attributes.url}`}
+          title={Image.data.attributes.alternativeText}
+        />
+      }
+      <CardContent sx={{ flexGrow: 1 }}>
         <Typography gutterBottom variant="h6" component="div">
           {Title}
         </Typography>
@@ -128,13 +136,19 @@ export default function CardGroup ({ content }) {
         {content.Cards.map((card, index) => (
             <Grid
               key={index}
-              size={{
-                xs: 12,
-                sm: 6,
-                md: 4,
-                lg: 4,
-                xl: 3
-              }}
+              size={content.fullWidth
+                ? {
+                    xl: content.Cards.length < 3 ? 12 / content.Cards.length : 4,
+                    md: 6,
+                    xs: 12
+                  }
+                : {
+                    xs: 12,
+                    sm: 6,
+                    md: 4,
+                    lg: 4,
+                    xl: 3
+                  }}
               sx={{ textAlign: content.Style.textAlign }}>
               <SingleCard
                 {...card}

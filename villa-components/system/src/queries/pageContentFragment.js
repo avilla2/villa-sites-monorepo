@@ -259,6 +259,7 @@ fragment Content on ContentPageContentDynamicZone {
     }
     ... on ComponentContentPageComponentsCardGroup {
     Title
+    fullWidth
     Cards {
       Image {
         data {
