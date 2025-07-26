@@ -2,7 +2,7 @@
   "name": "villa-sites-monorepo",
   "version": "1.0.0",
   "workspaces": [
-    "villa-components/system",
+    "villa-components/*",
     "websites/*"
   ],
   "private": true,

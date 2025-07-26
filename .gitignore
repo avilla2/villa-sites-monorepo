@@ -22,6 +22,7 @@ dist
 .env.production.local
 sitemap.xml
 robots.txt
+villa-components/optimizer/src/uploads/*
 
 npm-debug.log*
 yarn-debug.log*
