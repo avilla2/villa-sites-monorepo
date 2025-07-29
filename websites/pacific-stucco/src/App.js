@@ -11,7 +11,7 @@ export default function App () {
       <VillaComponentSystem
         defaultSiteId={DEFAULT_SITE_ID}
         loadingComponent={<LoadingSVG />}
-        fonts={['"Candal"', '"Fira Sans"']}
+        fonts={['"Varela"', '"Fira Sans"']}
       />
     </div>
   )
