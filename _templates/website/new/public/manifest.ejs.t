@@ -1,0 +1,22 @@
+---
+to: websites/<%= name %>/public/manifest.json
+---
+{
+  "name": "<%= fullName %>",
+  "short_name": "<%= shortName %>",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#2f2f2f",
+  "background_color": "#2f2f2f",
+  "display": "standalone"
+}
