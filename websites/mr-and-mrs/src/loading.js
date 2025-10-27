@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from './images/MrAndMrsLogo.png'
+import logo from './images/logo_standard_white.png'
 
 export default function Loading () {
   return (
