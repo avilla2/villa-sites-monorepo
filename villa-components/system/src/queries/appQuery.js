@@ -5,69 +5,35 @@ import PAGE_CONTENT_FRAGMENT from './pageContentFragment'
 import SITESETTINGS_FRAGMENT from './siteSettingsFragment'
 
 const APP_QUERY = gql`
-query Website($id: ID) {
-  website(id: $id) {
-    data {
-      id
-      attributes {
-        name
-        locale
-        localizations {
-          data {
-            id
-            attributes {
-              locale
-            }
-          }
-        }
-        navbar{
-          data {
-            id
-            attributes {
-              ...NavbarFragment
-            }
-          }
-        }
-        footer {
-          data {
-            id
-            attributes {
-              ...FooterFragment
-            }
-          }
-        }
-        site_settings {
-          data {
-            id
-            attributes {
-              ...SiteSettingsFragment
-            }
-          }
-        }
-        homepage {
-          data {
-            id
-            attributes {
-              PageName
-              Title
-              Content {
-                ...Content
-              }
-            }
-          }
-        }
-        content_pages {
-          data {
-            attributes {
-              Name
-              Title
-              Link
-              Content {
-                ...Content
-              }
-            }
-          }
-        }
+query Website($id: ID!) {
+  website(documentId: $id) {
+    name
+    locale
+    localizations {
+      locale
+    }
+    navbar {
+      ...NavbarFragment
+    }
+    footer {
+      ...FooterFragment
+    }
+    site_settings {
+      ...SiteSettingsFragment
+    }
+    homepage {
+      PageName
+      Title
+      Content {
+        ...Content
+      }
+    }
+    content_pages {
+      Name
+      Title
+      Link
+      Content {
+        ...Content
       }
     }
   }

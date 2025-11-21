@@ -10,6 +10,12 @@ const classes = {
   }
 }
 
+/**
+ * GenerateFooterContent component - Routes footer content to appropriate component based on type
+ * @param {Object} props - GenerateFooterContent props
+ * @param {FooterContent} props.content - Footer content item (FooterImage, FooterText, or FooterIcons)
+ * @returns {JSX.Element} The appropriate footer component or error message
+ */
 export default function GenerateFooterContent (props) {
   const renderComponent = (object) => {
     switch (object.__typename) {

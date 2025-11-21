@@ -33,6 +33,15 @@ const generateIcon = (iconName) => {
       return <OpenInNewIcon fontSize='large' />
   }
 }
+
+/**
+ * Icons component - Renders a row of social media icon buttons
+ * @param {Object} props - Icons component props
+ * @param {FooterIcons} props.content - Footer icons content object
+ * @property {FooterIconEntry[]} props.content.Entry - Array of icon entries with Icon, Link, and Color
+ * @property {string} props.content.Space - Space/width allocation
+ * @returns {JSX.Element} The Icons component
+ */
 export default function Icons ({ content }) {
   return (
         <Box sx={classes.root}>

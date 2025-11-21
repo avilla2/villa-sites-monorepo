@@ -146,6 +146,16 @@ const classes = {
   }
 }
 
+/**
+ * NavLink component - Renders a text-based navigation link with hover animation
+ * @param {Object} props - NavLink props
+ * @param {string} props.title - Link display text
+ * @param {string} props.link - Target URL for the link
+ * @param {string} props.id - Unique identifier for the link
+ * @param {string} props.active - Currently active link ID for highlighting
+ * @param {boolean} props.shadow - Whether to apply text shadow effect
+ * @returns {JSX.Element} The NavLink component
+ */
 const NavLink = ({ title, link, id, active, shadow, ...props }) => {
   return (
     <ButtonBase
@@ -176,6 +186,16 @@ const NavLink = ({ title, link, id, active, shadow, ...props }) => {
   )
 }
 
+/**
+ * NavButtonIcon component - Renders a navigation button with an image icon
+ * @param {Object} props - NavButtonIcon props
+ * @param {string} props.link - Target URL for the button
+ * @param {boolean} props.external - Whether the link is external
+ * @param {string} props.src - Image source URL
+ * @param {string} props.alt - Alternative text for the image
+ * @param {number} props.width - Width of the icon image
+ * @returns {JSX.Element} The NavButtonIcon component
+ */
 const NavButtonIcon = ({ link, external, src, alt, width }) => {
   return (
     <Button component={external ? 'a' : Link} href={link} to={link} sx={{ ...classes.title, display: 'flex' }}>
@@ -184,6 +204,15 @@ const NavButtonIcon = ({ link, external, src, alt, width }) => {
   )
 }
 
+/**
+ * NavButton component - Renders a styled action button in the navbar
+ * @param {Object} props - NavButton props
+ * @param {string} props.text - Button display text
+ * @param {string} props.color - Button background color
+ * @param {string} props.link - Target URL for the button
+ * @param {string} props.fontColor - Text color for the button
+ * @returns {JSX.Element} The NavButton component
+ */
 const NavButton = ({ text, color, link, fontColor }) => {
   return (
     <Button
@@ -201,6 +230,16 @@ const NavButton = ({ text, color, link, fontColor }) => {
   )
 }
 
+/**
+ * NavMenu component - Renders a dropdown navigation menu with submenu items
+ * @param {Object} props - NavMenu props
+ * @param {string} props.title - Menu display title
+ * @param {NavMenuItem[]} props.menuItem - Array of menu items
+ * @param {string} props.active - Currently active link ID for highlighting
+ * @param {boolean} props.shadow - Whether to apply text shadow effect
+ * @param {string} props.fontColor - Font color for menu items
+ * @returns {JSX.Element} The NavMenu component
+ */
 const NavMenu = ({ title, menuItem, active, shadow, fontColor }) => {
   return (
     <Box sx={[classes.navMenuContainer, menuItem.some(item => item.link === active) && classes.activeLink]}>
@@ -233,12 +272,12 @@ const NavMenu = ({ title, menuItem, active, shadow, fontColor }) => {
             sx={[classes.subMenuLink, active === item.link && classes.activeLink, classes.textColor(fontColor)]}
             dense
           >
-            {item.icon.data &&
+            {item.icon &&
               <ListItemIcon>
                   <img
                     style={{ maxWidth: 20, maxHeight: 20 }}
-                    src={`${process.env.REACT_APP_BACKEND_URL}${item.icon.data.attributes.url}`}
-                    alt={item.icon.data.attributes.name}
+                    src={`${process.env.REACT_APP_BACKEND_URL}${item.icon.url}`}
+                    alt={item.icon.name}
                   />
               </ListItemIcon>
             }
@@ -259,6 +298,17 @@ const NavMenu = ({ title, menuItem, active, shadow, fontColor }) => {
   )
 }
 
+/**
+ * MobileDrawer component - Renders the side drawer menu for mobile navigation
+ * @param {Object} props - MobileDrawer props
+ * @param {NavbarItem[]} props.links - Array of navbar items to display
+ * @param {string} props.drawerLink - Link for the drawer header
+ * @param {string} props.drawerText - Text for the drawer header
+ * @param {Function} props.toggleDrawer - Function to toggle drawer open/closed state
+ * @param {string} props.fontColor - Font color for drawer content
+ * @param {string} props.active - Currently active link ID for highlighting
+ * @returns {JSX.Element} The MobileDrawer component
+ */
 const MobileDrawer = ({ links, drawerLink, drawerText, toggleDrawer, fontColor, active }) => {
   const navButtonList = []
   const [openButtons, setOpenButtons] = useState({})
@@ -359,8 +409,8 @@ const MobileDrawer = ({ links, drawerLink, drawerText, toggleDrawer, fontColor, 
                   id={item.Link}
                   external={isExternal(item.Link)}
                   width={item.Width} link={item.Link}
-                  src={`${process.env.REACT_APP_BACKEND_URL}${item.Image.data.attributes.url}`}
-                  alt={item.Image.data.attributes.name}
+                  src={`${process.env.REACT_APP_BACKEND_URL}${item.Image.url}`}
+                  alt={item.Image.name}
                 />
               </Box>
                 )
@@ -382,12 +432,21 @@ const MobileDrawer = ({ links, drawerLink, drawerText, toggleDrawer, fontColor, 
   )
 }
 
+/**
+ * NavComponentDesktop component - Renders the appropriate navbar item component based on type
+ * @param {Object} props - NavComponentDesktop props
+ * @param {NavbarItem} props.item - The navbar item to render
+ * @param {string} props.active - Currently active link ID for highlighting
+ * @param {string} props.fontColor - Font color for the item
+ * @param {boolean} props.shadow - Whether to apply text shadow effect
+ * @returns {JSX.Element} The appropriate navbar component or empty fragment
+ */
 const NavComponentDesktop = ({ item, active, fontColor, shadow }) => {
   switch (item.__typename) {
     case 'ComponentNavbarComponentsTextLink':
       return <NavLink id={item.Link} title={item.Title} link={item.Link} active={active} shadow={shadow} />
     case 'ComponentNavbarComponentsImageLink':
-      return <NavButtonIcon id={item.Link} external={isExternal(item.Link)} width={item.Width} link={item.Link} src={`${process.env.REACT_APP_BACKEND_URL}${item.Image.data.attributes.url}`} alt={item.Image.data.attributes.name} />
+      return <NavButtonIcon id={item.Link} external={isExternal(item.Link)} width={item.Width} link={item.Link} src={`${process.env.REACT_APP_BACKEND_URL}${item.Image.url}`} alt={item.Image.name} />
     case 'ComponentNavbarComponentsNavButton':
       return <NavButton id={item.Link} link={item.Link} color={item.Color} text={item.Text} fontColor={fontColor} />
     case 'ComponentNavbarComponentsNavMenu':
@@ -397,6 +456,20 @@ const NavComponentDesktop = ({ item, active, fontColor, shadow }) => {
   }
 }
 
+/**
+ * Navbar component - Main navigation bar component that renders responsive navbar for desktop and mobile
+ * @param {Object} props - Navbar props
+ * @param {string} props.page - Current page name/title
+ * @param {string} props.navIndex - Currently active navigation index/link
+ * @param {NavbarItem[]} props.Items - Array of navigation items
+ * @param {MobileConfig} props.MobileConfig - Mobile-specific configuration
+ * @param {string} props.Style - Navbar layout style (Spaced, Left_Aligned, Split, or default)
+ * @param {string} props.Appearance - Navbar appearance style
+ * @param {string} props.FontColor - Font color for the navbar
+ * @param {number} props.minSize - Minimum width breakpoint for desktop layout
+ * @param {string} props.mobileTitle - Title to display on mobile navbar
+ * @returns {JSX.Element} The Navbar component with responsive desktop and mobile layouts
+ */
 export default function Navbar ({
   page,
   navIndex,
@@ -531,7 +604,7 @@ export default function Navbar ({
                     >
                       <img
                         style={classes.mobileLogo}
-                        src={`${process.env.REACT_APP_BACKEND_URL}${mobileData.MobileIcon.data.attributes.url}`}
+                        src={`${process.env.REACT_APP_BACKEND_URL}${mobileData.MobileIcon.url}`}
                         alt="Logo"
                       />
                     </IconButton>

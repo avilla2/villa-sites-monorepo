@@ -30,5 +30,5 @@ module.exports = {
   rules: {
     'react/prop-types': 'off'
   },
-  ignorePatterns: ['dist/', 'bundle.js']
+  ignorePatterns: ['dist/', 'bundle.js', 'node_modules/']
 }

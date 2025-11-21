@@ -80,6 +80,14 @@ const createThemeConfigs = (palette, fonts) => {
   })
 }
 
+/**
+ * ThemeProvider component that applies MUI theme with custom palette and fonts
+ * @param {Object} props - ThemeProvider props
+ * @param {Palette} props.palette - Palette object containing color definitions
+ * @param {Array<string>} props.fonts - Array of font names to be used in the theme
+ * @param {React.ReactNode} props.children - Child components to be wrapped by the ThemeProvider
+ * @returns {React.ReactElement} The ThemeProvider component
+ */
 export default function ThemeProvider ({ palette, fonts, children }) {
   return (
     <MuiThemeProvider theme={createThemeConfigs(palette, fonts)}>

@@ -16,7 +16,8 @@
     "test": "npx lerna run test",
     "generate": "npx lerna run --scope @villa-components/system generate",
     "deploy": "npx lerna run deploy --scope",
-    "deploy-all": "npx lerna run deploy"
+    "deploy-all": "npx lerna run deploy",
+    "lint": "npx lerna run lint"
   },
   "eslintConfig": {
     "extends": [
@@ -33,6 +34,7 @@
     "@strapi/blocks-react-renderer": "^1.0.1",
     "graphql": "^16.7.1",
     "hygen": "^6.2.11",
+    "jsdoc": "^4.0.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-imask": "^7.5.0",

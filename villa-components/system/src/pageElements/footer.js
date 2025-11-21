@@ -19,8 +19,56 @@ const classes = {
   }
 }
 
+/**
+ * Footer component - Main footer component displaying footer content, links, and language selector
+ * @param {Object} props - Footer props
+ * @param {FooterContent[]} props.Content - Array of footer content items (images, text, icons)
+ * @param {string} props.FontColor - Font color for footer content
+ * @param {boolean} props.enableLocalization - Whether to show language selector
+ * @param {string} props.locale - Current active locale/language code
+ * @param {FooterLink[]} props.links - Array of footer links
+ * @returns {JSX.Element} The Footer component
+ */
 export default function Footer ({ Content, FontColor: fontColor, enableLocalization, locale, links }) {
   const [modalOpen, setModalOpen] = useState(false)
+
+  /**
+   * Render language selector component with apollo query data
+   * @param {Object} props
+   * @param {LocalesQueryData} props.data - Locales data
+   * @returns {JSX.Element} The language selector component
+   */
+  const renderLanguageSelector = ({ data }) => {
+    const localeData = data.i18NLocales
+    const currentLocaleData = localeData.find(localeObject => localeObject.code === locale)
+    const currentLanguage = currentLocaleData ? currentLocaleData.name : 'Language'
+
+    return (
+      <React.Fragment>
+        <LanguageModal
+          fontColor={fontColor}
+          open={modalOpen}
+          handleClose={() => setModalOpen(false)}
+          options={localeData}
+        />
+        <Grid>
+          <Link
+            onClick={() => setModalOpen(true)}
+            underline="hover"
+            sx={{
+              color: fontColor,
+              display: 'flex',
+              alignItems: 'center',
+              cursor: 'pointer'
+            }}
+          >
+            <LanguageIcon />
+            <Typography sx={{ pl: 1 }}>{currentLanguage}</Typography>
+          </Link>
+        </Grid>
+      </React.Fragment>
+    )
+  }
 
   return (
       <Box sx={classes.root} bgcolor="info.main" component="div" style={ fontColor ? { color: fontColor } : null }>
@@ -81,37 +129,7 @@ export default function Footer ({ Content, FontColor: fontColor, enableLocalizat
               query={localesQuery}
               loadingComponent={<Skeleton variant="text" sx={{ fontSize: '1rem' }} />}
             >
-              {({ data }) => {
-                const localeData = data.i18NLocales.data
-                const currentLocaleData = localeData.find(localeObject => localeObject.attributes.code === locale)
-                const currentLanguage = currentLocaleData ? currentLocaleData.attributes.name : 'Language'
-
-                return (
-                  <React.Fragment>
-                    <LanguageModal
-                      fontColor={fontColor}
-                      open={modalOpen}
-                      handleClose={() => setModalOpen(false)}
-                      options={localeData}
-                    />
-                    <Grid>
-                      <Link
-                        onClick={() => setModalOpen(true)}
-                        underline="hover"
-                        sx={{
-                          color: fontColor,
-                          display: 'flex',
-                          alignItems: 'center',
-                          cursor: 'pointer'
-                        }}
-                      >
-                        <LanguageIcon />
-                        <Typography sx={{ pl: 1 }}>{currentLanguage}</Typography>
-                      </Link>
-                    </Grid>
-                  </React.Fragment>
-                )
-              }}
+              {renderLanguageSelector}
             </Query>
             }
           </Grid>
