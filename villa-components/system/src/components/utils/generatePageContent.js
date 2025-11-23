@@ -22,6 +22,13 @@ const classes = {
 const fullHeightComponents = ['ComponentHomePageComponentsIntro', 'ComponentContentPageComponentsImage', 'ComponentHomePageComponentsMedia']
 const halfHeightComponents = []
 
+/**
+ * GeneratePageContent component - Renders page content based on its type with appropriate styling and padding
+ * @param {Object} props - GeneratePageContent props
+ * @param {ContentComponent} props.content - Content component to render
+ * @param {boolean} props.lastComponent - Whether this is the last component on the page
+ * @returns {JSX.Element} The GeneratePageContent component
+ */
 export default function GeneratePageContent ({ content, lastComponent }) {
   const padding = calculatePadding(lastComponent, fullHeightComponents, halfHeightComponents, content.__typename)
   const styles = content?.Style

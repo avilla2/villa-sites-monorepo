@@ -19,6 +19,12 @@ const classes = {
   })
 }
 
+/**
+ * Faq component - Renders a FAQ section with expandable entries
+ * @param {Object} props - Faq props
+ * @param {FaqComponent} props.content - FAQ content object
+ * @returns {JSX.Element} The Faq component
+ */
 export default function Faq ({ content }) {
   return (
     <Box sx={classes.root}>

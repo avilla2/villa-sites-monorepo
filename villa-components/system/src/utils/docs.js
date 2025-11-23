@@ -9,7 +9,7 @@
 
 /**
  * @typedef {Object} SiteSettings
- * @property {number} DesktopBreakpoint - The breakpoint width for desktop layout
+ * @property {string} DesktopBreakpoint - The breakpoint width for desktop layout, can be xs, sm or md
  * @property {boolean} EnableLocalization - Whether multi-language support is enabled
  * @property {string} SiteTitle - The main title of the website
  * @property {Palette} Palette - Color palette configuration

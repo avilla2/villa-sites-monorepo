@@ -79,10 +79,16 @@ const FormField = ({ value, error, handleFormChange, id, label, fullWidth, type 
   )
 }
 
+/**
+ * Contact component - Renders a contact form with validation and email sending functionality
+ * @param {Object} props - Contact props
+ * @param {FormComponent} props.content - Contact content object
+ * @returns {JSX.Element} The Contact component
+ */
 export default function Contact ({ content }) {
-  const defaultDataFields = content.fields.reduce((allFields, newField) => ({ ...allFields, [newField.name]: '' }), {})
-  const defaultErrorFields = content.fields.reduce((allFields, newField) => ({ ...allFields, [newField.name]: false }), {})
-  const defaultValidationFields = content.fields.reduce((allFields, newField) => ({ ...allFields, [newField.name]: newField.validation ? new RegExp(newField.validation) : /./ }), {})
+  const defaultDataFields = content.formFields.reduce((allFields, newField) => ({ ...allFields, [newField.name]: '' }), {})
+  const defaultErrorFields = content.formFields.reduce((allFields, newField) => ({ ...allFields, [newField.name]: false }), {})
+  const defaultValidationFields = content.formFields.reduce((allFields, newField) => ({ ...allFields, [newField.name]: newField.validation ? new RegExp(newField.validation) : /./ }), {})
 
   const [data, setData] = useState({
     ...defaultDataFields,
@@ -166,7 +172,7 @@ export default function Contact ({ content }) {
                     alignItems="center"
                     spacing={2}
                 >
-                  {content.fields.map((field, index) => {
+                  {content.formFields.map((field, index) => {
                     return (
                       <FormField
                         key={index}

@@ -17,6 +17,11 @@ import CardGroup from '../contentPageComponents/cardGroup'
 import List from '../contentPageComponents/list'
 import Slideshow from '../homePageComponents/slideshow'
 
+/**
+ * renderComponent function - Renders the appropriate component based on its __typename
+ * @param {ContentComponent} object - The content component object to render
+ * @returns {JSX.Element} The appropriate content component or error message
+ */
 const renderComponent = (object) => {
   switch (object.__typename) {
     case 'ComponentContentPageComponentsParagraph':
