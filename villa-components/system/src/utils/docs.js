@@ -52,7 +52,7 @@
  */
 
 /**
- * @typedef {Object} FormData
+ * @typedef {Object} CustomFormData
  * @property {string} SendTo - Email address to send form submissions to
  * @property {string} SendFrom - Email address to send from
  * @property {string} BodyTitle - Title for the email body
@@ -62,12 +62,12 @@
  * @typedef {Object} IntroComponent
  * @property {string} __typename - Always 'ComponentHomePageComponentsIntro'
  * @property {ComponentStyle} Style - Component styling
- * @property {FileData} File - Main file/image
+ * @property {FileData[]} File - Main files/images
  * @property {string} IntroText - Introductory text content
  * @property {string} TextPosition - Position of text (left, right, center, etc.)
- * @property {FileData} MobileFile - Mobile-specific image/file
+ * @property {FileData[]} MobileFile - Mobile-specific images/files
  * @property {Button[]} Buttons - Array of buttons
- * @property {FormData} FormData - Form configuration
+ * @property {CustomFormData} FormData - Form configuration
  * @property {FormField[]} FormFields - Form field definitions
  */
 
@@ -163,6 +163,7 @@
  * @property {ComponentStyle} Style - Component styling
  * @property {string} bodyTitle - Title for form body
  * @property {string} sendTo - Email to send form to
+ * @property {string} sendFrom - Email to send form response from
  * @property {FormField[]} formFields - Form field definitions
  */
 
@@ -170,6 +171,7 @@
  * @typedef {Object} GridEntry
  * @property {Object} Picture - Grid item picture
  * @property {string} Picture.url - Picture URL
+ * @property {string} Picture.alternativeText - Picture alt text
  * @property {string} Caption - Picture caption
  */
 

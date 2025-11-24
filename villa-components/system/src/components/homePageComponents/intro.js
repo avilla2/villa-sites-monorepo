@@ -107,10 +107,17 @@ const getMime = (mime) => {
   return mime.split('/')[0]
 }
 
+/**
+ * GenerateMedia component - Renders media content (image, video, or slideshow) based on provided files
+ * @param {Object} props - GenerateMedia props
+ * @param {FileData[]} props.files - Media files object
+ * @param {boolean} props.mobile - Whether to render for mobile
+ * @returns {JSX.Element}
+ */
 const GenerateMedia = ({ mobile, files }) => {
-  const { data } = files
+  const data = files
   if (data.length <= 1) {
-    const attributes = data[0].attributes
+    const attributes = data[0]
     const mime = getMime(attributes.mime)
     if (mime === 'video') {
       return (
@@ -157,13 +164,19 @@ const getIntroStyle = (style) => {
   }
 }
 
+/**
+ * Intro component - Renders an intro section with media, text overlay, buttons, and optional contact form
+ * @param {Object} props - Intro props
+ * @param {IntroComponent} props.content - Intro content object
+ * @returns {JSX.Element} The Intro component
+ */
 export default function Intro ({ content }) {
   const mobile = useMediaQuery(theme => theme.breakpoints.down('md'))
 
   return (
     <Box sx={styles.base}>
       <Box sx={styles.contentWrapper}>
-        {mobile && content?.MobileFile?.data?.length
+        {mobile && content?.MobileFile?.length
           ? <GenerateMedia files={content.MobileFile} mobile={true}/>
           : <GenerateMedia files={content.File} mobile={mobile}/>
         }
@@ -193,7 +206,7 @@ export default function Intro ({ content }) {
               <Box sx={{ backgroundColor: 'white', margin: 'auto 16px', borderRadius: 3, maxWidth: 400 }}>
               <Contact
                 content={{
-                  fields: content.FormFields,
+                  formFields: content.FormFields,
                   sendTo: content.FormData.SendTo,
                   sendFrom: content.FormData.SendFrom,
                   bodyTitle: content.FormData.BodyTitle

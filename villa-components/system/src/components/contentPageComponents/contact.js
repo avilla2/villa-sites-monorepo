@@ -41,6 +41,18 @@ const MaskedTextField = IMaskMixin(
   )
 )
 
+/**
+ * FormField component - Renders a single form field with optional masking for phone numbers
+ * @param {Object} params FormField params
+ * @param {string} params.value - The value of the form field
+ * @param {boolean} params.error - Whether the form field has an error
+ * @param {function} params.handleFormChange - Function to handle changes to the form field
+ * @param {string} params.id - The ID of the form field
+ * @param {string} params.label - The label of the form field
+ * @param {boolean} params.fullWidth - Whether the form field should be full width
+ * @param {string} params.type - The type of the form field (e.g., 'phone')
+ * @returns {JSX.Element} The FormField component
+ */
 const FormField = ({ value, error, handleFormChange, id, label, fullWidth, type }) => {
   return (
     <Grid item md={fullWidth ? 12 : 6} xs={12}>

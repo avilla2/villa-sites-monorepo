@@ -126,6 +126,7 @@ fragment Content on ContentPageContentDynamicZone {
       }
       bodyTitle
       sendTo
+      sendFrom
       formFields {
         name
         label
@@ -143,6 +144,7 @@ fragment Content on ContentPageContentDynamicZone {
     Entry {
       Picture {
         url
+        alternativeText
       }
       Caption
     }

@@ -20,6 +20,12 @@ const classes = {
   }
 }
 
+/**
+ * PictureGrid component - Renders a grid of pictures with captions and optional animation
+ * @param {Object} props - PictureGrid props
+ * @param {GridComponent} props.content - Picture grid content object
+ * @returns {JSX.Element} The PictureGrid component
+ */
 export default function PictureGrid ({ content }) {
   return (
         <Box sx={classes.root}>
@@ -35,11 +41,11 @@ export default function PictureGrid ({ content }) {
                   <Grid xs={12} sm={6} md={4} item key={index}>
                       <AnimationProvider animation={content?.Style?.Animation} timeout={1000 + (index * 300)} partialVisibility>
                           <div>
-                              {entry?.Picture?.data &&
+                              {entry?.Picture &&
                                   <img
                                       style={classes.image}
-                                      src={`${process.env.REACT_APP_BACKEND_URL}${entry.Picture.data?.attributes.url}`}
-                                      alt={entry.Picture.id}
+                                      src={`${process.env.REACT_APP_BACKEND_URL}${entry.Picture.url}`}
+                                      alt={entry.Picture.alternativeText}
                                   />
                               }
                               <Box sx={classes.caption}>

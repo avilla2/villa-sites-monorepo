@@ -40,8 +40,6 @@ const renderComponent = (object) => {
       return <Intro content={object} />
     case 'ComponentHomePageComponentsGallery':
       return <Gallery content={object} />
-    case 'ComponentHomePageComponentsTextGrid':
-      return <TextGrid content={object} />
     case 'ComponentHomePageComponentsMedia':
       return <Media content={object} />
     case 'ComponentHomePageComponentsCards':

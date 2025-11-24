@@ -68,6 +68,12 @@ const classes = {
   }
 }
 
+/**
+ * InstantQuoteCalculator component - Renders an instant quote calculator with multiple phases including service selection, size input, quote display, and contact form
+ * @param {Object} props - InstantQuoteCalculator props
+ * @param {InstantQuoteComponent} props.content - Instant quote calculator content object
+ * @returns {JSX.Element} The InstantQuoteCalculator component
+ */
 export default function InstantQuoteCalculator ({ content }) {
   const [componentPhase, setComponentPhase] = useState(0)
   const [quoteDetails, setQuoteDetails] = useState({ pricePer: 0, jobType: '', minimum: 0 })
@@ -86,6 +92,12 @@ export default function InstantQuoteCalculator ({ content }) {
     failure: false
   })
 
+  /**
+   * handlePhase1Change - Handles the transition to phase 2 by setting quote details
+   * @param {number} amount - price per unit
+   * @param {string} type - job type
+   * @param {string} minimum - price minimum
+   */
   const handlePhase1Change = (amount, type, minimum) => {
     setQuoteDetails({ pricePer: amount, jobType: type, priceMinimum: minimum })
     setComponentPhase(2)
