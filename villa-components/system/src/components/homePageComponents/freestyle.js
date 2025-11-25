@@ -8,6 +8,12 @@ const classes = {
   }
 }
 
+/**
+ * Rich Text/Freestyle component - Renders rich text content
+ * @param {Object} props - Freestyle props
+ * @param {RichTextComponent} props.content - Freestyle content object
+ * @returns {JSX.Element} The Freestyle component
+ */
 export default function Freestyle ({ content }) {
   return (
         <div style={classes.root}>

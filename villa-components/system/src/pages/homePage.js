@@ -9,6 +9,16 @@ const classes = {
   }
 }
 
+/**
+ * HomePage component - Renders the home page with dynamic content components
+ * @param {Object} props - HomePage props
+ * @param {function} props.setPage - Function to set the current page name
+ * @param {function} props.setNavIndex - Function to set the current navigation index/path
+ * @param {string} props.path - Path/URL of the page
+ * @param {ContentComponent[]} props.content - Array of content items to render on the page
+ * @param {string} props.pageName - Name of the page
+ * @returns {JSX.Element} The HomePage component
+ */
 export default function HomePage ({ setPage, setNavIndex, path, content, pageName }) {
   useEffect(() => {
     setPage(pageName)

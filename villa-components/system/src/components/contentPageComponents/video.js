@@ -9,11 +9,17 @@ const classes = {
   }
 }
 
+/**
+ * Video component - Renders a video with given configurations
+ * @param {Object} props - Video props
+ * @param {VideoComponent} props.content - Video content object
+ * @returns {JSX.Element} The Video component
+ */
 export default function Video ({ content }) {
   const mobile = useMediaQuery(theme => theme.breakpoints.down('md'))
   return (
     <Box style={classes.root}>
-      { content.asset.data &&
+      { content.asset &&
           <video
             style={{ width: mobile ? '100%' : `${content.width}%` }}
             loop={content.loop}
@@ -22,8 +28,8 @@ export default function Video ({ content }) {
             muted={content.autoplay || content.muted}
         >
           <source
-              src={`${process.env.REACT_APP_BACKEND_URL}${content.asset.data.attributes.url}`}
-              type={content.asset.data.attributes.mime}
+              src={`${process.env.REACT_APP_BACKEND_URL}${content.asset.url}`}
+              type={content.asset.mime}
           />
         </video>
       }

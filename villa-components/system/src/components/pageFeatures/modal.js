@@ -25,6 +25,14 @@ const style = (theme) => ({
   }
 })
 
+/**
+ * CustomModal component - Renders a modal with slide transition
+ * @param {Object} props - CustomModal props
+ * @param {boolean} props.open - Whether the modal is open
+ * @param {Function} props.handleClose - Function to handle closing the modal
+ * @param {React.ReactNode} props.children - Content to be displayed inside the modal
+ * @returns {JSX.Element} The CustomModal component
+ */
 export default function CustomModal ({ open, handleClose, children }) {
   return (
     <Modal

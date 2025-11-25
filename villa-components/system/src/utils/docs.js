@@ -105,6 +105,8 @@
  * @property {Object} File - Video file information
  * @property {string} File.url - URL to the video
  * @property {number} File.width - Video width
+ * @property {string} File.alternativeText - Alternative text
+ * @property {string} File.mime - MIME type of the video
  */
 
 /**
@@ -123,7 +125,7 @@
  * @typedef {Object} Asset
  * @property {string} Name - Asset name
  * @property {string} Caption - Asset caption/description
- * @property {(PdfContent|VideoContent|ImageAssetContent)} Content - Asset content (union type)
+ * @property {(PdfContent|VideoContent|ImageAssetContent)[]} Content - Asset content (union type)
  */
 
 /**
@@ -233,6 +235,7 @@
  * @property {string} asset.url - Video URL
  * @property {number} asset.width - Video width
  * @property {string} asset.alternativeText - Alternative text
+ * @property {string} asset.mime - MIME type of the video
  */
 
 /**
@@ -251,13 +254,13 @@
  */
 
 /**
- * @typedef {Object} Card
+ * @typedef {Object} CardGroupCard
  * @property {Object} Image - Card image
  * @property {string} Image.url - Image URL
  * @property {number} Image.width - Image width
  * @property {string} Image.alternativeText - Alternative text
  * @property {string} Title - Card title
- * @property {string} Text - Card body text
+ * @property {Object} Text - Card body text in strapi blocks format
  * @property {string} ButtonText - Button display text
  * @property {string} ButtonColor - Button color
  * @property {string} CardColor - Card background color
@@ -270,7 +273,7 @@
  * @property {string} __typename - Always 'ComponentContentPageComponentsCardGroup'
  * @property {string} Title - Card group title
  * @property {boolean} fullWidth - Whether to span full width
- * @property {Card[]} Cards - Array of cards
+ * @property {CardGroupCard[]} Cards - Array of cards
  * @property {ComponentStyle} Style - Component styling
  */
 
@@ -314,7 +317,7 @@
  * @property {string} __typename - Always 'ComponentHomePageComponentsRichText'
  * @property {string} Title - RichText title
  * @property {ComponentStyle} Style - Component styling
- * @property {string} RichText - Rich text HTML content
+ * @property {Object} RichText - Rich text strapi blocks content
  */
 
 /**

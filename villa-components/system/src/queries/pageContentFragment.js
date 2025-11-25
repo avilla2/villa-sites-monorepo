@@ -86,6 +86,8 @@ fragment Content on ContentPageContentDynamicZone {
           File {
             url
             width
+            alternativeText
+            mime
           }
         }
         ... on ComponentAssetComponentsImage {

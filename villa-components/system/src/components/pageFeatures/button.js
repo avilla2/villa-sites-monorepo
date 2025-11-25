@@ -27,6 +27,18 @@ const getButtonColor = (color, style, def) => {
   }
 }
 
+/**
+ * CustomButton component - Renders a button with various styles and link handling
+ * @param {Object} props - CustomButton props
+ * @param {string} props.buttonStyle - Style of the button ('contained', 'outlined', 'text')
+ * @param {React.ReactNode} props.children - Button label or content
+ * @param {string} props.link - URL or path the button links to
+ * @param {function} props.onClick - Click handler function
+ * @param {boolean} props.mobile - Whether the button is in mobile view
+ * @param {string} props.color - Color of the button
+ * @param {boolean} props.disabled - Whether the button is disabled
+ * @returns {JSX.Element} The CustomButton component
+ */
 export default function CustomButton ({ buttonStyle, children, link, onClick, mobile, color, disabled, ...props }) {
   const theme = useTheme()
 

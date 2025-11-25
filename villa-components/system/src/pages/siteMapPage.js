@@ -11,6 +11,14 @@ const classes = {
   }
 }
 
+/**
+ * SiteMap component - Renders a site map with links to all content pages
+ * @param {Object} props - SiteMap props
+ * @param {function} props.setPage - Function to set the current page name
+ * @param {Page[]} props.contentPages - Array of content pages with their attributes
+ * @param {string} props.locale - Current locale/language code
+ * @returns {JSX.Element} The SiteMap component
+ */
 export default function SiteMap ({ setPage, contentPages, locale }) {
   useEffect(() => {
     setPage('Site Map')

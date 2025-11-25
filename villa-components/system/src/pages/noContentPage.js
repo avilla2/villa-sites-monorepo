@@ -9,6 +9,10 @@ const classes = {
   }
 }
 
+/**
+ * NoContentPage component - Renders a maintenance message when the website is down
+ * @returns {JSX.Element} The NoContentPage component
+ */
 export default function NoContentPage () {
   return (
         <Box sx={classes.root}>

@@ -15,7 +15,13 @@ const classes = {
   }
 }
 
-export default function Template ({ content }) {
+/**
+ * List component - Renders a list of items with optional caption
+ * @param {Object} props - List props
+ * @param {ListComponent} props.content - List content object
+ * @returns {JSX.Element} The List component
+ */
+export default function List ({ content }) {
   return (
     <Box sx={classes.root}>
       <Grid
@@ -58,8 +64,8 @@ export default function Template ({ content }) {
             >
               <Grid item>
                 <img
-                  src={`${process.env.REACT_APP_BACKEND_URL}${content?.Icon?.data.attributes.url}`}
-                  alt={content?.Icon?.data.attributes.alternativeText}
+                  src={`${process.env.REACT_APP_BACKEND_URL}${content?.Icon?.url}`}
+                  alt={content?.Icon?.alternativeText}
                   style={{ width: 40 }}
                 />
               </Grid>

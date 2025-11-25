@@ -12,6 +12,12 @@ const classes = {
   }
 }
 
+/**
+ * Image component - Renders an image with optional styles and caption
+ * @param {Object} props - Image props
+ * @param {ImageComponent} props.content - Image content object
+ * @returns {JSX.Element} The Image component
+ */
 export default function Image ({ content }) {
   const mobile = useMediaQuery(theme => theme.breakpoints.down('md'))
   const height = content.height === 0 ? 'auto' : `${content.height}vh`
@@ -21,8 +27,8 @@ export default function Image ({ content }) {
     return (
       <Box sx={classes.root} pt={0}>
         <Parallax
-          bgImage={`${process.env.REACT_APP_BACKEND_URL}${content.asset.data.attributes.url}`}
-          bgImageAlt={content.asset.data.attributes.alternativeText}
+          bgImage={`${process.env.REACT_APP_BACKEND_URL}${content.asset.url}`}
+          bgImageAlt={content.asset.alternativeText}
           strength={200}
         >
           <div style={{ height }}></div>
@@ -49,16 +55,16 @@ export default function Image ({ content }) {
               ? (
               <Paper elevation={8} style={{ width: mobile ? '90%' : `${content.width}%`, height, margin: 'auto', borderRadius: 25, display: 'flex' }}>
               <img
-                src={`${process.env.REACT_APP_BACKEND_URL}${content.asset.data.attributes.url}`}
-                alt={content.asset.data.attributes.alternativeText}
+                src={`${process.env.REACT_APP_BACKEND_URL}${content.asset.url}`}
+                alt={content.asset.alternativeText}
                 style={{ width: '100%', borderRadius: 'inherit' }}
               />
             </Paper>
                 )
               : (
               <img
-                src={`${process.env.REACT_APP_BACKEND_URL}${content.asset.data.attributes.url}`}
-                alt={content.asset.data.attributes.alternativeText}
+                src={`${process.env.REACT_APP_BACKEND_URL}${content.asset.url}`}
+                alt={content.asset.alternativeText}
                 style={{ width: mobile ? '100%' : `${content.width}%`, height, display: 'block', margin: 'auto' }}
               />
                 )

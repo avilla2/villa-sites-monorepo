@@ -7,9 +7,7 @@ import Buttons from '../contentPageComponents/buttonGroup'
 import InstantQuoteCalculator from '../contentPageComponents/instantQuoteCalculator'
 import Intro from '../homePageComponents/intro'
 import Gallery from '../homePageComponents/gallery'
-import TextGrid from '../homePageComponents/textGrid'
 import Media from '../homePageComponents/media'
-import Cards from '../homePageComponents/cards'
 import Freestyle from '../homePageComponents/freestyle'
 import Image from '../contentPageComponents/image'
 import Video from '../contentPageComponents/video'
@@ -42,8 +40,6 @@ const renderComponent = (object) => {
       return <Gallery content={object} />
     case 'ComponentHomePageComponentsMedia':
       return <Media content={object} />
-    case 'ComponentHomePageComponentsCards':
-      return <Cards content={object} />
     case 'ComponentContentPageComponentsImage':
       return <Image content={object} />
     case 'ComponentContentPageComponentsVideo':
