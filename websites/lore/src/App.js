@@ -6,7 +6,7 @@ import './app.css'
 const RenderingSystem = React.lazy(() => import('villa_components/VillaRenderingSystem'))
 
 export default function App () {
-  const DEFAULT_SITE_ID = 'gphzmmnxs62yz5xy17mlnjpn'
+  const DEFAULT_SITE_ID = 'xuf4accmuxd77rw93z6adw0u'
 
   return (
     <div className="App">

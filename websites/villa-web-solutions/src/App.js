@@ -3,7 +3,7 @@ import LoadingSVG from './loading'
 const VillaComponentSystem = React.lazy(() => import('villa_components/VillaComponentSystem'))
 
 export default function App () {
-  const DEFAULT_SITE_ID = 6
+  const DEFAULT_SITE_ID = 'detjyq65tnfm7csk52vubz9f'
 
   return (
     <div className="App">
