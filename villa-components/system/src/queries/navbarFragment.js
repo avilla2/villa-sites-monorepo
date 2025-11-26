@@ -18,15 +18,11 @@ fragment NavbarFragment on WebsiteNavbar {
       Color
     }
     ... on ComponentNavbarComponentsImageLink {
-      id
       Image {
-        data {
-          attributes {
-            url
-            width
-            name
-          }
-        }
+        url
+        width
+        name
+
       }
       Link
       Width
@@ -38,26 +34,18 @@ fragment NavbarFragment on WebsiteNavbar {
         text
         link
         icon {
-          data {
-            attributes {
-              url
-              width
-              alternativeText
-            }
-          }
+          url
+          width
+          alternativeText
         }
       }
     }
   }
   MobileConfig {
     MobileIcon {
-      data {
-        attributes {
-          url
-          width
-          name
-        }
-      }
+      url
+      width
+      name
     }
     DrawerText
     DrawerLink

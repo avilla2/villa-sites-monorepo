@@ -4,7 +4,7 @@
   "module": "./dist/bundle.js",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint --ignore-path .eslintignore --ext .js,.ts",
+    "lint": "eslint --ext .js,.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.prod.js",
     "generate": "node src/scripts/generateTypes.js",

@@ -17,17 +17,30 @@ const classes = {
   }
 }
 
+/**
+ * Slideshow component - Renders a slideshow with desktop and mobile slides
+ * @param {Object} props - Slideshow props
+ * @param {SlideshowComponent} props.content - Slideshow content object
+ * @param {Boolean} props.fullscreen - Whether the slideshow is fullscreen
+ * @returns {JSX.Element} The Slideshow component
+ */
 export default function Slideshow ({ content, fullscreen }) {
   const theme = useTheme()
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
 
+  /**
+   * Slide component - Renders a single slide with image and optional caption
+   * @param {Object} props - Slide props
+   * @param {Slide} props.slide - Slide object
+   * @returns {JSX.Element} The Slide component
+   */
   const Slide = ({ slide }) => (
     <div>
         <img
-            src={`${process.env.REACT_APP_BACKEND_URL}${slide.attributes.url}`}
-            alt={slide.attributes.alternativeText}
+            src={`${process.env.REACT_APP_BACKEND_URL}${slide.url}`}
+            alt={slide.alternativeText}
         />
-        {slide.attributes?.caption &&
+        {slide?.caption &&
         <div className="legend" style={classes.legendContainer}>
             <h6
                 style={{
@@ -36,7 +49,7 @@ export default function Slideshow ({ content, fullscreen }) {
                   ...classes.legend
                 }}
             >
-                {slide.attributes.caption}
+                {slide.caption}
             </h6>
         </div>
 
@@ -48,10 +61,10 @@ export default function Slideshow ({ content, fullscreen }) {
     <Box sx={{ margin: `auto ${isDesktop && !fullscreen ? '5vw' : 0}`, pt: content.Title ? 3 : 0 }}>
         <Carousel showThumbs={false} autoPlay infiniteLoop showStatus={false}>
             {isDesktop
-              ? content.slidesDesktop.data.map((slide, index) => (
+              ? content.slidesDesktop.map((slide, index) => (
                     <Slide slide={slide} key={index} />
               ))
-              : content.slidesMobile.data.map((slide, index) => (
+              : content.slidesMobile.map((slide, index) => (
                     <Slide slide={slide} key={index} />
               ))
             }

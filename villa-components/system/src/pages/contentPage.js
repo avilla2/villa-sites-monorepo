@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import Box from '@mui/material/Box'
-import Grid from '@mui/material/Grid2'
+import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import GeneratePageContent from '../components/utils/generatePageContent'
@@ -34,13 +34,36 @@ const classes = {
   })
 }
 
-export default function ContentPage ({ setPage, setNavIndex, name, content, path, minSize, showTitle, titleColor }) {
+/**
+ * ContentPage component - Renders a content page with optional title and dynamic content
+ * @param {Object} props - ContentPage props
+ * @param {function} props.setPage - Function to set the current page name
+ * @param {function} props.setNavIndex - Function to set the current navigation index/path
+ * @param {string} props.name - Name of the page
+ * @param {ContentComponent[]} props.content - Array of content items to render on the page
+ * @param {string} props.path - Path/URL of the page
+ * @param {string} props.minSize - Minimum screen size for responsive design
+ * @param {boolean} props.showTitle - Whether to show the page title
+ * @param {string} props.titleColor - Color of the page title text
+ * @returns {JSX.Element} The ContentPage component
+ */
+export default function ContentPage ({
+  setPage,
+  setNavIndex,
+  name,
+  content,
+  path,
+  minSize,
+  showTitle,
+  titleColor
+}) {
   const hidden = useMediaQuery(theme => theme.breakpoints.up(minSize))
 
   useEffect(() => {
     setPage(name)
     setNavIndex(path)
   })
+
   return (
         <Box sx={classes.root}>
             {hidden && showTitle &&

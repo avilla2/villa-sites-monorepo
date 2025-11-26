@@ -15,16 +15,23 @@ const classes = {
     flexWrap: 'wrap'
   }
 }
+
+/**
+ * Buttons component - Renders a group of buttons with optional arrangement and animation
+ * @param {Object} props - Buttons props
+ * @param {ButtonsComponent} props.content - Button group content object
+ * @returns {JSX.Element} The Buttons component
+ */
 export default function Buttons ({ content }) {
   const theme = useTheme()
   const mobile = useMediaQuery(theme.breakpoints.down('sm'))
 
-  const getButtonSpacing = (alignment) => {
+  const getButtonSpacing = (textAlignment) => {
     switch (content.ButtonArrangement) {
       case 'spaced_evenly':
         return { justifyContent: 'space-evenly' }
       default:
-        return { justifyContent: alignment ?? 'center', gap: theme.spacing(2) }
+        return { justifyContent: textAlignment ?? 'center', gap: theme.spacing(2) }
     }
   }
 
@@ -41,17 +48,17 @@ export default function Buttons ({ content }) {
     <AnimationProvider animation={content?.Style?.Animation} direction="down">
         <Box sx={classes.root}>
             <ButtonGroupRoot>
-            {content.Entry.map((entry, index) => (
-                <Button
-                    key={index}
-                    buttonStyle={content?.GroupButtonStyle}
-                    mobile={mobile}
-                    link={entry.Link}
-                    color={entry.ButtonColor}
-                >
-                  {entry.Text}
-                </Button>
-            ))}
+              {content.Entry.map((entry, index) => (
+                  <Button
+                      key={index}
+                      buttonStyle={content?.GroupButtonStyle}
+                      mobile={mobile}
+                      link={entry.Link}
+                      color={entry.ButtonColor}
+                  >
+                    {entry.Text}
+                  </Button>
+              ))}
             </ButtonGroupRoot>
         </Box>
     </AnimationProvider>

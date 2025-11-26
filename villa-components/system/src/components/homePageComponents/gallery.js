@@ -27,15 +27,21 @@ const classes = {
   })
 }
 
+/**
+ * Gallery component - Renders a gallery of images with optional animation
+ * @param {Object} props - Gallery props
+ * @param {GalleryComponent} props.content - Gallery content object
+ * @returns {JSX.Element} The Gallery component
+ */
 export default function Gallery ({ content }) {
   const mobile = useMediaQuery(theme => theme.breakpoints.down('sm'))
   return (
     <Box sx={classes.root}>
       <AnimationProvider animation={content?.Style?.Animation} direction="up" partialVisibility>
         <ImageList sx={classes.imageList} variant="masonry" cols={mobile ? 1 : 3} gap={8}>
-            {content.Pictures.data.map((item, index) => (
+            {content.Pictures.map((item, index) => (
               <ImageListItem key={index}>
-                  <img src={`${process.env.REACT_APP_BACKEND_URL}${item.attributes.url}`} alt={item.alternativeText} />
+                  <img src={`${process.env.REACT_APP_BACKEND_URL}${item.url}`} alt={item.alternativeText} />
               </ImageListItem>
             ))}
         </ImageList>

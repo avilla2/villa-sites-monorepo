@@ -11,13 +11,10 @@ fragment FooterFragment on WebsiteFooter {
     __typename
     ... on ComponentFooterComponentsImage {
       Image {
-        data {
-          attributes {
-            url
-            name
-            width
-          }
-        }
+        url
+        name
+        width
+
       }
       Space
     }

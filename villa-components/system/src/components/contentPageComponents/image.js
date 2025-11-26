@@ -12,6 +12,12 @@ const classes = {
   }
 }
 
+/**
+ * Image component - Renders an image with optional styles and caption
+ * @param {Object} props - Image props
+ * @param {ImageComponent} props.content - Image content object
+ * @returns {JSX.Element} The Image component
+ */
 export default function Image ({ content }) {
   const mobile = useMediaQuery(theme => theme.breakpoints.down('md'))
   const height = content.height === 0 ? 'auto' : `${content.height}vh`
@@ -21,8 +27,8 @@ export default function Image ({ content }) {
     return (
       <Box sx={classes.root} pt={0}>
         <Parallax
-          bgImage={`${process.env.REACT_APP_BACKEND_URL}${content.asset.data.attributes.url}`}
-          bgImageAlt={content.asset.data.attributes.alternativeText}
+          bgImage={`${process.env.REACT_APP_BACKEND_URL}${content.asset.url}`}
+          bgImageAlt={content.asset.alternativeText}
           strength={200}
         >
           <div style={{ height }}></div>
@@ -43,29 +49,40 @@ export default function Image ({ content }) {
         alignItems="center"
         rowSpacing={3}
       >
-        <Grid md={content?.caption ? 6 : 12} sm={12} xs={12} item>
+        <Grid
+          size={{
+            md: content?.caption ? 6 : 12,
+            sm: 12,
+            xs: 12
+          }}>
           {
             content.imageStyle === 'Paper'
               ? (
               <Paper elevation={8} style={{ width: mobile ? '90%' : `${content.width}%`, height, margin: 'auto', borderRadius: 25, display: 'flex' }}>
               <img
-                src={`${process.env.REACT_APP_BACKEND_URL}${content.asset.data.attributes.url}`}
-                alt={content.asset.data.attributes.alternativeText}
+                src={`${process.env.REACT_APP_BACKEND_URL}${content.asset.url}`}
+                alt={content.asset.alternativeText}
                 style={{ width: '100%', borderRadius: 'inherit' }}
               />
             </Paper>
                 )
               : (
               <img
-                src={`${process.env.REACT_APP_BACKEND_URL}${content.asset.data.attributes.url}`}
-                alt={content.asset.data.attributes.alternativeText}
+                src={`${process.env.REACT_APP_BACKEND_URL}${content.asset.url}`}
+                alt={content.asset.alternativeText}
                 style={{ width: mobile ? '100%' : `${content.width}%`, height, display: 'block', margin: 'auto' }}
               />
                 )
           }
         </Grid>
         { content?.caption &&
-          <Grid md={6} sm={12} xs={12} py={3} item>
+          <Grid
+            py={3}
+            size={{
+              md: 6,
+              sm: 12,
+              xs: 12
+            }}>
             <Box>
               <Paragraph content={{ Style: content.Style, Body: content.caption }} />
             </Box>

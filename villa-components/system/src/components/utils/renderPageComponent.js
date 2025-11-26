@@ -7,9 +7,7 @@ import Buttons from '../contentPageComponents/buttonGroup'
 import InstantQuoteCalculator from '../contentPageComponents/instantQuoteCalculator'
 import Intro from '../homePageComponents/intro'
 import Gallery from '../homePageComponents/gallery'
-import TextGrid from '../homePageComponents/textGrid'
 import Media from '../homePageComponents/media'
-import Cards from '../homePageComponents/cards'
 import Freestyle from '../homePageComponents/freestyle'
 import Image from '../contentPageComponents/image'
 import Video from '../contentPageComponents/video'
@@ -17,6 +15,11 @@ import CardGroup from '../contentPageComponents/cardGroup'
 import List from '../contentPageComponents/list'
 import Slideshow from '../homePageComponents/slideshow'
 
+/**
+ * renderComponent function - Renders the appropriate component based on its __typename
+ * @param {ContentComponent} object - The content component object to render
+ * @returns {JSX.Element} The appropriate content component or error message
+ */
 const renderComponent = (object) => {
   switch (object.__typename) {
     case 'ComponentContentPageComponentsParagraph':
@@ -35,12 +38,8 @@ const renderComponent = (object) => {
       return <Intro content={object} />
     case 'ComponentHomePageComponentsGallery':
       return <Gallery content={object} />
-    case 'ComponentHomePageComponentsTextGrid':
-      return <TextGrid content={object} />
     case 'ComponentHomePageComponentsMedia':
       return <Media content={object} />
-    case 'ComponentHomePageComponentsCards':
-      return <Cards content={object} />
     case 'ComponentContentPageComponentsImage':
       return <Image content={object} />
     case 'ComponentContentPageComponentsVideo':

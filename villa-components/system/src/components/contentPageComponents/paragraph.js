@@ -15,6 +15,12 @@ const classes = {
   }
 }
 
+/**
+ * Paragraph component - Renders a paragraph of text with markdown support and optional animation
+ * @param {Object} props - Paragraph props
+ * @param {ParagraphComponent} props.content - Paragraph content object
+ * @returns {JSX.Element} The Paragraph component
+ */
 export default function Paragraph ({ content }) {
   return (
     <Box sx={classes.root}>

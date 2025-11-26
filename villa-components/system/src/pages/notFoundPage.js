@@ -26,7 +26,13 @@ const classes = {
   })
 }
 
-export default function ContentPage ({ setPage }) {
+/**
+ * NotFoundPage component - Renders a 404 Not Found page with a return home button
+ * @param {Object} props - NotFoundPage props
+ * @param {function} props.setPage - Function to set the current page name
+ * @returns {JSX.Element} The NotFoundPage component
+ */
+export default function NotFoundPage ({ setPage }) {
   useEffect(() => {
     setPage('Not Found')
   })

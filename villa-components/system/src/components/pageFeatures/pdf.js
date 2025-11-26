@@ -34,6 +34,12 @@ const classes = {
   }
 }
 
+/**
+ * PDF component - Renders a PDF document with navigation controls
+ * @param {Object} props - PDF props
+ * @param {string} props.src - Source URL of the PDF document
+ * @returns {JSX.Element} The PDF component
+ */
 export default function PDF ({ src }) {
   const [numPages, setNumPages] = useState(null)
   const [pageNumber, setPageNumber] = useState(1)

@@ -28,7 +28,8 @@ module.exports = {
         },
         '@mui/material': {
           singleton: true,
-          requiredVersion: dependencies['@mui/material']
+          requiredVersion: dependencies['@mui/material'],
+          version: dependencies['@mui/material']
         },
         '@mui/icons-material': {
           singleton: true,

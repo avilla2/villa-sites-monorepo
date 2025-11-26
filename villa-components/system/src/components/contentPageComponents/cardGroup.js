@@ -1,6 +1,6 @@
 import React from 'react'
 import Box from '@mui/material/Box'
-import Grid from '@mui/material/Grid2'
+import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
@@ -22,6 +22,19 @@ const classes = {
   }
 }
 
+/**
+ * SingleCard component - Renders a single card with optional overlay style
+ * @typedef {Object} CardGroupCardProps
+ * @property {string} params.Color - Text color of the card
+ * @property {boolean} params.active - Whether the card is active (for overlay style)
+ * @property {function} params.setActiveCard - Function to set the active card
+ */
+
+/**
+ * SingleCard component - Renders a single card with optional overlay style
+ * @param {CardGroupCard & CardGroupCardProps} props
+ * @returns {JSX.Element} The SingleCard component
+ */
 const SingleCard = ({
   Image,
   Title,
@@ -47,7 +60,7 @@ const SingleCard = ({
           minHeight: 275,
           backgroundSize: 'cover',
           position: 'relative',
-          ...(Image.data && { backgroundImage: `url('${process.env.REACT_APP_BACKEND_URL}${Image.data.attributes.url}')` }),
+          ...(Image.data && { backgroundImage: `url('${process.env.REACT_APP_BACKEND_URL}${Image.url}')` }),
           ...classes.flexBox
         }}
         onClick={setActiveCard}
@@ -99,11 +112,11 @@ const SingleCard = ({
       display: 'flex',
       flexDirection: 'column'
     }}>
-      {Image.data &&
+      {Image &&
         <CardMedia
           sx={{ height: 140 }}
-          image={`${process.env.REACT_APP_BACKEND_URL}${Image.data.attributes.url}`}
-          title={Image.data.attributes.alternativeText}
+          image={`${process.env.REACT_APP_BACKEND_URL}${Image.url}`}
+          title={Image.alternativeText}
         />
       }
       <CardContent sx={{ flexGrow: 1 }}>
@@ -128,6 +141,12 @@ const SingleCard = ({
   )
 }
 
+/**
+ * Cards component - Renders a set of cards based on provided content
+ * @param {Object} props - Cards props
+ * @param {CardGroupComponent} props.content - Cards content object
+ * @returns {JSX.Element} The Cards component
+ */
 export default function CardGroup ({ content }) {
   const [activeCard, setActiveCard] = React.useState(-1)
   return (

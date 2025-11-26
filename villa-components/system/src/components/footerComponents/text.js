@@ -15,6 +15,14 @@ const classes = {
   })
 }
 
+/**
+ * Text component - Renders footer text content with markdown support
+ * @param {Object} props - Text component props
+ * @param {FooterText} props.content - Footer text content object
+ * @property {string} props.content.Text - Markdown-formatted text content
+ * @property {string} props.content.Space - Space/width allocation
+ * @returns {JSX.Element} The Text component with rendered markdown
+ */
 export default function Paragraph ({ content }) {
   return (
         <Box sx={classes.root}>

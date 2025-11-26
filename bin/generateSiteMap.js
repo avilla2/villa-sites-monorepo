@@ -37,14 +37,14 @@ const main = async (id, baseUrl) => {
       })
     })
     const body = await result.json()
-    const objects = body.data.website.data.attributes.content_pages.data
+    const objects = body.data.website.content_pages
     let xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">`
-    objects.forEach(({ attributes }) => {
+    objects.forEach((page) => {
       xml = `${xml}
   <url>
-    <loc>${baseUrl}${attributes.Link}</loc>
+    <loc>${baseUrl}${page.Link}</loc>
   </url>`
     })
     xml = `${xml}

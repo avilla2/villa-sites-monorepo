@@ -3,11 +3,10 @@ import LoadingSVG from './loading'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import './app.css'
 
-const VillaRenderingSystem = React.lazy(() => import('villa_components/VillaRenderingSystem'))
+const RenderingSystem = React.lazy(() => import('villa_components/VillaRenderingSystem'))
 
 export default function App () {
-  const DEFAULT_SITE_ID = 9
-  const ES_US_SITE_ID = 10
+  const DEFAULT_SITE_ID = 'xuf4accmuxd77rw93z6adw0u'
 
   return (
     <div className="App">
@@ -16,23 +15,24 @@ export default function App () {
           <Route
             path='/es-US/*'
             element={
-              <VillaRenderingSystem
-                defaultSiteId={ES_US_SITE_ID}
+              <RenderingSystem
+                defaultSiteId={DEFAULT_SITE_ID}
+                locale='es-US'
                 loadingComponent={<LoadingSVG />}
                 fonts={['"DM Serif Text"', 'Poppins']}
               >
-              </VillaRenderingSystem>
+              </RenderingSystem>
             }
           />
           <Route
             path="*"
             element={
-              <VillaRenderingSystem
+              <RenderingSystem
                 defaultSiteId={DEFAULT_SITE_ID}
                 loadingComponent={<LoadingSVG />}
                 fonts={['"DM Serif Text"', 'Poppins']}
               >
-              </VillaRenderingSystem>
+              </RenderingSystem>
             }
           />
         </Routes>

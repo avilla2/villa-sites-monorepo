@@ -1,5 +1,5 @@
 import React from 'react'
-import Grid from '@mui/material/Grid2'
+import Grid from '@mui/material/Grid'
 import Modal from '../components/pageFeatures/modal'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
@@ -19,6 +19,15 @@ const LanguageButton = styled(ButtonBase, {
   borderRadius: 8
 }))
 
+/**
+ * LanguageModal component - Renders a modal for language selection
+ * @param {Object} props LanguageModal props
+ * @param {boolean} props.open - Whether the modal is open
+ * @param {function} props.handleClose - Function to close the modal
+ * @param {Locales[]} props.options - Array of locale options
+ * @param {string} props.fontColor - Font color for language buttons
+ * @returns {JSX.Element} The LanguageModal component
+ */
 export default function LanguageModal ({ open, options, handleClose, fontColor }) {
   return (
         <Modal
@@ -40,13 +49,13 @@ export default function LanguageModal ({ open, options, handleClose, fontColor }
                 </Grid>
             </Grid>
             <Grid container spacing={2} direction="column" sx={{ pt: 4 }}>
-            {options.map(({ attributes }, index) => (
+            {options.map(({ code, name }, index) => (
                 <Grid key={index}>
                     <LanguageButton
                         fontColor={fontColor}
-                        href={`/${attributes.code === 'en' ? '' : attributes.code}`}
+                        href={`/${code === 'en' ? '' : code}`}
                     >
-                        {attributes.name}
+                        {name}
                     </LanguageButton>
                 </Grid>
             ))}
