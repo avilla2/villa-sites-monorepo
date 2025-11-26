@@ -92,7 +92,7 @@ const renderComponent = (object) => {
 export default function Media ({ content }) {
   return (
         <Box>
-            { content.asset.data &&
+            { content.asset &&
                 renderComponent(content.asset.Content[0])
             }
             { content.asset?.Caption &&

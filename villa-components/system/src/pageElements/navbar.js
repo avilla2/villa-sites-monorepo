@@ -282,7 +282,7 @@ const NavMenu = ({ title, menuItem, active, shadow, fontColor }) => {
               </ListItemIcon>
             }
             <ListItemText
-              inset={!item.icon.data}
+              inset={!item.icon}
               primaryTypographyProps={{
                 variant: 'subtitle1',
                 sx: { width: 'fit-content' }
