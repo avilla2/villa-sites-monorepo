@@ -12,10 +12,20 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css'
 
 /**
  * Rendering System component that sets up the application with Apollo Client,
- * @param {SystemParams} props - The component props
+ * @param {Object} props - The component props
+ * @param {string[]} props.fonts - Array of font family names to be used in the theme
+ * @param {string} props.defaultSiteId - The default site ID to fetch website data
+ * @param {string} props.locale - Optional: The locale to fetch website data for
+ * @param {React.ReactNode} props.loadingComponent - Component to display while loading data
  * @returns {React.ReactElement} The RenderingSystem component
  */
-export default function RenderingSystem ({ children, fonts, defaultSiteId, loadingComponent }) {
+export default function RenderingSystem ({
+  children,
+  fonts,
+  defaultSiteId,
+  locale,
+  loadingComponent
+}) {
   const [navIndex, setNavIndex] = useState(0)
   const [siteTitle, setSiteTitle] = useState('')
   const [pageName, setPageName] = useState('')
@@ -58,7 +68,11 @@ export default function RenderingSystem ({ children, fonts, defaultSiteId, loadi
 
   return (
     <ApolloProvider client={apolloClient}>
-      <Query query={appQuery} variables={{ id: defaultSiteId }} loadingComponent={loadingComponent}>
+      <Query
+        query={appQuery}
+        variables={{ id: defaultSiteId, locale }}
+        loadingComponent={loadingComponent}
+      >
         {render}
       </Query>
     </ApolloProvider>

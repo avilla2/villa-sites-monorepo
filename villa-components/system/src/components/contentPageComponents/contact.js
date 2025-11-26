@@ -140,8 +140,8 @@ export default function Contact ({ content }) {
 
     if (data.body.trim()) {
       setLoading(true)
-      const subjectLineData = content.fields.map((f) => f.includeInSubjectLine ? data[f.name] : null).join(' ')
-      const emailBody = content.fields.map((f) => `${f.label}: ${data[f.name]}`)
+      const subjectLineData = content.formFields.map((f) => f.includeInSubjectLine ? data[f.name] : null).join(' ')
+      const emailBody = content.formFields.map((f) => `${f.label}: ${data[f.name]}`)
       emailBody.push(`Message: ${data.body}`)
       const emailFields = {
         to: content.sendTo,

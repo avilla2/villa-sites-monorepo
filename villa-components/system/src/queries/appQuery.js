@@ -5,8 +5,8 @@ import PAGE_CONTENT_FRAGMENT from './pageContentFragment'
 import SITESETTINGS_FRAGMENT from './siteSettingsFragment'
 
 const APP_QUERY = gql`
-query Website($id: ID!) {
-  website(documentId: $id) {
+query Website($id: ID!, $locale: I18NLocaleCode) {
+  website(documentId: $id, locale: $locale) {
     name
     locale
     localizations {

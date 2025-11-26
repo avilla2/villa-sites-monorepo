@@ -6,8 +6,7 @@ import './app.css'
 const RenderingSystem = React.lazy(() => import('villa_components/VillaRenderingSystem'))
 
 export default function App () {
-  const DEFAULT_SITE_ID = 9 // 'gphzmmnxs62yz5xy17mlnjpn'
-  const ES_US_SITE_ID = 10
+  const DEFAULT_SITE_ID = 'gphzmmnxs62yz5xy17mlnjpn'
 
   return (
     <div className="App">
@@ -17,7 +16,8 @@ export default function App () {
             path='/es-US/*'
             element={
               <RenderingSystem
-                defaultSiteId={ES_US_SITE_ID}
+                defaultSiteId={DEFAULT_SITE_ID}
+                locale='es-US'
                 loadingComponent={<LoadingSVG />}
                 fonts={['"DM Serif Text"', 'Poppins']}
               >

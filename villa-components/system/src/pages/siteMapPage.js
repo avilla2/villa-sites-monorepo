@@ -6,9 +6,20 @@ import Typography from '@mui/material/Typography'
 
 const classes = {
   root: {
-    margin: 'auto 5vw',
-    textAlign: 'left'
-  }
+    width: '100%',
+    textAlign: 'left',
+    height: '100%'
+  },
+  content: {
+    margin: 'auto 5vw'
+  },
+  main: (theme) => ({
+    backgroundColor: theme.palette.warning.main,
+    width: '100%',
+    height: '15vh',
+    marginBottom: '10vh',
+    borderRadius: '0 0 20px 20px'
+  })
 }
 
 /**
@@ -25,18 +36,21 @@ export default function SiteMap ({ setPage, contentPages, locale }) {
   })
   return (
         <Box sx={classes.root}>
-            <Typography component="h1" gutterBottom>Site Map</Typography>
-            {contentPages.map(({ attributes }, index) => (
-              <Link
-                key={index}
-                underline="always"
-                component={RouterLink}
-                to={`${locale === 'en' ? '' : '/' + locale}${attributes.Link}`}
-                sx={{ pr: 2, py: 2, color: '#000000', textDecorationColor: '#000000' }}
-              >
-              {attributes.Title}
-            </Link>
-            ))}
+            <Box sx={classes.main} />
+            <Box sx={classes.content}>
+              <Typography component="h1" gutterBottom>Site Map</Typography>
+              {contentPages.map((page, index) => (
+                <Link
+                  key={index}
+                  underline="always"
+                  component={RouterLink}
+                  to={`${locale === 'en' ? '' : '/' + locale}${page.Link}`}
+                  sx={{ pr: 2, py: 2, color: '#000000', textDecorationColor: '#000000' }}
+                >
+                {page.Title}
+              </Link>
+              ))}
+            </Box>
         </Box>
   )
 }

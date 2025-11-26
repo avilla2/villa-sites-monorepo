@@ -50,14 +50,14 @@ const Image = ({ configs }) => {
   const height = configs.Height === 0 ? 'auto' : `${configs.Height}vh`
   if (configs.Style === 'Parallax') {
     return (
-      <Parallax bgImage={`${process.env.REACT_APP_BACKEND_URL}${configs.File.data.attributes.url}`} bgImageAlt={configs.alternativeText} strength={200}>
+      <Parallax bgImage={`${process.env.REACT_APP_BACKEND_URL}${configs.File.url}`} bgImageAlt={configs.alternativeText} strength={200}>
         <div style={{ height }}></div>
       </Parallax>
     )
   } else {
     return (
             <img
-                src={`${process.env.REACT_APP_BACKEND_URL}${configs.File.data.attributes.url}`}
+                src={`${process.env.REACT_APP_BACKEND_URL}${configs.File.url}`}
                 alt={configs.alternativeText}
                 style={{ width: mobile ? '100%' : `${configs.Width}%`, height }}
             />
