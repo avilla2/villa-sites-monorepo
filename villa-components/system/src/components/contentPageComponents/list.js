@@ -35,22 +35,23 @@ export default function List ({ content }) {
       >
         { content?.Caption &&
           <Grid
-            md={6}
-            sm={12}
-            xs={12}
-            item
             alignSelf="flex-start"
             sx={classes.paragraph}
-          >
+            size={{
+              md: 6,
+              sm: 12,
+              xs: 12
+            }}>
               <BlocksRenderer content={content?.Caption} />
           </Grid>
         }
         <Grid
-          md={content?.Caption ? 6 : 12}
-          sm={12} xs={12}
-          item
           style={{ textAlign: 'left', maxWidth: '80vw' }}
-        >
+          size={{
+            md: content?.Caption ? 6 : 12,
+            sm: 12,
+            xs: 12
+          }}>
           {content?.Items.map((item, index) => (
             <Grid
               container
@@ -62,14 +63,14 @@ export default function List ({ content }) {
               rowSpacing={6}
               columnSpacing={2}
             >
-              <Grid item>
+              <Grid>
                 <img
                   src={`${process.env.REACT_APP_BACKEND_URL}${content?.Icon?.url}`}
                   alt={content?.Icon?.alternativeText}
                   style={{ width: 40 }}
                 />
               </Grid>
-              <Grid item alignSelf="center">
+              <Grid alignSelf="center">
                 <Typography variant='h6'>{item.Text}</Typography>
               </Grid>
             </Grid>

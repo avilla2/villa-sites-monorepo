@@ -55,7 +55,11 @@ const MaskedTextField = IMaskMixin(
  */
 const FormField = ({ value, error, handleFormChange, id, label, fullWidth, type }) => {
   return (
-    <Grid item md={fullWidth ? 12 : 6} xs={12}>
+    <Grid
+      size={{
+        md: fullWidth ? 12 : 6,
+        xs: 12
+      }}>
       {type === 'phone'
         ? <MaskedTextField
             value={value}
@@ -175,57 +179,57 @@ export default function Contact ({ content }) {
   }
 
   return (
-        <Box sx={classes.root}>
-            <form style={classes.root} noValidate autoComplete="off">
-                <Grid
-                    container
-                    direction="row"
-                    justifyContent="flex-start"
-                    alignItems="center"
-                    spacing={2}
-                >
-                  {content.formFields.map((field, index) => {
-                    return (
-                      <FormField
-                        key={index}
-                        value={data[field.name]}
-                        error={error[field.name]}
-                        handleFormChange={handleFormChange}
-                        id={field.name}
-                        label={field.label}
-                        fullWidth={field.fullWidth}
-                        type={field.type}
-                      />
-                    )
-                  })}
-                    <Grid item xs={12}>
-                      <AnimationProvider animation={content?.Style?.Animation} direction="up">
-                        <TextField
-                            value={data.body}
-                            error={error.body}
-                            helperText={error.body ? "This Can't be Empty" : ''}
-                            onChange={event => { handleFormChange(event.target.value, 'body') }}
-                            sx={classes.input}
-                            id="body"
-                            label={content.bodyTitle}
-                            fullWidth
-                            required
-                            multiline
-                            rows={8}
-                        />
-                      </AnimationProvider>
-                    </Grid>
-                    <Grid item xs={12} sx={classes.submit}>
-                        <Button disabled={loading} endIcon={<SendIcon />} variant="outlined" color="primary" onClick={sendEmail}>Submit</Button>
-                    </Grid>
-                </Grid>
-                {status === 'success'
-                  ? <Typography component="h5" sx={classes.success}>Thank you for reaching out, we will get back to you soon.</Typography>
-                  : status === 'failure'
-                    ? <Typography component="h5" sx={classes.error}>Could not send the message at this time. Try again later</Typography>
-                    : null
-                }
-            </form>
-        </Box>
+    <Box sx={classes.root}>
+      <form style={classes.root} noValidate autoComplete="off">
+          <Grid
+              container
+              direction="row"
+              justifyContent="flex-start"
+              alignItems="center"
+              spacing={2}
+          >
+            {content.formFields.map((field, index) => {
+              return (
+                <FormField
+                  key={index}
+                  value={data[field.name]}
+                  error={error[field.name]}
+                  handleFormChange={handleFormChange}
+                  id={field.name}
+                  label={field.label}
+                  fullWidth={field.fullWidth}
+                  type={field.type}
+                />
+              )
+            })}
+              <Grid size={12}>
+                <AnimationProvider animation={content?.Style?.Animation} direction="up">
+                  <TextField
+                      value={data.body}
+                      error={error.body}
+                      helperText={error.body ? "This Can't be Empty" : ''}
+                      onChange={event => { handleFormChange(event.target.value, 'body') }}
+                      sx={classes.input}
+                      id="body"
+                      label={content.bodyTitle}
+                      fullWidth
+                      required
+                      multiline
+                      rows={8}
+                  />
+                </AnimationProvider>
+              </Grid>
+              <Grid sx={classes.submit} size={12}>
+                  <Button disabled={loading} endIcon={<SendIcon />} variant="outlined" color="primary" onClick={sendEmail}>Submit</Button>
+              </Grid>
+          </Grid>
+          {status === 'success'
+            ? <Typography component="h5" sx={classes.success}>Thank you for reaching out, we will get back to you soon.</Typography>
+            : status === 'failure'
+              ? <Typography component="h5" sx={classes.error}>Could not send the message at this time. Try again later</Typography>
+              : null
+          }
+      </form>
+    </Box>
   )
 }

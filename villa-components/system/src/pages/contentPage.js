@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import Box from '@mui/material/Box'
-import Grid from '@mui/material/Grid2'
+import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import GeneratePageContent from '../components/utils/generatePageContent'

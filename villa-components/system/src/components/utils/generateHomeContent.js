@@ -1,7 +1,7 @@
 import React from 'react'
 import renderComponent from './renderPageComponent'
 import Typography from '@mui/material/Typography'
-import Grid from '@mui/material/Grid2'
+import Grid from '@mui/material/Grid'
 
 import calculatePadding from './calculatePadding'
 

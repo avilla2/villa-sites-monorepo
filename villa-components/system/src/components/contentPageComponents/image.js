@@ -49,7 +49,12 @@ export default function Image ({ content }) {
         alignItems="center"
         rowSpacing={3}
       >
-        <Grid md={content?.caption ? 6 : 12} sm={12} xs={12} item>
+        <Grid
+          size={{
+            md: content?.caption ? 6 : 12,
+            sm: 12,
+            xs: 12
+          }}>
           {
             content.imageStyle === 'Paper'
               ? (
@@ -71,7 +76,13 @@ export default function Image ({ content }) {
           }
         </Grid>
         { content?.caption &&
-          <Grid md={6} sm={12} xs={12} py={3} item>
+          <Grid
+            py={3}
+            size={{
+              md: 6,
+              sm: 12,
+              xs: 12
+            }}>
             <Box>
               <Paragraph content={{ Style: content.Style, Body: content.caption }} />
             </Box>

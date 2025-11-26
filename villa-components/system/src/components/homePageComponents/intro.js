@@ -186,7 +186,11 @@ export default function Intro ({ content }) {
         container
         justifyContent='space-evenly'
         sx={styles.overlayWrapper}>
-          <Grid item xs={12} md={content?.FormData && content?.FormFields ? 8 : 12}>
+          <Grid
+            size={{
+              xs: 12,
+              md: content?.FormData && content?.FormFields ? 8 : 12
+            }}>
               <Box sx={[styles.overlay, getIntroStyle(content.TextPosition)]}>
                 <AnimationProvider animation={content?.Style?.Animation}>
                     <ReactMarkdown>
@@ -198,11 +202,11 @@ export default function Intro ({ content }) {
           </Grid>
           {content?.FormData && content?.FormFields &&
             <Grid
-              xs={12}
-              md={4}
-              item
               sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-            >
+              size={{
+                xs: 12,
+                md: 4
+              }}>
               <Box sx={{ backgroundColor: 'white', margin: 'auto 16px', borderRadius: 3, maxWidth: 400 }}>
               <Contact
                 content={{
