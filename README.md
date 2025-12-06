@@ -24,7 +24,7 @@ yarn deploy-all
 
 ## Add a New Website
 
-- Copy an exisiting website from `/websites`
+- Run `yarn create:website`
 - Create new website in api.villawebsolutions.com/admin
 - Add appropriate site id, logo, title, description, and fonts to the new website folder
 - Run `npx wrangler pages project create` and enter the name of new website, and enter `main` as production branch
