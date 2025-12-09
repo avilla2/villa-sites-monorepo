@@ -12,7 +12,7 @@ import '../index.css'
 /**
  * Renders the site routes, navbar and footer
  * @param {Object} props - SiteRoutes props
- * @param {React.ReactNode} props.children - Child components to be rendered within the routes
+ * @param {JSX.Element} props.children - Child components to be rendered within the routes
  * @param {Website} props.siteContent - Website content data
  * @param {string} props.page - Current page name
  * @param {Function} props.setPage - Function to set the current page name

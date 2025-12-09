@@ -11,7 +11,8 @@ module.exports = {
       filename: 'remoteEntry.js',
       exposes: {
         './VillaComponentSystem': './src/system/componentSystem.js',
-        './VillaRenderingSystem': './src/system/renderingSystem.js'
+        './VillaRenderingSystem': './src/system/renderingSystem.js',
+        './LVLIntakeForm': './src/specialized/lvlIntakeForm.js',
       },
       shared: {
         react: {
@@ -51,21 +52,6 @@ module.exports = {
       }
     ]
   },
-  // externals: [{
-  //   react: 'React',
-  //   'react-dom': 'ReactDOM',
-  //   // 'react-router-dom': 'react-router-dom',
-  //   // '@apollo/client': '@apollo/client',
-  //   // 'graphql-tag': 'graphql-tag',
-  //   // '@emotion/react': '@emotion/react',
-  //   // '@emotion/styled': '@emotion/styled',
-  //   // 'react-markdown': 'react-markdown',
-  //   // 'react-pdf': 'react-pdf',
-  //   // 'react-parallax': 'react-parallax',
-  //   // 'react-visibility-sensor': 'react-visibility-sensor'
-  // },
-  //   // /@mui\/material/, /@mui\/material\/.*/, /@mui\/icons-material\/.*/
-  // ],
   resolve: {
     extensions: ['*', '.js', '.jsx']
   },
