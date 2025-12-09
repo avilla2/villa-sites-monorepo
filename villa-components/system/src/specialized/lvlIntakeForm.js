@@ -38,7 +38,7 @@ const classes = {
   sectionTitle: (theme) => ({
     marginBottom: 2,
     marginTop: 3,
-    fontWeight: 600,
+    fontWeight: 400,
     borderBottom: `2px solid ${theme.palette.primary.main}`,
     paddingBottom: 1
   }),
