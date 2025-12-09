@@ -18,18 +18,9 @@ const classes = {
     margin: '15px 5% 40px 5%'
   },
   banner: {
+    minHeight: '70px',
     height: '70px',
     background: 'linear-gradient(135deg, #8B7355 0%, #A0826D 25%, #7CB342 50%, #8B9D6F 75%, #6B8E23 100%)',
-    display: 'flex',
-    alignItems: 'center',
-    paddingLeft: '5%',
-    marginBottom: '40px'
-  },
-  bannerText: {
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: '24px',
-    textShadow: '0 2px 4px rgba(0, 0, 0, 0.2)'
   },
   section: {
     marginTop: 4,
@@ -250,11 +241,7 @@ export default function IntakeForm ({ fromEmail, toEmail }) {
 
   return (
     <>
-      <Box sx={classes.banner}>
-        <Typography sx={classes.bannerText}>
-          Request Your Free Landscaping Consultation
-        </Typography>
-      </Box>
+      <Box sx={classes.banner} />
       <Box sx={classes.root}>
         <Typography variant="h4" sx={{ marginBottom: 1, fontWeight: 'bold' }}>
           Landscaping Project Intake Form
