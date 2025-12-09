@@ -15,7 +15,21 @@ import { IMaskMixin } from 'react-imask'
 
 const classes = {
   root: {
-    margin: '40px 5% 40px 5%'
+    margin: '15px 5% 40px 5%'
+  },
+  banner: {
+    height: '70px',
+    background: 'linear-gradient(135deg, #8B7355 0%, #A0826D 25%, #7CB342 50%, #8B9D6F 75%, #6B8E23 100%)',
+    display: 'flex',
+    alignItems: 'center',
+    paddingLeft: '5%',
+    marginBottom: '40px'
+  },
+  bannerText: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: '24px',
+    textShadow: '0 2px 4px rgba(0, 0, 0, 0.2)'
   },
   section: {
     marginTop: 4,
@@ -69,6 +83,10 @@ const MaskedTextField = IMaskMixin(
  * @returns {JSX.Element} The IntakeForm component
  */
 export default function IntakeForm ({ fromEmail, toEmail }) {
+  React.useEffect(() => {
+    document.title = 'Request A Landscaping Project | Los Valdivias Landscape Portland, OR'
+  }, [])
+
   const [data, setData] = useState({
     // Contact Information
     fullName: '',
@@ -231,10 +249,16 @@ export default function IntakeForm ({ fromEmail, toEmail }) {
   }
 
   return (
-    <Box sx={classes.root}>
-      <Typography variant="h4" sx={{ marginBottom: 1, fontWeight: 'bold' }}>
-        Landscaping Project Intake Form
-      </Typography>
+    <>
+      <Box sx={classes.banner}>
+        <Typography sx={classes.bannerText}>
+          Request Your Free Landscaping Consultation
+        </Typography>
+      </Box>
+      <Box sx={classes.root}>
+        <Typography variant="h4" sx={{ marginBottom: 1, fontWeight: 'bold' }}>
+          Landscaping Project Intake Form
+        </Typography>
       <Typography variant="body1" sx={{ marginBottom: 3, color: 'text.secondary' }}>
         Tell us about your landscaping project! This information helps us understand your vision and provide you with the best recommendations.
       </Typography>
@@ -576,6 +600,7 @@ export default function IntakeForm ({ fromEmail, toEmail }) {
           </Typography>
         )}
       </form>
-    </Box>
+      </Box>
+    </>
   )
 }
