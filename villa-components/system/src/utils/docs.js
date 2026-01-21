@@ -239,6 +239,29 @@
  */
 
 /**
+ * @typedef {Object} CtaButton
+ * @property {string} Link - Button target link
+ * @property {string} Text - Button display text
+ * @property {string} ButtonColor - Button color value
+ */
+
+/**
+ * @typedef {Object} ComponentHomePageComponentsCta
+ * @property {string} __typename - Always 'ComponentHomePageComponentsCta'
+ * @property {string} id - Optional id for the CTA
+ * @property {string} Title - CTA title text
+ * @property {Object} content - Rich text / body content for the CTA
+ * @property {string} justify - vertical alignment of content (center, space-between)
+ * @property {boolean} reversed - Reverse the content (true or false)
+ * @property {string} variant - variant style of the CTA
+ * @property {Object} media - Media object (image/video)
+ * @property {string} media.url - Media URL
+ * @property {string} media.alternativeText - Media alt text
+ * @property {CtaButton[]} buttons - Array of CTA buttons
+ * @property {ComponentStyle} Style - Optional styling for the CTA
+ */
+
+/**
  * @typedef {Object} ImageComponent
  * @property {string} __typename - Always 'ComponentContentPageComponentsImage'
  * @property {string} caption - Image caption

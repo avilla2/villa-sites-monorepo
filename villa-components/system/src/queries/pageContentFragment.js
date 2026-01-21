@@ -211,66 +211,88 @@ fragment Content on ContentPageContentDynamicZone {
     }
   }
   ... on ComponentContentPageComponentsCardGroup {
-  Title
-  fullWidth
-  Cards {
-    Image {
+    Title
+    fullWidth
+    Cards {
+      Image {
+        url
+        width
+        alternativeText
+      }
+      Title
+      Text
+      ButtonText
+      ButtonColor
+      CardColor
+      CardStyle
+      Link
+    }
+    Style {
+        ...StyleFragment
+    }
+  }
+  ... on ComponentContentPageComponentsList {
+    Title
+    Icon {
       url
       width
       alternativeText
     }
-    Title
-    Text
-    ButtonText
-    ButtonColor
-    CardColor
-    CardStyle
-    Link
-  }
-  Style {
+    Caption
+    Items {
+      Text
+    }
+    Style {
       ...StyleFragment
+    }
   }
-}
-... on ComponentContentPageComponentsList {
-  Title
-  Icon {
-    url
-    width
-    alternativeText
+  ... on ComponentHomePageComponentsSlideshow {
+    Title
+    slidesDesktop {
+      url
+      alternativeText
+      width
+      caption
+    }
+    slidesMobile {
+      url
+      alternativeText
+      width
+      caption
+    }
+    Style {
+      ...StyleFragment
+    }
   }
-  Caption
-  Items {
-    Text
+  ... on ComponentHomePageComponentsRichText {
+    Title
+    Style {
+      ...StyleFragment
+    }
+    RichText
   }
-  Style {
-    ...StyleFragment
+  ... on ComponentHomePageComponentsCta {
+    id
+    Title
+    content
+    justify
+    reversed
+    variant
+    media {
+      alternativeText
+      mime
+      url
+      width
+    }
+    buttons {
+      ButtonColor
+      Link
+      Text
+    }
+    Style {
+      ...StyleFragment
+    }
   }
-}
-... on ComponentHomePageComponentsSlideshow {
-  Title
-  slidesDesktop {
-    url
-    alternativeText
-    width
-    caption
-  }
-  slidesMobile {
-    url
-    alternativeText
-    width
-    caption
-  }
-  Style {
-    ...StyleFragment
-  }
-}
-... on ComponentHomePageComponentsRichText {
-  Title
-  Style {
-    ...StyleFragment
-  }
-  RichText
-}
 }
 `
 export default PAGE_CONTENT_FRAGMENT

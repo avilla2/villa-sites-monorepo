@@ -20,7 +20,7 @@ const classes = {
   banner: {
     minHeight: '70px',
     height: '70px',
-    background: 'linear-gradient(135deg, #8B7355 0%, #A0826D 25%, #7CB342 50%, #8B9D6F 75%, #6B8E23 100%)',
+    background: 'linear-gradient(135deg, #8B7355 0%, #A0826D 25%, #7CB342 50%, #8B9D6F 75%, #6B8E23 100%)'
   },
   section: {
     marginTop: 4,
