@@ -1,9 +1,8 @@
 import React from 'react'
 import { BlocksRenderer } from '@strapi/blocks-react-renderer'
 import Box from '@mui/material/Box'
-import Grid from '@mui/material/Grid'
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
+// using CSS Flexbox instead of MUI Grid for layout
+import Paper from '@mui/material/Paper'
 import Typography from '../pageFeatures/typography'
 import Button from '@mui/material/Button'
 import useMediaQuery from '@mui/material/useMediaQuery'
@@ -37,40 +36,41 @@ export default function Cta ({ content }) {
   const { Title, content: body, media, buttons = [], Style = {}, justify, variant, reversed } = content
 
   const grid = (
-    <Grid
-      container
-      spacing={5}
-      direction={reversed ? 'row-reverse' : 'row'}
+    <Box
       sx={{
+        display: 'flex',
+        flexDirection: { xs: 'column', md: reversed ? 'row-reverse' : 'row' },
+        gap: (theme) => theme.spacing(5),
         backgroundColor: 'transparent',
         textAlign: Style?.textAlign || 'left',
         height: mobile ? 'unset' : '100%',
-        alignItems: 'flex-start',
+        alignItems: justify === 'start' ? 'flex-start' : 'center',
         justifyContent: 'center',
-        paddingBottom: variant === 'card' && justify === 'center' ? '40px' : '0px'
+        px: variant === 'card' || variant === 'bordered' ? { xs: 0, md: 3 } : 0
       }}
     >
-      <Grid item sx={{ height: '100%' }} size={{ xs: 12, md: media && media.url ? 8 : 12 }}>
-        <Grid
-          container
-          direction={justify === 'space_between' ? 'row' : 'column'}
-          spacing={2}
+      <Box sx={{ flex: media && media.url ? '0 0 66.666%' : '1 1 100%', height: '100%' }}>
+        <Box
           sx={{
+            display: 'flex',
+            flexDirection: justify === 'space_between' ? 'row' : 'column',
+            gap: 2,
             height: '100%',
+            flexWrap: 'wrap',
             textAlign: Style?.textAlign || 'left',
             justifyContent: getJustifyContent(justify, Style?.textAlign),
-            alignItems: justify !== 'space_between' ? alignmentMapping[Style?.textAlign] : 'flex-start'
+            alignItems: justify !== 'space_between' ? alignmentMapping[Style?.textAlign] : 'center'
           }}
         >
-          <Grid item>
+          <Box>
             {body && (
-              <Typography>
+              <Typography sx={{ '& h2': { m: 0 } }}>
                 <BlocksRenderer content={body} />
               </Typography>
             )}
-          </Grid>
+          </Box>
 
-          <Grid item>
+          <Box>
             {buttons.length > 0 && (
               <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
                 {buttons.map((b, idx) => (
@@ -86,27 +86,48 @@ export default function Cta ({ content }) {
                 ))}
               </Box>
             )}
-          </Grid>
-        </Grid>
-      </Grid>
+          </Box>
+        </Box>
+      </Box>
 
       {media && media.url && (
-        <Grid item size={{ xs: 12, md: 4 }} sx={{ alignSelf: justify === 'center' ? 'center' : 'flex-start' }}>
-          <img
-            src={`${process.env.REACT_APP_BACKEND_URL}${media.url}`}
-            alt={media.alternativeText || Title || 'cta-media'}
-            width="100%"
-          />
-        </Grid>
+        <Box sx={{ flex: '0 0 33.333%', display: 'flex', justifyContent: 'center' }}>
+          {variant === 'rounded'
+            ? (
+            <Paper elevation={8} sx={{ borderRadius: 2, overflow: 'hidden', width: '100%' }}>
+              <img
+                src={`${process.env.REACT_APP_BACKEND_URL}${media.url}`}
+                alt={media.alternativeText || Title || 'cta-media'}
+                style={{ display: 'block', width: '100%', objectFit: 'cover' }}
+              />
+            </Paper>
+              )
+            : (
+            <img
+              src={`${process.env.REACT_APP_BACKEND_URL}${media.url}`}
+              alt={media.alternativeText || Title || 'cta-media'}
+              style={{ width: '100%', borderRadius: variant === 'rounded' ? '8px' : '0px', objectFit: 'cover' }}
+            />
+              )}
+        </Box>
       )}
-    </Grid>
+    </Box>
   )
 
   if (variant === 'card') {
     return (
-      <Card sx={{ margin: '20px 5vw auto', boxShadow: 3, height: '100%', boxSizing: 'border-box' }}>
-        <CardContent sx={{ padding: { xs: 2, md: 3 }, height: '100%' }}>{grid}</CardContent>
-      </Card>
+        <Paper
+          elevation={3}
+          sx={{
+            mx: '5vw',
+            mt: 4,
+            height: justify === 'space_between' ? { xs: 'auto', md: '35vw' } : 'fit-content',
+            boxSizing: 'border-box',
+            p: { xs: 2, md: 3 }
+          }}
+        >
+          {grid}
+        </Paper>
     )
   }
 
@@ -115,10 +136,13 @@ export default function Cta ({ content }) {
       <Box
         sx={{
           border: '1px solid rgba(0,0,0,0.12)',
+          backgroundColor: 'white',
           borderRadius: 2,
           padding: { xs: 2, md: 3 },
-          margin: '20px 5vw auto',
-          height: '85%'
+          mx: '5vw',
+          mt: 4,
+          height: justify === 'space_between' ? { xs: 'auto', md: '35vw' } : 'fit-content',
+          boxSizing: 'border-box'
         }}>
         {grid}
       </Box>
@@ -126,6 +150,14 @@ export default function Cta ({ content }) {
   }
 
   return (
-    <Box sx={{ margin: '2px 5vw auto', paddingBottom: '24px' }}>{grid}</Box>
+    <Box
+      sx={{
+        margin: '2px 5vw auto',
+        paddingBottom: '24px',
+        height: justify === 'space_between' ? { xs: 'auto', md: '35vw' } : 'fit-content',
+        boxSizing: 'border-box'
+      }}
+        >{grid}
+    </Box>
   )
 }
