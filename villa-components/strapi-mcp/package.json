@@ -1,0 +1,31 @@
+{
+  "name": "@villa-components/strapi-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for managing Strapi websites via REST API",
+  "type": "module",
+  "main": "src/index.js",
+  "bin": {
+    "strapi-mcp": "./src/index.js"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "strapi",
+    "rest-api",
+    "cms"
+  ],
+  "author": "Villa Web Solutions",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "cross-fetch": "^4.1.0",
+    "dotenv": "^16.4.7"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5"
+  }
+}

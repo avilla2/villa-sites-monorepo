@@ -1,0 +1,24 @@
+{
+  "inputs": [
+    {
+      "type": "promptString",
+      "id": "strapi-api-key",
+      "description": "Strapi API Key",
+      "password": true
+    }
+  ],
+  "servers": {
+    "strapi": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "/Users/alexvilla/Projects/villa-sites-monorepo/villa-components/strapi-mcp/src/index.js"
+      ],
+      "env": {
+        // "STRAPI_GRAPHQL_ENDPOINT": "https://api.villawebsolutions.com/graphql",
+        "STRAPI_GRAPHQL_ENDPOINT": "http://localhost:1337/graphql",
+        "STRAPI_API_TOKEN": "${input:strapi-api-key}"
+      }
+    }
+  }
+}

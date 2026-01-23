@@ -1,0 +1,1215 @@
+{
+    "data": {
+        "website": {
+            "name": "Pacific Stucco",
+            "locale": "en",
+            "localizations": [],
+            "navbar": {
+                "Style": "Spaced",
+                "FontColor": "#ffffff",
+                "Appearance": "fade_in",
+                "Items": [
+                    {
+                        "__typename": "ComponentNavbarComponentsImageLink",
+                        "Image": {
+                            "url": "/uploads/android_chrome_192x192_f14351e852.png",
+                            "width": 192,
+                            "name": "android-chrome-192x192.png",
+                            "__typename": "UploadFile"
+                        },
+                        "Link": "/",
+                        "Width": 50,
+                        "showInMobile": false
+                    },
+                    {
+                        "__typename": "ComponentNavbarComponentsTextLink",
+                        "Title": "About Us",
+                        "Link": "/about",
+                        "id": "42"
+                    },
+                    {
+                        "__typename": "ComponentNavbarComponentsTextLink",
+                        "Title": "Our Services",
+                        "Link": "/services",
+                        "id": "43"
+                    },
+                    {
+                        "__typename": "ComponentNavbarComponentsTextLink",
+                        "Title": "Contact Us",
+                        "Link": "/contact",
+                        "id": "44"
+                    }
+                ],
+                "MobileConfig": {
+                    "MobileIcon": {
+                        "url": "/uploads/android_chrome_192x192_f14351e852.png",
+                        "width": 192,
+                        "name": "android-chrome-192x192.png",
+                        "__typename": "UploadFile"
+                    },
+                    "DrawerText": "Pacific Stucco",
+                    "DrawerLink": "/",
+                    "IconLink": "/",
+                    "__typename": "ComponentNavbarComponentsMobileConfig"
+                },
+                "__typename": "WebsiteNavbar"
+            },
+            "footer": {
+                "FontColor": "#ffffff",
+                "links": [],
+                "Content": [
+                    {
+                        "__typename": "ComponentFooterComponentsImage",
+                        "Image": {
+                            "url": "/uploads/company_logo_rounded_1f6fbf73cf.png",
+                            "name": "company_logo_rounded.png",
+                            "width": 500,
+                            "__typename": "UploadFile"
+                        },
+                        "Space": 4
+                    },
+                    {
+                        "__typename": "ComponentFooterComponentsText",
+                        "Text": "*© 2025, Pacific Stucco & Construction LLC*     \n*All Rights Reserved*    \n   \n(541) 930-4262    \npac.stucco@gmail.com  ",
+                        "Space": 8
+                    }
+                ],
+                "__typename": "WebsiteFooter"
+            },
+            "site_settings": {
+                "DesktopBreakpoint": "md",
+                "EnableLocalization": false,
+                "SiteTitle": "| Pacific Stucco Medford, OR",
+                "Palette": {
+                    "primary": "#2B384C",
+                    "success": "#40c23a",
+                    "secondary": "#cecbe7",
+                    "warning": "#d01e1e",
+                    "info": "#272262",
+                    "__typename": "ComponentSiteSettingsComponentsColorPalette"
+                },
+                "__typename": "WebsiteSetting"
+            },
+            "homepage": {
+                "PageName": "Quality Stucco and Siding",
+                "Title": "Pacific Stucco",
+                "Content": [
+                    {
+                        "__typename": "ComponentHomePageComponentsIntro",
+                        "Style": {
+                            "BackgroundColor": null,
+                            "Animation": "None",
+                            "TextColor": "#ffffff",
+                            "textAlign": "center",
+                            "size": 12,
+                            "paddingTop": null,
+                            "paddingBottom": null,
+                            "__typename": "ComponentContentPageComponentsStyle"
+                        },
+                        "File": [
+                            {
+                                "mime": "image/jpeg",
+                                "url": "/uploads/storefront_stucco_6d678a4fea.JPG",
+                                "width": 1920,
+                                "alternativeText": "Storefront with a covered patio, hanging lights and white stucco siding",
+                                "__typename": "UploadFile"
+                            }
+                        ],
+                        "IntroText": "# Your Experts in Stucco & Siding\n### Pacific Stucco & Construction LLC",
+                        "TextPosition": "Centered",
+                        "MobileFile": [
+                            {
+                                "mime": "image/jpeg",
+                                "url": "/uploads/storefront_stucco_mobile_1296c0a88e.JPG",
+                                "width": 1080,
+                                "alternativeText": "Storefront with a covered patio, hanging lights and white stucco siding",
+                                "__typename": "UploadFile"
+                            }
+                        ],
+                        "Buttons": [],
+                        "FormData": null,
+                        "FormFields": []
+                    },
+                    {
+                        "__typename": "ComponentHomePageComponentsRichText",
+                        "Title": "Bringing precision, durability, and beauty to every project",
+                        "Style": {
+                            "BackgroundColor": "#272262",
+                            "Animation": "None",
+                            "TextColor": "#ffffff",
+                            "textAlign": "left",
+                            "size": 12,
+                            "paddingTop": null,
+                            "paddingBottom": null,
+                            "__typename": "ComponentContentPageComponentsStyle"
+                        },
+                        "RichText": [
+                            {
+                                "type": "paragraph",
+                                "children": [
+                                    {
+                                        "text": "As specialists in exterior finishes—including stucco and siding—and skilled in interior plaster work, we provide high-quality solutions that elevate both the look and protection of your home or building.",
+                                        "type": "text"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "paragraph",
+                                "children": [
+                                    {
+                                        "text": "",
+                                        "type": "text"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "paragraph",
+                                "children": [
+                                    {
+                                        "text": "With years of hands-on experience and a commitment to exceptional craftsmanship, we work with homeowners, builders, and developers across the region to deliver long-lasting, expertly applied finishes that stand up to the elements and stand out for their visual appeal.",
+                                        "type": "text"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "__typename": "ComponentContentPageComponentsImage",
+                        "caption": null,
+                        "imageStyle": "Parallax",
+                        "width": 80,
+                        "height": 90,
+                        "captionLocation": "bottom",
+                        "Style": null,
+                        "asset": {
+                            "url": "/uploads/restaurant_stucco_d727227fa7.jpg",
+                            "width": 1920,
+                            "alternativeText": "Exterior view of El Paraiso restaurant, complete with white stucco and black accents",
+                            "__typename": "UploadFile"
+                        }
+                    },
+                    {
+                        "__typename": "ComponentContentPageComponentsParagraph",
+                        "Title": "Our Quality Services",
+                        "Style": {
+                            "BackgroundColor": "#ffffff",
+                            "Animation": "None",
+                            "TextColor": "#000000",
+                            "textAlign": "left",
+                            "size": 12,
+                            "paddingTop": null,
+                            "paddingBottom": null,
+                            "__typename": "ComponentContentPageComponentsStyle"
+                        },
+                        "Body": null
+                    },
+                    {
+                        "__typename": "ComponentContentPageComponentsImage",
+                        "caption": "### Stucco Installation & Repair    \nFrom new construction to renovations, we provide seamless stucco finishes that are built to last. Choose from traditional or synthetic systems tailored to your project’s needs.",
+                        "imageStyle": "Regular",
+                        "width": 80,
+                        "height": null,
+                        "captionLocation": "right",
+                        "Style": {
+                            "BackgroundColor": "#ffffff",
+                            "Animation": "None",
+                            "TextColor": "#000000",
+                            "textAlign": "left",
+                            "size": 12,
+                            "paddingTop": null,
+                            "paddingBottom": 36,
+                            "__typename": "ComponentContentPageComponentsStyle"
+                        },
+                        "asset": {
+                            "url": "/uploads/planter_stucco_9ca6044191.jpg",
+                            "width": 1080,
+                            "alternativeText": "Planter with a small shrub that is getting decorated with light colored stucco",
+                            "__typename": "UploadFile"
+                        }
+                    },
+                    {
+                        "__typename": "ComponentContentPageComponentsImage",
+                        "caption": "### Siding Solutions    \nWe install and repair a variety of siding materials, including fiber cement, wood, and composite siding, to enhance curb appeal and protect your home.",
+                        "imageStyle": "Regular",
+                        "width": 80,
+                        "height": null,
+                        "captionLocation": "left",
+                        "Style": {
+                            "BackgroundColor": null,
+                            "Animation": "None",
+                            "TextColor": "#000000",
+                            "textAlign": "left",
+                            "size": 12,
+                            "paddingTop": null,
+                            "paddingBottom": 36,
+                            "__typename": "ComponentContentPageComponentsStyle"
+                        },
+                        "asset": {
+                            "url": "/uploads/exterior3_9eac7b1adb.jpg",
+                            "width": 1080,
+                            "alternativeText": "Commercial building with dark grey and cream colored stucco",
+                            "__typename": "UploadFile"
+                        }
+                    },
+                    {
+                        "__typename": "ComponentContentPageComponentsImage",
+                        "caption": "### Interior Plastering     \nSmooth, clean, and custom-finished plaster interiors bring elegance and durability to your indoor spaces. Perfect for both modern and classic styles.",
+                        "imageStyle": "Regular",
+                        "width": 80,
+                        "height": null,
+                        "captionLocation": "right",
+                        "Style": {
+                            "BackgroundColor": "#ffffff",
+                            "Animation": "None",
+                            "TextColor": "#000000",
+                            "textAlign": "left",
+                            "size": 12,
+                            "paddingTop": null,
+                            "paddingBottom": 42,
+                            "__typename": "ComponentContentPageComponentsStyle"
+                        },
+                        "asset": {
+                            "url": "/uploads/interior_plastering_2_oct_2025_74407da207.jpg",
+                            "width": 700,
+                            "alternativeText": null,
+                            "__typename": "UploadFile"
+                        }
+                    },
+                    {
+                        "__typename": "ComponentHomePageComponentsRichText",
+                        "Title": "The Pacific Stucco Guarentee",
+                        "Style": {
+                            "BackgroundColor": "#00663A",
+                            "Animation": "None",
+                            "TextColor": "#ffffff",
+                            "textAlign": "left",
+                            "size": 12,
+                            "paddingTop": null,
+                            "paddingBottom": 0,
+                            "__typename": "ComponentContentPageComponentsStyle"
+                        },
+                        "RichText": [
+                            {
+                                "type": "list",
+                                "format": "unordered",
+                                "children": [
+                                    {
+                                        "type": "list-item",
+                                        "children": [
+                                            {
+                                                "text": "Experienced Professionals – Decades of combined industry experience",
+                                                "type": "text"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "list-item",
+                                        "children": [
+                                            {
+                                                "text": "Reliable & On-Time – We value your time and budget",
+                                                "type": "text"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "list-item",
+                                        "children": [
+                                            {
+                                                "text": "Superior Materials – Only high-quality, weather-resistant products",
+                                                "type": "text"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "list-item",
+                                        "children": [
+                                            {
+                                                "text": "Attention to Detail – We never cut corners—your finish is our signature",
+                                                "type": "text"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "__typename": "ComponentHomePageComponentsGallery",
+                        "Title": null,
+                        "Style": {
+                            "BackgroundColor": "#00663A",
+                            "Animation": "None",
+                            "TextColor": null,
+                            "textAlign": "center",
+                            "size": 12,
+                            "paddingTop": 0,
+                            "paddingBottom": null,
+                            "__typename": "ComponentContentPageComponentsStyle"
+                        },
+                        "Pictures": [
+                            {
+                                "url": "/uploads/planter_succo2_592497082b.jpg",
+                                "width": 1080,
+                                "alternativeText": null,
+                                "__typename": "UploadFile"
+                            },
+                            {
+                                "url": "/uploads/interior_platering_oct_2025_a57e0049ce.jpg",
+                                "width": 700,
+                                "alternativeText": null,
+                                "__typename": "UploadFile"
+                            },
+                            {
+                                "url": "/uploads/exterior2_d121745160.jpg",
+                                "width": 1080,
+                                "alternativeText": "Rear view of a large and square commercial building with white stucco and gray edges",
+                                "__typename": "UploadFile"
+                            }
+                        ]
+                    },
+                    {
+                        "__typename": "ComponentHomePageComponentsRichText",
+                        "Title": "Serving Residential & Commercial Clients Across Southern Oregon",
+                        "Style": {
+                            "BackgroundColor": "#ffffff",
+                            "Animation": "None",
+                            "TextColor": null,
+                            "textAlign": "left",
+                            "size": 12,
+                            "paddingTop": null,
+                            "paddingBottom": null,
+                            "__typename": "ComponentContentPageComponentsStyle"
+                        },
+                        "RichText": [
+                            {
+                                "type": "paragraph",
+                                "children": [
+                                    {
+                                        "text": "Whether you're building from the ground up, upgrading your home’s exterior, or refreshing your interior walls, Pacific Stucco & Construction LLC is your trusted partner for premium finishing work.",
+                                        "type": "text"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "paragraph",
+                                "children": [
+                                    {
+                                        "text": "📞 Call today for a free estimate and discover the difference true craftsmanship makes.",
+                                        "type": "text"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "paragraph",
+                                "children": [
+                                    {
+                                        "text": "(541) 930-4262",
+                                        "type": "text"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "paragraph",
+                                "children": [
+                                    {
+                                        "text": "Serving Medford, Ashland, Central Point and the rest of the Rogue Valley",
+                                        "type": "text"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "__typename": "WebsiteHomepage"
+            },
+            "content_pages": [
+                {
+                    "Name": "Pacific Stucco About",
+                    "Title": "About Us",
+                    "Link": "/about",
+                    "Content": [
+                        {
+                            "__typename": "ComponentHomePageComponentsIntro",
+                            "Style": {
+                                "BackgroundColor": null,
+                                "Animation": "None",
+                                "TextColor": "#ffffff",
+                                "textAlign": "left",
+                                "size": 12,
+                                "paddingTop": null,
+                                "paddingBottom": null,
+                                "__typename": "ComponentContentPageComponentsStyle"
+                            },
+                            "File": [
+                                {
+                                    "mime": "image/jpeg",
+                                    "url": "/uploads/storefront_stucco_6d678a4fea.JPG",
+                                    "width": 1920,
+                                    "alternativeText": "Storefront with a covered patio, hanging lights and white stucco siding",
+                                    "__typename": "UploadFile"
+                                }
+                            ],
+                            "IntroText": "# Your Local Experts in Stucco",
+                            "TextPosition": "Bottom_Left",
+                            "MobileFile": [
+                                {
+                                    "mime": "image/jpeg",
+                                    "url": "/uploads/storefront_stucco_mobile_1296c0a88e.JPG",
+                                    "width": 1080,
+                                    "alternativeText": "Storefront with a covered patio, hanging lights and white stucco siding",
+                                    "__typename": "UploadFile"
+                                }
+                            ],
+                            "Buttons": [],
+                            "FormData": null,
+                            "FormFields": []
+                        },
+                        {
+                            "__typename": "ComponentHomePageComponentsRichText",
+                            "Title": null,
+                            "Style": {
+                                "BackgroundColor": null,
+                                "Animation": "None",
+                                "TextColor": null,
+                                "textAlign": "left",
+                                "size": 12,
+                                "paddingTop": null,
+                                "paddingBottom": null,
+                                "__typename": "ComponentContentPageComponentsStyle"
+                            },
+                            "RichText": [
+                                {
+                                    "type": "paragraph",
+                                    "children": [
+                                        {
+                                            "text": "At Pacific Stucco & Construction LLC, we take pride in providing high-quality exterior and interior finishing services to homeowners, builders, and contractors throughout Medford, Oregon and the surrounding communities. With a focus on stucco, siding, and interior plastering, we combine expert craftsmanship with dependable service to deliver results that last.",
+                                            "type": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "paragraph",
+                                    "children": [
+                                        {
+                                            "text": "",
+                                            "type": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "paragraph",
+                                    "children": [
+                                        {
+                                            "text": "We are a locally owned and operated company built on a foundation of hard work, integrity, and attention to detail. Every member of our team is highly trained and committed to upholding the highest standards of quality, whether we're applying a custom stucco finish, installing weather-resistant siding, or crafting smooth, polished interior plaster surfaces.",
+                                            "type": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "paragraph",
+                                    "children": [
+                                        {
+                                            "text": "",
+                                            "type": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "paragraph",
+                                    "children": [
+                                        {
+                                            "text": "",
+                                            "type": "text"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "__typename": "ComponentContentPageComponentsImage",
+                            "caption": null,
+                            "imageStyle": "Regular",
+                            "width": 80,
+                            "height": null,
+                            "captionLocation": "right",
+                            "Style": {
+                                "BackgroundColor": null,
+                                "Animation": "None",
+                                "TextColor": null,
+                                "textAlign": "center",
+                                "size": 6,
+                                "paddingTop": null,
+                                "paddingBottom": 32,
+                                "__typename": "ComponentContentPageComponentsStyle"
+                            },
+                            "asset": {
+                                "url": "/uploads/exterior_f3a501a52f.jpg",
+                                "width": 1080,
+                                "alternativeText": "Asphalt parking lot with store signage announcing a \"star donuts\" and a building in the background with white stucco exterior",
+                                "__typename": "UploadFile"
+                            }
+                        },
+                        {
+                            "__typename": "ComponentHomePageComponentsRichText",
+                            "Title": "Serving the Rogue Valley",
+                            "Style": {
+                                "BackgroundColor": null,
+                                "Animation": "None",
+                                "TextColor": null,
+                                "textAlign": "left",
+                                "size": 6,
+                                "paddingTop": null,
+                                "paddingBottom": 64,
+                                "__typename": "ComponentContentPageComponentsStyle"
+                            },
+                            "RichText": [
+                                {
+                                    "type": "paragraph",
+                                    "children": [
+                                        {
+                                            "text": "Whether you're remodeling, building new, or simply updating the look of your property, Pacific Stucco & Construction LLC is here to bring your vision to life with expert exterior and interior finishes.",
+                                            "type": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "paragraph",
+                                    "children": [
+                                        {
+                                            "text": "",
+                                            "type": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "paragraph",
+                                    "children": [
+                                        {
+                                            "text": "📍 Proudly serving ",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "bold": true,
+                                            "text": "Medford, Central Point, Ashland, Eagle Point, Grants Pass",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "text": ", and surrounding areas in Southern Oregon.",
+                                            "type": "text"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "__typename": "ContentPage"
+                },
+                {
+                    "Name": "Pacific Stucco Services",
+                    "Title": "Our Services",
+                    "Link": "/services",
+                    "Content": [
+                        {
+                            "__typename": "ComponentHomePageComponentsIntro",
+                            "Style": {
+                                "BackgroundColor": null,
+                                "Animation": "None",
+                                "TextColor": "#ffffff",
+                                "textAlign": "left",
+                                "size": 12,
+                                "paddingTop": null,
+                                "paddingBottom": null,
+                                "__typename": "ComponentContentPageComponentsStyle"
+                            },
+                            "File": [
+                                {
+                                    "mime": "image/jpeg",
+                                    "url": "/uploads/storefront_stucco_6d678a4fea.JPG",
+                                    "width": 1920,
+                                    "alternativeText": "Storefront with a covered patio, hanging lights and white stucco siding",
+                                    "__typename": "UploadFile"
+                                }
+                            ],
+                            "IntroText": "# Exterior and Interior Finishes Built to Last",
+                            "TextPosition": "Bottom_Left",
+                            "MobileFile": [
+                                {
+                                    "mime": "image/jpeg",
+                                    "url": "/uploads/storefront_stucco_mobile_1296c0a88e.JPG",
+                                    "width": 1080,
+                                    "alternativeText": "Storefront with a covered patio, hanging lights and white stucco siding",
+                                    "__typename": "UploadFile"
+                                }
+                            ],
+                            "Buttons": [],
+                            "FormData": null,
+                            "FormFields": []
+                        },
+                        {
+                            "__typename": "ComponentHomePageComponentsRichText",
+                            "Title": null,
+                            "Style": {
+                                "BackgroundColor": "#272262",
+                                "Animation": "None",
+                                "TextColor": "#ffffff",
+                                "textAlign": "left",
+                                "size": 12,
+                                "paddingTop": null,
+                                "paddingBottom": null,
+                                "__typename": "ComponentContentPageComponentsStyle"
+                            },
+                            "RichText": [
+                                {
+                                    "type": "paragraph",
+                                    "children": [
+                                        {
+                                            "text": "At Pacific Stucco & Construction, we specialize in delivering high-quality finishes that enhance both the beauty and durability of your property. From detailed stucco applications to clean, professional plaster interiors, we provide expert service to residential and commercial clients throughout Medford, Oregon and the surrounding areas.",
+                                            "type": "text"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "__typename": "ComponentHomePageComponentsRichText",
+                            "Title": "Stucco Services",
+                            "Style": {
+                                "BackgroundColor": null,
+                                "Animation": "None",
+                                "TextColor": null,
+                                "textAlign": "left",
+                                "size": 12,
+                                "paddingTop": null,
+                                "paddingBottom": 0,
+                                "__typename": "ComponentContentPageComponentsStyle"
+                            },
+                            "RichText": [
+                                {
+                                    "type": "paragraph",
+                                    "children": [
+                                        {
+                                            "text": "Whether you're building new or refreshing an existing surface, stucco is a versatile, long-lasting exterior finish that offers timeless appeal. We provide:",
+                                            "type": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "list",
+                                    "format": "unordered",
+                                    "children": [
+                                        {
+                                            "type": "list-item",
+                                            "children": [
+                                                {
+                                                    "bold": true,
+                                                    "text": "New Stucco Installation",
+                                                    "type": "text"
+                                                },
+                                                {
+                                                    "text": " – Traditional or synthetic systems tailored to your project",
+                                                    "type": "text"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "list-item",
+                                            "children": [
+                                                {
+                                                    "bold": true,
+                                                    "text": "Stucco Repair & Restoration",
+                                                    "type": "text"
+                                                },
+                                                {
+                                                    "text": " – Fix cracks, water damage, or aging surfaces",
+                                                    "type": "text"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "list-item",
+                                            "children": [
+                                                {
+                                                    "bold": true,
+                                                    "text": "Custom Texture & Color Matching",
+                                                    "type": "text"
+                                                },
+                                                {
+                                                    "text": " – Seamless finishes that match your vision or existing façade",
+                                                    "type": "text"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "paragraph",
+                                    "children": [
+                                        {
+                                            "text": "Our team ensures every stucco job is done with expert precision, ensuring maximum performance and visual appeal.",
+                                            "type": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "paragraph",
+                                    "children": [
+                                        {
+                                            "text": "",
+                                            "type": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "paragraph",
+                                    "children": [
+                                        {
+                                            "text": "",
+                                            "type": "text"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "__typename": "ComponentHomePageComponentsGallery",
+                            "Title": null,
+                            "Style": {
+                                "BackgroundColor": null,
+                                "Animation": "None",
+                                "TextColor": null,
+                                "textAlign": "center",
+                                "size": 12,
+                                "paddingTop": 0,
+                                "paddingBottom": null,
+                                "__typename": "ComponentContentPageComponentsStyle"
+                            },
+                            "Pictures": [
+                                {
+                                    "url": "/uploads/planter_stucco_9ca6044191.jpg",
+                                    "width": 1080,
+                                    "alternativeText": "Planter with a small shrub that is getting decorated with light colored stucco",
+                                    "__typename": "UploadFile"
+                                },
+                                {
+                                    "url": "/uploads/planter_succo2_592497082b.jpg",
+                                    "width": 1080,
+                                    "alternativeText": null,
+                                    "__typename": "UploadFile"
+                                },
+                                {
+                                    "url": "/uploads/exterior3_9eac7b1adb.jpg",
+                                    "width": 1080,
+                                    "alternativeText": "Commercial building with dark grey and cream colored stucco",
+                                    "__typename": "UploadFile"
+                                }
+                            ]
+                        },
+                        {
+                            "__typename": "ComponentHomePageComponentsRichText",
+                            "Title": "Siding Services",
+                            "Style": {
+                                "BackgroundColor": null,
+                                "Animation": "None",
+                                "TextColor": null,
+                                "textAlign": "left",
+                                "size": 12,
+                                "paddingTop": null,
+                                "paddingBottom": 0,
+                                "__typename": "ComponentContentPageComponentsStyle"
+                            },
+                            "RichText": [
+                                {
+                                    "type": "paragraph",
+                                    "children": [
+                                        {
+                                            "text": "Siding is your home or building’s first line of defense—and its first impression. We install and repair a variety of siding materials, including:",
+                                            "type": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "list",
+                                    "format": "unordered",
+                                    "children": [
+                                        {
+                                            "type": "list-item",
+                                            "children": [
+                                                {
+                                                    "text": "Fiber Cement (James Hardie, etc.)",
+                                                    "type": "text"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "list-item",
+                                            "children": [
+                                                {
+                                                    "text": "Wood and Cedar Siding",
+                                                    "type": "text"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "list-item",
+                                            "children": [
+                                                {
+                                                    "text": "Composite and Engineered Wood Siding",
+                                                    "type": "text"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "list-item",
+                                            "children": [
+                                                {
+                                                    "text": "Lap, Panel, and Shingle Styles",
+                                                    "type": "text"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "paragraph",
+                                    "children": [
+                                        {
+                                            "text": "We help you choose the right siding for your property's architecture, performance needs, and budget, ensuring a clean, weather-resistant finish that lasts.",
+                                            "type": "text"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "__typename": "ComponentHomePageComponentsGallery",
+                            "Title": null,
+                            "Style": {
+                                "BackgroundColor": null,
+                                "Animation": "None",
+                                "TextColor": null,
+                                "textAlign": "left",
+                                "size": 12,
+                                "paddingTop": 0,
+                                "paddingBottom": 2,
+                                "__typename": "ComponentContentPageComponentsStyle"
+                            },
+                            "Pictures": [
+                                {
+                                    "url": "/uploads/residential_stucco_f6ddcd6f2c.jpg",
+                                    "width": 1080,
+                                    "alternativeText": "Large house that is under construction, but has a tan stucco finish",
+                                    "__typename": "UploadFile"
+                                },
+                                {
+                                    "url": "/uploads/exterior2_d121745160.jpg",
+                                    "width": 1080,
+                                    "alternativeText": "Rear view of a large and square commercial building with white stucco and gray edges",
+                                    "__typename": "UploadFile"
+                                },
+                                {
+                                    "url": "/uploads/exterior_f3a501a52f.jpg",
+                                    "width": 1080,
+                                    "alternativeText": "Asphalt parking lot with store signage announcing a \"star donuts\" and a building in the background with white stucco exterior",
+                                    "__typename": "UploadFile"
+                                }
+                            ]
+                        },
+                        {
+                            "__typename": "ComponentHomePageComponentsRichText",
+                            "Title": "Interior Plastering",
+                            "Style": {
+                                "BackgroundColor": null,
+                                "Animation": "None",
+                                "TextColor": null,
+                                "textAlign": "left",
+                                "size": 6,
+                                "paddingTop": null,
+                                "paddingBottom": 0,
+                                "__typename": "ComponentContentPageComponentsStyle"
+                            },
+                            "RichText": [
+                                {
+                                    "type": "paragraph",
+                                    "children": [
+                                        {
+                                            "text": "Smooth, durable, and elegant—our plaster interior services bring craftsmanship and comfort indoors. Ideal for both modern and traditional interiors, we offer:",
+                                            "type": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "list",
+                                    "format": "unordered",
+                                    "children": [
+                                        {
+                                            "type": "list-item",
+                                            "children": [
+                                                {
+                                                    "text": "Custom Wall & Ceiling Plastering",
+                                                    "type": "text"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "list-item",
+                                            "children": [
+                                                {
+                                                    "text": "Textured and Smooth Finishes",
+                                                    "type": "text"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "list-item",
+                                            "children": [
+                                                {
+                                                    "text": "Plaster Repair & Surface Refinishing",
+                                                    "type": "text"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "paragraph",
+                                    "children": [
+                                        {
+                                            "text": "Whether you're restoring an older home or adding artisanal character to new construction, our plaster work creates timeless results.",
+                                            "type": "text"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "__typename": "ComponentContentPageComponentsImage",
+                            "caption": null,
+                            "imageStyle": "Regular",
+                            "width": 80,
+                            "height": null,
+                            "captionLocation": "bottom",
+                            "Style": {
+                                "BackgroundColor": null,
+                                "Animation": "None",
+                                "TextColor": null,
+                                "textAlign": "center",
+                                "size": 6,
+                                "paddingTop": 36,
+                                "paddingBottom": null,
+                                "__typename": "ComponentContentPageComponentsStyle"
+                            },
+                            "asset": {
+                                "url": "/uploads/interior_plastering_2_oct_2025_74407da207.jpg",
+                                "width": 700,
+                                "alternativeText": null,
+                                "__typename": "UploadFile"
+                            }
+                        },
+                        {
+                            "__typename": "ComponentHomePageComponentsRichText",
+                            "Title": "Local experts based in Medford, Oregon",
+                            "Style": {
+                                "BackgroundColor": null,
+                                "Animation": "None",
+                                "TextColor": null,
+                                "textAlign": "left",
+                                "size": 12,
+                                "paddingTop": null,
+                                "paddingBottom": 2,
+                                "__typename": "ComponentContentPageComponentsStyle"
+                            },
+                            "RichText": [
+                                {
+                                    "type": "paragraph",
+                                    "children": [
+                                        {
+                                            "text": "Contact us today to schedule a free consultation and find out how we can bring quality craftsmanship to your next project.",
+                                            "type": "text"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "__typename": "ComponentContentPageComponentsButtons",
+                            "Style": {
+                                "BackgroundColor": null,
+                                "Animation": "None",
+                                "TextColor": "#ffffff",
+                                "textAlign": "left",
+                                "size": 12,
+                                "paddingTop": 2,
+                                "paddingBottom": null,
+                                "__typename": "ComponentContentPageComponentsStyle"
+                            },
+                            "Entry": [
+                                {
+                                    "Link": "tel:5413014746",
+                                    "Text": "(541) 301-4746",
+                                    "ButtonColor": "#2B384C",
+                                    "__typename": "ComponentButtonComponentsButtonEntry"
+                                },
+                                {
+                                    "Link": "/contact",
+                                    "Text": "Contact Us",
+                                    "ButtonColor": "#00663A",
+                                    "__typename": "ComponentButtonComponentsButtonEntry"
+                                }
+                            ],
+                            "GroupButtonStyle": "contained",
+                            "ButtonArrangement": "space_between"
+                        }
+                    ],
+                    "__typename": "ContentPage"
+                },
+                {
+                    "Name": "Pacific Stucco Contact",
+                    "Title": "Contact Us",
+                    "Link": "/contact",
+                    "Content": [
+                        {
+                            "__typename": "ComponentHomePageComponentsRichText",
+                            "Title": "Let’s Bring Your Project to Life",
+                            "Style": {
+                                "BackgroundColor": null,
+                                "Animation": "None",
+                                "TextColor": null,
+                                "textAlign": "left",
+                                "size": 12,
+                                "paddingTop": null,
+                                "paddingBottom": 16,
+                                "__typename": "ComponentContentPageComponentsStyle"
+                            },
+                            "RichText": [
+                                {
+                                    "type": "paragraph",
+                                    "children": [
+                                        {
+                                            "text": "Have questions about our services? Ready to schedule a consultation or request a free quote? The team at Pacific Stucco & Construction LLC is here to help. Whether you’re planning a new build, updating your home’s exterior, or restoring a plaster interior, we’d love to hear from you.",
+                                            "type": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "paragraph",
+                                    "children": [
+                                        {
+                                            "text": "",
+                                            "type": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "paragraph",
+                                    "children": [
+                                        {
+                                            "text": "",
+                                            "type": "text"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "__typename": "ComponentContentPageComponentsImage",
+                            "caption": null,
+                            "imageStyle": "Parallax",
+                            "width": 80,
+                            "height": 50,
+                            "captionLocation": "bottom",
+                            "Style": {
+                                "BackgroundColor": null,
+                                "Animation": "None",
+                                "TextColor": null,
+                                "textAlign": "center",
+                                "size": 12,
+                                "paddingTop": 16,
+                                "paddingBottom": null,
+                                "__typename": "ComponentContentPageComponentsStyle"
+                            },
+                            "asset": {
+                                "url": "/uploads/exterior3_wide_c0c35a0f09.JPEG",
+                                "width": 1240,
+                                "alternativeText": "Exterior of commercial building with dark grey and cream colored stucco",
+                                "__typename": "UploadFile"
+                            }
+                        },
+                        {
+                            "__typename": "ComponentHomePageComponentsRichText",
+                            "Title": "Get in Touch",
+                            "Style": {
+                                "BackgroundColor": "#00663A",
+                                "Animation": "None",
+                                "TextColor": "#ffffff",
+                                "textAlign": "left",
+                                "size": 12,
+                                "paddingTop": null,
+                                "paddingBottom": 36,
+                                "__typename": "ComponentContentPageComponentsStyle"
+                            },
+                            "RichText": [
+                                {
+                                    "type": "paragraph",
+                                    "children": [
+                                        {
+                                            "text": "Phone: (541) 930-4262",
+                                            "type": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "paragraph",
+                                    "children": [
+                                        {
+                                            "text": "Email: pac.stucco@gmail.com",
+                                            "type": "text"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "__typename": "ComponentContentPageComponentsForm",
+                            "Title": "Send Us a Message",
+                            "Style": null,
+                            "bodyTitle": "Your Construction Needs",
+                            "sendTo": "pac.stucco@gmail.com",
+                            "sendFrom": "notifications@villawebsolutions.com",
+                            "formFields": [
+                                {
+                                    "name": "name",
+                                    "label": "Name",
+                                    "validation": null,
+                                    "includeInSubjectLine": true,
+                                    "fullWidth": true,
+                                    "type": "any",
+                                    "__typename": "ComponentFormComponentsFormFields"
+                                },
+                                {
+                                    "name": "phoneNumber",
+                                    "label": "Phone Number",
+                                    "validation": "^[+]?[(]?[0-9]{3}[)]?[-\\s.]?[0-9]{3}[-\\s.]?[0-9]{4,6}$",
+                                    "includeInSubjectLine": false,
+                                    "fullWidth": true,
+                                    "type": "phone",
+                                    "__typename": "ComponentFormComponentsFormFields"
+                                },
+                                {
+                                    "name": "email",
+                                    "label": "Email Address",
+                                    "validation": "\\w+@\\w+\\.[a-zA-Z]+",
+                                    "includeInSubjectLine": false,
+                                    "fullWidth": true,
+                                    "type": "any",
+                                    "__typename": "ComponentFormComponentsFormFields"
+                                }
+                            ]
+                        }
+                    ],
+                    "__typename": "ContentPage"
+                }
+            ],
+            "__typename": "Website"
+        }
+    }
+}
