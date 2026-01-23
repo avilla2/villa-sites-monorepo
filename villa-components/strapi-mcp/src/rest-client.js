@@ -7,7 +7,6 @@ import fetch from 'cross-fetch'
 export class StrapiRESTClient {
   constructor (endpoint, apiToken) {
     // Convert GraphQL endpoint to REST endpoint
-    this.endpoint = endpoint.replace('/graphql', '/api')
     this.headers = {
       'Content-Type': 'application/json',
       ...(apiToken ? { Authorization: `Bearer ${apiToken}` } : {})

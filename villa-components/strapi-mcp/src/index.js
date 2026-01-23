@@ -12,12 +12,11 @@ import { StrapiRESTClient } from './rest-client.js'
 // Load environment variables
 dotenv.config()
 
-const STRAPI_GRAPHQL_ENDPOINT = process.env.STRAPI_GRAPHQL_ENDPOINT || 'http://localhost:1337/graphql'
+const STRAPI_REST_ENDPOINT = process.env.STRAPI_REST_ENDPOINT || 'http://localhost:1337/api'
 const STRAPI_API_TOKEN = process.env.STRAPI_API_TOKEN || ''
 
 // Initialize REST client
-const strapiClient = new StrapiRESTClient(STRAPI_GRAPHQL_ENDPOINT, STRAPI_API_TOKEN)
-
+const strapiClient = new StrapiRESTClient(STRAPI_REST_ENDPOINT, STRAPI_API_TOKEN)
 // Component type reference
 const COMPONENT_TYPES = {
   // Layout & Hero Components (usable on both homepages and content pages)
