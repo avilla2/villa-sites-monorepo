@@ -6,7 +6,7 @@ import SITESETTINGS_FRAGMENT from './siteSettingsFragment'
 
 const APP_QUERY = gql`
 query Website($id: ID!, $locale: I18NLocaleCode) {
-  website(documentId: $id, locale: $locale) {
+  website(documentId: $id, locale: $locale, pagination: { limit: 50 }) {
     name
     locale
     localizations {

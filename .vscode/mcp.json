@@ -15,8 +15,8 @@
         "/Users/alexvilla/Projects/villa-sites-monorepo/villa-components/strapi-mcp/src/index.js"
       ],
       "env": {
-        // "STRAPI_GRAPHQL_ENDPOINT": "https://api.villawebsolutions.com/graphql",
-        "STRAPI_GRAPHQL_ENDPOINT": "http://localhost:1337/graphql",
+        "STRAPI_REST_ENDPOINT": "https://api.villawebsolutions.com/api",
+        // "STRAPI_REST_ENDPOINT": "http://localhost:1337/graphql",
         "STRAPI_API_TOKEN": "${input:strapi-api-key}"
       }
     }

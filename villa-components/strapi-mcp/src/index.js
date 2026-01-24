@@ -476,6 +476,20 @@ const TOOLS = [
 
   // Homepage tools
   {
+    name: 'get_homepage',
+    description: 'Get detailed information about a specific homepage including all content components.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        documentId: {
+          type: 'string',
+          description: 'The document ID of the homepage'
+        }
+      },
+      required: ['documentId']
+    }
+  },
+  {
     name: 'create_homepage',
     description: 'Create a new homepage with page name, title, and content components. Homepages can use any component type from homepages or content pages.',
     inputSchema: {
@@ -1145,6 +1159,17 @@ const toolHandlers = {
   },
 
   // Homepage handlers
+  async get_homepage (args) {
+    const result = await strapiClient.getHomepage(args.documentId)
+
+    return {
+      content: [{
+        type: 'text',
+        text: JSON.stringify(result.data, null, 2)
+      }]
+    }
+  },
+
   async create_homepage (args) {
     const data = {
       PageName: args.pageName,

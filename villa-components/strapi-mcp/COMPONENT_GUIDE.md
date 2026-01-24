@@ -323,6 +323,38 @@ Here's a content page using components from both categories:
 
 When using components, be aware of these field name requirements:
 
+### Component Type Naming Convention
+
+When creating components via the API, **do NOT include the "component-" prefix** in the `__component` field:
+
+❌ **INCORRECT:**
+```json
+{
+  "__component": "component-home-page-components.intro"
+}
+{
+  "__component": "component-navbar-components.text-link"
+}
+{
+  "__component": "component-footer-components.image"
+}
+```
+
+✅ **CORRECT:**
+```json
+{
+  "__component": "home-page-components.intro"
+}
+{
+  "__component": "navbar-components.text-link"
+}
+{
+  "__component": "footer-components.image"
+}
+```
+
+**Note:** The sample JSON files may show `__typename` fields with "Component" prefix (e.g., `ComponentHomePageComponentsIntro`), but when creating content via the API, use the shorter format without "component-".
+
 ### TextPosition Enum Values
 
 The `TextPosition` field (used in Intro and other components) requires **spaces**, not underscores:
@@ -340,6 +372,99 @@ The `TextPosition` field (used in Intro and other components) requires **spaces*
 "TextPosition": "Centered"
 ```
 
+### Navbar Style Enum Values
+
+The `Style` field in navbars requires **capitalized** enum values:
+
+❌ **INCORRECT:**
+```json
+{
+  "__component": "navbar-components.navbar",
+  "Style": "spaced"
+}
+```
+
+✅ **CORRECT:**
+```json
+{
+  "__component": "navbar-components.navbar",
+  "Style": "Spaced"
+}
+```
+
+### Navbar Appearance Enum Values
+
+The `Appearance` field in navbars requires **spaces**, not underscores:
+
+❌ **INCORRECT:**
+```json
+{
+  "__component": "navbar-components.navbar",
+  "Appearance": "fade_in"
+}
+```
+
+✅ **CORRECT:**
+```json
+{
+  "__component": "navbar-components.navbar",
+  "Appearance": "fade in"
+}
+```
+
+Allowed values: `"solid"`, `"fade in"`, or empty string `""`
+
+### Form Field Types
+
+The `type` field in form components only accepts **"any"** or **"phone"** values:
+
+❌ **INCORRECT:**
+```json
+{
+  "__component": "component-content-page-components.form",
+  "formFields": [
+    {"name": "email", "label": "Email", "type": "email"},
+    {"name": "message", "label": "Message", "type": "textarea"},
+    {"name": "name", "label": "Name", "type": "text"}
+  ]
+}
+```
+
+✅ **CORRECT:**
+```json
+{
+  "__component": "component-content-page-components.form",
+  "formFields": [
+    {"name": "email", "label": "Email", "type": "any", "validation": "required|email"},
+    {"name": "message", "label": "Message", "type": "any"},
+    {"name": "phone", "label": "Phone", "type": "phone", "validation": "required"}
+  ]
+}
+```
+
+**Note:** Use `type: "any"` for text, email, and textarea fields. Validation is handled through the `validation` property.
+
+### Intro Component Fields
+
+The Intro component does **not** have a `Subtext` field. Include all text in `IntroText`:
+
+❌ **INCORRECT:**
+```json
+{
+  "__component": "component-home-page-components.intro",
+  "IntroText": "Main heading",
+  "Subtext": "Secondary text"
+}
+```
+
+✅ **CORRECT:**
+```json
+{
+  "__component": "home-page-components.intro",
+  "IntroText": "Main heading. Secondary text can be included in the same field."
+}
+```
+
 ### Buttons Component Fields
 
 The Buttons component does NOT have a `GroupButtonStyle` field. Valid fields are:
@@ -350,7 +475,7 @@ The Buttons component does NOT have a `GroupButtonStyle` field. Valid fields are
 ❌ **INCORRECT:**
 ```json
 {
-  "__component": "component-content-page-components.buttons",
+  "__component": "content-page-components.buttons",
   "GroupButtonStyle": "primary"
 }
 ```
@@ -358,12 +483,73 @@ The Buttons component does NOT have a `GroupButtonStyle` field. Valid fields are
 ✅ **CORRECT:**
 ```json
 {
-  "__component": "component-content-page-components.buttons",
+  "__component": "content-page-components.buttons",
   "ButtonStyle": "contained",
   "ButtonArrangement": "center",
   "Entry": [{"Text": "Click Me", "Link": "/page"}]
 }
 ```
+
+### Card Group CardStyle Enum Values
+
+The `CardStyle` field in card-group components only accepts **"standard"** or **"overlay"** values:
+
+❌ **INCORRECT:**
+```json
+{
+  "__component": "content-page-components.card-group",
+  "Title": "Our Services",
+  "Cards": [
+    {
+      "Title": "Service 1",
+      "CardStyle": "outlined"
+    }
+  ]
+}
+```
+
+✅ **CORRECT:**
+```json
+{
+  "__component": "content-page-components.card-group",
+  "Title": "Our Services",
+  "Cards": [
+    {
+      "Title": "Service 1",
+      "CardStyle": "standard"
+    }
+  ]
+}
+```
+
+Allowed values: `"standard"`, `"overlay"`
+
+### Invalid Relations Error
+
+If you receive an "Invalid relations" error when creating pages with image/file references, ensure that:
+
+1. **Image URLs are valid** - The URLs must point to actual uploaded files in Strapi
+2. **Use placeholder-free structure** - When creating initial content without uploaded images, omit the File/asset fields entirely rather than using placeholder URLs
+3. **Upload images first** - Upload all images to Strapi before referencing them in components
+
+❌ **INCORRECT (will cause Invalid relations error):**
+```json
+{
+  "__component": "home-page-components.intro",
+  "File": [{"url": "/uploads/placeholder_image.jpg"}]
+}
+```
+
+✅ **CORRECT (create without images first):**
+```json
+{
+  "__component": "home-page-components.intro",
+  "IntroText": "Welcome",
+  "TextPosition": "Centered"
+}
+```
+
+Then update later with actual uploaded image URLs.
 
 ## Troubleshooting
 

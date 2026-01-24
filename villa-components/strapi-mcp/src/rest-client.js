@@ -7,6 +7,7 @@ import fetch from 'cross-fetch'
 export class StrapiRESTClient {
   constructor (endpoint, apiToken) {
     // Convert GraphQL endpoint to REST endpoint
+    this.endpoint = endpoint
     this.headers = {
       'Content-Type': 'application/json',
       ...(apiToken ? { Authorization: `Bearer ${apiToken}` } : {})
@@ -121,10 +122,18 @@ export class StrapiRESTClient {
    */
   async getWebsite (documentId) {
     return this.get(`/websites/${documentId}`, {
-      'populate[navbar]': '*',
-      'populate[footer]': '*',
-      'populate[homepage]': '*',
-      'populate[site_settings]': '*',
+      'populate[navbar][fields][0]': 'Name',
+      'populate[navbar][fields][1]': 'Style',
+      'populate[navbar][fields][2]': 'Appearance',
+      'populate[navbar][fields][3]': 'FontColor',
+      'populate[footer][fields][0]': 'Name',
+      'populate[footer][fields][1]': 'FontColor',
+      'populate[homepage][fields][0]': 'PageName',
+      'populate[homepage][fields][1]': 'Title',
+      'populate[site_settings][fields][0]': 'Name',
+      'populate[site_settings][fields][1]': 'SiteTitle',
+      'populate[site_settings][fields][2]': 'EnableLocalization',
+      'populate[site_settings][fields][3]': 'DesktopBreakpoint',
       'populate[content_pages][fields][0]': 'Name',
       'populate[content_pages][fields][1]': 'Link',
       'populate[content_pages][fields][2]': 'Title'
@@ -271,6 +280,13 @@ export class StrapiRESTClient {
    */
   async getHomepage (documentId) {
     return this.get(`/website-homepages/${documentId}`, { populate: '*' })
+  }
+
+  /**
+   * Update a homepage
+   */
+  async updateHomepage (documentId, data) {
+    return this.put(`/website-homepages/${documentId}`, data)
   }
 
   // ============================================
