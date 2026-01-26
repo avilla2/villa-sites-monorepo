@@ -112,7 +112,7 @@ const SingleCard = ({
       display: 'flex',
       flexDirection: 'column'
     }}>
-      {Image &&
+      {Image.url &&
         <CardMedia
           sx={{ height: 140 }}
           image={`${process.env.REACT_APP_BACKEND_URL}${Image.url}`}
@@ -123,7 +123,9 @@ const SingleCard = ({
         <Typography gutterBottom variant="h6" component="div">
           {Title}
         </Typography>
+        {Text && (
           <BlocksRenderer content={Text} />
+        )}
       </CardContent>
       <CardActions sx={{ p: 2 }}>
         {Link &&

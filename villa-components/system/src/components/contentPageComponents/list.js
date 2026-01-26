@@ -3,6 +3,7 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid'
 import { BlocksRenderer } from '@strapi/blocks-react-renderer'
+import TaskAltIcon from '@mui/icons-material/TaskAlt'
 
 const classes = {
   root: (theme) => ({
@@ -56,7 +57,7 @@ export default function List ({ content }) {
             <Grid
               container
               direction="row"
-              alignItems="flex-start"
+              alignItems="center"
               justifyContent="flex-start"
               wrap='nowrap'
               key={index}
@@ -64,11 +65,15 @@ export default function List ({ content }) {
               columnSpacing={2}
             >
               <Grid>
-                <img
+                {content?.Icon
+
+                  ? <img
                   src={`${process.env.REACT_APP_BACKEND_URL}${content?.Icon?.url}`}
                   alt={content?.Icon?.alternativeText}
                   style={{ width: 40 }}
                 />
+                  : <TaskAltIcon fontSize="small" color="primary" />
+                }
               </Grid>
               <Grid alignSelf="center">
                 <Typography variant='h6'>{item.Text}</Typography>
