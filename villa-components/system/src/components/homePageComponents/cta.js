@@ -1,10 +1,9 @@
 import React from 'react'
 import { BlocksRenderer } from '@strapi/blocks-react-renderer'
 import Box from '@mui/material/Box'
-// using CSS Flexbox instead of MUI Grid for layout
 import Paper from '@mui/material/Paper'
 import Typography from '../pageFeatures/typography'
-import Button from '@mui/material/Button'
+import Button from '../pageFeatures/button'
 import useMediaQuery from '@mui/material/useMediaQuery'
 
 const alignmentMapping = {
@@ -76,10 +75,10 @@ export default function Cta ({ content }) {
                 {buttons.map((b, idx) => (
                   <Button
                     key={idx}
-                    variant="contained"
-                    color="primary"
-                    href={b.Link || '#'}
-                    sx={{ backgroundColor: b.ButtonColor || undefined }}
+                    buttonStyle='outlined'
+                    mobile={mobile}
+                    link={b.Link}
+                    color={b.ButtonColor}
                   >
                     {b.Text || 'Learn More'}
                   </Button>
