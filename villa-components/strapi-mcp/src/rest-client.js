@@ -169,7 +169,24 @@ export class StrapiRESTClient {
    * List content pages
    */
   async listContentPages (filters = {}, pagination = { limit: 25 }) {
-    const params = {}
+    const params = {
+      'populate[0]': 'Content.Style',
+      'populate[1]': 'Content.File',
+      'populate[2]': 'Content.MobileFile',
+      'populate[3]': 'Content.Buttons',
+      'populate[4]': 'Content.asset',
+      'populate[5]': 'Content.Entry',
+      'populate[6]': 'Content.FormData',
+      'populate[7]': 'Content.FormFields',
+      'populate[8]': 'Content.formFields',
+      'populate[9]': 'Content.Pictures',
+      'populate[10]': 'Content.Cards',
+      'populate[11]': 'Content.Icon',
+      'populate[12]': 'Content.Image',
+      'populate[13]': 'Content.Items',
+      'populate[14]': 'Content.Caption',
+      'populate[15]': 'Content.RichText'
+    }
 
     if (filters.Name) {
       params['filters[Name][$containsi]'] = filters.Name
@@ -190,7 +207,24 @@ export class StrapiRESTClient {
    * Get a content page by document ID
    */
   async getContentPage (documentId) {
-    return this.get(`/content-pages/${documentId}`, { populate: '*' })
+    return this.get(`/content-pages/${documentId}`, {
+      'populate[0]': 'Content.Style',
+      'populate[1]': 'Content.File',
+      'populate[2]': 'Content.MobileFile',
+      'populate[3]': 'Content.Buttons',
+      'populate[4]': 'Content.asset',
+      'populate[5]': 'Content.Entry',
+      'populate[6]': 'Content.FormData',
+      'populate[7]': 'Content.FormFields',
+      'populate[8]': 'Content.formFields',
+      'populate[9]': 'Content.Pictures',
+      'populate[10]': 'Content.Cards',
+      'populate[11]': 'Content.Icon',
+      'populate[12]': 'Content.Image',
+      'populate[13]': 'Content.Items',
+      'populate[14]': 'Content.Caption',
+      'populate[15]': 'Content.RichText'
+    })
   }
 
   /**
@@ -279,7 +313,21 @@ export class StrapiRESTClient {
    * Get a homepage by document ID
    */
   async getHomepage (documentId) {
-    return this.get(`/website-homepages/${documentId}`, { populate: '*' })
+    return this.get(`/website-homepages/${documentId}`, {
+      'populate[0]': 'Content.Style',
+      'populate[1]': 'Content.File',
+      'populate[2]': 'Content.MobileFile',
+      'populate[3]': 'Content.Buttons',
+      'populate[4]': 'Content.asset',
+      'populate[5]': 'Content.Entry',
+      'populate[6]': 'Content.FormData',
+      'populate[7]': 'Content.FormFields',
+      'populate[8]': 'Content.Pictures',
+      'populate[9]': 'Content.Cards',
+      'populate[10]': 'Content.Icon',
+      'populate[11]': 'Content.Image',
+      'populate[12]': 'Content.Items'
+    })
   }
 
   /**
