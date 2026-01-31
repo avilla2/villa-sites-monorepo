@@ -37,7 +37,7 @@ export default function Slideshow ({ content, fullscreen }) {
   const Slide = ({ slide }) => (
     <div>
         <img
-            src={`${process.env.REACT_APP_BACKEND_URL}${slide.url}`}
+            src={slide.url}
             alt={slide.alternativeText}
         />
         {slide?.caption &&

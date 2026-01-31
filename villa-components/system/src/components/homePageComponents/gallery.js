@@ -41,7 +41,7 @@ export default function Gallery ({ content }) {
         <ImageList sx={classes.imageList} variant="masonry" cols={mobile ? 1 : 3} gap={8}>
             {content.Pictures.map((item, index) => (
               <ImageListItem key={index}>
-                  <img src={`${process.env.REACT_APP_BACKEND_URL}${item.url}`} alt={item.alternativeText} />
+                  <img src={item.url} alt={item.alternativeText} />
               </ImageListItem>
             ))}
         </ImageList>

@@ -276,7 +276,7 @@ const NavMenu = ({ title, menuItem, active, shadow, fontColor }) => {
               <ListItemIcon>
                   <img
                     style={{ maxWidth: 20, maxHeight: 20 }}
-                    src={`${process.env.REACT_APP_BACKEND_URL}${item.icon.url}`}
+                    src={item.icon.url}
                     alt={item.icon.name}
                   />
               </ListItemIcon>
@@ -409,7 +409,7 @@ const MobileDrawer = ({ links, drawerLink, drawerText, toggleDrawer, fontColor, 
                   id={item.Link}
                   external={isExternal(item.Link)}
                   width={item.Width} link={item.Link}
-                  src={`${process.env.REACT_APP_BACKEND_URL}${item.Image.url}`}
+                  src={item.Image.url}
                   alt={item.Image.name}
                 />
               </Box>
@@ -446,7 +446,7 @@ const NavComponentDesktop = ({ item, active, fontColor, shadow }) => {
     case 'ComponentNavbarComponentsTextLink':
       return <NavLink id={item.Link} title={item.Title} link={item.Link} active={active} shadow={shadow} />
     case 'ComponentNavbarComponentsImageLink':
-      return <NavButtonIcon id={item.Link} external={isExternal(item.Link)} width={item.Width} link={item.Link} src={`${process.env.REACT_APP_BACKEND_URL}${item.Image.url}`} alt={item.Image.name} />
+      return <NavButtonIcon id={item.Link} external={isExternal(item.Link)} width={item.Width} link={item.Link} src={item.Image.url} alt={item.Image.name} />
     case 'ComponentNavbarComponentsNavButton':
       return <NavButton id={item.Link} link={item.Link} color={item.Color} text={item.Text} fontColor={fontColor} />
     case 'ComponentNavbarComponentsNavMenu':
@@ -604,7 +604,7 @@ export default function Navbar ({
                     >
                       <img
                         style={classes.mobileLogo}
-                        src={`${process.env.REACT_APP_BACKEND_URL}${mobileData.MobileIcon.url}`}
+                        src={mobileData.MobileIcon.url}
                         alt="Logo"
                       />
                     </IconButton>

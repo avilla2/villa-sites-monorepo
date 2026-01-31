@@ -129,7 +129,7 @@ const GenerateMedia = ({ mobile, files }) => {
           playsInline
         >
           <source
-            src={`${process.env.REACT_APP_BACKEND_URL}${attributes.url}`}
+            src={attributes.url}
             type={attributes.mime}
             alt={attributes.alternativeText}
           />
@@ -139,7 +139,7 @@ const GenerateMedia = ({ mobile, files }) => {
       return (
         <img
           style={mobile ? styles.imageMobile : styles.video}
-          src={`${process.env.REACT_APP_BACKEND_URL}${attributes.url}`}
+          src={attributes.url}
           alt={attributes.alternativeText}
         />
       )

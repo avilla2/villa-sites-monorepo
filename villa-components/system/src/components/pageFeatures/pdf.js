@@ -64,7 +64,7 @@ export default function PDF ({ src }) {
         <Card elevation={6} sx={classes.root} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} >
             <CardContent>
                 <Document
-                    file={`${process.env.REACT_APP_BACKEND_URL}${src}`}
+                    file={src}
                     onLoadSuccess={onDocumentLoadSuccess}
                     className="pdf-doc"
                 >

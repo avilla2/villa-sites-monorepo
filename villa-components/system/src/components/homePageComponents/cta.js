@@ -63,7 +63,7 @@ export default function Cta ({ content }) {
         >
           <Box>
             {body && (
-              <Typography sx={{ '& h2': { m: 0 } }}>
+              <Typography component="div" sx={{ '& h2': { m: 0 } }}>
                 <BlocksRenderer content={body} />
               </Typography>
             )}
@@ -95,7 +95,7 @@ export default function Cta ({ content }) {
             ? (
             <Paper elevation={8} sx={{ borderRadius: 2, overflow: 'hidden', width: '100%' }}>
               <img
-                src={`${process.env.REACT_APP_BACKEND_URL}${media.url}`}
+                src={media.url}
                 alt={media.alternativeText || Title || 'cta-media'}
                 style={{ display: 'block', width: '100%', objectFit: 'cover' }}
               />
@@ -103,7 +103,7 @@ export default function Cta ({ content }) {
               )
             : (
             <img
-              src={`${process.env.REACT_APP_BACKEND_URL}${media.url}`}
+              src={media.url}
               alt={media.alternativeText || Title || 'cta-media'}
               style={{ width: '100%', borderRadius: variant === 'rounded' ? '8px' : '0px', objectFit: 'cover' }}
             />

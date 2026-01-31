@@ -21,7 +21,7 @@ const classes = {
 export default function Template ({ content }) {
   return (
         <Box sx={classes.root}>
-            <img style={classes.image} src={`${process.env.REACT_APP_BACKEND_URL}${content.Image.url}`} alt={content.Image.name} />
+            <img style={classes.image} src={content.Image.url} alt={content.Image.name} />
         </Box>
   )
 }

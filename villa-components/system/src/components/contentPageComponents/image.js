@@ -27,7 +27,7 @@ export default function Image ({ content }) {
     return (
       <Box sx={classes.root} pt={0}>
         <Parallax
-          bgImage={`${process.env.REACT_APP_BACKEND_URL}${content.asset.url}`}
+          bgImage={content.asset.url}
           bgImageAlt={content.asset.alternativeText}
           strength={200}
         >
@@ -60,7 +60,7 @@ export default function Image ({ content }) {
               ? (
               <Paper elevation={8} style={{ width: mobile ? '90%' : `${content.width}%`, height, margin: 'auto', borderRadius: 25, display: 'flex' }}>
               <img
-                src={`${process.env.REACT_APP_BACKEND_URL}${content.asset.url}`}
+                src={content.asset.url}
                 alt={content.asset.alternativeText}
                 style={{ width: '100%', borderRadius: 'inherit' }}
               />
@@ -68,7 +68,7 @@ export default function Image ({ content }) {
                 )
               : (
               <img
-                src={`${process.env.REACT_APP_BACKEND_URL}${content.asset.url}`}
+                src={content.asset.url}
                 alt={content.asset.alternativeText}
                 style={{ width: mobile ? '100%' : `${content.width}%`, height, display: 'block', margin: 'auto' }}
               />

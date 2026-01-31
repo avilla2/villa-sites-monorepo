@@ -28,7 +28,7 @@ export default function Video ({ content }) {
             muted={content.autoplay || content.muted}
         >
           <source
-              src={`${process.env.REACT_APP_BACKEND_URL}${content.asset.url}`}
+              src={content.asset.url}
               type={content.asset.mime}
           />
         </video>

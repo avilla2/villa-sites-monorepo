@@ -68,7 +68,7 @@ export default function List ({ content }) {
                 {content?.Icon
 
                   ? <img
-                  src={`${process.env.REACT_APP_BACKEND_URL}${content?.Icon?.url}`}
+                  src={content?.Icon?.url}
                   alt={content?.Icon?.alternativeText}
                   style={{ width: 40 }}
                 />

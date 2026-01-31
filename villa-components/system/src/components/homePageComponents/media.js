@@ -32,7 +32,7 @@ const Video = ({ configs }) => {
             muted={configs.Autoplay || configs.Muted}
         >
             <source
-                src={`${process.env.REACT_APP_BACKEND_URL}${configs.File.url}`}
+                src={configs.File.url}
                 type={configs.File.mime}
             />
         </video>
@@ -50,14 +50,14 @@ const Image = ({ configs }) => {
   const height = configs.Height === 0 ? 'auto' : `${configs.Height}vh`
   if (configs.Style === 'Parallax') {
     return (
-      <Parallax bgImage={`${process.env.REACT_APP_BACKEND_URL}${configs.File.url}`} bgImageAlt={configs.alternativeText} strength={200}>
+      <Parallax bgImage={configs.File.url} bgImageAlt={configs.alternativeText} strength={200}>
         <div style={{ height }}></div>
       </Parallax>
     )
   } else {
     return (
             <img
-                src={`${process.env.REACT_APP_BACKEND_URL}${configs.File.url}`}
+                src={configs.File.url}
                 alt={configs.alternativeText}
                 style={{ width: mobile ? '100%' : `${configs.Width}%`, height }}
             />

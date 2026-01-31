@@ -17,7 +17,7 @@ const classes = {
 export default function Freestyle ({ content }) {
   return (
         <div style={classes.root}>
-          <Typography>
+          <Typography component="div">
             {content.RichText && <BlocksRenderer content={content.RichText} />}
           </Typography>
         </div>

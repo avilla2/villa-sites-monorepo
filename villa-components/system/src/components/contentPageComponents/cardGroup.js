@@ -60,7 +60,7 @@ const SingleCard = ({
           minHeight: 275,
           backgroundSize: 'cover',
           position: 'relative',
-          ...(Image && { backgroundImage: `url('${process.env.REACT_APP_BACKEND_URL}${Image.url}')` }),
+          ...(Image && { backgroundImage: `url('${Image.url}')` }),
           ...classes.flexBox
         }}
         onClick={setActiveCard}
@@ -115,7 +115,7 @@ const SingleCard = ({
       {Image.url &&
         <CardMedia
           sx={{ height: 140 }}
-          image={`${process.env.REACT_APP_BACKEND_URL}${Image.url}`}
+          image={Image.url}
           title={Image.alternativeText}
         />
       }

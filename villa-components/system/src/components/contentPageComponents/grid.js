@@ -50,7 +50,7 @@ export default function PictureGrid ({ content }) {
                       {entry?.Picture &&
                           <img
                               style={classes.image}
-                              src={`${process.env.REACT_APP_BACKEND_URL}${entry.Picture.url}`}
+                              src={entry.Picture.url}
                               alt={entry.Picture.alternativeText}
                           />
                       }
