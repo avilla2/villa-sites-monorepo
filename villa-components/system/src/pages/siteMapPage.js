@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import Link from '@mui/material/Link'
-import { Link as RouterLink } from 'react-router-dom'
+import { Link as RouterLink } from 'react-router'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 

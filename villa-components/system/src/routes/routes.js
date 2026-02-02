@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router'
 import ScrollToTop from '../components/utils/scrollToTop'
 import ContentPage from '../pages/contentPage'
 import HomePage from '../pages/homePage'

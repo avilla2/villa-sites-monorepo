@@ -12,7 +12,7 @@ module.exports = {
       exposes: {
         './VillaComponentSystem': './src/system/componentSystem.js',
         './VillaRenderingSystem': './src/system/renderingSystem.js',
-        './LVLIntakeForm': './src/specialized/lvlIntakeForm.js',
+        './LVLIntakeForm': './src/specialized/lvlIntakeForm.js'
       },
       shared: {
         react: {
@@ -23,9 +23,9 @@ module.exports = {
           singleton: true,
           requiredVersion: dependencies['react-dom']
         },
-        'react-router-dom': {
+        'react-router': {
           singleton: true,
-          requiredVersion: dependencies['react-router-dom']
+          requiredVersion: dependencies['react-router']
         },
         '@mui/material': {
           singleton: true,

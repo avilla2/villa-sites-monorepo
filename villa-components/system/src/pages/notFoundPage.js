@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 
 const classes = {
   root: {

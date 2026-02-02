@@ -1,6 +1,6 @@
 import React from 'react'
 import LoadingSVG from './loading'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes } from 'react-router'
 import './app.css'
 
 const RenderingSystem = React.lazy(() => import('villa_components/VillaRenderingSystem'))

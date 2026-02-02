@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react'
-import { Route } from 'react-router-dom'
+import { Route } from 'react-router'
 import ComponentLoader from './componentLoader'
 
 const VillaComponentSystem = React.lazy(() => import('villa_components/VillaComponentSystem'))

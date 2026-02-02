@@ -9,7 +9,7 @@ import XIcon from '@mui/icons-material/X'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import { TikTokIcon } from '../pageFeatures/extraIcons'
 import isExternal from '../utils/isExternalLink'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 
 const classes = {
   root: {

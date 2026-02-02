@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from '@mui/material/Button'
 import isExternal from '../utils/isExternalLink'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import { styled, useTheme, alpha } from '@mui/material/styles'
 
 const StyledButton = styled(Button, {
