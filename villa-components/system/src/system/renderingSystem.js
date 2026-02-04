@@ -4,7 +4,7 @@ import ThemeProvider from '../utils/themeProvider'
 import Routes from '../routes/routes'
 import Query from '../utils/query'
 import apolloClient from '../utils/apolloClient'
-import appQuery from '../queries/appQuery'
+import { APP_QUERY } from '@villa-components/graphql-queries'
 import { ApolloProvider } from '@apollo/client'
 
 import '../index.css'
@@ -69,7 +69,7 @@ export default function RenderingSystem ({
   return (
     <ApolloProvider client={apolloClient}>
       <Query
-        query={appQuery}
+        query={APP_QUERY}
         variables={{ id: defaultSiteId, locale }}
         loadingComponent={loadingComponent}
       >

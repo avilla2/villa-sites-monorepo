@@ -1,0 +1,22 @@
+{
+  "name": "@villa-components/graphql-queries",
+  "version": "1.0.0",
+  "description": "Shared GraphQL queries and types for Strapi integration",
+  "main": "src/index.js",
+  "scripts": {
+    "generate": "node src/generateTypes.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "cross-fetch": "^3.1.5",
+    "dotenv": "^16.0.0",
+    "graphql-tag": "^2.0.0"
+  },
+  "keywords": [
+    "graphql",
+    "strapi",
+    "queries"
+  ],
+  "author": "",
+  "license": "ISC"
+}

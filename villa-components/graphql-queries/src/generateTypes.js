@@ -1,6 +1,7 @@
 const fetch = require('cross-fetch')
 const fs = require('fs')
-require('dotenv').config({ path: '../../.env.development', override: true })
+const path = require('path')
+require('dotenv').config({ path: path.join(__dirname, '../../../.env.development'), override: true })
 
 fetch(`${process.env.REACT_APP_BACKEND_URL}/graphql`, {
   method: 'POST',
@@ -32,7 +33,7 @@ fetch(`${process.env.REACT_APP_BACKEND_URL}/graphql`, {
       }
     })
 
-    fs.writeFile('./src/utils/possibleTypes.json', JSON.stringify(possibleTypes), err => {
+    fs.writeFile(path.join(__dirname, 'possibleTypes.json'), JSON.stringify(possibleTypes), err => {
       if (err) {
         console.error('Error writing possibleTypes.json', err)
       } else {

@@ -1,5 +1,5 @@
 import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client'
-import possibleTypes from './possibleTypes.json'
+import { possibleTypes } from '@villa-components/graphql-queries'
 
 const cache = new InMemoryCache({ possibleTypes })
 const link = new HttpLink({

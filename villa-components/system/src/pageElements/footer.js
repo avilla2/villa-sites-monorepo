@@ -7,7 +7,7 @@ import Link from '@mui/material/Link'
 import { Link as RouterLink } from 'react-router'
 import LanguageModal from './languageModal'
 import Query from '../utils/query'
-import localesQuery from '../queries/localesQuery'
+import { LOCALES_QUERY } from '@villa-components/graphql-queries'
 import Skeleton from '@mui/material/Skeleton'
 import { Typography } from '@mui/material'
 import isExternal from '../components/utils/isExternalLink'
@@ -126,7 +126,7 @@ export default function Footer ({ Content, FontColor: fontColor, enableLocalizat
             ))}
             {enableLocalization &&
             <Query
-              query={localesQuery}
+              query={LOCALES_QUERY}
               loadingComponent={<Skeleton variant="text" sx={{ fontSize: '1rem' }} />}
             >
               {renderLanguageSelector}

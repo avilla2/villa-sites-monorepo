@@ -501,3 +501,5 @@
  * @typedef {Object} LocalesQueryData
  * @property {Locales[]} i18NLocales - Array of locale objects
  */
+
+module.exports = {}
