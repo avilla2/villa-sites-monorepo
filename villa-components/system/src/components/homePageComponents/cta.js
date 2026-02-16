@@ -2,8 +2,7 @@ import React from 'react'
 import { BlocksRenderer } from '@strapi/blocks-react-renderer'
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
-import Typography from '../pageFeatures/typography'
-import Button from '../pageFeatures/button'
+import { CustomTypography as Typography, CustomButton as Button } from '@villa-components/components'
 import useMediaQuery from '@mui/material/useMediaQuery'
 
 const alignmentMapping = {

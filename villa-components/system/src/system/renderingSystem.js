@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import NoContentPage from '../pages/noContentPage'
-import { ThemeProvider } from '@villa-components/components'
+import { NoContentPage, ThemeProvider } from '@villa-components/components'
 import Routes from '../routes/routes'
 import Query from '../utils/query'
 import apolloClient from '../utils/apolloClient'

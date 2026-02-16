@@ -1,7 +1,7 @@
 import React from 'react'
 import Box from '@mui/material/Box'
 import ReactMarkdown from 'react-markdown'
-import Typography from '../pageFeatures/typography'
+import { CustomTypography as Typography } from '@villa-components/components'
 import AnimationProvider from '../utils/animationProvider'
 
 const classes = {

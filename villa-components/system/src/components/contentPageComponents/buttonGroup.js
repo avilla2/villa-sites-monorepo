@@ -4,7 +4,7 @@ import ButtonGroup from '@mui/material/ButtonGroup'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import AnimationProvider from '../utils/animationProvider'
 import { useTheme } from '@mui/material/styles'
-import Button from '../pageFeatures/button'
+import { CustomButton as Button } from '@villa-components/components'
 
 const classes = {
   root: {

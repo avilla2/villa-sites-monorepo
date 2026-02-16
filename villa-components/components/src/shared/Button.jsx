@@ -1,8 +1,8 @@
 import React from 'react'
 import Button from '@mui/material/Button'
-import isExternal from '../utils/isExternalLink'
 import { Link } from 'react-router'
 import { styled, useTheme, alpha } from '@mui/material/styles'
+import isExternal from '../utils/isExternalLink'
 
 const StyledButton = styled(Button, {
   shouldForwardProp: (prop) => prop !== 'borderColor'

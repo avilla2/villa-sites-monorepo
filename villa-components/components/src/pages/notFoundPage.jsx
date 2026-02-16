@@ -37,13 +37,13 @@ export default function NotFoundPage ({ setPage }) {
     setPage('Not Found')
   })
   return (
-        <Box sx={classes.root}>
-            <Box sx={classes.main} />
-            <Typography component="h1" gutterBottom>Looks Like your Lost...</Typography>
-            <Typography component="h2" gutterBottom>This Page is Not Available</Typography>
-            <Button variant="outlined" size="large" component={Link} to="/" sx={classes.returnButton}>
-                Return Home
-            </Button>
-        </Box>
+    <Box sx={classes.root}>
+      <Box sx={classes.main} />
+      <Typography component="h1" gutterBottom>Looks Like your Lost...</Typography>
+      <Typography component="h2" gutterBottom>This Page is Not Available</Typography>
+      <Button variant="outlined" size="large" component={Link} to="/" sx={classes.returnButton}>
+        Return Home
+      </Button>
+    </Box>
   )
 }

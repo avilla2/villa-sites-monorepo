@@ -15,9 +15,9 @@ const classes = {
  */
 export default function NoContentPage () {
   return (
-        <Box sx={classes.root}>
-            <Typography component="h1" mt={5} gutterBottom>Sorry for the inconvenience</Typography>
-            <Typography component="h2" gutterBottom>Website is down for maintenence...</Typography>
-        </Box>
+    <Box sx={classes.root}>
+      <Typography component="h1" mt={5} gutterBottom>Sorry for the inconvenience</Typography>
+      <Typography component="h2" gutterBottom>Website is down for maintenence...</Typography>
+    </Box>
   )
 }

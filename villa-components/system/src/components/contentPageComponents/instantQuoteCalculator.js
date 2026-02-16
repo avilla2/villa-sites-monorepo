@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Box from '@mui/material/Box'
-import Button from '../pageFeatures/button'
+import { CustomButton as Button } from '@villa-components/components'
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'

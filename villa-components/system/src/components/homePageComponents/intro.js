@@ -7,7 +7,7 @@ import ButtonGroup from '../contentPageComponents/buttonGroup'
 import Contact from '../contentPageComponents/contact'
 import Grid from '@mui/material/Grid'
 import Slideshow from './slideshow'
-import Typography from '../pageFeatures/typography'
+import { CustomTypography as Typography } from '@villa-components/components'
 
 const styles = {
   base: {

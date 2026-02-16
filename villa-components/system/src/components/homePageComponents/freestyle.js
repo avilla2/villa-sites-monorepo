@@ -1,6 +1,6 @@
 import React from 'react'
 import { BlocksRenderer } from '@strapi/blocks-react-renderer'
-import Typography from '../pageFeatures/typography'
+import { CustomTypography as Typography } from '@villa-components/components'
 
 const classes = {
   root: {

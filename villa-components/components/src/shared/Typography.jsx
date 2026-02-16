@@ -13,6 +13,12 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
 })
 )
 
+/**
+ * CustomTypography component - Renders typography with theme-aware font styling
+ * @param {Object} props - CustomTypography props
+ * @param {React.ReactNode} props.children - Content to be displayed
+ * @returns {JSX.Element} The CustomTypography component
+ */
 export default function CustomTypography ({ children, ...props }) {
   return (
         <StyledTypography {...props}>

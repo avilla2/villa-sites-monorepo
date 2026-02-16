@@ -1,6 +1,6 @@
 import React from 'react'
 import Box from '@mui/material/Box'
-import PDF from '../pageFeatures/pdf'
+import { PDF } from '@villa-components/components'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import ReactMarkdown from 'react-markdown'
 import { Parallax } from 'react-parallax'

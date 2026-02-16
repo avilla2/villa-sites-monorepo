@@ -1,6 +1,6 @@
 import React from 'react'
 import Grid from '@mui/material/Grid'
-import Modal from '../components/pageFeatures/modal'
+import { CustomModal as Modal } from '@villa-components/components'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 import CancelIcon from '@mui/icons-material/Cancel'
