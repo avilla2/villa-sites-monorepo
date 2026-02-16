@@ -1,7 +1,7 @@
 import React from 'react'
-import Icons from '../footerComponents/icons'
-import Text from '../footerComponents/text'
-import Image from '../footerComponents/image'
+import Icons from './icons'
+import Text from './text'
+import Image from './image'
 import Box from '@mui/material/Box'
 
 const classes = {

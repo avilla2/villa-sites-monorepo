@@ -1,23 +1,39 @@
 import React from 'react'
-import { useOutletContext, useNavigate } from 'react-router'
+import { useOutletContext, useParams, useNavigate } from 'react-router'
 import { Footer, Navbar } from '@villa-components/components'
 
-export function meta ({ data }) {
+export function meta ({ params, data }) {
   const context = data || {}
   const website = context.website
+  const pageLink = params.pageLink
+
+  // Find the content page matching the route
+  const contentPage = website?.content_pages?.find(
+    page => page.Link === `/${pageLink}`
+  )
 
   return [
-    { title: website?.homepage?.Title || 'Home' },
-    { name: 'description', content: website?.site_settings?.SiteTitle || 'Welcome' }
+    { title: contentPage?.Title || pageLink },
+    { name: 'description', content: contentPage?.Name || '' }
   ]
 }
 
-export default function Home () {
+export default function ContentPage () {
   const { website } = useOutletContext()
+  const { pageLink } = useParams()
   const navigate = useNavigate()
 
   if (!website) {
     return <div>Loading...</div>
+  }
+
+  // Find the content page matching the route
+  const contentPage = website.content_pages?.find(
+    page => page.Link === `/${pageLink}`
+  )
+
+  if (!contentPage) {
+    throw new Response('Page not found', { status: 404 })
   }
 
   return (
@@ -25,8 +41,8 @@ export default function Home () {
       {/* Navbar */}
       {website.navbar && (
         <Navbar
-          page="Home"
-          navIndex="/"
+          page={contentPage.Title}
+          navIndex={contentPage.Link}
           Items={website.navbar.Items}
           MobileConfig={website.navbar.MobileConfig}
           Style={website.navbar.Style}
@@ -38,16 +54,16 @@ export default function Home () {
         />
       )}
 
-      {/* Homepage Content */}
+      {/* Content Page */}
       <main className="container mx-auto px-4 py-8">
         <h1 className="text-4xl font-bold mb-8">
-          {website.homepage?.Title || 'Welcome'}
+          {contentPage.Title}
         </h1>
 
-        {/* Render homepage content components */}
-        {website.homepage?.Content && website.homepage.Content.length > 0 && (
+        {/* Render content page components */}
+        {contentPage.Content && contentPage.Content.length > 0 && (
           <div className="space-y-8">
-            {website.homepage.Content.map((component, index) => (
+            {contentPage.Content.map((component, index) => (
               <div key={index} className="border p-4 rounded">
                 <pre className="text-xs overflow-auto">
                   {JSON.stringify(component, null, 2)}

@@ -53,7 +53,14 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx']
+    extensions: ['*', '.js', '.jsx'],
+    fallback: {
+      process: false,
+      path: false,
+      url: false,
+      fs: false,
+      util: false
+    }
   },
   output: {
     path: path.resolve(__dirname, './dist'),

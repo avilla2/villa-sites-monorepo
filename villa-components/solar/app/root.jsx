@@ -5,10 +5,40 @@ import {
   Meta,
   Outlet,
   Scripts,
-  ScrollRestoration
+  ScrollRestoration,
+  useLoaderData
 } from 'react-router'
+import { ApolloProvider } from '@apollo/client/react'
+import { ThemeProvider } from '@villa-components/components'
+import { apolloClient } from './lib/apollo'
+import { getWebsiteIdFromHostname } from './lib/websiteMapping'
+import { APP_QUERY } from '@villa-components/graphql-queries'
 
 import './app.css'
+import '@villa-components/components/dist/bundle.css'
+
+export async function loader ({ request }) {
+  const url = new URL(request.url)
+  const websiteId = getWebsiteIdFromHostname(url.hostname)
+
+  try {
+    const { data } = await apolloClient.query({
+      query: APP_QUERY,
+      variables: {
+        id: websiteId,
+        locale: 'en'
+      }
+    })
+
+    return {
+      website: data.website,
+      websiteId
+    }
+  } catch (error) {
+    console.error('Error loading website data:', error)
+    throw new Response('Failed to load website data', { status: 500 })
+  }
+}
 
 export const links = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -19,7 +49,7 @@ export const links = () => [
   },
   {
     rel: 'stylesheet',
-    href: 'https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap'
+    href: 'https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Racing+Sans+One&display=swap'
   }
 ]
 
@@ -27,7 +57,7 @@ export function Layout ({ children }) {
   return (
     <html lang="en">
       <head>
-        <meta charSet="utf-8" />
+        <meta name="emotion-insertion-point" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
@@ -42,7 +72,19 @@ export function Layout ({ children }) {
 }
 
 export default function App () {
-  return <Outlet />
+  const { website } = useLoaderData()
+
+  // Extract fonts from site settings
+  const fonts = website?.site_settings?.Fonts || ['"Racing Sans One"', 'Poppins']
+  const palette = website?.site_settings?.Palette || {}
+
+  return (
+    <ApolloProvider client={apolloClient}>
+      <ThemeProvider palette={palette} fonts={fonts}>
+        <Outlet context={{ website }} />
+      </ThemeProvider>
+    </ApolloProvider>
+  )
 }
 
 export function ErrorBoundary ({ error }) {

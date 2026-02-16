@@ -1,14 +1,15 @@
 import React, { useState } from 'react'
 import NoContentPage from '../pages/noContentPage'
-import ThemeProvider from '../utils/themeProvider'
+import { ThemeProvider } from '@villa-components/components'
 import Routes from '../routes/routes'
 import Query from '../utils/query'
 import apolloClient from '../utils/apolloClient'
 import { APP_QUERY } from '@villa-components/graphql-queries'
-import { ApolloProvider } from '@apollo/client'
+import { ApolloProvider } from '@apollo/client/react'
 
 import '../index.css'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
+import '@villa-components/components/dist/bundle.css'
 
 /**
  * Rendering System component that sets up the application with Apollo Client,
@@ -59,6 +60,7 @@ export default function RenderingSystem ({
           setPage={setPage}
           siteContent={websiteContent}
           setSiteTitle={setSiteTitle}
+          locales={data.i18NLocales}
         >
           {children}
         </Routes>

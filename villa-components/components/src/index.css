@@ -1,0 +1,176 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.App {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: space-between;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes spin {
+  from {
+    transform:rotate(0deg);
+}
+  to {
+    transform:rotate(360deg);
+  }
+}
+
+@keyframes backwardspin {
+  from {
+    transform:rotate(0deg);
+}
+  to {
+    transform:rotate(-360deg);
+  }
+}
+
+#loading {
+  margin-top: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#loadingframe{
+  transform-origin: center;
+  animation-name: spin;
+  animation-duration: 15s;
+  animation-iteration-count: infinite;
+}
+
+#svgframe {
+  position: relative;
+}
+
+#backwardslogo {
+  width: 250px;
+  height: 250px;
+  position: absolute;
+  left: 75px;
+  top: 75px;
+  animation-name: backwardspin;
+  animation-duration: 20s;
+  animation-iteration-count: infinite;
+}
+
+.link {
+  height: 30px;
+  align-items: center;
+  text-decoration: none;
+  display: flex;
+}
+
+/* Hide extra text */
+.mask {
+  position: relative;
+  height: 18px;
+  overflow: hidden;
+}
+
+.link-container {
+  padding: 0 5px;
+}
+
+.link-transition {
+  transition: transform 0.4s ease;
+}
+
+.link-title1 {
+  transform-origin: right center;
+}
+
+.link-title2 {
+  transform-origin: left center;
+  transform: rotate(20deg);
+}
+
+/* Hover Action*/
+
+/* Move up two texts (20px = font-size) */
+.link:hover .link-transition {
+  transform: translateY(-16px);
+}
+
+/* Rotate texts a little bit */
+.link:hover .link-title1 {
+  transform: rotate(18deg);
+}
+
+.link:hover .link-title2 {
+  transform: rotate(0);
+}
+
+.link-container.active {
+  transform: translateY(-16px);
+}
+
+.link-title1.active {
+  transform: rotate(18deg);
+}
+
+.link-title2.active {
+  transform: rotate(0);
+}
+
+.pdf-file {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pdf-page > canvas {
+  max-width: 100% !important;
+  width: unset !important;
+  height: auto !important;
+}
+  
+.parallax-container {
+  height: 100vh;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  perspective: 1px;
+}
+  
+.parallax-child {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateZ(0);
+}
+
+.carousel {
+  justify-content: center;
+}

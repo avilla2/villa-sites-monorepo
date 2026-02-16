@@ -7,8 +7,8 @@ import FacebookIcon from '@mui/icons-material/Facebook'
 import YouTubeIcon from '@mui/icons-material/YouTube'
 import XIcon from '@mui/icons-material/X'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
-import { TikTokIcon } from '../pageFeatures/extraIcons'
-import isExternal from '../utils/isExternalLink'
+import { TikTokIcon } from '../../icons/TikTokIcon'
+import isExternal from '../../utils/isExternalLink'
 import { Link } from 'react-router'
 
 const classes = {

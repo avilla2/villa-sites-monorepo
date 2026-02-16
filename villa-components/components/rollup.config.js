@@ -1,0 +1,48 @@
+import babel from '@rollup/plugin-babel'
+import resolve from '@rollup/plugin-node-resolve'
+import commonjs from '@rollup/plugin-commonjs'
+import peerDepsExternal from 'rollup-plugin-peer-deps-external'
+import css from 'rollup-plugin-css-only'
+
+export default {
+  input: 'src/index.js',
+  output: [
+    {
+      file: 'dist/index.js',
+      format: 'cjs',
+      sourcemap: true,
+      exports: 'named'
+    },
+    {
+      file: 'dist/index.esm.js',
+      format: 'esm',
+      sourcemap: true,
+      exports: 'named'
+    }
+  ],
+  plugins: [
+    css({ output: 'bundle.css' }),
+    peerDepsExternal(),
+    resolve({
+      extensions: ['.js', '.jsx']
+    }),
+    commonjs(),
+    babel({
+      babelHelpers: 'bundled',
+      exclude: 'node_modules/**',
+      presets: ['@babel/preset-env', '@babel/preset-react'],
+      extensions: ['.js', '.jsx']
+    })
+  ],
+  external: [
+    'react',
+    'react-dom',
+    'react/jsx-runtime',
+    '@mui/material',
+    '@mui/icons-material',
+    '@emotion/react',
+    '@emotion/styled',
+    'react-router',
+    'react-markdown'
+  ]
+}

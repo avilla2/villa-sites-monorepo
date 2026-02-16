@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client/react'
 
 /**
  * Utility Query component to perform GraphQL queries using Apollo Client

@@ -187,6 +187,7 @@ export default function Intro ({ content }) {
         justifyContent='space-evenly'
         sx={styles.overlayWrapper}>
           <Grid
+            sx={{ width: '100%' }}
             size={{
               xs: 12,
               md: content?.FormData && content?.FormFields ? 8 : 12

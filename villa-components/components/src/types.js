@@ -489,6 +489,7 @@
 /**
  * @typedef {Object} AppQueryData
  * @property {Website} website - Website document data
+ * @property {Locales[]} i18NLocales - Array of available locales
  */
 
 /**

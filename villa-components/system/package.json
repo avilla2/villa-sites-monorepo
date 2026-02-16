@@ -28,6 +28,7 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "@villa-components/graphql-queries": "file:../graphql-queries"
+    "@villa-components/graphql-queries": "file:../graphql-queries",
+    "@villa-components/components": "file:../components"
   }
 }

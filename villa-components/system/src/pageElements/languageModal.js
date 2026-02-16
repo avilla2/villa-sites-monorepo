@@ -48,17 +48,17 @@ export default function LanguageModal ({ open, options, handleClose, fontColor }
                     </IconButton>
                 </Grid>
             </Grid>
-            <Grid container spacing={2} direction="column" sx={{ pt: 4 }}>
-            {options.map(({ code, name }, index) => (
-                <Grid key={index}>
-                    <LanguageButton
-                        fontColor={fontColor}
-                        href={`/${code === 'en' ? '' : code}`}
-                    >
-                        {name}
-                    </LanguageButton>
-                </Grid>
-            ))}
+            <Grid container direction="column" sx={{ pt: 4, pr: 2, gap: 2 }}>
+                {options.map(({ code, name }, index) => (
+                    <Grid key={index}>
+                        <LanguageButton
+                            fontColor={fontColor}
+                            href={`/${code === 'en' ? '' : code}`}
+                        >
+                            {name}
+                        </LanguageButton>
+                    </Grid>
+                ))}
             </Grid>
         </Modal>
   )
