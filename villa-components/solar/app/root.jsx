@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   isRouteErrorResponse,
   Links,
@@ -6,10 +6,11 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useLoaderData
+  useLoaderData,
+  useNavigate
 } from 'react-router'
 import { ApolloProvider } from '@apollo/client/react'
-import { ThemeProvider } from '@villa-components/components'
+import { ThemeProvider, NotFoundPage, Navbar, Footer } from '@villa-components/components'
 import { apolloClient } from './lib/apollo'
 import { getWebsiteIdFromHostname } from './lib/websiteMapping'
 import { APP_QUERY } from '@villa-components/graphql-queries'
@@ -88,16 +89,61 @@ export default function App () {
 }
 
 export function ErrorBoundary ({ error }) {
+  const navigate = useNavigate()
+  const [page, setPage] = useState('Error')
+
+  // For 404 errors, render the custom NotFoundPage component
+  if (isRouteErrorResponse(error) && error.status === 404) {
+    // Try to get website data from loader if available
+    let website = null
+    try {
+      const data = useLoaderData()
+      website = data?.website
+    } catch {
+      // Website data not available
+    }
+
+    return (
+      <ApolloProvider client={apolloClient}>
+        <ThemeProvider palette={website?.site_settings?.Palette || {}} fonts={website?.site_settings?.Fonts || ['"Racing Sans One"', 'Poppins']}>
+          {website?.navbar && (
+            <Navbar
+              page={page}
+              navIndex="/"
+              Items={website.navbar.Items}
+              MobileConfig={website.navbar.MobileConfig}
+              Style={website.navbar.Style}
+              Appearance={website.navbar.Appearance}
+              FontColor={website.navbar.FontColor}
+              minSize={website.site_settings?.DesktopBreakpoint || 'md'}
+              mobileTitle="Not Found"
+              onBackClick={() => navigate(-1)}
+            />
+          )}
+          <NotFoundPage setPage={setPage} />
+          {website?.footer && (
+            <Footer
+              Content={website.footer.Content}
+              FontColor={website.footer.FontColor}
+              links={website.footer.links}
+              enableLocalization={website.site_settings?.enableLocalization}
+              localeName="English"
+              localeCode="en"
+            />
+          )}
+        </ThemeProvider>
+      </ApolloProvider>
+    )
+  }
+
+  // For other errors, show error details
   let message = 'Oops!'
   let details = 'An unexpected error occurred.'
   let stack
 
   if (isRouteErrorResponse(error)) {
-    message = error.status === 404 ? '404' : 'Error'
-    details =
-      error.status === 404
-        ? 'The requested page could not be found.'
-        : error.statusText || details
+    message = `Error ${error.status}`
+    details = error.statusText || details
   } else if (import.meta.env.DEV && error && error instanceof Error) {
     details = error.message
     stack = error.stack

@@ -1,6 +1,5 @@
-import React from 'react'
-import { useOutletContext, useParams, useNavigate } from 'react-router'
-import { Footer, Navbar } from '@villa-components/components'
+import React, { useEffect } from 'react'
+import { useOutletContext, useParams } from 'react-router'
 
 export function meta ({ params, data }) {
   const context = data || {}
@@ -19,9 +18,8 @@ export function meta ({ params, data }) {
 }
 
 export default function ContentPage () {
-  const { website } = useOutletContext()
+  const { website, setPage } = useOutletContext()
   const { pageLink } = useParams()
-  const navigate = useNavigate()
 
   if (!website) {
     return <div>Loading...</div>
@@ -36,55 +34,28 @@ export default function ContentPage () {
     throw new Response('Page not found', { status: 404 })
   }
 
+  useEffect(() => {
+    setPage(contentPage.Title)
+  }, [contentPage.Title, setPage])
+
   return (
-    <div className="min-h-screen">
-      {/* Navbar */}
-      {website.navbar && (
-        <Navbar
-          page={contentPage.Title}
-          navIndex={contentPage.Link}
-          Items={website.navbar.Items}
-          MobileConfig={website.navbar.MobileConfig}
-          Style={website.navbar.Style}
-          Appearance={website.navbar.Appearance}
-          FontColor={website.navbar.FontColor}
-          minSize={website.site_settings?.DesktopBreakpoint || 'md'}
-          mobileTitle={website.homepage?.Title || 'Home'}
-          onBackClick={() => navigate(-1)}
-        />
+    <main className="container mx-auto px-4 py-8">
+      <h1 className="text-4xl font-bold mb-8">
+        {contentPage.Title}
+      </h1>
+
+      {/* Render content page components */}
+      {contentPage.Content && contentPage.Content.length > 0 && (
+        <div className="space-y-8">
+          {contentPage.Content.map((component, index) => (
+            <div key={index} className="border p-4 rounded">
+              <pre className="text-xs overflow-auto">
+                {JSON.stringify(component, null, 2)}
+              </pre>
+            </div>
+          ))}
+        </div>
       )}
-
-      {/* Content Page */}
-      <main className="container mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold mb-8">
-          {contentPage.Title}
-        </h1>
-
-        {/* Render content page components */}
-        {contentPage.Content && contentPage.Content.length > 0 && (
-          <div className="space-y-8">
-            {contentPage.Content.map((component, index) => (
-              <div key={index} className="border p-4 rounded">
-                <pre className="text-xs overflow-auto">
-                  {JSON.stringify(component, null, 2)}
-                </pre>
-              </div>
-            ))}
-          </div>
-        )}
-      </main>
-
-      {/* Footer */}
-      {website.footer && (
-        <Footer
-          Content={website.footer.Content}
-          FontColor={website.footer.FontColor}
-          links={website.footer.links}
-          enableLocalization={website.site_settings?.enableLocalization}
-          localeName="English"
-          localeCode="en"
-        />
-      )}
-    </div>
+    </main>
   )
 }

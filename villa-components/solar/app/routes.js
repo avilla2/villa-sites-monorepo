@@ -1,6 +1,10 @@
-import { index, route } from '@react-router/dev/routes'
+import { index, route, layout } from '@react-router/dev/routes'
 
 export default [
-  index('routes/home.jsx'),
-  route(':pageLink', 'routes/content-page.jsx')
+  layout('routes/layout.jsx', [
+    index('routes/home.jsx'),
+    route('sitemap', 'routes/sitemap.jsx'),
+    route(':pageLink', 'routes/content-page.jsx'),
+    route('*', 'routes/not-found.jsx')
+  ])
 ]

@@ -1,6 +1,5 @@
-import React from 'react'
-import { useOutletContext, useNavigate } from 'react-router'
-import { Footer, Navbar } from '@villa-components/components'
+import React, { useEffect } from 'react'
+import { useOutletContext } from 'react-router'
 
 export function meta ({ data }) {
   const context = data || {}
@@ -13,33 +12,18 @@ export function meta ({ data }) {
 }
 
 export default function Home () {
-  const { website } = useOutletContext()
-  const navigate = useNavigate()
+  const { website, setPage } = useOutletContext()
+
+  useEffect(() => {
+    setPage('Home')
+  }, [])
 
   if (!website) {
     return <div>Loading...</div>
   }
 
   return (
-    <div className="min-h-screen">
-      {/* Navbar */}
-      {website.navbar && (
-        <Navbar
-          page="Home"
-          navIndex="/"
-          Items={website.navbar.Items}
-          MobileConfig={website.navbar.MobileConfig}
-          Style={website.navbar.Style}
-          Appearance={website.navbar.Appearance}
-          FontColor={website.navbar.FontColor}
-          minSize={website.site_settings?.DesktopBreakpoint || 'md'}
-          mobileTitle={website.homepage?.Title || 'Home'}
-          onBackClick={() => navigate(-1)}
-        />
-      )}
-
-      {/* Homepage Content */}
-      <main className="container mx-auto px-4 py-8">
+    <main className="container mx-auto px-4 py-8">
         <h1 className="text-4xl font-bold mb-8">
           {website.homepage?.Title || 'Welcome'}
         </h1>
@@ -57,18 +41,5 @@ export default function Home () {
           </div>
         )}
       </main>
-
-      {/* Footer */}
-      {website.footer && (
-        <Footer
-          Content={website.footer.Content}
-          FontColor={website.footer.FontColor}
-          links={website.footer.links}
-          enableLocalization={website.site_settings?.enableLocalization}
-          localeName="English"
-          localeCode="en"
-        />
-      )}
-    </div>
   )
 }
