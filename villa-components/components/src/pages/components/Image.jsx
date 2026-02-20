@@ -2,9 +2,11 @@ import React from 'react'
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import { Parallax } from 'react-parallax'
-import Paragraph from './paragraph'
+import ReactParallax from 'react-parallax'
 import Grid from '@mui/material/Grid'
+import Paragraph from './Paragraph'
+
+const { Parallax } = ReactParallax
 
 const classes = {
   root: {

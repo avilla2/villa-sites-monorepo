@@ -1,6 +1,6 @@
 import React from 'react'
 import { BlocksRenderer } from '@strapi/blocks-react-renderer'
-import { CustomTypography as Typography } from '@villa-components/components'
+import CustomTypography from '../../shared/Typography'
 
 const classes = {
   root: {
@@ -16,10 +16,10 @@ const classes = {
  */
 export default function Freestyle ({ content }) {
   return (
-        <div style={classes.root}>
-          <Typography component="div">
-            {content.RichText && <BlocksRenderer content={content.RichText} />}
-          </Typography>
-        </div>
+    <div style={classes.root}>
+      <CustomTypography component="div">
+        {content.RichText && <BlocksRenderer content={content.RichText} />}
+      </CustomTypography>
+    </div>
   )
 }

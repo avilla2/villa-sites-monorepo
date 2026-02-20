@@ -5,7 +5,6 @@ import Grid from '@mui/material/Grid'
 import SendIcon from '@mui/icons-material/Send'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import AnimationProvider from '../utils/animationProvider'
 import { IMaskMixin } from 'react-imask'
 
 const classes = {
@@ -29,8 +28,6 @@ const classes = {
     justifyContent: 'flex-end'
   }
 }
-
-const siteName = localStorage.getItem('siteName')
 
 const MaskedTextField = IMaskMixin(
   ({ inputRef, ...otherProps }) => (
@@ -99,9 +96,11 @@ const FormField = ({ value, error, handleFormChange, id, label, fullWidth, type 
  * Contact component - Renders a contact form with validation and email sending functionality
  * @param {Object} props - Contact props
  * @param {FormComponent} props.content - Contact content object
+ * @param {Component} props.AnimationProvider - Animation provider component
+ * @param {string} props.siteName - The name of the site, used in the email subject line
  * @returns {JSX.Element} The Contact component
  */
-export default function Contact ({ content }) {
+export default function Contact ({ content, AnimationProvider, siteName }) {
   const defaultDataFields = content.formFields.reduce((allFields, newField) => ({ ...allFields, [newField.name]: '' }), {})
   const defaultErrorFields = content.formFields.reduce((allFields, newField) => ({ ...allFields, [newField.name]: false }), {})
   const defaultValidationFields = content.formFields.reduce((allFields, newField) => ({ ...allFields, [newField.name]: newField.validation ? new RegExp(newField.validation) : /./ }), {})

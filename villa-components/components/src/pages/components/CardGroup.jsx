@@ -4,11 +4,11 @@ import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
-import { CustomButton as Button } from '@villa-components/components'
 import Typography from '@mui/material/Typography'
 import CardActions from '@mui/material/CardActions'
 import Slide from '@mui/material/Slide'
 import { BlocksRenderer } from '@strapi/blocks-react-renderer'
+import CustomButton from '../../shared/Button'
 
 const classes = {
   root: (theme) => ({
@@ -89,14 +89,14 @@ const SingleCard = ({
             </CardContent>
             <CardActions>
               {Link &&
-                <Button
+                <CustomButton
                   color={ButtonColor}
                   buttonStyle='outlined'
                   mobile
                   link={Link}
                 >
                 {ButtonText}
-              </Button>
+              </CustomButton>
               }
             </CardActions>
           </Card>
@@ -129,14 +129,14 @@ const SingleCard = ({
       </CardContent>
       <CardActions sx={{ p: 2 }}>
         {Link &&
-          <Button
+          <CustomButton
             color={ButtonColor}
             buttonStyle='outlined'
             mobile
             link={Link}
           >
             {ButtonText}
-          </Button>
+          </CustomButton>
         }
       </CardActions>
     </Card>

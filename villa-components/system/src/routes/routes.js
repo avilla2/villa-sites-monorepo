@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Route, Routes, useNavigate } from 'react-router'
-import ScrollToTop from '../components/utils/scrollToTop'
-import ContentPage from '../pages/contentPage'
-import HomePage from '../pages/homePage'
-import { NotFoundPage, SiteMapPage as Sitemap } from '@villa-components/components'
-import { Navbar as SiteNavbar, Footer as SiteFooter } from '@villa-components/components'
-import LanguageModal from '../pageElements/languageModal'
+import { ScrollToTop, ContentPage, HomePage, NotFoundPage, SiteMapPage as Sitemap, Navbar as SiteNavbar, Footer as SiteFooter, LanguageModal } from '@villa-components/components'
 
 /**
  * Renders the site routes, navbar and footer
@@ -21,8 +16,6 @@ import LanguageModal from '../pageElements/languageModal'
  * @returns {JSX.Element} The SiteRoutes component
  */
 
-
-
 export default function SiteRoutes ({ children, siteContent, page, setPage, navIndex, setNavIndex, setSiteTitle, locales }) {
   const [modalOpen, setModalOpen] = useState(false)
   const navigate = useNavigate()
@@ -36,7 +29,6 @@ export default function SiteRoutes ({ children, siteContent, page, setPage, navI
 
   useEffect(() => {
     setSiteTitle(siteSettings.SiteTitle)
-    localStorage.setItem('siteName', siteContent.name)
   }, [siteContent.site_settings])
 
   return (
@@ -57,6 +49,7 @@ export default function SiteRoutes ({ children, siteContent, page, setPage, navI
                 path={page.Link}
                 element={
                   <ContentPage
+                    siteName={siteContent.name}
                     minSize={siteSettings.DesktopBreakpoint}
                     setNavIndex={setNavIndex}
                     path={page.Link}
@@ -74,6 +67,7 @@ export default function SiteRoutes ({ children, siteContent, page, setPage, navI
               path="/"
               element={
                 <HomePage
+                  siteName={siteContent.name}
                   setNavIndex={setNavIndex}
                   setPage={setPage}
                   path="/"
@@ -108,7 +102,7 @@ export default function SiteRoutes ({ children, siteContent, page, setPage, navI
               handleClose={() => setModalOpen(false)}
               options={locales}
             />
-          )
+        )
         }
     </React.Fragment>
   )

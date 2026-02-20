@@ -2,12 +2,9 @@ import React from 'react'
 import Box from '@mui/material/Box'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import ReactMarkdown from 'react-markdown'
-import AnimationProvider from '../utils/animationProvider'
-import ButtonGroup from '../contentPageComponents/buttonGroup'
-import Contact from '../contentPageComponents/contact'
 import Grid from '@mui/material/Grid'
-import Slideshow from './slideshow'
-import { CustomTypography as Typography } from '@villa-components/components'
+import Slideshow from './Slideshow'
+import CustomTypography from '../../shared/Typography'
 
 const styles = {
   base: {
@@ -166,12 +163,27 @@ const getIntroStyle = (style) => {
 
 /**
  * Intro component - Renders an intro section with media, text overlay, buttons, and optional contact form
+ * Note: ButtonGroup and Contact components need to be imported from the parent application
  * @param {Object} props - Intro props
  * @param {IntroComponent} props.content - Intro content object
+ * @param {React.Component} props.ButtonGroup - ButtonGroup component from parent app
+ * @param {React.Component} props.Contact - Contact component from parent app
+ * @param {React.Component} props.AnimationProvider - AnimationProvider component from parent app
  * @returns {JSX.Element} The Intro component
  */
-export default function Intro ({ content }) {
+export default function Intro ({ content, ButtonGroup, Contact, AnimationProvider }) {
   const mobile = useMediaQuery(theme => theme.breakpoints.down('md'))
+
+  const textContent = (
+    <>
+      <ReactMarkdown>
+        {content.IntroText}
+      </ReactMarkdown>
+      {content?.Buttons && ButtonGroup && (
+        <ButtonGroup content={{ ButtonArrangement: 'center', GroupButtonStyle: 'outlined', Entry: content.Buttons }}/>
+      )}
+    </>
+  )
 
   return (
     <Box sx={styles.base}>
@@ -181,47 +193,52 @@ export default function Intro ({ content }) {
           : <GenerateMedia files={content.File} mobile={mobile}/>
         }
       </Box>
-      <Typography component="div">
+      <CustomTypography component="div">
         <Grid
-        container
-        justifyContent='space-evenly'
-        sx={styles.overlayWrapper}>
+          container
+          justifyContent='space-evenly'
+          sx={styles.overlayWrapper}
+        >
           <Grid
             sx={{ width: '100%' }}
             size={{
               xs: 12,
               md: content?.FormData && content?.FormFields ? 8 : 12
-            }}>
-              <Box sx={[styles.overlay, getIntroStyle(content.TextPosition)]}>
-                <AnimationProvider animation={content?.Style?.Animation}>
-                    <ReactMarkdown>
-                        {content.IntroText}
-                    </ReactMarkdown>
-                  {content?.Buttons && <ButtonGroup content={{ ButtonArrangement: 'center', GroupButtonStyle: 'outlined', Entry: content.Buttons }}/>}
-                </AnimationProvider>
-              </Box>
+            }}
+          >
+            <Box sx={[styles.overlay, getIntroStyle(content.TextPosition)]}>
+              {AnimationProvider
+                ? (
+                  <AnimationProvider animation={content?.Style?.Animation}>
+                    {textContent}
+                  </AnimationProvider>
+                  )
+                : textContent
+              }
+            </Box>
           </Grid>
-          {content?.FormData && content?.FormFields &&
+          {content?.FormData && content?.FormFields && Contact && (
             <Grid
               sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               size={{
                 xs: 12,
                 md: 4
-              }}>
+              }}
+            >
               <Box sx={{ backgroundColor: 'white', margin: 'auto 16px', borderRadius: 3, maxWidth: 400 }}>
-              <Contact
-                content={{
-                  formFields: content.FormFields,
-                  sendTo: content.FormData.SendTo,
-                  sendFrom: content.FormData.SendFrom,
-                  bodyTitle: content.FormData.BodyTitle
-                }}
-              />
+                <Contact
+                  content={{
+                    formFields: content.FormFields,
+                    sendTo: content.FormData.SendTo,
+                    sendFrom: content.FormData.SendFrom,
+                    bodyTitle: content.FormData.BodyTitle
+                  }}
+                />
               </Box>
             </Grid>
-          }
+          )}
         </Grid>
-      </Typography>
+      </CustomTypography>
     </Box>
   )
 }

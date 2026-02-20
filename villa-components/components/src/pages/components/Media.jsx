@@ -1,10 +1,11 @@
 import React from 'react'
 import Box from '@mui/material/Box'
-import { PDF } from '@villa-components/components'
+import PDF from '../../shared/Pdf'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import ReactMarkdown from 'react-markdown'
-import { Parallax } from 'react-parallax'
-import AnimationProvider from '../utils/animationProvider'
+import ReactParallax from 'react-parallax'
+
+const { Parallax } = ReactParallax
 
 const classes = {
   caption: (theme) => ({
@@ -24,18 +25,18 @@ const classes = {
 const Video = ({ configs }) => {
   const mobile = useMediaQuery(theme => theme.breakpoints.down('md'))
   return (
-        <video
-            style={{ width: mobile ? '100%' : `${configs.Width}%` }}
-            loop={configs.Loop}
-            autoPlay={configs.Autoplay}
-            controls={configs.Controls}
-            muted={configs.Autoplay || configs.Muted}
-        >
-            <source
-                src={configs.File.url}
-                type={configs.File.mime}
-            />
-        </video>
+    <video
+      style={{ width: mobile ? '100%' : `${configs.Width}%` }}
+      loop={configs.Loop}
+      autoPlay={configs.Autoplay}
+      controls={configs.Controls}
+      muted={configs.Autoplay || configs.Muted}
+    >
+      <source
+        src={configs.File.url}
+        type={configs.File.mime}
+      />
+    </video>
   )
 }
 
@@ -56,11 +57,11 @@ const Image = ({ configs }) => {
     )
   } else {
     return (
-            <img
-                src={configs.File.url}
-                alt={configs.alternativeText}
-                style={{ width: mobile ? '100%' : `${configs.Width}%`, height }}
-            />
+      <img
+        src={configs.File.url}
+        alt={configs.alternativeText}
+        style={{ width: mobile ? '100%' : `${configs.Width}%`, height }}
+      />
     )
   }
 }
@@ -85,23 +86,30 @@ const renderComponent = (object) => {
 
 /**
  * Media component - Renders media content such as images, videos, or PDFs with optional caption and animation
+ * Note: AnimationProvider component needs to be imported from the parent application
  * @param {Object} props - Media props
  * @param {MediaComponent} props.content - Media content object
+ * @param {React.Component} props.AnimationProvider - AnimationProvider component from parent app
  * @returns {JSX.Element} The Media component
  */
-export default function Media ({ content }) {
+export default function Media ({ content, AnimationProvider }) {
   return (
-        <Box>
-            { content.asset &&
-                renderComponent(content.asset.Content[0])
-            }
-            { content.asset?.Caption &&
-              <AnimationProvider animation={content?.Style?.Animation} direction="down">
-                <Box sx={classes.caption}>
-                    <ReactMarkdown>{content.asset.Caption}</ReactMarkdown>
-                </Box>
-              </AnimationProvider>
-            }
+    <Box>
+      {content.asset &&
+        renderComponent(content.asset.Content[0])
+      }
+      {content.asset?.Caption && AnimationProvider && (
+        <AnimationProvider animation={content?.Style?.Animation} direction="down">
+          <Box sx={classes.caption}>
+            <ReactMarkdown>{content.asset.Caption}</ReactMarkdown>
+          </Box>
+        </AnimationProvider>
+      )}
+      {content.asset?.Caption && !AnimationProvider && (
+        <Box sx={classes.caption}>
+          <ReactMarkdown>{content.asset.Caption}</ReactMarkdown>
         </Box>
+      )}
+    </Box>
   )
 }

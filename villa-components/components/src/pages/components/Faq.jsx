@@ -5,7 +5,6 @@ import AccordionDetails from '@mui/material/AccordionDetails'
 import Typography from '@mui/material/Typography'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import Box from '@mui/material/Box'
-import AnimationProvider from '../utils/animationProvider'
 
 const classes = {
   root: (theme) => ({
@@ -23,9 +22,10 @@ const classes = {
  * Faq component - Renders a FAQ section with expandable entries
  * @param {Object} props - Faq props
  * @param {FaqComponent} props.content - FAQ content object
+ * @param {Component} props.AnimationProvider - Animation provider component
  * @returns {JSX.Element} The Faq component
  */
-export default function Faq ({ content }) {
+export default function Faq ({ content, AnimationProvider }) {
   return (
     <Box sx={classes.root}>
         <AnimationProvider animation={content?.Style?.Animation} direction="up">

@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import Box from '@mui/material/Box'
-import { CustomButton as Button } from '@villa-components/components'
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
@@ -12,6 +11,7 @@ import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight'
 import Slide from '@mui/material/Slide'
 import RestartAltIcon from '@mui/icons-material/RestartAlt'
 import { styled, alpha } from '@mui/material/styles'
+import CustomButton from '../../shared/Button'
 
 const CSSTextField = styled(TextField, {
   shouldForwardProp: (prop) => prop !== 'borderColor'
@@ -177,14 +177,14 @@ export default function InstantQuoteCalculator ({ content }) {
               </CardHeader>
               <CardContent style={classes.cardContent}>
                 <Box>
-                  <Button
+                  <CustomButton
                     style={{ height: 75, width: 150 }}
                     buttonStyle={content?.FormButtonStyle}
                     color={content?.ButtonColor}
                     onClick={() => setComponentPhase(1)}
                   >
                     {content?.ButtonText}
-                  </Button>
+                  </CustomButton>
                 </Box>
               </CardContent>
             </Box>
@@ -198,14 +198,14 @@ export default function InstantQuoteCalculator ({ content }) {
             <CardContent style={classes.cardContent}>
               <Box style={classes.buttonGroup}>
                 {content.Entry.map((entry, index) => (
-                    <Button
+                    <CustomButton
                         key={index}
                         buttonStyle={content?.FormButtonStyle}
                         color={content?.ButtonColor}
                         onClick={() => handlePhase1Change(entry.PricePer, entry.JobType, entry.PriceMinimum)}
                     >
                       {entry.JobType}
-                    </Button>
+                    </CustomButton>
                 ))}
               </Box>
             </CardContent>
@@ -272,21 +272,21 @@ export default function InstantQuoteCalculator ({ content }) {
                   <Typography fontSize={44}><b>{estimate}</b></Typography>
                 </Box>
                 <Box style={classes.buttonGroup} mt={6}>
-                  <Button
+                  <CustomButton
                     buttonStyle={content?.FormButtonStyle}
                     color={content?.ButtonColor}
                     onClick={() => setComponentPhase(1)}
                     endIcon={<RestartAltIcon style={content?.Style?.TextColor ? { color: content?.Style?.TextColor } : null} />}
                   >
                     Restart
-                  </Button>
-                  <Button
+                  </CustomButton>
+                  <CustomButton
                     buttonStyle={content?.FormButtonStyle}
                     color={content?.ButtonColor}
                     onClick={() => setComponentPhase(4)}
                   >
                     Schedule a Job
-                  </Button>
+                  </CustomButton>
                 </Box>
               </CardContent>
             </Box>
@@ -349,14 +349,14 @@ export default function InstantQuoteCalculator ({ content }) {
                       </Box>
                     </Box>
                     <Box mt={3}>
-                      <Button
+                      <CustomButton
                         disabled={loading}
                         buttonStyle={content?.FormButtonStyle}
                         color={content?.ButtonColor}
                         onClick={sendEmail}
                       >
                         Submit
-                      </Button>
+                      </CustomButton>
                     </Box>
                 </form>
               </CardContent>

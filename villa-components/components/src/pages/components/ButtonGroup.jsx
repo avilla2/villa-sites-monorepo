@@ -2,9 +2,8 @@ import React from 'react'
 import Box from '@mui/material/Box'
 import ButtonGroup from '@mui/material/ButtonGroup'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import AnimationProvider from '../utils/animationProvider'
 import { useTheme } from '@mui/material/styles'
-import { CustomButton as Button } from '@villa-components/components'
+import CustomButton from '../../shared/Button'
 
 const classes = {
   root: {
@@ -20,9 +19,10 @@ const classes = {
  * Buttons component - Renders a group of buttons with optional arrangement and animation
  * @param {Object} props - Buttons props
  * @param {ButtonsComponent} props.content - Button group content object
+ * @param {Component} props.AnimationProvider - Animation provider component
  * @returns {JSX.Element} The Buttons component
  */
-export default function Buttons ({ content }) {
+export default function Buttons ({ content, AnimationProvider }) {
   const theme = useTheme()
   const mobile = useMediaQuery(theme.breakpoints.down('sm'))
 
@@ -49,7 +49,7 @@ export default function Buttons ({ content }) {
         <Box sx={classes.root}>
             <ButtonGroupRoot>
               {content.Entry.map((entry, index) => (
-                  <Button
+                  <CustomButton
                       key={index}
                       buttonStyle={content?.GroupButtonStyle}
                       mobile={mobile}
@@ -57,7 +57,7 @@ export default function Buttons ({ content }) {
                       color={entry.ButtonColor}
                   >
                     {entry.Text}
-                  </Button>
+                  </CustomButton>
               ))}
             </ButtonGroupRoot>
         </Box>

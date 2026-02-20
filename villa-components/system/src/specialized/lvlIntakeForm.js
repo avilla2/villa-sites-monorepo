@@ -54,8 +54,6 @@ const classes = {
   }
 }
 
-const siteName = localStorage.getItem('siteName')
-
 const MaskedTextField = IMaskMixin(
   ({ inputRef, ...otherProps }) => (
     <TextField
@@ -211,7 +209,7 @@ export default function IntakeForm ({ fromEmail, toEmail }) {
       to: toEmail,
       from: fromEmail,
       replyTo: data.email,
-      subject: `${siteName}: Landscaping Project Intake Form from ${data.fullName}`,
+      subject: `Los Valdivias Landscape: Landscaping Project Intake Form from ${data.fullName}`,
       text: emailBody.join('\n')
     }
 

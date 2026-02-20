@@ -1,11 +1,11 @@
 import React from 'react'
 import Grid from '@mui/material/Grid'
-import { CustomModal as Modal } from '@villa-components/components'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 import CancelIcon from '@mui/icons-material/Cancel'
 import { styled } from '@mui/material/styles'
 import ButtonBase from '@mui/material/ButtonBase'
+import CustomModal from '../shared/Modal'
 
 const LanguageButton = styled(ButtonBase, {
   shouldForwardProp: (prop) => prop !== 'fontColor'
@@ -30,7 +30,7 @@ const LanguageButton = styled(ButtonBase, {
  */
 export default function LanguageModal ({ open, options, handleClose, fontColor }) {
   return (
-        <Modal
+        <CustomModal
             open={open}
             onClose={handleClose}
         >
@@ -60,6 +60,6 @@ export default function LanguageModal ({ open, options, handleClose, fontColor }
                     </Grid>
                 ))}
             </Grid>
-        </Modal>
+        </CustomModal>
   )
 }

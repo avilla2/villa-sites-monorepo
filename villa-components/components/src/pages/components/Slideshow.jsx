@@ -36,39 +36,38 @@ export default function Slideshow ({ content, fullscreen }) {
    */
   const Slide = ({ slide }) => (
     <div>
-        <img
-            src={slide.url}
-            alt={slide.alternativeText}
-        />
-        {slide?.caption &&
+      <img
+        src={slide.url}
+        alt={slide.alternativeText}
+      />
+      {slide?.caption &&
         <div className="legend" style={classes.legendContainer}>
-            <h6
-                style={{
-                  fontFamily: theme.typography.fontFamily,
-                  backgroundColor: theme.palette.primary.main,
-                  ...classes.legend
-                }}
-            >
-                {slide.caption}
-            </h6>
+          <h6
+            style={{
+              fontFamily: theme.typography.fontFamily,
+              backgroundColor: theme.palette.primary.main,
+              ...classes.legend
+            }}
+          >
+            {slide.caption}
+          </h6>
         </div>
-
-        }
+      }
     </div>
   )
 
   return (
     <Box sx={{ margin: `auto ${isDesktop && !fullscreen ? '5vw' : 0}`, pt: content.Title ? 3 : 0 }}>
-        <Carousel showThumbs={false} autoPlay infiniteLoop showStatus={false}>
-            {isDesktop
-              ? content.slidesDesktop.map((slide, index) => (
-                    <Slide slide={slide} key={index} />
-              ))
-              : content.slidesMobile.map((slide, index) => (
-                    <Slide slide={slide} key={index} />
-              ))
-            }
-        </Carousel>
+      <Carousel showThumbs={false} autoPlay infiniteLoop showStatus={false}>
+        {isDesktop
+          ? content.slidesDesktop.map((slide, index) => (
+            <Slide slide={slide} key={index} />
+          ))
+          : content.slidesMobile.map((slide, index) => (
+            <Slide slide={slide} key={index} />
+          ))
+        }
+      </Carousel>
     </Box>
   )
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import Box from '@mui/material/Box'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import Paragraph from './paragraph'
+import Paragraph from './Paragraph'
 
 const classes = {
   root: {

@@ -3,7 +3,8 @@ import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import GeneratePageContent from '../components/utils/generatePageContent'
+import renderPageComponent from './lib/RenderPageComponent'
+import calculatePadding from './utils/CalculatePadding'
 
 const titleHeight = '145px'
 const classes = {
@@ -31,8 +32,23 @@ const classes = {
       backgroundColor: 'white',
       paddingTop: showTitle ? '0px' : '160px'
     }
+  }),
+  contentRoot: {
+    width: '100%'
+  },
+  contentTitle: (theme) => ({
+    letterSpacing: 1,
+    margin: 'auto 5vw',
+    paddingTop: theme.spacing(2),
+    fontSize: '1.6rem',
+    [theme.breakpoints.down('md')]: {
+      fontSize: '1.2rem'
+    }
   })
 }
+
+const fullHeightComponents = ['ComponentHomePageComponentsIntro', 'ComponentContentPageComponentsImage', 'ComponentHomePageComponentsMedia']
+const halfHeightComponents = []
 
 /**
  * ContentPage component - Renders a content page with optional title and dynamic content
@@ -55,7 +71,8 @@ export default function ContentPage ({
   path,
   minSize,
   showTitle,
-  titleColor
+  titleColor,
+  siteName
 }) {
   const hidden = useMediaQuery(theme => theme.breakpoints.up(minSize))
 
@@ -72,13 +89,32 @@ export default function ContentPage ({
                 </Box>
             }
                 <Grid container sx={(theme) => classes.page(theme, minSize, showTitle)}>
-                    {content.map((item, index) => {
+                    {content.map((component, index) => {
+                      const lastComponent = index === content.length - 1
+                      const padding = calculatePadding(lastComponent, fullHeightComponents, halfHeightComponents, component.__typename)
+                      const styles = component?.Style
+                      const textAlign = styles?.textAlign || 'center'
                       return (
-                        <GeneratePageContent
-                          key={index}
-                          content={item}
-                          lastComponent={index === content.length - 1}
-                        />
+                        <Grid
+                            key={index}
+                                size={{ xs: 12, lg: styles?.size ? styles.size : 12 }}
+                                sx={classes.contentRoot}
+                                style={{
+                                  color: styles?.TextColor ? styles.TextColor : null,
+                                  backgroundColor: styles?.BackgroundColor ? styles.BackgroundColor : null,
+                                  padding,
+                                  textAlign,
+                                  ...(styles && styles?.paddingTop !== null && { paddingTop: styles.paddingTop }),
+                                  ...(styles && styles?.paddingBottom !== null && { paddingBottom: styles.paddingBottom })
+                                }}
+                            >
+                                {
+                                    !fullHeightComponents.includes(component.__typename) && component?.Title
+                                      ? <Typography sx={classes.contentTitle} variant="h2"> {component?.Title}</Typography>
+                                      : <></>
+                                }
+                                {renderPageComponent(component, siteName)}
+                            </Grid>
                       )
                     })}
                 </Grid>

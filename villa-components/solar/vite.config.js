@@ -15,7 +15,4 @@ export default defineConfig({
       '@villa-components/components': '/Users/alexvilla/Projects/villa-sites-monorepo/villa-components/components'
     }
   }
-  // commonjsOptions: {
-  //   esmExternals: true
-  // }
 })

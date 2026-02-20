@@ -2,7 +2,8 @@ import React from 'react'
 import { BlocksRenderer } from '@strapi/blocks-react-renderer'
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
-import { CustomTypography as Typography, CustomButton as Button } from '@villa-components/components'
+import CustomTypography from '../../shared/Typography'
+import CustomButton from '../../shared/Button'
 import useMediaQuery from '@mui/material/useMediaQuery'
 
 const alignmentMapping = {
@@ -62,9 +63,9 @@ export default function Cta ({ content }) {
         >
           <Box>
             {body && (
-              <Typography component="div" sx={{ '& h2': { m: 0 } }}>
+              <CustomTypography component="div" sx={{ '& h2': { m: 0 } }}>
                 <BlocksRenderer content={body} />
-              </Typography>
+              </CustomTypography>
             )}
           </Box>
 
@@ -72,7 +73,7 @@ export default function Cta ({ content }) {
             {buttons.length > 0 && (
               <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
                 {buttons.map((b, idx) => (
-                  <Button
+                  <CustomButton
                     key={idx}
                     buttonStyle='outlined'
                     mobile={mobile}
@@ -80,7 +81,7 @@ export default function Cta ({ content }) {
                     color={b.ButtonColor}
                   >
                     {b.Text || 'Learn More'}
-                  </Button>
+                  </CustomButton>
                 ))}
               </Box>
             )}
