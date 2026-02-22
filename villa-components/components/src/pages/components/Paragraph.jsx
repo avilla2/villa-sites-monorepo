@@ -2,6 +2,7 @@ import React from 'react'
 import Box from '@mui/material/Box'
 import ReactMarkdown from 'react-markdown'
 import CustomTypography from '../../shared/Typography'
+import AnimationProvider from '../lib/AnimationProvider'
 
 const classes = {
   root: {
@@ -18,10 +19,9 @@ const classes = {
  * Paragraph component - Renders a paragraph of text with markdown support and optional animation
  * @param {Object} props - Paragraph props
  * @param {ParagraphComponent} props.content - Paragraph content object
- * @param {Component} props.AnimationProvider - Animation provider component
  * @returns {JSX.Element} The Paragraph component
  */
-export default function Paragraph ({ content, AnimationProvider }) {
+export default function Paragraph ({ content }) {
   return (
     <Box sx={classes.root}>
       <CustomTypography component="div" sx={classes.text}>

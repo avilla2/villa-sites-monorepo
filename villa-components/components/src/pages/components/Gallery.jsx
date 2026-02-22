@@ -3,15 +3,15 @@ import Box from '@mui/material/Box'
 import ImageList from '@mui/material/ImageList'
 import ImageListItem from '@mui/material/ImageListItem'
 import useMediaQuery from '@mui/material/useMediaQuery'
+import AnimationProvider from '../lib/AnimationProvider'
 
 /**
  * Gallery component - Renders a gallery of images with optional animation
  * @param {Object} props - Gallery props
  * @param {GalleryComponent} props.content - Gallery content object
- * @param {React.Component} props.AnimationProvider - AnimationProvider component from parent app
  * @returns {JSX.Element} The Gallery component
  */
-export default function Gallery ({ content, AnimationProvider }) {
+export default function Gallery ({ content }) {
   const mobile = useMediaQuery(theme => theme.breakpoints.down('sm'))
 
   const imageList = (

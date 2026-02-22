@@ -19,3 +19,4 @@ export { default as ContentPage } from './pages/ContentPage'
 
 // Shared Components
 export { default as ScrollToTop } from './shared/ScrollToTop'
+export { default as Buttons } from './pages/components/ButtonGroup'

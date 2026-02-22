@@ -9,13 +9,12 @@ import Faq from '../components/Faq'
 import Paragraph from '../components/Paragraph'
 import Contact from '../components/Contact'
 import Grid from '../components/Grid'
-import ButtonGroup from '../components/ButtonGroup'
+import Buttons from '../components/ButtonGroup'
 import InstantQuoteCalculator from '../components/InstantQuoteCalculator'
 import Image from '../components/Image'
 import Video from '../components/Video'
 import CardGroup from '../components/CardGroup'
 import List from '../components/List'
-import AnimationProvider from './AnimationProvider'
 
 /**
  * renderComponent function - Renders the appropriate component based on its __typename
@@ -26,25 +25,25 @@ import AnimationProvider from './AnimationProvider'
 const renderComponent = (object, siteName) => {
   switch (object.__typename) {
     case 'ComponentContentPageComponentsParagraph':
-      return <Paragraph content={object} AnimationProvider={AnimationProvider} />
+      return <Paragraph content={object} />
     case 'ComponentContentPageComponentsFaq':
-      return <Faq content={object} AnimationProvider={AnimationProvider} />
+      return <Faq content={object} />
     case 'ComponentContentPageComponentsForm':
-      return <Contact content={object} AnimationProvider={AnimationProvider} siteName={siteName} />
+      return <Contact content={object} siteName={siteName} />
     case 'ComponentContentPageComponentsGrid':
-      return <Grid content={object} AnimationProvider={AnimationProvider} />
+      return <Grid content={object} />
     case 'ComponentContentPageComponentsButtons':
-      return <ButtonGroup content={object} AnimationProvider={AnimationProvider} />
+      return <Buttons content={object} />
     case 'ComponentContentPageComponentsInstantQuote':
       return <InstantQuoteCalculator content={object} siteName={siteName} />
     case 'ComponentHomePageComponentsIntro':
-      return <Intro content={object} ButtonGroup={ButtonGroup} Contact={Contact} AnimationProvider={AnimationProvider} siteName={siteName} />
+      return <Intro content={object} Buttons={Buttons} Contact={Contact} siteName={siteName} />
     case 'ComponentHomePageComponentsGallery':
-      return <Gallery content={object} AnimationProvider={AnimationProvider} />
+      return <Gallery content={object} />
     case 'ComponentHomePageComponentsCta':
       return <Cta content={object} />
     case 'ComponentHomePageComponentsMedia':
-      return <Media content={object} AnimationProvider={AnimationProvider} />
+      return <Media content={object} />
     case 'ComponentContentPageComponentsImage':
       return <Image content={object} />
     case 'ComponentContentPageComponentsVideo':

@@ -3,6 +3,7 @@ import ReactMarkdown from 'react-markdown'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
+import AnimationProvider from '../lib/AnimationProvider'
 
 const classes = {
   root: (theme) => ({
@@ -23,10 +24,9 @@ const classes = {
  * PictureGrid component - Renders a grid of pictures with captions and optional animation
  * @param {Object} props - PictureGrid props
  * @param {GridComponent} props.content - Picture grid content object
- * @param {Component} props.AnimationProvider - Animation provider component
  * @returns {JSX.Element} The PictureGrid component
  */
-export default function PictureGrid ({ content, AnimationProvider }) {
+export default function PictureGrid ({ content }) {
   return (
     <Box sx={classes.root}>
       <Grid

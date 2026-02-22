@@ -6,6 +6,7 @@ import SendIcon from '@mui/icons-material/Send'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { IMaskMixin } from 'react-imask'
+import AnimationProvider from '../lib/AnimationProvider'
 
 const classes = {
   root: {
@@ -96,11 +97,10 @@ const FormField = ({ value, error, handleFormChange, id, label, fullWidth, type 
  * Contact component - Renders a contact form with validation and email sending functionality
  * @param {Object} props - Contact props
  * @param {FormComponent} props.content - Contact content object
- * @param {Component} props.AnimationProvider - Animation provider component
  * @param {string} props.siteName - The name of the site, used in the email subject line
  * @returns {JSX.Element} The Contact component
  */
-export default function Contact ({ content, AnimationProvider, siteName }) {
+export default function Contact ({ content, siteName }) {
   const defaultDataFields = content.formFields.reduce((allFields, newField) => ({ ...allFields, [newField.name]: '' }), {})
   const defaultErrorFields = content.formFields.reduce((allFields, newField) => ({ ...allFields, [newField.name]: false }), {})
   const defaultValidationFields = content.formFields.reduce((allFields, newField) => ({ ...allFields, [newField.name]: newField.validation ? new RegExp(newField.validation) : /./ }), {})
@@ -182,9 +182,7 @@ export default function Contact ({ content, AnimationProvider, siteName }) {
       <form style={classes.root} noValidate autoComplete="off">
           <Grid
               container
-              direction="row"
-              justifyContent="flex-start"
-              alignItems="center"
+              columns={12}
               spacing={2}
           >
             {content.formFields.map((field, index) => {

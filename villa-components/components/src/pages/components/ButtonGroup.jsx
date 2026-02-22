@@ -4,6 +4,7 @@ import ButtonGroup from '@mui/material/ButtonGroup'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTheme } from '@mui/material/styles'
 import CustomButton from '../../shared/Button'
+import AnimationProvider from '../lib/AnimationProvider'
 
 const classes = {
   root: {
@@ -19,10 +20,9 @@ const classes = {
  * Buttons component - Renders a group of buttons with optional arrangement and animation
  * @param {Object} props - Buttons props
  * @param {ButtonsComponent} props.content - Button group content object
- * @param {Component} props.AnimationProvider - Animation provider component
  * @returns {JSX.Element} The Buttons component
  */
-export default function Buttons ({ content, AnimationProvider }) {
+export default function Buttons ({ content }) {
   const theme = useTheme()
   const mobile = useMediaQuery(theme.breakpoints.down('sm'))
 

@@ -5,6 +5,7 @@ import ReactMarkdown from 'react-markdown'
 import Grid from '@mui/material/Grid'
 import Slideshow from './Slideshow'
 import CustomTypography from '../../shared/Typography'
+import AnimationProvider from '../lib/AnimationProvider'
 
 const styles = {
   base: {
@@ -163,15 +164,15 @@ const getIntroStyle = (style) => {
 
 /**
  * Intro component - Renders an intro section with media, text overlay, buttons, and optional contact form
- * Note: ButtonGroup and Contact components need to be imported from the parent application
+ * Note: Buttons and Contact components need to be imported from the parent application
  * @param {Object} props - Intro props
  * @param {IntroComponent} props.content - Intro content object
- * @param {React.Component} props.ButtonGroup - ButtonGroup component from parent app
+ * @param {React.Component} props.Buttons - Buttons component from parent app
  * @param {React.Component} props.Contact - Contact component from parent app
- * @param {React.Component} props.AnimationProvider - AnimationProvider component from parent app
+ * @param {string} props.siteName - The name of the site, used for rendering components that require it (e.g., Contact form email subject line)
  * @returns {JSX.Element} The Intro component
  */
-export default function Intro ({ content, ButtonGroup, Contact, AnimationProvider }) {
+export default function Intro ({ content, Buttons, Contact, siteName }) {
   const mobile = useMediaQuery(theme => theme.breakpoints.down('md'))
 
   const textContent = (
@@ -179,8 +180,8 @@ export default function Intro ({ content, ButtonGroup, Contact, AnimationProvide
       <ReactMarkdown>
         {content.IntroText}
       </ReactMarkdown>
-      {content?.Buttons && ButtonGroup && (
-        <ButtonGroup content={{ ButtonArrangement: 'center', GroupButtonStyle: 'outlined', Entry: content.Buttons }}/>
+      {content?.Buttons && Buttons && (
+        <Buttons content={{ ButtonArrangement: 'center', GroupButtonStyle: 'outlined', Entry: content.Buttons }}/>
       )}
     </>
   )
@@ -233,6 +234,7 @@ export default function Intro ({ content, ButtonGroup, Contact, AnimationProvide
                     sendFrom: content.FormData.SendFrom,
                     bodyTitle: content.FormData.BodyTitle
                   }}
+                  siteName={siteName}
                 />
               </Box>
             </Grid>
