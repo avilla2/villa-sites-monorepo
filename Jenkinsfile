@@ -21,6 +21,11 @@ pipeline {
                 sh 'echo "REACT_APP_API_TOKEN=$REACT_APP_API_TOKEN" >> villa-components/system/.env'
             }
         }
+        stage('Build Components') {
+            steps {
+                sh 'yarn build @villa-components/components'
+            }
+        }
         stage('Build') { 
             steps {
                 sh "yarn build ${params.app}"
