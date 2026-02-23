@@ -31,7 +31,8 @@ export default {
     css({ output: 'bundle.css' }),
     peerDepsExternal(),
     resolve({
-      extensions: ['.js', '.jsx']
+      extensions: ['.js', '.jsx', '.json'],
+      preferBuiltins: false
     }),
     commonjs(),
     babel({
@@ -41,15 +42,19 @@ export default {
       extensions: ['.js', '.jsx']
     })
   ],
-  external: [
-    'react',
-    'react-dom',
-    'react/jsx-runtime',
-    '@mui/material',
-    '@mui/icons-material',
-    '@emotion/react',
-    '@emotion/styled',
-    'react-router',
-    'react-markdown'
-  ]
+  external: (id) => {
+    // Externalize all MUI packages and subpaths
+    if (id.startsWith('@mui/') || id.startsWith('@emotion/')) {
+      return true
+    }
+    // Externalize other peer dependencies
+    const peerDeps = [
+      'react',
+      'react-dom',
+      'react/jsx-runtime',
+      'react-router',
+      'react-markdown'
+    ]
+    return peerDeps.some(dep => id === dep || id.startsWith(dep + '/'))
+  }
 }
