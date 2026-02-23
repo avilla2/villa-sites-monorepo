@@ -25,7 +25,7 @@ pipeline {
         }
         stage('Build Components') {
             steps {
-                sh 'yarn build @villa-components/components'
+                sh 'yarn build:prod @villa-components/components'
             }
         }
         stage('Build') { 

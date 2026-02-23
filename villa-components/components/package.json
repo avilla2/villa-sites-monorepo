@@ -19,7 +19,8 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "rollup -c",
+    "build": "rollup -c rollup.config.prod.js",
+    "build:dev": "rollup -c",
     "dev": "rollup -c -w",
     "lint": "eslint src --ext .js,.jsx",
     "test": "echo \"Error: no test specified\" && exit 1"
