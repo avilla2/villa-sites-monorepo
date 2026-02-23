@@ -62,7 +62,12 @@ export default function SiteRoutes ({ children, siteContent, page, setPage, navI
                 }
               />
             ))}
-            {children && children}
+            {children
+              ? React.Children.toArray(children).filter(child =>
+                React.isValidElement(child) &&
+              (child.type === Route || child.type === React.Fragment)
+              )
+              : null}
             <Route
               path="/"
               element={
