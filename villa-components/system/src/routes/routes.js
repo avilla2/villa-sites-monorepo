@@ -43,7 +43,7 @@ export default function SiteRoutes ({ children, siteContent, page, setPage, navI
           {...siteContent.navbar}
         />
           <Routes>
-            {siteContent.content_pages.map((page, key) => (
+            {siteContent.content_pages?.map((page, key) => (
               <Route
                 key={key}
                 path={page.Link}
@@ -62,7 +62,7 @@ export default function SiteRoutes ({ children, siteContent, page, setPage, navI
                 }
               />
             ))}
-            {children}
+            {children && children}
             <Route
               path="/"
               element={
@@ -81,7 +81,7 @@ export default function SiteRoutes ({ children, siteContent, page, setPage, navI
               element={
                 <Sitemap
                   setPage={setPage}
-                  contentPages={siteContent.content_pages}
+                  contentPages={siteContent.content_pages || []}
                   locale={siteContent.locale}
                 />
               }
