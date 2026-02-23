@@ -11,11 +11,11 @@ export { default as Navbar } from './navbar/Navbar'
 export { default as ThemeProvider } from './themeProvider'
 
 // Pages
-export { default as NoContentPage } from './pages/NoContentPage.jsx'
-export { default as NotFoundPage } from './pages/NotFoundPage.jsx'
-export { default as SiteMapPage } from './pages/SiteMapPage.jsx'
-export { default as HomePage } from './pages/HomePage.jsx'
-export { default as ContentPage } from './pages/ContentPage.jsx'
+export { default as NoContentPage } from './pages/NoContentPage'
+export { default as NotFoundPage } from './pages/NotFoundPage'
+export { default as SiteMapPage } from './pages/SiteMapPage'
+export { default as HomePage } from './pages/HomePage'
+export { default as ContentPage } from './pages/ContentPage'
 
 // Shared Components
 export { default as ScrollToTop } from './shared/ScrollToTop'
