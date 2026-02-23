@@ -62,12 +62,6 @@ export default function SiteRoutes ({ children, siteContent, page, setPage, navI
                 }
               />
             ))}
-            {children
-              ? React.Children.toArray(children).filter(child =>
-                React.isValidElement(child) &&
-              (child.type === Route || child.type === React.Fragment)
-              )
-              : null}
             <Route
               path="/"
               element={
@@ -86,7 +80,7 @@ export default function SiteRoutes ({ children, siteContent, page, setPage, navI
               element={
                 <Sitemap
                   setPage={setPage}
-                  contentPages={siteContent.content_pages || []}
+                  contentPages={siteContent.content_pages}
                   locale={siteContent.locale}
                 />
               }

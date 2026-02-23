@@ -12,7 +12,6 @@ pipeline {
         CLOUDFLARE_API_TOKEN  = credentials('CLOUDFLARE_API_TOKEN')
         REACT_APP_BACKEND_URL = 'https://api.villawebsolutions.com'
         REACT_APP_API_TOKEN   = credentials('STRAPI_API_TOKEN')
-        REACT_APP_CDN_URL     = 'https://static.villawebsolutions.com/uploads'
     }
     stages {
         stage("Install") {
@@ -20,12 +19,11 @@ pipeline {
                 sh 'yarn install'
                 sh 'echo "REACT_APP_BACKEND_URL=$REACT_APP_BACKEND_URL" > villa-components/system/.env'
                 sh 'echo "REACT_APP_API_TOKEN=$REACT_APP_API_TOKEN" >> villa-components/system/.env'
-                sh 'echo "REACT_APP_CDN_URL=$REACT_APP_CDN_URL" >> villa-components/system/.env'
             }
         }
         stage('Build Components') {
             steps {
-                sh 'yarn build:prod @villa-components/components'
+                sh 'yarn build @villa-components/components'
             }
         }
         stage('Build') { 

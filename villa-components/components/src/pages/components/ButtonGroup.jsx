@@ -48,7 +48,7 @@ export default function Buttons ({ content }) {
     <AnimationProvider animation={content?.Style?.Animation} direction="down">
         <Box sx={classes.root}>
             <ButtonGroupRoot>
-              {content.Entry.map((entry, index) => (
+              {content?.Entry?.map((entry, index) => (
                   <CustomButton
                       key={index}
                       buttonStyle={content?.GroupButtonStyle}

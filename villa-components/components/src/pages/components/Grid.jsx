@@ -32,11 +32,10 @@ export default function PictureGrid ({ content }) {
       <Grid
         container
         direction="row"
-        justifyContent="space-around"
-        alignItems="flex-start"
+        sx={{ justifyContent: 'space-around', alignItems: 'flex-start' }}
         spacing={3}
       >
-        {content.Entry.map((entry, index) => {
+        {content?.Entry?.map((entry, index) => {
           return (
             <Grid
               key={index}

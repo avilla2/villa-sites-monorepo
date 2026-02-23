@@ -30,7 +30,7 @@ export default function Gallery ({ content }) {
       cols={mobile ? 1 : 3}
       gap={8}
     >
-      {content.Pictures.map((item, index) => (
+      {content?.Pictures?.map((item, index) => (
         <ImageListItem key={index}>
           <img src={item.url} alt={item.alternativeText} />
         </ImageListItem>
@@ -41,7 +41,7 @@ export default function Gallery ({ content }) {
   return (
     <Box sx={{ margin: '2% 3% 5% 3%' }}>
         <AnimationProvider animation={content?.Style?.Animation} direction="up" partialVisibility>
-        {imageList}
+            {imageList}
         </AnimationProvider>
     </Box>
   )

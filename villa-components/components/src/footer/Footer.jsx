@@ -39,7 +39,7 @@ export default function Footer ({ Content, FontColor: fontColor, enableLocalizat
               }}
               spacing={2}
           >
-              {Content.map((item, key) => {
+              {Content?.map((item, key) => {
                 return (
                   <Grid key={key} size={{ md: item.Space }}>
                       <GenerateFooterContent content={item} />
@@ -69,7 +69,7 @@ export default function Footer ({ Content, FontColor: fontColor, enableLocalizat
                 Site Map
               </Link>
             </Grid>
-            {links.map((item, index) => (
+            {links?.map((item, index) => (
               <Grid key={index}>
                 <Link
                   component={isExternal(item.link) ? 'a' : RouterLink}
