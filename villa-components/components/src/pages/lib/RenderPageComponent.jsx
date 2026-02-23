@@ -37,7 +37,7 @@ const renderComponent = (object, siteName) => {
     case 'ComponentContentPageComponentsInstantQuote':
       return <InstantQuoteCalculator content={object} siteName={siteName} />
     case 'ComponentHomePageComponentsIntro':
-      return <Intro content={object} Buttons={Buttons} Contact={Contact} siteName={siteName} />
+      return <Intro content={object} siteName={siteName} />
     case 'ComponentHomePageComponentsGallery':
       return <Gallery content={object} />
     case 'ComponentHomePageComponentsCta':

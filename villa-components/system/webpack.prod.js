@@ -5,6 +5,7 @@ const dotenv = require('dotenv')
 
 module.exports = merge(common, {
   mode: 'production',
+  devtool: 'source-map',
   plugins: [
     new DefinePlugin({
       'process.env': JSON.stringify(dotenv.config({ path: './.env' }).parsed)

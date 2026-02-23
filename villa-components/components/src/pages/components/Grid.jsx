@@ -2,8 +2,7 @@ import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
-import AnimationProvider from '../lib/AnimationProvider'
+import Typography from '../../shared/Typography'
 
 const classes = {
   root: (theme) => ({
@@ -44,7 +43,6 @@ export default function PictureGrid ({ content }) {
                 sm: 6,
                 md: 4
               }}>
-              <AnimationProvider animation={content?.Style?.Animation} timeout={1000 + (index * 300)} partialVisibility>
                   <div>
                       {entry?.Picture &&
                           <img
@@ -59,7 +57,6 @@ export default function PictureGrid ({ content }) {
                           </Typography>
                       </Box>
                   </div>
-              </AnimationProvider>
             </Grid>
           )
         })}

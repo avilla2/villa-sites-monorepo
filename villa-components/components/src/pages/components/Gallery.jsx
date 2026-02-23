@@ -3,7 +3,6 @@ import Box from '@mui/material/Box'
 import ImageList from '@mui/material/ImageList'
 import ImageListItem from '@mui/material/ImageListItem'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import AnimationProvider from '../lib/AnimationProvider'
 
 /**
  * Gallery component - Renders a gallery of images with optional animation
@@ -32,7 +31,7 @@ export default function Gallery ({ content }) {
     >
       {content?.Pictures?.map((item, index) => (
         <ImageListItem key={index}>
-          <img src={item.url} alt={item.alternativeText} />
+          <img src={item?.url} alt={item?.alternativeText} />
         </ImageListItem>
       ))}
     </ImageList>
@@ -40,9 +39,7 @@ export default function Gallery ({ content }) {
 
   return (
     <Box sx={{ margin: '2% 3% 5% 3%' }}>
-        <AnimationProvider animation={content?.Style?.Animation} direction="up" partialVisibility>
-            {imageList}
-        </AnimationProvider>
+        {imageList}
     </Box>
   )
 }

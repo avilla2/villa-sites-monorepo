@@ -30,7 +30,6 @@ export default function SiteRoutes ({ children, siteContent, page, setPage, navI
   useEffect(() => {
     setSiteTitle(siteSettings.SiteTitle)
   }, [siteContent.site_settings])
-
   return (
     <React.Fragment>
       <ScrollToTop />
@@ -62,6 +61,7 @@ export default function SiteRoutes ({ children, siteContent, page, setPage, navI
                 }
               />
             ))}
+            {children}
             <Route
               path="/"
               element={

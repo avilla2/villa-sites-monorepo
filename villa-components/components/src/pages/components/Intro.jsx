@@ -6,6 +6,8 @@ import Grid from '@mui/material/Grid'
 import Slideshow from './Slideshow'
 import CustomTypography from '../../shared/Typography'
 import AnimationProvider from '../lib/AnimationProvider'
+import Buttons from './ButtonGroup'
+import Contact from './Contact'
 
 const styles = {
   base: {
@@ -172,7 +174,7 @@ const getIntroStyle = (style) => {
  * @param {string} props.siteName - The name of the site, used for rendering components that require it (e.g., Contact form email subject line)
  * @returns {JSX.Element} The Intro component
  */
-export default function Intro ({ content, Buttons, Contact, siteName }) {
+export default function Intro ({ content, siteName }) {
   const mobile = useMediaQuery(theme => theme.breakpoints.down('md'))
 
   const textContent = (
@@ -180,7 +182,7 @@ export default function Intro ({ content, Buttons, Contact, siteName }) {
       <ReactMarkdown>
         {content.IntroText}
       </ReactMarkdown>
-      {content?.Buttons && Buttons && (
+      {content?.Buttons && (
         <Buttons content={{ ButtonArrangement: 'center', GroupButtonStyle: 'outlined', Entry: content.Buttons }}/>
       )}
     </>
@@ -213,7 +215,7 @@ export default function Intro ({ content, Buttons, Contact, siteName }) {
               </AnimationProvider>
             </Box>
           </Grid>
-          {content?.FormData && content?.FormFields && Contact && (
+          {content?.FormData && content?.FormFields && (
             <Grid
               sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               size={{

@@ -1,36 +1,42 @@
 import React, { useEffect } from 'react'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
-import Typography from '@mui/material/Typography'
-import useMediaQuery from '@mui/material/useMediaQuery'
+import Typography from '../shared/Typography'
 import renderPageComponent from './lib/RenderPageComponent'
 import calculatePadding from './utils/CalculatePadding'
 
-const titleHeight = '145px'
 const classes = {
   root: {
     width: '100%',
     flexGrow: 2
   },
-  base: (theme) => ({
+  titleContainer: (theme, minSize, showTitle) => ({
     backgroundColor: theme.palette.primary.main,
     width: '100%',
-    height: titleHeight,
-    display: 'flex',
+    minHeight: '145px',
+    display: showTitle ? 'flex' : 'none',
     flexDirection: 'column',
-    justifyContent: 'flex-end',
-    position: 'fixed',
-    zIndex: -2
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: '125px',
+    paddingBottom: theme.spacing(3),
+    [theme.breakpoints.down(minSize)]: {
+      display: 'none'
+    }
   }),
-  title: {
-    fontSize: '1.5rem',
-    marginBottom: '18px'
-  },
+  title: (theme) => ({
+    fontSize: '2rem',
+    fontWeight: 600,
+    letterSpacing: 1.5,
+    [theme.breakpoints.down('lg')]: {
+      fontSize: '1.6rem'
+    }
+  }),
   page: (theme, minSize, showTitle) => ({
+    backgroundColor: 'white',
+    paddingTop: '50px',
     [theme.breakpoints.up(minSize)]: {
-      marginTop: showTitle ? titleHeight : 'unset',
-      backgroundColor: 'white',
-      paddingTop: showTitle ? '0px' : '160px'
+      paddingTop: showTitle ? '0px' : '180px'
     }
   }),
   contentRoot: {
@@ -74,8 +80,6 @@ export default function ContentPage ({
   titleColor,
   siteName
 }) {
-  const hidden = useMediaQuery(theme => theme.breakpoints.up(minSize))
-
   useEffect(() => {
     setPage(name)
     setNavIndex(path)
@@ -83,12 +87,12 @@ export default function ContentPage ({
 
   return (
         <Box sx={classes.root}>
-            {hidden && showTitle &&
-                <Box sx={classes.base}>
-                    <Typography variant="h2" sx={{ ...classes.title, color: titleColor }}>{name}</Typography>
-                </Box>
-            }
-                <Grid container sx={(theme) => classes.page(theme, minSize, showTitle)}>
+            <Box sx={(theme) => classes.titleContainer(theme, minSize, showTitle)}>
+                <Typography variant="h2" sx={(theme) => ({ ...classes.title(theme), color: titleColor })}>
+                    {name}
+                </Typography>
+            </Box>
+            <Grid container sx={(theme) => classes.page(theme, minSize, showTitle)}>
                     {content.map((component, index) => {
                       const lastComponent = index === content.length - 1
                       const padding = calculatePadding(lastComponent, fullHeightComponents, halfHeightComponents, component.__typename)
