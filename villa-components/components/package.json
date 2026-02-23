@@ -2,6 +2,7 @@
   "name": "@villa-components/components",
   "version": "1.0.0",
   "description": "Shared UI component library for Villa Sites",
+  "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.esm.js",
   "types": "./dist/index.d.ts",

@@ -11,6 +11,7 @@ import { Link } from 'react-router'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import NavComponentDesktop from './components/NavComponentDesktop'
 import MobileDrawer from './components/MobileDrawer'
+import SiteBanner from './components/SiteBanner'
 
 /**
  * Navbar component - Main navigation bar component that renders responsive navbar for desktop and mobile
@@ -19,6 +20,7 @@ import MobileDrawer from './components/MobileDrawer'
  * @param {string} props.navIndex - Currently active navigation index/link
  * @param {NavbarItem[]} props.Items - Array of navigation items
  * @param {MobileConfig} props.MobileConfig - Mobile-specific configuration
+ * @param {SiteBanner} props.siteBanner - Optional site banner configuration
  * @param {string} props.Style - Navbar layout style (Spaced, Left_Aligned, Split, or default)
  * @param {string} props.Appearance - Navbar appearance style
  * @param {string} props.FontColor - Font color for the navbar
@@ -32,6 +34,7 @@ export default function Navbar ({
   navIndex,
   Items: content,
   MobileConfig: mobileData,
+  siteBanner,
   Style: style,
   Appearance: appearance,
   FontColor: fontColor,
@@ -117,6 +120,7 @@ export default function Navbar ({
                 elevation={!mounted ? 1 : (!trigger ? 0 : 1)}
                 color={!mounted ? 'primary' : (!trigger && appearance === 'fade_in' ? 'transparent' : 'primary')}
               >
+                {siteBanner && <SiteBanner siteBanner={siteBanner} />}
                 <Toolbar
                   sx={{
                     justifyContent: 'flex-start',
@@ -180,6 +184,7 @@ export default function Navbar ({
               elevation={!mounted ? 1 : (!trigger ? 0 : 1)}
               color={!mounted ? 'primary' : (!trigger && appearance === 'fade_in' ? 'transparent' : 'primary')}
             >
+              {siteBanner && <SiteBanner siteBanner={siteBanner} />}
               <Toolbar sx={getToolbarStyles()}>
                 {content.map((item, index) => (
                   <NavComponentDesktop
@@ -198,6 +203,7 @@ export default function Navbar ({
       {/* Mobile Navbar */}
       <Box sx={{ display: { xs: 'block', [minSize]: 'none' } }}>
         <AppBar position="fixed" sx={{ color: 'inherit' }}>
+              {siteBanner && <SiteBanner siteBanner={siteBanner} />}
               <Toolbar sx={{ justifyContent: 'space-between' }}>
                 {showBackButton
                   ? <IconButton

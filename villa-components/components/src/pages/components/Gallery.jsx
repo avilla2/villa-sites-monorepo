@@ -40,14 +40,9 @@ export default function Gallery ({ content }) {
 
   return (
     <Box sx={{ margin: '2% 3% 5% 3%' }}>
-      {AnimationProvider
-        ? (
-          <AnimationProvider animation={content?.Style?.Animation} direction="up" partialVisibility>
-            {imageList}
-          </AnimationProvider>
-          )
-        : imageList
-      }
+        <AnimationProvider animation={content?.Style?.Animation} direction="up" partialVisibility>
+        {imageList}
+        </AnimationProvider>
     </Box>
   )
 }

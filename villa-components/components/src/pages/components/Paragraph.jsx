@@ -2,7 +2,6 @@ import React from 'react'
 import Box from '@mui/material/Box'
 import ReactMarkdown from 'react-markdown'
 import CustomTypography from '../../shared/Typography'
-import AnimationProvider from '../lib/AnimationProvider'
 
 const classes = {
   root: {
@@ -25,11 +24,7 @@ export default function Paragraph ({ content }) {
   return (
     <Box sx={classes.root}>
       <CustomTypography component="div" sx={classes.text}>
-        <AnimationProvider animation={content?.Style?.Animation} direction="down">
-          <Box>
             <ReactMarkdown style={classes.text}>{content.Body}</ReactMarkdown>
-          </Box>
-        </AnimationProvider>
       </CustomTypography>
     </Box>
   )

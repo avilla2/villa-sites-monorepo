@@ -14,7 +14,7 @@
     "serve": "npx lerna run start --scope @villa-components/system",
     "build-all": "npx lerna run build",
     "test": "npx lerna run test",
-    "generate": "npx lerna run --scope @villa-components/system generate",
+    "generate": "npx lerna run --scope @villa-components/graphql-queries generate",
     "deploy": "npx lerna run deploy --scope",
     "deploy-all": "npx lerna run deploy",
     "lint": "npx lerna run lint",

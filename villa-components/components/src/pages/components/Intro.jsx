@@ -208,14 +208,9 @@ export default function Intro ({ content, Buttons, Contact, siteName }) {
             }}
           >
             <Box sx={[styles.overlay, getIntroStyle(content.TextPosition)]}>
-              {AnimationProvider
-                ? (
-                  <AnimationProvider animation={content?.Style?.Animation}>
-                    {textContent}
-                  </AnimationProvider>
-                  )
-                : textContent
-              }
+              <AnimationProvider animation={content?.Style?.Animation}>
+                {textContent}
+              </AnimationProvider>
             </Box>
           </Grid>
           {content?.FormData && content?.FormFields && Contact && (

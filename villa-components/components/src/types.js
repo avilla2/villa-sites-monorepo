@@ -392,6 +392,15 @@
  */
 
 /**
+ * @typedef {Object} SiteBanner
+ * @property {string} text - Banner text content
+ * @property {string} cta - Call-to-action text/link
+ * @property {boolean} timer - Whether to display countdown timer
+ * @property {string} countdownDate - Date string for countdown target (ISO 8601 format)
+ * @property {ComponentStyle} style - Banner styling configuration
+ */
+
+/**
  * @typedef {Object} MobileConfig
  * @property {Image} MobileIcon - Mobile menu icon
  * @property {string} DrawerText - Drawer label text
@@ -404,6 +413,7 @@
  * @property {string} Style - Navbar style class
  * @property {string} FontColor - Font color value
  * @property {string} Appearance - Navbar appearance style
+ * @property {SiteBanner} siteBanner - Optional site banner for announcements and promotions
  * @property {NavbarItem[]} Items - Array of navbar items
  * @property {MobileConfig} MobileConfig - Mobile-specific configuration
  */

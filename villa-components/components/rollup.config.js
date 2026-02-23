@@ -20,6 +20,13 @@ export default {
       exports: 'named'
     }
   ],
+  onwarn (warning, warn) {
+    // Suppress "use client" directive warnings from MUI v7
+    if (warning.code === 'MODULE_LEVEL_DIRECTIVE') {
+      return
+    }
+    warn(warning)
+  },
   plugins: [
     css({ output: 'bundle.css' }),
     peerDepsExternal(),

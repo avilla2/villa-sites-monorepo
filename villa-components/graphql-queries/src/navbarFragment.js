@@ -5,6 +5,19 @@ fragment NavbarFragment on WebsiteNavbar {
   Style
   FontColor
   Appearance
+  siteBanner {
+    text
+    cta
+    timer
+    countdownDate
+    style {
+      TextColor
+      textAlign
+      BackgroundColor
+      paddingBottom
+      paddingTop
+    }
+  }
   Items {
     __typename
     ... on ComponentNavbarComponentsTextLink {

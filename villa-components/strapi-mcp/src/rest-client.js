@@ -126,6 +126,7 @@ export class StrapiRESTClient {
       'populate[navbar][fields][1]': 'Style',
       'populate[navbar][fields][2]': 'Appearance',
       'populate[navbar][fields][3]': 'FontColor',
+      'populate[navbar][populate][siteBanner][populate]': '*',
       'populate[footer][fields][0]': 'Name',
       'populate[footer][fields][1]': 'FontColor',
       'populate[homepage][fields][0]': 'PageName',
@@ -270,7 +271,10 @@ export class StrapiRESTClient {
    * Get a navbar by document ID
    */
   async getNavbar (documentId) {
-    return this.get(`/website-navbars/${documentId}`, { populate: '*' })
+    return this.get(`/website-navbars/${documentId}`, {
+      populate: '*',
+      'populate[siteBanner][populate]': '*'
+    })
   }
 
   // ============================================
