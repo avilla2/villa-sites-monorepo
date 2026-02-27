@@ -26,9 +26,10 @@
     ]
   },
   "dependencies": {
+    "@villa-components/components": "file:../components",
+    "@villa-components/graphql-queries": "file:../graphql-queries",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "@villa-components/graphql-queries": "file:../graphql-queries",
-    "@villa-components/components": "file:../components"
+    "react-gtm-module": "^2.0.11"
   }
 }

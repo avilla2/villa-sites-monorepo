@@ -147,7 +147,7 @@ export default function SiteBanner ({ siteBanner }) {
         justifyContent: textAlign,
         flexWrap: 'wrap',
         gap: 2,
-        px: 2
+        px: 1
       }}
     >
       <Typography
