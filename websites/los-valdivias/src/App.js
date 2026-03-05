@@ -15,7 +15,6 @@ export default function App () {
           defaultSiteId={DEFAULT_SITE_ID}
           loadingComponent={<ComponentLoader />}
           fonts={['"Alfa Slab One"', '"Dai Banna SIL"']}
-          gtmId="AW-17976959597"
         >
             <Route
               path="/project-request"
