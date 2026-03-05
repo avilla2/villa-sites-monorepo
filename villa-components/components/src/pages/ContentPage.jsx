@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Typography from '../shared/Typography'
-import TagManager from 'react-gtm-module'
 import renderPageComponent from './lib/RenderPageComponent'
 import calculatePadding from './utils/CalculatePadding'
 
@@ -84,12 +83,9 @@ export default function ContentPage ({
   useEffect(() => {
     setPage(name)
     setNavIndex(path)
-    TagManager.dataLayer({
-      dataLayer: {
-        event: 'pageview',
-        page: path,
-        pageName: name
-      }
+    window.dataLayer = window.dataLayer || []
+    window.dataLayer.push({
+      event: 'pageview'
     })
   })
 

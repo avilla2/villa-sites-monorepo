@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { BrowserRouter as Router } from 'react-router'
-import TagManager from 'react-gtm-module'
 import RenderingSystem from './renderingSystem'
 
 /**
@@ -9,7 +8,6 @@ import RenderingSystem from './renderingSystem'
  * @property {Array<string>} fonts - Array of font names to be used in the theme
  * @property {string} defaultSiteId - The default site ID to fetch website data
  * @property {React.ReactNode} loadingComponent - Component to display while loading data
- * @property {string} gtmId - Google Tag Manager ID for analytics tracking
 */
 
 /**
@@ -17,13 +15,7 @@ import RenderingSystem from './renderingSystem'
  * @param {SystemParams} props - The component props
  * @returns {React.ReactElement} The ComponentSystem component
  */
-export default function ComponentSystem ({ children, fonts, defaultSiteId, loadingComponent, gtmId }) {
-  useEffect(() => {
-    if (gtmId) {
-      TagManager.initialize({ gtmId })
-    }
-  }, [gtmId])
-
+export default function ComponentSystem ({ children, fonts, defaultSiteId, loadingComponent }) {
   return (
     <Router>
       <RenderingSystem
