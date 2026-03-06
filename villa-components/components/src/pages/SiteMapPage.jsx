@@ -33,10 +33,12 @@ const classes = {
 export default function SiteMapPage ({ setPage, contentPages, locale }) {
   useEffect(() => {
     setPage('Site Map')
-    window.dataLayer = window.dataLayer || []
-    window.dataLayer.push({
-      event: 'pageview'
-    })
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'page_view', {
+        page_path: '/sitemap',
+        page_title: 'Site Map'
+      })
+    }
   })
   return (
     <Box sx={classes.root}>

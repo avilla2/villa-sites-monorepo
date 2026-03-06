@@ -163,6 +163,12 @@ export default function Contact ({ content, siteName }) {
             setStatus('success')
             setLoading(false)
             clearForm()
+            // Track form submission in Google Analytics
+            if (typeof window.gtag === 'function') {
+              window.gtag('event', 'form_submission', {
+                form_type: 'contact_form'
+              })
+            }
           } else {
             setStatus('failure')
             setLoading(false)

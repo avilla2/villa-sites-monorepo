@@ -153,6 +153,14 @@ export default function InstantQuoteCalculator ({ content }) {
           if (response.status === 200) {
             setLoading(false)
             setComponentPhase(5)
+            // Track quote submission in Google Analytics
+            if (typeof window.gtag === 'function') {
+              window.gtag('event', 'form_submission', {
+                form_type: 'instant_quote',
+                quote_value: estimate,
+                job_type: quoteDetails.jobType
+              })
+            }
           } else {
             handleErrorChange('failure', true)
             setLoading(false)

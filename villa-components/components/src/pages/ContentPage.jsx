@@ -83,10 +83,12 @@ export default function ContentPage ({
   useEffect(() => {
     setPage(name)
     setNavIndex(path)
-    window.dataLayer = window.dataLayer || []
-    window.dataLayer.push({
-      event: 'pageview'
-    })
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'page_view', {
+        page_path: path,
+        page_title: name
+      })
+    }
   })
 
   return (

@@ -226,6 +226,14 @@ export default function IntakeForm ({ fromEmail, toEmail }) {
       if (response.status === 200) {
         setStatus('success')
         clearForm()
+        // Track intake form submission in Google Analytics
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'form_submission', {
+            form_type: 'lvl_intake_form',
+            project_types: data.projectTypes.join(', '),
+            budget: data.budget
+          })
+        }
       } else {
         setStatus('failure')
       }
