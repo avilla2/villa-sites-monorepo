@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
+import { Route, Routes } from 'react-router'
 import { NoContentPage, ThemeProvider } from '@villa-components/components'
-import Routes from '../routes/routes'
+import SiteRoutes from '../routes/routes'
+import Layout from '../routes/Layout'
 import Query from '../utils/query'
 import apolloClient from '../utils/apolloClient'
 import { APP_QUERY } from '@villa-components/graphql-queries'
@@ -44,7 +46,7 @@ export default function RenderingSystem ({
    * @param {Object} params - The render function parameters
    * @param {AppQueryData} params.data - Apollo Client data object containing website information
    * @returns {React.ReactElement} Either a NoContentPage component if no website content is available,
-   *                               or a complete site layout with ThemeProvider, Routes, and children components
+   *                               or a complete site layout with ThemeProvider, Routes with Layout and SiteRoutes
    */
   const render = ({ data }) => {
     const websiteContent = data?.website
@@ -52,16 +54,33 @@ export default function RenderingSystem ({
 
     return (
       <ThemeProvider palette={websiteContent.site_settings.Palette} fonts={fonts}>
-        <Routes
-          navIndex={navIndex}
-          setNavIndex={setNavIndex}
-          page={pageName}
-          setPage={setPage}
-          siteContent={websiteContent}
-          setSiteTitle={setSiteTitle}
-          locales={data.i18NLocales}
-        >
-          {children}
+        <Routes>
+          <Route
+            element={
+              <Layout
+                siteContent={websiteContent}
+                page={pageName}
+                navIndex={navIndex}
+                setNavIndex={setNavIndex}
+                locales={data.i18NLocales}
+              />
+            }
+          >
+            <Route
+              path='*'
+              element={
+                <SiteRoutes
+                siteContent={websiteContent}
+                setPage={setPage}
+                setNavIndex={setNavIndex}
+                setSiteTitle={setSiteTitle}
+              >
+                {children}
+              </SiteRoutes>
+              }
+            >
+            </Route>
+          </Route>
         </Routes>
       </ThemeProvider>
     )

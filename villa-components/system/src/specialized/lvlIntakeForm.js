@@ -18,8 +18,8 @@ const classes = {
     margin: '15px 5% 40px 5%'
   },
   banner: {
-    minHeight: '90px',
-    height: '90px',
+    minHeight: '140px',
+    height: '140px',
     background: 'linear-gradient(135deg, #8B7355 0%, #A0826D 25%, #7CB342 50%, #8B9D6F 75%, #6B8E23 100%)'
   },
   section: {

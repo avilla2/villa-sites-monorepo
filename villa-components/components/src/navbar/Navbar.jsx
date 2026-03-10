@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Box from '@mui/material/Box'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
@@ -47,6 +47,8 @@ export default function Navbar ({
   const [active, setActive] = useState(navIndex)
   const [isOpen, setIsOpen] = useState(false)
   const showBackButton = navIndex !== '/'
+  const mobileAppBarRef = useRef(null)
+  const [mobileNavHeight, setMobileNavHeight] = useState(0)
 
   // Safety checks for required props
   if (!content || !mobileData) {
@@ -56,6 +58,21 @@ export default function Navbar ({
   useEffect(() => {
     setMounted(true)
   }, [])
+
+  useEffect(() => {
+    const updateNavHeight = () => {
+      if (mobileAppBarRef.current) {
+        setMobileNavHeight(mobileAppBarRef.current.offsetHeight)
+      }
+    }
+
+    updateNavHeight()
+    window.addEventListener('resize', updateNavHeight)
+
+    return () => {
+      window.removeEventListener('resize', updateNavHeight)
+    }
+  }, [siteBanner])
 
   useEffect(() => {
     if (navIndex) {
@@ -202,7 +219,7 @@ export default function Navbar ({
 
       {/* Mobile Navbar */}
       <Box sx={{ display: { xs: 'block', [minSize]: 'none' } }}>
-        <AppBar position="fixed" sx={{ color: 'inherit' }}>
+        <AppBar ref={mobileAppBarRef} position="fixed" sx={{ color: 'inherit' }}>
               {siteBanner && <SiteBanner siteBanner={siteBanner} />}
               <Toolbar sx={{ justifyContent: 'space-between' }}>
                 {showBackButton
@@ -267,7 +284,7 @@ export default function Navbar ({
             </AppBar>
 
         {/* Extra toolbar for spacing */}
-        <Toolbar />
+        <Box sx={{ height: mobileNavHeight }} />
       </Box>
     </Box>
   )

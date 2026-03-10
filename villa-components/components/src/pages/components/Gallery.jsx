@@ -16,14 +16,7 @@ export default function Gallery ({ content }) {
   const imageList = (
     <ImageList
       sx={(theme) => ({
-        width: '100%',
-        flexWrap: 'nowrap',
-        maxHeight: {
-          xs: 400,
-          sm: 700,
-          lg: 1000,
-          xl: 1400
-        }
+        width: '100%'
       })}
       variant="masonry"
       cols={mobile ? 1 : 3}

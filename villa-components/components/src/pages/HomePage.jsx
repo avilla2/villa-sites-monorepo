@@ -21,8 +21,8 @@ const classes = {
   })
 }
 
-const fullHeightComponents = ['ComponentHomePageComponentsIntro', 'ComponentContentPageComponentsImage', 'ComponentHomePageComponentsMedia']
-const halfHeightComponents = ['ComponentContentPageComponentsButtons']
+const fullHeightComponents = ['ComponentHomePageComponentsIntro', 'ComponentContentPageComponentsImage', 'ComponentHomePageComponentsMedia', 'ComponentContentPageComponentsButtons']
+const halfHeightComponents = []
 
 /**
  * HomePage component - Renders the home page with dynamic content components

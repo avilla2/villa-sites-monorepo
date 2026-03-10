@@ -34,9 +34,8 @@ const classes = {
   }),
   page: (theme, minSize, showTitle) => ({
     backgroundColor: 'white',
-    paddingTop: '80px',
     [theme.breakpoints.up(minSize)]: {
-      paddingTop: showTitle ? '0px' : '180px'
+      paddingTop: showTitle ? '0px' : '160px'
     }
   }),
   contentRoot: {
@@ -53,7 +52,7 @@ const classes = {
   })
 }
 
-const fullHeightComponents = ['ComponentHomePageComponentsIntro', 'ComponentContentPageComponentsImage', 'ComponentHomePageComponentsMedia']
+const fullHeightComponents = ['ComponentHomePageComponentsIntro', 'ComponentContentPageComponentsImage', 'ComponentHomePageComponentsMedia', 'ComponentContentPageComponentsButtons']
 const halfHeightComponents = []
 
 /**
