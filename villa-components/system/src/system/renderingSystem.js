@@ -29,15 +29,15 @@ export default function RenderingSystem ({
   loadingComponent
 }) {
   const [navIndex, setNavIndex] = useState(0)
-  const [siteTitle, setSiteTitle] = useState('')
   const [pageName, setPageName] = useState('')
 
   /**
    * Sets the document title and updates the current page name
    * @param {string} text - The text to set as the page title
+   * @param {string} subtext - Optional subtext to append to the page title
    */
-  const setPage = (text) => {
-    document.title = `${text} ${siteTitle}`
+  const setPage = (text, subtext) => {
+    document.title = `${text} ${subtext}`
     setPageName(text)
   }
 
@@ -73,7 +73,6 @@ export default function RenderingSystem ({
                 siteContent={websiteContent}
                 setPage={setPage}
                 setNavIndex={setNavIndex}
-                setSiteTitle={setSiteTitle}
               >
                 {children}
               </SiteRoutes>

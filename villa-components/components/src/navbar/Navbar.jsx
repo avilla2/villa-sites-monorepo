@@ -62,7 +62,7 @@ export default function Navbar ({
   useEffect(() => {
     const updateNavHeight = () => {
       if (mobileAppBarRef.current) {
-        setMobileNavHeight(mobileAppBarRef.current.offsetHeight)
+        setMobileNavHeight(Math.min(150, mobileAppBarRef.current.offsetHeight))
       }
     }
 

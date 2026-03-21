@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Routes, Route } from 'react-router'
 import { ContentPage, HomePage, NotFoundPage, SiteMapPage as Sitemap } from '@villa-components/components'
 
@@ -9,17 +9,16 @@ import { ContentPage, HomePage, NotFoundPage, SiteMapPage as Sitemap } from '@vi
  * @param {Website} props.siteContent - Website content data
  * @param {Function} props.setPage - Function to set the current page name
  * @param {Function} props.setNavIndex - Function to set the navigation index
- * @param {Function} props.setSiteTitle - Function to set the site title
  * @returns {JSX.Element} The SiteRoutes component
  */
-export default function SiteRoutes ({ children, siteContent, setPage, setNavIndex, setSiteTitle }) {
+export default function SiteRoutes ({ children, siteContent, setPage: preSetPage, setNavIndex }) {
   const showTitle = siteContent?.navbar?.Style !== 'Split'
   const siteSettings = siteContent?.site_settings
   const homePageData = siteContent?.homepage
 
-  useEffect(() => {
-    setSiteTitle(siteSettings.SiteTitle)
-  }, [siteContent.site_settings])
+  const setPage = (text) => {
+    preSetPage(text, siteSettings?.SiteTitle)
+  }
 
   return (
     <Routes>
