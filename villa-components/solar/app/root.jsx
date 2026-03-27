@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   isRouteErrorResponse,
   Links,
@@ -10,13 +10,13 @@ import {
   useNavigate
 } from 'react-router'
 import { ApolloProvider } from '@apollo/client/react'
-import { ThemeProvider, NotFoundPage, Navbar, Footer } from '@villa-components/components'
+import Navbar from './components/navbar/Navbar'
+import Footer from './components/footer/Footer'
 import { apolloClient } from './lib/apollo'
 import { getWebsiteIdFromHostname } from './lib/websiteMapping'
 import { APP_QUERY } from '@villa-components/graphql-queries'
 
-import './app.css'
-import '@villa-components/components/dist/bundle.css'
+import './app.scss'
 
 export async function loader ({ request }) {
   const url = new URL(request.url)
@@ -75,22 +75,15 @@ export function Layout ({ children }) {
 export default function App () {
   const { website } = useLoaderData()
 
-  // Extract fonts from site settings
-  const fonts = website?.site_settings?.Fonts || ['"Racing Sans One"', 'Poppins']
-  const palette = website?.site_settings?.Palette || {}
-
   return (
     <ApolloProvider client={apolloClient}>
-      <ThemeProvider palette={palette} fonts={fonts}>
-        <Outlet context={{ website }} />
-      </ThemeProvider>
+      <Outlet context={{ website }} />
     </ApolloProvider>
   )
 }
 
 export function ErrorBoundary ({ error }) {
   const navigate = useNavigate()
-  const [page, setPage] = useState('Error')
 
   // For 404 errors, render the custom NotFoundPage component
   if (isRouteErrorResponse(error) && error.status === 404) {
@@ -105,33 +98,30 @@ export function ErrorBoundary ({ error }) {
 
     return (
       <ApolloProvider client={apolloClient}>
-        <ThemeProvider palette={website?.site_settings?.Palette || {}} fonts={website?.site_settings?.Fonts || ['"Racing Sans One"', 'Poppins']}>
-          {website?.navbar && (
-            <Navbar
-              page={page}
-              navIndex="/"
-              Items={website.navbar.Items}
-              MobileConfig={website.navbar.MobileConfig}
-              Style={website.navbar.Style}
-              Appearance={website.navbar.Appearance}
-              FontColor={website.navbar.FontColor}
-              minSize={website.site_settings?.DesktopBreakpoint || 'md'}
-              mobileTitle="Not Found"
-              onBackClick={() => navigate(-1)}
-            />
-          )}
-          <NotFoundPage setPage={setPage} />
-          {website?.footer && (
-            <Footer
-              Content={website.footer.Content}
-              FontColor={website.footer.FontColor}
-              links={website.footer.links}
-              enableLocalization={website.site_settings?.enableLocalization}
-              localeName="English"
-              localeCode="en"
-            />
-          )}
-        </ThemeProvider>
+        {website?.navbar && (
+          <Navbar
+            page="test"
+            navIndex="/"
+            Items={website.navbar.Items}
+            MobileConfig={website.navbar.MobileConfig}
+            Style={website.navbar.Style}
+            Appearance={website.navbar.Appearance}
+            FontColor={website.navbar.FontColor}
+            minSize={website.site_settings?.DesktopBreakpoint || 'md'}
+            mobileTitle="Not Found"
+            onBackClick={() => navigate(-1)}
+          />
+        )}
+        {website?.footer && (
+          <Footer
+            Content={website.footer.Content}
+            FontColor={website.footer.FontColor}
+            links={website.footer.links}
+            enableLocalization={website.site_settings?.enableLocalization}
+            localeName="English"
+            localeCode="en"
+          />
+        )}
       </ApolloProvider>
     )
   }

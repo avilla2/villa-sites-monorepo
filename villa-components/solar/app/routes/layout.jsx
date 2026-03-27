@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Outlet, useOutletContext, useNavigate } from 'react-router'
-import { Navbar, Footer } from '@villa-components/components'
+import Navbar from '../components/navbar/Navbar'
+import Footer from '../components/footer/Footer'
 
 export default function Layout () {
   const { website } = useOutletContext()
@@ -20,6 +21,7 @@ export default function Layout () {
           navIndex="/"
           Items={website.navbar.Items}
           MobileConfig={website.navbar.MobileConfig}
+          siteBanner={website.navbar.siteBanner}
           Style={website.navbar.Style}
           Appearance={website.navbar.Appearance}
           FontColor={website.navbar.FontColor}

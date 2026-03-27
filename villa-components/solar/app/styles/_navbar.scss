@@ -1,0 +1,644 @@
+// ─── Navbar base styles ──────────────────────────────────────────────────────
+// Uses CSS custom properties for all site-specific values.
+// Breakpoint visibility is achieved through compiled utility classes.
+
+// ── Default design tokens ─────────────────────────────────────────────────────
+:root {
+  --navbar-bg:                  #1a1a2e;
+  --navbar-color:               #e8e8e8;
+  --navbar-height:              80px;
+  --navbar-shadow:              0 2px 8px rgba(0, 0, 0, 0.25);
+  --navbar-transition:          background-color 0.3s ease, box-shadow 0.3s ease;
+  --navbar-z:                   1100;
+  --navbar-font-family:         inherit;
+  --navbar-font-size:           1rem;
+
+  // Links
+  --navbar-link-font-size:      0.9375rem;
+  --navbar-link-weight:         500;
+  --navbar-link-h-padding:      1rem;
+  --navbar-link-line-height:    16px;
+  --navbar-link-transition:     0.22s ease;
+  --navbar-active-color:        currentColor; // sites should override
+  --navbar-hover-bg:            transparent;
+
+  // Buttons
+  --navbar-button-bg:           transparent;
+  --navbar-button-color:        inherit;
+  --navbar-button-border:       currentColor;
+  --navbar-button-radius:       9999px;
+  --navbar-button-px:           1.25rem;
+  --navbar-button-font-size:    0.875rem;
+  --navbar-button-weight:       600;
+
+  // Dropdown
+  --nav-menu-bg:                #243040;
+  --nav-menu-shadow:            0 4px 16px rgba(0, 0, 0, 0.3);
+  --nav-menu-radius:            6px;
+  --nav-menu-min-width:         140px;
+  --nav-menu-item-color:        inherit;
+  --nav-menu-item-hover-bg:     rgba(255, 255, 255, 0.06);
+  --nav-menu-item-hover-color:  currentColor;
+  --nav-menu-item-active-color: currentColor;
+
+  // Mobile drawer
+  --mobile-drawer-width:        260px;
+  --mobile-drawer-bg:           #1a1a2e;
+  --mobile-drawer-color:        #e8e8e8;
+  --mobile-drawer-header-border: rgba(255,255,255,0.15);
+  --mobile-drawer-item-py:      0.75rem;
+  --mobile-drawer-item-px:      1.25rem;
+  --mobile-drawer-active-color: currentColor;
+  --mobile-drawer-subitem-pl:   2.5rem;
+  --mobile-drawer-cta-gap:      0.75rem;
+
+  // Site banner
+  --site-banner-font-size:      0.82rem;
+  --site-banner-font-weight:    500;
+}
+
+// ── Navbar wrapper ─────────────────────────────────────────────────────────────
+.navbar {
+  font-family: var(--navbar-font-family);
+  color: var(--navbar-color);
+}
+
+// ── Breakpoint show/hide classes ──────────────────────────────────────────────
+// Compiled for each common breakpoint name. The wrapper gets
+// class `navbar--bp-{name}` and controls which subtree is visible.
+$breakpoints: (xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536);
+
+@each $name, $val in $breakpoints {
+  .navbar--bp-#{$name} {
+    @if $val == 0 {
+      .navbar__desktop { display: block; }
+      .navbar__mobile  { display: none;  }
+    } @else {
+      .navbar__desktop { display: none; }
+      .navbar__mobile  { display: block; }
+
+      @media (min-width: #{$val}px) {
+        .navbar__desktop { display: block; }
+        .navbar__mobile  { display: none;  }
+      }
+    }
+  }
+}
+
+// ── Fixed bar ─────────────────────────────────────────────────────────────────
+.navbar__bar {
+  position: fixed;
+  inset: 0 0 auto 0; // top: 0, left: 0, right: 0
+  z-index: var(--navbar-z);
+  background-color: var(--navbar-bg);
+  color: inherit;
+  box-shadow: none;
+  transition: var(--navbar-transition);
+
+  &--elevated {
+    box-shadow: var(--navbar-shadow);
+  }
+
+  &--transparent {
+    background-color: transparent !important;
+    box-shadow: none !important;
+  }
+}
+
+// ── Spacer that pushes page content below the fixed bar ───────────────────────
+.navbar__spacer {
+  height: var(--navbar-height);
+}
+
+// ── Toolbar row ───────────────────────────────────────────────────────────────
+.navbar__toolbar {
+  display: flex;
+  align-items: center;
+  min-height: var(--navbar-height);
+  padding: 0 2%;
+
+  // Centered (default): items share equal space and sit in the middle
+  &--center {
+    justify-content: center;
+
+    > * { flex: 1; }
+  }
+
+  // Spaced: flush left, first item (logo) gets remaining space
+  &--spaced {
+    justify-content: flex-start;
+    > *:first-child { flex: 1; }
+  }
+
+  // Left aligned: all items flush left
+  &--left {
+    justify-content: flex-start;
+    gap: 0.25rem;
+  }
+
+  // Split variant – top row (images/buttons)
+  &--split-top {
+    justify-content: flex-start;
+    background-color: var(--navbar-split-top-bg, white);
+    color: var(--navbar-split-top-color, #1a1a2e);
+    padding: 0 2%;
+    min-height: var(--navbar-split-row-height, 64px);
+    > *:first-child { flex: 1; }
+  }
+
+  // Split variant – bottom row (text links)
+  &--split-bottom {
+    justify-content: center;
+    padding: 0 2%;
+    min-height: var(--navbar-split-row-height, 64px);
+    > * { flex: 1; }
+  }
+
+  // Mobile toolbar
+  &--mobile {
+    justify-content: space-between;
+    padding: 0 0.75rem;
+    min-height: var(--navbar-height);
+  }
+}
+
+// ── Mobile-specific bar items ─────────────────────────────────────────────────
+.navbar__back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--navbar-hover-bg, rgba(255,255,255,0.1));
+  }
+}
+
+.navbar__mobile-icon-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem;
+}
+
+.navbar__mobile-icon {
+  width: 2.2rem;
+  height: auto;
+}
+
+.navbar__mobile-title {
+  font-size: 1rem;
+  font-weight: 600;
+  flex: 1;
+  text-align: left;
+  padding-left: 0.5rem;
+}
+
+// Hamburger button (Drawer.Trigger)
+.navbar__hamburger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--navbar-hover-bg, rgba(255,255,255,0.1));
+  }
+}
+
+// ─── Desktop nav item types ───────────────────────────────────────────────────
+
+// ── NavLink – slide-reveal animation ─────────────────────────────────────────
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  font-size: var(--navbar-link-font-size);
+  font-weight: var(--navbar-link-weight);
+  cursor: pointer;
+
+  &__mask {
+    overflow: hidden;
+    padding: 0 var(--navbar-link-h-padding);
+    height: var(--navbar-link-line-height);
+    line-height: var(--navbar-link-line-height);
+  }
+
+  &__texts {
+    display: flex;
+    flex-direction: column;
+    transition: transform var(--navbar-link-transition);
+  }
+
+  &__text {
+    display: block;
+    font-size: var(--navbar-link-font-size);
+    line-height: var(--navbar-link-line-height);
+    white-space: nowrap;
+
+    &--accent {
+      color: var(--navbar-active-color);
+    }
+  }
+
+  // Hover / active: slide up to show accent text
+  &:hover &__texts,
+  &:focus-visible &__texts,
+  &--active &__texts {
+    transform: translateY(calc(-1 * var(--navbar-link-line-height)));
+  }
+
+  // Shadow variant (for fade-in transparent navbar)
+  &--shadow &__text {
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.55);
+  }
+}
+
+// ── NavButton – pill CTA ──────────────────────────────────────────────────────
+.nav-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 var(--navbar-link-h-padding);
+  padding: 0.35rem var(--navbar-button-px);
+  background-color: var(--navbar-button-bg);
+  color: var(--navbar-button-color);
+  border: 2px solid var(--navbar-button-border);
+  border-radius: var(--navbar-button-radius);
+  font-size: var(--navbar-button-font-size);
+  font-weight: var(--navbar-button-weight);
+  font-family: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.1s ease;
+  white-space: nowrap;
+
+  &:hover,
+  &:focus-visible {
+    opacity: 0.85;
+    transform: translateY(-1px);
+  }
+}
+
+// ── NavButtonIcon – logo/image link ──────────────────────────────────────────
+.nav-button-icon {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 0.25rem;
+
+  &__img {
+    display: block;
+    height: auto;
+    max-height: calc(var(--navbar-height) - 1.5rem);
+  }
+}
+
+// ─── NavMenu dropdown ─────────────────────────────────────────────────────────
+.nav-menu__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0 var(--navbar-link-h-padding);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  font-size: var(--navbar-link-font-size);
+  font-weight: var(--navbar-link-weight);
+  font-family: inherit;
+  line-height: var(--navbar-link-line-height);
+  transition: color var(--navbar-link-transition);
+
+  &-text {
+    white-space: nowrap;
+  }
+
+  &:hover,
+  &:focus-visible,
+  &[aria-expanded="true"],
+  &--active {
+    color: var(--navbar-active-color);
+  }
+
+  &--shadow {
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.55);
+  }
+}
+
+.nav-menu__chevron {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+
+  [aria-expanded="true"] & {
+    transform: rotate(180deg);
+  }
+}
+
+.nav-menu__positioner {
+  z-index: calc(var(--navbar-z) + 10);
+}
+
+.nav-menu__popup {
+  background-color: var(--nav-menu-bg);
+  color: var(--nav-menu-item-color, inherit);
+  border-radius: var(--nav-menu-radius);
+  box-shadow: var(--nav-menu-shadow);
+  min-width: var(--nav-menu-min-width);
+  padding: 0.3rem 0;
+  outline: none;
+
+  // base-ui open/close animation
+  transform-origin: top center;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+
+  &[data-starting-style],
+  &[data-ending-style] {
+    opacity: 0;
+    transform: scaleY(0.9);
+  }
+}
+
+.nav-menu__item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  font-size: var(--navbar-link-font-size);
+  color: var(--nav-menu-item-color, inherit);
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  transition: background-color 0.15s ease, color 0.15s ease;
+
+  &:hover,
+  &:focus-visible,
+  &[data-highlighted] {
+    background-color: var(--nav-menu-item-hover-bg);
+    color: var(--nav-menu-item-hover-color);
+    outline: none;
+  }
+
+  &--active {
+    color: var(--nav-menu-item-active-color);
+    font-weight: 600;
+  }
+
+  &-icon {
+    max-width: 20px;
+    max-height: 20px;
+    object-fit: contain;
+  }
+}
+
+// ─── Mobile Drawer ────────────────────────────────────────────────────────────
+.mobile-drawer__backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: calc(var(--navbar-z) + 50);
+
+  &[data-starting-style],
+  &[data-ending-style] {
+    opacity: 0;
+  }
+
+  transition: opacity 0.3s ease;
+}
+
+// Viewport: full-screen fixed container; base-ui sets pointer-events:none inline when closed
+.mobile-drawer__viewport {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--navbar-z) + 60);
+}
+
+.mobile-drawer {
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: var(--mobile-drawer-width);
+  max-width: 90vw;
+  height: 100%;
+  background-color: var(--mobile-drawer-bg);
+  color: var(--mobile-drawer-color);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+
+  // Slide in from the right
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &[data-starting-style],
+  &[data-ending-style] {
+    transform: translateX(100%);
+  }
+
+  &__header {
+    padding: var(--mobile-drawer-item-py) var(--mobile-drawer-item-px);
+  }
+
+  &__header-link {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: inherit;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 0;
+  }
+
+  &__divider {
+    border: none;
+    border-top: 1px solid var(--mobile-drawer-header-border);
+    margin: 0;
+  }
+
+  &__nav {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 0;
+  }
+
+  // Text link + menu trigger
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--mobile-drawer-item-py) var(--mobile-drawer-item-px);
+    font-size: 1rem;
+    font-weight: 500;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    font-family: inherit;
+    transition: background-color 0.15s ease;
+
+    &:hover,
+    &:focus-visible {
+      background-color: rgba(255, 255, 255, 0.06);
+    }
+
+    &--active {
+      color: var(--mobile-drawer-active-color);
+      font-weight: 600;
+    }
+
+    &--menu {
+      // Collapsible.Trigger for sub-menus
+      [data-open] > & .mobile-drawer__chevron {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  // Collapsible sub-menu panel
+  &__submenu {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    // base-ui Collapsible.Panel handles open/close via height animation
+    transition: height 0.25s ease;
+  }
+
+  &__subitem {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: calc(var(--mobile-drawer-item-py) * 0.75) var(--mobile-drawer-item-px);
+    padding-left: var(--mobile-drawer-subitem-pl);
+    font-size: 0.9375rem;
+    color: inherit;
+    text-decoration: none;
+    transition: background-color 0.15s ease;
+
+    &:hover,
+    &:focus-visible {
+      background-color: rgba(255, 255, 255, 0.06);
+    }
+
+    &--active {
+      color: var(--mobile-drawer-active-color);
+      font-weight: 600;
+    }
+
+    &-icon {
+      max-width: 18px;
+      max-height: 18px;
+      object-fit: contain;
+    }
+  }
+
+  &__chevron {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+    opacity: 0.7;
+  }
+
+  // CTA items at the bottom
+  &__cta-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--mobile-drawer-cta-gap);
+    padding: 1rem var(--mobile-drawer-item-px);
+    padding-bottom: 2rem;
+    align-items: center;
+  }
+
+  &__cta-icon {
+    width: 100%;
+
+    a {
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  // Override nav-button inside drawer to be full-width
+  .nav-button {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+// ─── Site Banner ──────────────────────────────────────────────────────────────
+.site-banner {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  &__text {
+    font-size: var(--site-banner-font-size);
+    font-weight: var(--site-banner-font-weight);
+  }
+
+  &__cta {
+    font-size: var(--site-banner-font-size);
+    font-weight: 700;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+
+    &:hover { opacity: 0.8; }
+  }
+
+  &__timer {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+  }
+
+  &__timer-unit {
+    display: flex;
+    align-items: baseline;
+    gap: 0.2rem;
+  }
+
+  &__timer-digit {
+    display: inline-block;
+    min-width: 2ch;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.05em;
+    padding: 2px 4px;
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0.12);
+  }
+
+  &__timer-label {
+    font-size: 0.72em;
+    opacity: 0.85;
+  }
+}

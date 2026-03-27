@@ -1,0 +1,187 @@
+// ─── Demo Site — Los Valdivias Theme ────────────────────────────────────────
+// This file owns every site-specific style token.
+// Import the shared component partials, then override the CSS variables.
+//
+// Color palette inspiration: deep charcoal + warm gold accents —
+// professional, trustworthy, suited to a residential-services / construction brand.
+
+@use '../footer';
+@use '../navbar';
+@use '../intro';
+@use '../page';
+
+// ── Design tokens ────────────────────────────────────────────────────────────
+:root {
+  // Brand colors
+  --color-bg-dark:    #1c2530;   // deep charcoal-navy
+  --color-bg-dark-2:  #243040;   // slightly lighter panel
+  --color-accent:     #c9a84c;   // warm gold
+  --color-accent-light: #e0c47a; // lighter gold for hover states
+  --color-text-light: #e6e9ef;   // off-white body text
+  --color-text-muted: #9aa3b0;   // muted secondary text
+  --color-divider:    rgba(201, 168, 76, 0.35); // gold-tinted divider
+
+  // Typography
+  --font-primary: 'Poppins', 'Helvetica Neue', Arial, sans-serif;
+  --font-heading: 'Racing Sans One', 'Helvetica Neue', Arial, sans-serif;
+}
+
+// ── Footer overrides ──────────────────────────────────────────────────────────
+:root {
+  --footer-bg:                 var(--color-bg-dark);
+  --footer-color:              var(--color-text-light);
+  --footer-font-family:        var(--font-primary);
+  --footer-font-size:          0.9rem;
+  --footer-padding-top:        56px;
+  --footer-padding-x:          6vw;
+  --footer-padding-bottom:     28px;
+  --footer-content-gap:        2rem;
+
+  --footer-divider-color:      var(--color-divider);
+  --footer-divider-margin-top: 2rem;
+  --footer-divider-padding-top: 1.25rem;
+
+  --footer-link-color:         var(--color-text-muted);
+  --footer-link-font-size:     0.8rem;
+
+  --footer-accent:             var(--color-accent);
+
+  --footer-image-width:        180px;
+
+  --footer-text-weight:        400;
+  --footer-text-line-height:   1.65;
+  --footer-text-padding-x:     8%;
+
+  --footer-icon-size:          1.6rem;
+  --footer-icon-color:         var(--color-text-muted);
+  --footer-icon-gap:           0.1rem;
+  --footer-icon-padding:       0.45rem;
+  --footer-icon-hover-bg:      rgba(201, 168, 76, 0.15);
+}
+
+// ── Site-specific component refinements ───────────────────────────────────────
+
+// Accent the footer image with a subtle glow on hover
+.footer-image__img {
+  filter: brightness(0.92);
+  transition: filter 0.3s ease;
+
+  &:hover {
+    filter: brightness(1.05);
+  }
+}
+
+// Social icons glow gold on hover for Los Valdivias
+.footer-icons__btn {
+  &:hover,
+  &:focus-visible {
+    color: var(--color-accent-light);
+  }
+}
+
+// Highlight footer links with the gold accent on hover
+.footer__link {
+  &:hover,
+  &:focus-visible {
+    color: var(--color-accent-light);
+    opacity: 1;
+    text-decoration: none;
+  }
+}
+
+// Locale switcher matches link style
+.footer__locale-btn {
+  color: var(--color-text-muted);
+
+  &:hover,
+  &:focus-visible {
+    color: var(--color-accent-light);
+    opacity: 1;
+  }
+}
+// ── Navbar overrides ──────────────────────────────────────────────────────────
+:root {
+  --navbar-bg:                  var(--color-bg-dark);
+  --navbar-color:               var(--color-text-light);
+  --navbar-height:              72px;
+  --navbar-shadow:              0 4px 20px rgba(0, 0, 0, 0.5);
+  --navbar-font-family:         var(--font-primary);
+  --navbar-link-font-size:      0.9rem;
+  --navbar-link-weight:         500;
+  --navbar-link-h-padding:      0.9rem;
+  --navbar-link-line-height:    16px;
+  --navbar-link-transition:     0.2s ease;
+  --navbar-active-color:        var(--color-accent);
+  --navbar-hover-bg:            rgba(201, 168, 76, 0.1);
+
+  // CTA button — gold fill, dark text
+  --navbar-button-bg:           var(--color-accent);
+  --navbar-button-color:        var(--color-bg-dark);
+  --navbar-button-border:       var(--color-accent);
+  --navbar-button-px:           1.4rem;
+  --navbar-button-font-size:    0.875rem;
+  --navbar-button-weight:       700;
+
+  // Dropdown
+  --nav-menu-bg:                var(--color-bg-dark-2);
+  --nav-menu-shadow:            0 8px 24px rgba(0, 0, 0, 0.45);
+  --nav-menu-radius:            6px;
+  --nav-menu-item-hover-bg:     rgba(201, 168, 76, 0.1);
+  --nav-menu-item-hover-color:  var(--color-accent-light);
+  --nav-menu-item-active-color: var(--color-accent);
+
+  // Mobile drawer
+  --mobile-drawer-width:        260px;
+  --mobile-drawer-bg:           var(--color-bg-dark);
+  --mobile-drawer-color:        var(--color-text-light);
+  --mobile-drawer-header-border: var(--color-divider);
+  --mobile-drawer-active-color: var(--color-accent);
+
+  // Site banner
+  --site-banner-bg:             var(--color-accent);
+  --site-banner-color:          var(--color-bg-dark);
+}
+
+// Split nav top bar uses a white/light background for the logo row
+.navbar__toolbar--split-top {
+  --navbar-split-top-bg: #ffffff;
+  --navbar-split-top-color: var(--color-bg-dark);
+}
+
+// Accent the active/hover nav menu trigger
+.nav-menu__trigger--active,
+.nav-menu__trigger:hover {
+  color: var(--color-accent) !important;
+}
+
+// Gold accent on mobile drawer active items
+.mobile-drawer__item--active,
+.mobile-drawer__subitem--active {
+  color: var(--color-accent) !important;
+}
+
+// ── Intro overrides ───────────────────────────────────────────────────────────
+:root {
+  // Use the display font for hero headings
+  --intro-heading-font:        var(--font-heading);
+  // Slightly more readable body text size in hero sections
+  --intro-font-size:           clamp(0.9rem, 2.5vw, 1.5rem);
+  // Pill-shaped CTA buttons
+  --intro-btn-border-radius:   9999px;
+  --intro-btn-px:              1.75rem;
+  --intro-btn-py:              0.7rem;
+  --intro-btn-font-size:       0.9rem;
+  --intro-btn-weight:          700;
+  --intro-btn-letter-spacing:  0.04em;
+}
+
+// Gold-outlined CTA buttons inside intro sections
+.intro__btn {
+  border-color: var(--color-accent);
+  color: var(--color-text-light);
+
+  &:hover,
+  &:focus-visible {
+    background-color: rgba(201, 168, 76, 0.2);
+  }
+}

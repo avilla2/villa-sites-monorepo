@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useOutletContext } from 'react-router'
+import HomePage from '../components/pages/HomePage'
 
 export function meta ({ data }) {
   const context = data || {}
@@ -14,32 +15,15 @@ export function meta ({ data }) {
 export default function Home () {
   const { website, setPage } = useOutletContext()
 
-  useEffect(() => {
-    setPage('Home')
-  }, [])
-
-  if (!website) {
-    return <div>Loading...</div>
-  }
+  if (!website) return null
 
   return (
-    <main className="container mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold mb-8">
-          {website.homepage?.Title || 'Welcome'}
-        </h1>
-
-        {/* Render homepage content components */}
-        {website.homepage?.Content && website.homepage.Content.length > 0 && (
-          <div className="space-y-8">
-            {website.homepage.Content.map((component, index) => (
-              <div key={index} className="border p-4 rounded">
-                <pre className="text-xs overflow-auto">
-                  {JSON.stringify(component, null, 2)}
-                </pre>
-              </div>
-            ))}
-          </div>
-        )}
-      </main>
+    <HomePage
+      content={website.homepage?.Content}
+      pageName={website.homepage?.PageName || 'Home'}
+      path="/"
+      setPage={setPage}
+      siteName={website.name}
+    />
   )
 }

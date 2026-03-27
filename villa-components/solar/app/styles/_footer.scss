@@ -1,0 +1,155 @@
+// ─── Footer component base styles ───────────────────────────────────────────
+// Uses CSS custom properties so each site can override them in its own
+// site-level stylesheet without touching this file.
+
+.footer {
+  padding: var(--footer-padding-top, 50px) var(--footer-padding-x, 5vw) var(--footer-padding-bottom, 24px);
+  background-color: var(--footer-bg, #1a1a2e);
+  color: var(--footer-color, #e8e8e8);
+  font-size: var(--footer-font-size, 0.95rem);
+  font-family: var(--footer-font-family, inherit);
+
+  // ── Main content row (images / text / icon blocks)
+  &__content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--footer-content-gap, 1.5rem);
+  }
+
+  &__content-item {
+    width: 100%;
+  }
+
+  // ── Bottom bar
+  &__bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: var(--footer-divider-margin-top, 2.5rem);
+    padding-top: var(--footer-divider-padding-top, 1rem);
+    padding-left: 2vw;
+    padding-right: 2vw;
+    border-top: var(--footer-divider-width, 1px) solid var(--footer-divider-color, currentColor);
+  }
+
+  // ── Shared link style
+  &__link {
+    color: var(--footer-link-color, inherit);
+    text-decoration: none;
+    font-size: var(--footer-link-font-size, 0.875rem);
+    transition: opacity 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      opacity: 0.75;
+      text-decoration: underline;
+    }
+  }
+
+  // ── Locale / language switcher button
+  &__locale-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+    font-size: var(--footer-link-font-size, 0.875rem);
+    font-family: inherit;
+    transition: opacity 0.2s ease;
+
+    svg {
+      flex-shrink: 0;
+    }
+
+    &:hover,
+    &:focus-visible {
+      opacity: 0.75;
+    }
+  }
+}
+
+// ─── Footer text block ───────────────────────────────────────────────────────
+.footer-text {
+  margin: 0;
+  padding: 0 var(--footer-text-padding-x, 5%);
+  font-size: var(--footer-font-size, 0.95rem);
+  font-weight: var(--footer-text-weight, 500);
+  line-height: var(--footer-text-line-height, 1.6);
+  text-align: center;
+  color: inherit;
+
+  // Markdown output resets
+  p { margin: 0.25rem 0; }
+  a {
+    color: var(--footer-accent, inherit);
+    text-decoration: underline;
+  }
+}
+
+// ─── Footer image block ──────────────────────────────────────────────────────
+.footer-image {
+  display: flex;
+  justify-content: center;
+
+  &__img {
+    width: var(--footer-image-width, 200px);
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+}
+
+// ─── Footer social icons block ───────────────────────────────────────────────
+.footer-icons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--footer-icon-gap, 0.25rem);
+
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--footer-icon-padding, 0.5rem);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--footer-icon-color, inherit);
+    text-decoration: none;
+    border-radius: 50%;
+    transition: background-color 0.2s ease, opacity 0.2s ease;
+
+    svg {
+      width: var(--footer-icon-size, 1.75rem);
+      height: var(--footer-icon-size, 1.75rem);
+    }
+
+    &:hover,
+    &:focus-visible {
+      background-color: var(--footer-icon-hover-bg, rgba(255, 255, 255, 0.1));
+      opacity: 0.9;
+    }
+  }
+}
+
+// ─── Responsive adjustments ──────────────────────────────────────────────────
+@media (min-width: 768px) {
+  .footer {
+    &__content-item {
+      // Let the grid breathe on wider screens; sites can override per column
+      width: auto;
+      flex: 1;
+    }
+  }
+}

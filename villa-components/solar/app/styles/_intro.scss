@@ -1,0 +1,232 @@
+// ─── Intro / Hero Component ───────────────────────────────────────────────────
+// Full-viewport hero section with absolute media background + text overlay.
+// All size/color values are CSS custom properties — override per-site.
+
+:root {
+  --intro-min-height:         100vh;
+  --intro-mobile-min-height:  85vh;
+  --intro-overlay-padding:    3%;
+  --intro-text-shadow:        3px 3px 20px rgba(0, 0, 0, 0.45);
+  --intro-bg-color:           #1a1a1a; // fallback when no media is loaded
+
+  // Responsive font sizing via clamp
+  --intro-font-size:          clamp(0.85rem, 2.5vw, 1.5rem);
+
+  // Heading font (override with a display/display-alt font per site)
+  --intro-heading-font:       var(--font-primary, inherit);
+
+  // CTA button defaults — outlined style
+  --intro-btn-border-radius:  4px;
+  --intro-btn-px:             1.5rem;
+  --intro-btn-py:             0.65rem;
+  --intro-btn-font-size:      0.9rem;
+  --intro-btn-weight:         600;
+  --intro-btn-letter-spacing: 0.02em;
+  --intro-btn-transition:     background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+// ── svh unit support ─────────────────────────────────────────────────────────
+@supports (min-height: 100svh) {
+  :root {
+    --intro-min-height:        100svh;
+    --intro-mobile-min-height: 85svh;
+  }
+}
+
+// ── Root ──────────────────────────────────────────────────────────────────────
+.intro {
+  position: relative;
+  overflow: hidden;
+  min-height: var(--intro-min-height);
+
+  @media (max-width: 767px) {
+    min-height: var(--intro-mobile-min-height);
+  }
+}
+
+// ── Background layer ─────────────────────────────────────────────────────────
+.intro__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-color: var(--intro-bg-color);
+  overflow: hidden; // prevents video/img from bleeding outside rounded corners if ever applied
+}
+
+// Shared fill rules for direct media children
+.intro__image,
+.intro__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  vertical-align: bottom;
+}
+
+// ── Slideshow ─────────────────────────────────────────────────────────────────
+.intro__slideshow {
+  position: absolute;
+  inset: 0;
+}
+
+// Each slide is stacked absolutely; only the active one is opaque
+.intro__slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+
+  &--active {
+    opacity: 1;
+  }
+}
+
+// ── Text overlay wrapper ──────────────────────────────────────────────────────
+.intro__overlay {
+  position: relative;
+  z-index: 1;
+  min-height: var(--intro-min-height);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: var(--intro-overlay-padding);
+  box-sizing: border-box;
+  text-shadow: var(--intro-text-shadow);
+
+  @media (max-width: 767px) {
+    min-height: var(--intro-mobile-min-height);
+    padding: 5%;
+  }
+
+  // ── Position variants ────────────────────────────────────────────────────
+  &--centered {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    .intro__buttons {
+      justify-content: center;
+    }
+  }
+
+  &--bottom-left {
+    justify-content: flex-end;
+    align-items: flex-start;
+    text-align: left;
+
+    .intro__buttons {
+      justify-content: flex-start;
+    }
+  }
+
+  &--bottom-right {
+    justify-content: flex-end;
+    align-items: flex-end;
+    text-align: right;
+
+    .intro__buttons {
+      justify-content: flex-end;
+    }
+  }
+}
+
+// ── Content block ─────────────────────────────────────────────────────────────
+.intro__content {
+  font-size: var(--intro-font-size);
+  max-width: 820px;
+
+  // Fade animation — runs once on mount
+  &--fade {
+    animation: intro-fade-in 1.5s ease both;
+  }
+
+  // Slide-up animation — runs once on mount
+  &--slide {
+    animation: intro-slide-up 1.2s cubic-bezier(0.25, 0.8, 0.25, 1) both;
+  }
+}
+
+// ── Intro text (ReactMarkdown output) ────────────────────────────────────────
+.intro__text {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--intro-heading-font);
+    line-height: 1.2;
+    margin: 0 0 0.4em;
+  }
+
+  h1 { font-size: 2.8em; }
+  h2 { font-size: 2em; }
+  h3 { font-size: 1.5em; }
+  h4 { font-size: 1.2em; }
+
+  p {
+    margin: 0 0 0.9em;
+    line-height: 1.6;
+  }
+
+  strong { font-weight: 700; }
+
+  // Scale headings down on mobile
+  @media (max-width: 767px) {
+    h1 { font-size: 1.8em; }
+    h2 { font-size: 1.4em; }
+    h3 { font-size: 1.15em; }
+  }
+}
+
+// ── Buttons row ───────────────────────────────────────────────────────────────
+.intro__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+// Outlined button with an optional per-button color via --btn-color CSS variable
+.intro__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--intro-btn-py) var(--intro-btn-px);
+  font-size: var(--intro-btn-font-size);
+  font-weight: var(--intro-btn-weight);
+  letter-spacing: var(--intro-btn-letter-spacing);
+  font-family: inherit;
+
+  // Default: outlined transparent
+  color: inherit;
+  background-color: transparent;
+  border: 2px solid var(--btn-color, currentColor);
+  border-radius: var(--intro-btn-border-radius);
+
+  cursor: pointer;
+  text-decoration: none;
+  transition: var(--intro-btn-transition);
+
+  &:hover,
+  &:focus-visible {
+    background-color: rgba(255, 255, 255, 0.15);
+    outline: none;
+  }
+}
+
+// ── Keyframes ─────────────────────────────────────────────────────────────────
+@keyframes intro-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes intro-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
