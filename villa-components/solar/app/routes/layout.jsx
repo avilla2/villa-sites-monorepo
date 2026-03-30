@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
-import { Outlet, useOutletContext, useNavigate } from 'react-router'
+import { Outlet, useOutletContext, useNavigate, useLocation } from 'react-router'
 import Navbar from '../components/navbar/Navbar'
 import Footer from '../components/footer/Footer'
 
 export default function Layout () {
   const { website } = useOutletContext()
   const navigate = useNavigate()
+  const location = useLocation()
   const [page, setPage] = useState('Home')
+  const isContentPage = location.pathname !== '/'
 
   if (!website) {
     return <div>Loading...</div>
@@ -27,6 +29,7 @@ export default function Layout () {
           FontColor={website.navbar.FontColor}
           minSize={website.site_settings?.DesktopBreakpoint || 'md'}
           mobileTitle={page}
+          pageTitle={isContentPage ? page : undefined}
           onBackClick={() => navigate(-1)}
         />
       )}

@@ -68,11 +68,14 @@ export default function Navbar ({
   FontColor: fontColor,
   minSize = 'md',
   mobileTitle,
+  pageTitle,
   onBackClick
 }) {
   const [mounted, setMounted] = useState(false)
   const scrolled = useScrollTrigger(65)
   const [active, setActive] = useState(navIndex)
+  const desktopBarRef = useRef(null)
+  const [desktopBarHeight, setDesktopBarHeight] = useState(0)
   const mobileBarRef = useRef(null)
   const [mobileBarHeight, setMobileBarHeight] = useState(0)
 
@@ -81,6 +84,17 @@ export default function Navbar ({
   useEffect(() => {
     if (navIndex) setActive(navIndex)
   }, [navIndex])
+
+  useEffect(() => {
+    const measure = () => {
+      if (desktopBarRef.current) {
+        setDesktopBarHeight(desktopBarRef.current.offsetHeight)
+      }
+    }
+    measure()
+    window.addEventListener('resize', measure)
+    return () => window.removeEventListener('resize', measure)
+  }, [siteBanner, pageTitle])
 
   useEffect(() => {
     const measure = () => {
@@ -96,8 +110,10 @@ export default function Navbar ({
   if (!content || !mobileData) return null
 
   // Elevation + transparency logic (mirrors original)
+  const UTILITY_PAGES = new Set(['Site Map', undefined, null, '', 'Not Found'])
+  const isFadeIn = appearance === 'fade_in' && !UTILITY_PAGES.has(page)
   const showElevation = !mounted || scrolled
-  const isTransparent = mounted && !scrolled && appearance === 'fade_in'
+  const isTransparent = mounted && !scrolled && isFadeIn
   const showBackButton = navIndex !== '/'
 
   // Toolbar layout variant class
@@ -130,7 +146,7 @@ export default function Navbar ({
     >
       {/* ── Desktop ──────────────────────────────────────────────────────── */}
       <div className="navbar__desktop">
-        <header className={barClasses} role="banner">
+        <header className={barClasses} ref={desktopBarRef} role="banner">
           {siteBanner && <SiteBanner siteBanner={siteBanner} />}
 
           {style === 'Split'
@@ -155,14 +171,22 @@ export default function Navbar ({
                 ))}
               </div>
               )}
+
+          {pageTitle && (
+            <div className={`navbar__page-title${appearance === 'fade_in' ? ' navbar__page-title--pill' : ''}`}>
+              {pageTitle}
+            </div>
+          )}
         </header>
-        {/* Spacer so page content starts below the fixed bar */}
-        <div className="navbar__spacer" aria-hidden="true" />
+        {/* Spacer so page content starts below the fixed bar — omitted when navbar is transparent */}
+        {!isTransparent && (
+          <div style={{ height: desktopBarHeight }} aria-hidden="true" />
+        )}
       </div>
 
       {/* ── Mobile ───────────────────────────────────────────────────────── */}
       <div className="navbar__mobile">
-        <header className="navbar__bar navbar__bar--elevated" ref={mobileBarRef} role="banner">
+        <header className={barClasses} ref={mobileBarRef} role="banner">
           {siteBanner && <SiteBanner siteBanner={siteBanner} />}
           <div className="navbar__toolbar navbar__toolbar--mobile">
             {/* Left: back button or home icon */}
@@ -205,8 +229,10 @@ export default function Navbar ({
             />
           </div>
         </header>
-        {/* Dynamic spacer matching measured bar height */}
-        <div style={{ height: mobileBarHeight }} aria-hidden="true" />
+        {/* Dynamic spacer matching measured bar height — omitted when navbar is transparent */}
+        {!isTransparent && (
+          <div style={{ height: mobileBarHeight }} aria-hidden="true" />
+        )}
       </div>
     </div>
   )

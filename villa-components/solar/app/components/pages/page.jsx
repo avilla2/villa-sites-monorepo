@@ -38,13 +38,13 @@ function getSectionPadding (typename, isLast) {
 export default function HomePage ({ content, pageName, path, setPage, siteName }) {
   useEffect(() => {
     setPage(pageName)
-    if (typeof window.gtag === 'function') {
+    if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
       window.gtag('event', 'page_view', {
         page_path: path,
         page_title: pageName
       })
     }
-  }, [pageName, path])
+  }, [pageName, path, setPage])
 
   if (!content?.length) return null
 

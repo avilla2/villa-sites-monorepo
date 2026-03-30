@@ -1,6 +1,6 @@
 import React from 'react'
 import { useOutletContext } from 'react-router'
-import HomePage from '../components/pages/HomePage'
+import Page from '../components/pages/page'
 
 export function meta ({ data }) {
   const context = data || {}
@@ -18,7 +18,7 @@ export default function Home () {
   if (!website) return null
 
   return (
-    <HomePage
+    <Page
       content={website.homepage?.Content}
       pageName={website.homepage?.PageName || 'Home'}
       path="/"

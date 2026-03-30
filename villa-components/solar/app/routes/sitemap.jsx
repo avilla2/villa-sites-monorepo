@@ -1,18 +1,15 @@
-// import React from 'react'
-// import { useOutletContext } from 'react-router'
-// import { SiteMapPage } from '@villa-components/components'
+import React, { useEffect } from 'react'
+import { useOutletContext } from 'react-router'
+import Sitemap from '../components/pages/Sitemap'
 
-// export default function Sitemap () {
-//   const { website, setPage } = useOutletContext()
+export function meta () {
+  return [{ title: 'Site Map' }]
+}
 
-//   // Extract content pages from website
-//   const contentPages = website?.content_pages || []
+export default function SitemapRoute () {
+  const { website, setPage } = useOutletContext()
 
-//   return (
-//     <SiteMapPage
-//       setPage={setPage}
-//       contentPages={contentPages}
-//       locale="en"
-//     />
-//   )
-// }
+  useEffect(() => { setPage('Site Map') }, [])
+
+  return <Sitemap contentPages={website?.content_pages || []} />
+}

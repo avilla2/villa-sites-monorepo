@@ -108,6 +108,35 @@ $breakpoints: (xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536);
 // ── Spacer that pushes page content below the fixed bar ───────────────────────
 .navbar__spacer {
   height: var(--navbar-height);
+
+  &--with-title {
+    height: calc(var(--navbar-height) + var(--navbar-page-title-height, 52px));
+  }
+}
+
+// ── Page title strip (desktop content pages) ──────────────────────────────────
+.navbar__page-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--navbar-page-title-height, 52px);
+  padding: 0 2%;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-align: center;
+
+  // Pill variant: rounded background with primary color (for fade_in navbars)
+  &--pill {
+    border-top: none;
+    color: inherit;
+    background-color: var(--navbar-bg, #1a1a2e);
+    border-radius: 9999px;
+    padding: 0.5rem 1.5rem;
+    width: fit-content;
+    margin: 0 auto;
+  }
 }
 
 // ── Toolbar row ───────────────────────────────────────────────────────────────

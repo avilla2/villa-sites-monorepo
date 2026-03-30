@@ -1,9 +1,15 @@
-// import React from 'react'
-// import { useOutletContext } from 'react-router'
-// import { NotFoundPage } from '@villa-components/components'
+import React, { useEffect } from 'react'
+import { useOutletContext } from 'react-router'
+import NotFound from '../components/pages/NotFound'
 
-// export default function NotFound () {
-//   const { setPage } = useOutletContext()
+export function meta () {
+  return [{ title: 'Page Not Found' }]
+}
 
-//   return <NotFoundPage setPage={setPage} />
-// }
+export default function NotFoundRoute () {
+  const { setPage } = useOutletContext()
+
+  useEffect(() => { setPage('Not Found') }, [])
+
+  return <NotFound />
+}

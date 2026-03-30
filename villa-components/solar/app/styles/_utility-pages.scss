@@ -1,0 +1,100 @@
+// ─── Utility pages — 404 Not Found + Sitemap ─────────────────────────────────
+// Both pages share this block. The banner uses padding-top: var(--navbar-height)
+// so that content is always visible below the navbar bar, whether the navbar is
+// opaque (spacer already offsets the page) or transparent (no spacer injected).
+
+:root {
+  --utility-page-banner-bg:     #f0f0f0;
+  --utility-page-banner-radius: 0 0 24px 24px;
+  --utility-page-banner-pb:     3.5rem;
+  --utility-page-accent:        var(--color-accent, #c9a84c);
+  --utility-page-title-size:    2rem;
+  --utility-page-sub-color:     #555;
+  --utility-page-links-px:      5vw;
+}
+
+.utility-page {
+  width: 100%;
+  min-height: 60vh;
+  text-align: center;
+
+  // Full-page variant (404) — gray bg fills the viewport, content centred
+  &--full {
+    min-height: 60vh;
+    background-color: var(--utility-page-banner-bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: var(--navbar-height, 80px);
+    gap: 0.75rem;
+  }
+
+  // ── Top banner ──────────────────────────────────────────────────────────────
+  &__banner {
+    background-color: var(--utility-page-banner-bg);
+    border-radius: var(--utility-page-banner-radius);
+    // padding-top accounts for transparent navbar (no spacer rendered in that mode)
+    padding-top: var(--navbar-height, 80px);
+    padding-bottom: var(--utility-page-banner-pb);
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  &__title {
+    font-size: var(--utility-page-title-size);
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+    line-height: 1.2;
+  }
+
+  &__sub {
+    font-size: 1.05rem;
+    color: var(--utility-page-sub-color);
+    margin: 0;
+  }
+
+  // ── Return home button ───────────────────────────────────────────────────────
+  &__btn {
+    display: inline-block;
+    margin-top: 1.75rem;
+    padding: 0.55rem 1.5rem;
+    border: 2px solid var(--utility-page-accent);
+    color: var(--utility-page-accent);
+    border-radius: 9999px;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: opacity 0.2s ease, transform 0.15s ease;
+
+    &:hover,
+    &:focus-visible {
+      opacity: 0.75;
+      transform: translateY(-1px);
+    }
+  }
+
+  // ── Sitemap links ────────────────────────────────────────────────────────────
+  &__links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 var(--utility-page-links-px) 4rem;
+    gap: 0.25rem;
+  }
+
+  &__link {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    padding: 0.35rem 0;
+    font-size: 1.05rem;
+    transition: opacity 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      opacity: 0.6;
+    }
+  }
+}

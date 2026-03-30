@@ -112,11 +112,11 @@ const SingleCard = ({
       display: 'flex',
       flexDirection: 'column'
     }}>
-      {Image.url &&
+      {Image && Image?.url &&
         <CardMedia
           sx={{ height: 140 }}
-          image={Image.url}
-          title={Image.alternativeText}
+          image={Image?.url}
+          title={Image?.alternativeText}
         />
       }
       <CardContent sx={{ flexGrow: 1 }}>

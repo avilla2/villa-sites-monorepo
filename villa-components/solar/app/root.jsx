@@ -6,12 +6,9 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useLoaderData,
-  useNavigate
+  useLoaderData
 } from 'react-router'
 import { ApolloProvider } from '@apollo/client/react'
-import Navbar from './components/navbar/Navbar'
-import Footer from './components/footer/Footer'
 import { apolloClient } from './lib/apollo'
 import { getWebsiteIdFromHostname } from './lib/websiteMapping'
 import { APP_QUERY } from '@villa-components/graphql-queries'
@@ -83,50 +80,7 @@ export default function App () {
 }
 
 export function ErrorBoundary ({ error }) {
-  const navigate = useNavigate()
-
-  // For 404 errors, render the custom NotFoundPage component
-  if (isRouteErrorResponse(error) && error.status === 404) {
-    // Try to get website data from loader if available
-    let website = null
-    try {
-      const data = useLoaderData()
-      website = data?.website
-    } catch {
-      // Website data not available
-    }
-
-    return (
-      <ApolloProvider client={apolloClient}>
-        {website?.navbar && (
-          <Navbar
-            page="test"
-            navIndex="/"
-            Items={website.navbar.Items}
-            MobileConfig={website.navbar.MobileConfig}
-            Style={website.navbar.Style}
-            Appearance={website.navbar.Appearance}
-            FontColor={website.navbar.FontColor}
-            minSize={website.site_settings?.DesktopBreakpoint || 'md'}
-            mobileTitle="Not Found"
-            onBackClick={() => navigate(-1)}
-          />
-        )}
-        {website?.footer && (
-          <Footer
-            Content={website.footer.Content}
-            FontColor={website.footer.FontColor}
-            links={website.footer.links}
-            enableLocalization={website.site_settings?.enableLocalization}
-            localeName="English"
-            localeCode="en"
-          />
-        )}
-      </ApolloProvider>
-    )
-  }
-
-  // For other errors, show error details
+  // Show error details
   let message = 'Oops!'
   let details = 'An unexpected error occurred.'
   let stack
