@@ -1,0 +1,75 @@
+// ─── Button Group ─────────────────────────────────────────────────────────────
+// Renders a row of CTA buttons with three layout modes:
+//   together (joined), spaced_evenly, or default (gap + text-align).
+
+.btn-group {
+  --btn-group-padding-x: 5vw;
+  --btn-group-gap:        1rem;
+  --btn-group-radius:     4px;
+  --btn-group-font-size:  1rem;
+  --btn-group-font-weight: 600;
+  --btn-group-py:         0.625rem;
+  --btn-group-px:         1.5rem;
+
+  padding: 0 var(--btn-group-padding-x);
+  width: 100%;
+  box-sizing: border-box;
+
+  &__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--btn-group-gap);
+    justify-content: center;
+
+    &--together {
+      gap: 0;
+      justify-content: center;
+
+      .btn-group__btn {
+        border-radius: 0;
+
+        &:first-child { border-radius: var(--btn-group-radius) 0 0 var(--btn-group-radius); }
+        &:last-child  { border-radius: 0 var(--btn-group-radius) var(--btn-group-radius) 0; }
+        &:not(:last-child) { border-right: none; }
+      }
+    }
+
+    &--spaced { justify-content: space-evenly; }
+  }
+
+  &__btn {
+    --btn-color: var(--color-accent, #c9a84c);
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--btn-group-py) var(--btn-group-px);
+    font-size: var(--btn-group-font-size);
+    font-weight: var(--btn-group-font-weight);
+    border-radius: var(--btn-group-radius);
+    text-decoration: none;
+    cursor: pointer;
+    white-space: nowrap;
+    line-height: 1.4;
+    transition: background-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+
+    &--outlined {
+      background-color: transparent;
+      border: 2px solid var(--btn-color);
+      color: var(--btn-color);
+
+      &:hover {
+        background-color: var(--btn-color);
+        color: #fff;
+      }
+    }
+
+    &--contained {
+      background-color: var(--btn-color);
+      border: 2px solid var(--btn-color);
+      color: #fff;
+
+      &:hover { opacity: 0.85; }
+    }
+  }
+}

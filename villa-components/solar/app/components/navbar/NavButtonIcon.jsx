@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router'
-import isExternal from '../../lib/isExternalLink'
 
 /** Image/logo link in the navbar. */
 export default function NavButtonIcon ({ link, external, src, alt, width }) {

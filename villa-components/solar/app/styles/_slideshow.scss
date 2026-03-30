@@ -1,0 +1,148 @@
+// ─── Slideshow ────────────────────────────────────────────────────────────────
+// Page-section carousel with crossfade, auto-advance, prev/next arrows, and dots.
+// Also used as a background fill inside Intro via the --background modifier.
+
+:root {
+  --slideshow-aspect-ratio:      16 / 9;
+  --slideshow-radius:            0px;
+  --slideshow-bg:                #000;
+  --slideshow-transition:        opacity 1.2s ease;
+
+  // Arrows
+  --slideshow-arrow-size:        40px;
+  --slideshow-arrow-bg:          rgba(0, 0, 0, 0.4);
+  --slideshow-arrow-color:       #fff;
+  --slideshow-arrow-hover-bg:    rgba(0, 0, 0, 0.7);
+  --slideshow-arrow-icon-size:   20px;
+
+  // Dots
+  --slideshow-dot-size:          10px;
+  --slideshow-dot-color:         rgba(255, 255, 255, 0.55);
+  --slideshow-dot-active-color:  #fff;
+  --slideshow-dot-gap:           0.5rem;
+
+  // Caption
+  --slideshow-caption-bg:        rgba(0, 0, 0, 0.55);
+  --slideshow-caption-color:     #fff;
+  --slideshow-caption-font-size: 0.95rem;
+  --slideshow-caption-padding:   0.6rem 1rem;
+}
+
+// ── Base ──────────────────────────────────────────────────────────────────────
+.slideshow {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--slideshow-radius);
+  background-color: var(--slideshow-bg);
+
+  // Aspect ratio only applies to the standalone page variant
+  &:not(.slideshow--background) {
+    aspect-ratio: var(--slideshow-aspect-ratio);
+  }
+}
+
+// ── Track (fills the slideshow box in both modes) ─────────────────────────────
+.slideshow__track {
+  position: absolute;
+  inset: 0;
+}
+
+// ── Individual slides (crossfade via opacity) ─────────────────────────────────
+.slideshow__slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: var(--slideshow-transition);
+
+  &--active {
+    opacity: 1;
+  }
+}
+
+// ── Prev / next arrows ────────────────────────────────────────────────────────
+.slideshow__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--slideshow-arrow-size);
+  height: var(--slideshow-arrow-size);
+  background: var(--slideshow-arrow-bg);
+  color: var(--slideshow-arrow-color);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
+  transition: background-color 0.2s ease;
+
+  svg {
+    width: var(--slideshow-arrow-icon-size);
+    height: var(--slideshow-arrow-icon-size);
+  }
+
+  &:hover,
+  &:focus-visible {
+    background: var(--slideshow-arrow-hover-bg);
+    outline: none;
+  }
+
+  &--prev { left: 0.75rem; }
+  &--next { right: 0.75rem; }
+}
+
+// ── Dot indicators ────────────────────────────────────────────────────────────
+.slideshow__dots {
+  position: absolute;
+  bottom: 0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: var(--slideshow-dot-gap);
+  z-index: 2;
+}
+
+.slideshow__dot {
+  width: var(--slideshow-dot-size);
+  height: var(--slideshow-dot-size);
+  border-radius: 50%;
+  background: var(--slideshow-dot-color);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+
+  &--active {
+    background: var(--slideshow-dot-active-color);
+    transform: scale(1.3);
+  }
+}
+
+// ── Caption ───────────────────────────────────────────────────────────────────
+.slideshow__caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--slideshow-caption-padding);
+  background: var(--slideshow-caption-bg);
+  color: var(--slideshow-caption-color);
+  font-size: var(--slideshow-caption-font-size);
+  text-align: center;
+  z-index: 2;
+}
+
+// ── Background / embed variant ────────────────────────────────────────────────
+// Used inside Intro's .intro__bg — fills the parent container with no UI chrome.
+.slideshow--background {
+  position: absolute;
+  inset: 0;
+  border-radius: 0;
+  background-color: transparent;
+}

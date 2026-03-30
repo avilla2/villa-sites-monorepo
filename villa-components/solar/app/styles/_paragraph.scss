@@ -1,0 +1,60 @@
+// ─── Paragraph ───────────────────────────────────────────────────────────────
+// Markdown body text block with optional section title.
+
+.paragraph {
+  --paragraph-max-width:     720px;
+  --paragraph-padding-x:     5vw;
+  --paragraph-color:         inherit;
+  --paragraph-font-family:   var(--font-primary, sans-serif);
+  --paragraph-line-height:   1.75;
+  --paragraph-font-size:     1rem;
+
+  --paragraph-title-font:    var(--font-heading, var(--font-primary, sans-serif));
+  --paragraph-title-size:    1.75rem;
+  --paragraph-title-weight:  700;
+  --paragraph-title-color:   inherit;
+  --paragraph-title-mb:      0.75rem;
+
+  --paragraph-link-color:    var(--color-accent, #c9a84c);
+  --paragraph-link-hover:    var(--color-accent-light, #e0c47a);
+
+  max-width: var(--paragraph-max-width);
+  margin: 0 auto;
+  padding: 0 var(--paragraph-padding-x);
+  color: var(--paragraph-color);
+  font-family: var(--paragraph-font-family);
+  line-height: var(--paragraph-line-height);
+  font-size: var(--paragraph-font-size);
+
+  &__title {
+    font-family: var(--paragraph-title-font);
+    font-size: var(--paragraph-title-size);
+    font-weight: var(--paragraph-title-weight);
+    color: var(--paragraph-title-color);
+    margin-bottom: var(--paragraph-title-mb);
+  }
+
+  &__body {
+    p {
+      margin: 0 0 0.75em;
+      &:last-child { margin-bottom: 0; }
+    }
+
+    a {
+      color: var(--paragraph-link-color);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      transition: color 0.2s ease;
+      &:hover { color: var(--paragraph-link-hover); }
+    }
+
+    ul, ol {
+      margin: 0 0 0.75em 1.5rem;
+    }
+    ul { list-style: disc; }
+    ol { list-style: decimal; }
+
+    strong { font-weight: 700; }
+    em     { font-style: italic; }
+  }
+}

@@ -1,0 +1,91 @@
+// ─── Image ────────────────────────────────────────────────────────────────────
+// Supports three imageStyle variants: standard, paper card, and CSS parallax.
+// captionLocation (top | bottom | left | right) controls flex layout direction.
+
+.image {
+  --image-width:              100%;
+  --image-height:             auto;
+  --parallax-height:          50vh;
+
+  --image-paper-radius:       24px;
+  --image-paper-shadow:       0 8px 32px rgba(0, 0, 0, 0.3);
+
+  --image-caption-gap:        1.5rem;
+  --image-caption-side-basis: 50%;
+
+  // ── Parallax ───────────────────────────────────────────────────────────────
+  // Pure CSS parallax via background-attachment: fixed.
+  // The inner div overshoots top and bottom so it fills the container at any
+  // scroll position. Touch devices fall back to a static background because
+  // iOS ignores background-attachment: fixed inside overflow containers.
+
+  &--parallax {
+    position: relative;
+    overflow: hidden;
+    height: var(--parallax-height);
+    margin: 0;
+  }
+
+  &__parallax-bg {
+    position: absolute;
+    inset: -25% 0;             // overshoot for scroll travel
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    // iOS / touch: background-attachment: fixed is broken — fall back to scroll
+    @media (hover: none) {
+      background-attachment: scroll;
+      inset: 0;
+    }
+  }
+
+  // ── Standard & Paper ───────────────────────────────────────────────────────
+  &--standard,
+  &--paper {
+    display: flex;
+    align-items: center;
+    gap: var(--image-caption-gap);
+    margin: 0;
+
+    &.image--caption-bottom  { flex-direction: column; }
+    &.image--caption-top     { flex-direction: column-reverse; }
+    &.image--caption-right   { flex-direction: row; }
+    &.image--caption-left    { flex-direction: row-reverse; }
+
+    // Always stack on mobile regardless of captionLocation
+    @media (max-width: 768px) {
+      flex-direction: column !important; // stylelint-disable-line declaration-no-important
+    }
+  }
+
+  &__media {
+    flex: 1 1 var(--image-caption-side-basis);
+  }
+
+  &__img {
+    display: block;
+    margin: 0 auto;
+    width: var(--image-width);
+    height: var(--image-height);
+    max-width: 100%;
+
+    .image--paper & {
+      border-radius: var(--image-paper-radius);
+      box-shadow: var(--image-paper-shadow);
+    }
+  }
+
+  // Side captions take equal half-width
+  &--caption-left &__caption,
+  &--caption-right &__caption {
+    flex: 1 1 var(--image-caption-side-basis);
+  }
+
+  // Ensure caption sits above parallax overlay
+  &--parallax &__caption {
+    position: relative;
+    z-index: 1;
+  }
+}

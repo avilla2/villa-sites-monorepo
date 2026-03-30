@@ -1,0 +1,131 @@
+// ─── Freestyle (Rich Text) ──────────────────────────────────────────────────
+// Renders Strapi blocks content with sensible typographic defaults.
+
+.freestyle {
+  --freestyle-max-width:        720px;
+  --freestyle-padding-x:        5vw;
+  --freestyle-color:            inherit;
+  --freestyle-font-family:      var(--font-primary, sans-serif);
+  --freestyle-line-height:      1.75;
+
+  --freestyle-title-font:       var(--font-heading, var(--font-primary, sans-serif));
+  --freestyle-title-size:       1.75rem;
+  --freestyle-title-weight:     700;
+  --freestyle-title-color:      inherit;
+  --freestyle-title-mb:         1rem;
+
+  --freestyle-h1-size:          2rem;
+  --freestyle-h2-size:          1.6rem;
+  --freestyle-h3-size:          1.3rem;
+  --freestyle-h4-size:          1.1rem;
+
+  --freestyle-link-color:       var(--color-accent, #c9a84c);
+  --freestyle-link-hover-color: var(--color-accent-light, #e0c47a);
+
+  --freestyle-blockquote-border: 4px solid var(--color-accent, #c9a84c);
+  --freestyle-blockquote-bg:    rgba(0, 0, 0, 0.05);
+  --freestyle-blockquote-padding: 0.75rem 1.25rem;
+  --freestyle-blockquote-color: var(--color-text-muted, #9aa3b0);
+
+  --freestyle-code-bg:          rgba(0, 0, 0, 0.08);
+  --freestyle-code-padding:     0.15em 0.4em;
+  --freestyle-code-radius:      4px;
+  --freestyle-code-font:        'Courier New', Courier, monospace;
+
+  --freestyle-list-gap:         0.4rem;
+  --freestyle-img-radius:       6px;
+
+  max-width: var(--freestyle-max-width);
+  margin: 0 auto;
+  padding: 0 var(--freestyle-padding-x);
+  color: var(--freestyle-color);
+  font-family: var(--freestyle-font-family);
+  line-height: var(--freestyle-line-height);
+
+  // ── Section title (from component Title field) ──────────────────────────
+  &__title {
+    font-family: var(--freestyle-title-font);
+    font-size: var(--freestyle-title-size);
+    font-weight: var(--freestyle-title-weight);
+    color: var(--freestyle-title-color);
+    margin-bottom: var(--freestyle-title-mb);
+  }
+
+  // ── Body — scoped Strapi blocks output ───────────────────────────────────
+  &__body {
+    // Headings
+    h1 { font-size: var(--freestyle-h1-size); font-weight: 700; margin: 1.2em 0 0.4em; }
+    h2 { font-size: var(--freestyle-h2-size); font-weight: 700; margin: 1.1em 0 0.4em; }
+    h3 { font-size: var(--freestyle-h3-size); font-weight: 600; margin: 1em 0 0.35em; }
+    h4 { font-size: var(--freestyle-h4-size); font-weight: 600; margin: 0.9em 0 0.3em; }
+    h5, h6 { font-size: 1rem; font-weight: 600; margin: 0.8em 0 0.25em; }
+
+    // Paragraph
+    p { margin: 0 0 1em; }
+
+    // Links
+    a {
+      color: var(--freestyle-link-color);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      transition: color 0.2s ease;
+      &:hover { color: var(--freestyle-link-hover-color); }
+    }
+
+    // Lists
+    ul, ol {
+      margin: 0 0 1em 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: var(--freestyle-list-gap);
+    }
+    ul { list-style: disc; }
+    ol { list-style: decimal; }
+
+    // Blockquote
+    blockquote {
+      border-left: var(--freestyle-blockquote-border);
+      background: var(--freestyle-blockquote-bg);
+      color: var(--freestyle-blockquote-color);
+      padding: var(--freestyle-blockquote-padding);
+      margin: 1em 0;
+      border-radius: 0 4px 4px 0;
+      font-style: italic;
+    }
+
+    // Inline code
+    code {
+      background: var(--freestyle-code-bg);
+      padding: var(--freestyle-code-padding);
+      border-radius: var(--freestyle-code-radius);
+      font-family: var(--freestyle-code-font);
+      font-size: 0.9em;
+    }
+
+    // Code block
+    pre {
+      background: var(--freestyle-code-bg);
+      padding: 1rem 1.25rem;
+      border-radius: var(--freestyle-code-radius);
+      overflow-x: auto;
+      margin: 1em 0;
+      code { background: none; padding: 0; }
+    }
+
+    // Images
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--freestyle-img-radius);
+      display: block;
+      margin: 1em auto;
+    }
+
+    // HR
+    hr {
+      border: none;
+      border-top: 1px solid var(--color-divider, rgba(0, 0, 0, 0.15));
+      margin: 1.5em 0;
+    }
+  }
+}

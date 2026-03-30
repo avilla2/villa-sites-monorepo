@@ -1,0 +1,40 @@
+// ─── Gallery ─────────────────────────────────────────────────────────────────
+// CSS-columns masonry. No JS required — SSR safe.
+
+.gallery {
+  --gallery-padding-x: 5vw;
+  --gallery-gap:        8px;
+  --gallery-cols:       3;
+  --gallery-img-radius: 4px;
+  --gallery-title-size: 1.75rem;
+  --gallery-title-weight: 700;
+  --gallery-title-mb:   1.5rem;
+
+  padding: 0 var(--gallery-padding-x);
+  margin: 0 auto;
+
+  &__title {
+    font-size: var(--gallery-title-size);
+    font-weight: var(--gallery-title-weight);
+    margin-bottom: var(--gallery-title-mb);
+  }
+
+  &__grid {
+    column-count: var(--gallery-cols, 3);
+    column-gap: var(--gallery-gap, 8px);
+
+    @media (max-width: 900px) { column-count: 2; }
+    @media (max-width: 600px) { column-count: 1; }
+  }
+
+  &__item {
+    break-inside: avoid;
+    margin-bottom: var(--gallery-gap, 8px);
+  }
+
+  &__img {
+    width: 100%;
+    display: block;
+    border-radius: var(--gallery-img-radius, 4px);
+  }
+}

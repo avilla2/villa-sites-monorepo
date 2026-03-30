@@ -1,0 +1,83 @@
+// ─── FAQ Accordion ────────────────────────────────────────────────────────────
+
+.faq {
+  --faq-max-width:             760px;
+  --faq-padding-x:             5vw;
+  --faq-item-border:           1px solid rgba(0, 0, 0, 0.12);
+  --faq-trigger-bg:            transparent;
+  --faq-trigger-hover-bg:      rgba(0, 0, 0, 0.04);
+  --faq-trigger-color:         inherit;
+  --faq-trigger-active-color:  var(--color-accent, #c9a84c);
+  --faq-panel-bg:              transparent;
+  --faq-body-padding:          0.75rem 1rem 1.25rem;
+  --faq-radius:                4px;
+  --faq-title-size:            1.75rem;
+  --faq-title-weight:          700;
+  --faq-title-mb:              1.5rem;
+
+  max-width: var(--faq-max-width);
+  margin: 0 auto;
+  padding: 0 var(--faq-padding-x);
+
+  &__title {
+    font-size: var(--faq-title-size);
+    font-weight: var(--faq-title-weight);
+    margin-bottom: var(--faq-title-mb);
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: var(--faq-item-border);
+  }
+
+  &__item {
+    border-bottom: var(--faq-item-border);
+
+    &--open .faq__trigger { color: var(--faq-trigger-active-color); }
+    &--open .faq__icon    { transform: rotate(180deg); }
+  }
+
+  &__trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--faq-trigger-bg);
+    color: var(--faq-trigger-color);
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: inherit;
+    line-height: 1.4;
+    transition: background-color 0.2s ease, color 0.2s ease;
+
+    &:hover { background-color: var(--faq-trigger-hover-bg); }
+    &:focus-visible { outline: 2px solid var(--faq-trigger-active-color); outline-offset: -2px; }
+  }
+
+  &__question { flex: 1; }
+
+  &__icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+  }
+
+  &__panel {
+    overflow: hidden;
+    background: var(--faq-panel-bg);
+    transition: max-height 0.3s ease;
+  }
+
+  &__body {
+    padding: var(--faq-body-padding);
+    line-height: 1.6;
+  }
+}

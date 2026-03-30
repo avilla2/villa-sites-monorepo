@@ -64,26 +64,7 @@
   vertical-align: bottom;
 }
 
-// ── Slideshow ─────────────────────────────────────────────────────────────────
-.intro__slideshow {
-  position: absolute;
-  inset: 0;
-}
-
-// Each slide is stacked absolutely; only the active one is opaque
-.intro__slide {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity 1.2s ease;
-
-  &--active {
-    opacity: 1;
-  }
-}
+// ── Slideshow background — see _slideshow.scss (.slideshow--background) ──────
 
 // ── Text overlay wrapper ──────────────────────────────────────────────────────
 .intro__overlay {

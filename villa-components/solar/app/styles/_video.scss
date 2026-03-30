@@ -1,0 +1,31 @@
+// ─── Video ────────────────────────────────────────────────────────────────────
+
+.video {
+  --video-width:      100%;
+  --video-radius:     6px;
+  --video-caption-mt: 1rem;
+
+  width: 100%;
+  box-sizing: border-box;
+
+  &__player {
+    text-align: center;
+
+    video {
+      width: var(--video-width);
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--video-radius);
+      display: block;
+      margin: 0 auto;
+    }
+  }
+
+  &__caption {
+    margin-top: var(--video-caption-mt);
+  }
+
+  @media (max-width: 768px) {
+    &__player video { width: 100%; }
+  }
+}

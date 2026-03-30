@@ -1,0 +1,129 @@
+// ─── CTA ─────────────────────────────────────────────────────────────────────
+// Two-column: rich-text content (left) + optional media (right).
+// Variants: card (elevated), bordered, plain (default).
+
+.cta {
+  --cta-padding-x:      5vw;
+  --cta-padding-y:      3.5rem;
+  --cta-gap:            2.5rem;
+  --cta-content-flex:   60%;
+  --cta-media-flex:     38%;
+
+  --cta-card-bg:        var(--color-surface, #f9f9f9);
+  --cta-card-radius:    12px;
+  --cta-card-shadow:    0 4px 24px rgba(0, 0, 0, 0.10);
+  --cta-card-mx:        5vw;
+
+  --cta-border-color:   var(--color-border, #e0e0e0);
+  --cta-border-radius:  10px;
+
+  --cta-btn-radius:     4px;
+  --cta-btn-px:         1.5rem;
+  --cta-btn-py:         0.6rem;
+  --cta-btn-font-size:  0.9rem;
+  --cta-btn-weight:     600;
+
+  --cta-media-radius:   8px;
+
+  margin: 0 var(--cta-padding-x);
+  padding: var(--cta-padding-y) 0;
+
+  &--card {
+    background:    var(--cta-card-bg);
+    border-radius: var(--cta-card-radius);
+    box-shadow:    var(--cta-card-shadow);
+    padding:       var(--cta-padding-y) var(--cta-padding-x);
+    margin:        var(--cta-padding-y) var(--cta-card-mx);
+  }
+
+  &--bordered {
+    border:        1.5px solid var(--cta-border-color);
+    border-radius: var(--cta-border-radius);
+    background:    #ffffff;
+    padding:       var(--cta-padding-y) var(--cta-padding-x);
+    margin:        var(--cta-padding-y) var(--cta-padding-x);
+  }
+
+  &__inner {
+    display:        flex;
+    flex-direction: row;
+    gap:            var(--cta-gap, 2.5rem);
+    align-items:    center;
+
+    &--reversed       { flex-direction: row-reverse; }
+    &--justify-between { justify-content: space-between; }
+
+    @media (max-width: 768px) {
+      flex-direction: column !important; // stylelint-disable-line declaration-no-important
+    }
+  }
+
+  &__content {
+    flex:           0 0 var(--cta-content-flex, 60%);
+    display:        flex;
+    flex-direction: column;
+    gap:            1.5rem;
+
+    .cta__inner--justify-between & {
+      flex-direction: row;
+      align-items:    center;
+      flex:           1 1 auto;
+    }
+
+    @media (max-width: 768px) {
+      flex: 1 1 auto;
+      width: 100%;
+    }
+  }
+
+  &__body {
+    line-height: 1.7;
+
+    h1, h2, h3, h4, h5, h6 { margin: 0 0 0.5em; line-height: 1.25; }
+    p { margin: 0 0 0.75em; }
+    p:last-child { margin-bottom: 0; }
+  }
+
+  &__buttons {
+    display:   flex;
+    flex-wrap: wrap;
+    gap:       0.75rem;
+  }
+
+  &__btn {
+    display:         inline-flex;
+    align-items:     center;
+    text-decoration: none;
+    cursor:          pointer;
+    border:          1.5px solid var(--btn-color, var(--color-accent, #c9a84c));
+    color:           var(--btn-color, var(--color-accent, #c9a84c));
+    border-radius:   var(--cta-btn-radius, 4px);
+    padding:         var(--cta-btn-py, 0.6rem) var(--cta-btn-px, 1.5rem);
+    font-size:       var(--cta-btn-font-size, 0.9rem);
+    font-weight:     var(--cta-btn-weight, 600);
+    background:      transparent;
+    white-space:     nowrap;
+    transition:      background-color 0.2s ease, color 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      background-color: rgba(201, 168, 76, 0.12);
+      outline: none;
+    }
+  }
+
+  &__media {
+    flex: 0 0 var(--cta-media-flex, 38%);
+
+    @media (max-width: 768px) { width: 100%; flex: 1 1 auto; }
+
+    &--rounded .cta__img { border-radius: var(--cta-media-radius, 8px); }
+  }
+
+  &__img {
+    display:    block;
+    width:      100%;
+    height:     auto;
+    object-fit: cover;
+  }
+}

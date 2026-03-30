@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import ReactMarkdown from 'react-markdown'
 import { Link } from 'react-router'
 import isExternal from '../../../lib/isExternalLink'
+import Slideshow from './Slideshow'
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -10,31 +11,6 @@ const getMimeType = (mime) => mime?.split('/')[0]
 const POSITION_CLASS = {
   Centered: 'intro__overlay--centered',
   Bottom_Right: 'intro__overlay--bottom-right'
-}
-
-// ── Slideshow (crossfade, auto-advance every 5s) ──────────────────────────────
-function IntroSlideshow ({ files }) {
-  const [current, setCurrent] = useState(0)
-
-  useEffect(() => {
-    const id = setInterval(() => {
-      setCurrent(prev => (prev + 1) % files.length)
-    }, 5000)
-    return () => clearInterval(id)
-  }, [files.length])
-
-  return (
-    <div className="intro__slideshow">
-      {files.map((file, i) => (
-        <img
-          key={i}
-          className={`intro__slide${i === current ? ' intro__slide--active' : ''}`}
-          src={file.url}
-          alt={file.alternativeText || ''}
-        />
-      ))}
-    </div>
-  )
 }
 
 // ── Single media element ──────────────────────────────────────────────────────
@@ -77,7 +53,7 @@ function IntroBg ({ files, mobileFiles }) {
   if (!activeFiles?.length) return null
 
   return activeFiles.length > 1
-    ? <IntroSlideshow files={activeFiles} />
+    ? <Slideshow slides={activeFiles} background />
     : <IntroSingleMedia file={activeFiles[0]} />
 }
 

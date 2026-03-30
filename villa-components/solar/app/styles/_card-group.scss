@@ -1,0 +1,145 @@
+// ─── Card Group ───────────────────────────────────────────────────────────────
+// Auto-fill card grid. Two card styles: standard and overlay (slide-in panel).
+
+.card-group {
+  --card-group-padding-x:        5vw;
+  --card-group-gap:              1.5rem;
+  --card-min-width:              260px;
+  --card-radius:                 0.5rem;
+  --card-shadow:                 0 2px 8px rgba(0, 0, 0, 0.1);
+  --card-img-height:             160px;
+  --card-btn-radius:             0.25rem;
+  --card-btn-px:                 1.25rem;
+  --card-btn-py:                 0.5rem;
+  --card-group-title-size:       1.75rem;
+  --card-group-title-weight:     700;
+  --card-group-title-mb:         1.5rem;
+
+  padding: 0 var(--card-group-padding-x);
+  margin: 0 auto;
+
+  &__title {
+    font-size: var(--card-group-title-size);
+    font-weight: var(--card-group-title-weight);
+    margin: 0 0 var(--card-group-title-mb);
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width, 260px), 1fr));
+    gap: var(--card-group-gap, 1.5rem);
+    align-items: stretch;
+
+    &--full-width {
+      grid-template-columns: repeat(auto-fit, minmax(var(--card-min-width, 300px), 1fr));
+    }
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+// ── Card ──────────────────────────────────────────────────────────────────────
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--card-radius, 0.5rem);
+  box-shadow: var(--card-shadow, 0 2px 8px rgba(0, 0, 0, 0.1));
+  overflow: hidden;
+  height: 100%;
+
+  &__media {
+    overflow: hidden;
+    height: var(--card-img-height, 160px);
+    flex-shrink: 0;
+  }
+
+  &__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  &__content {
+    flex: 1;
+    padding: 1rem 1.25rem;
+  }
+
+  &__title {
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+  }
+
+  &__body {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    p { margin: 0 0 0.5em; }
+  }
+
+  &__actions { padding: 0.75rem 1.25rem 1.25rem; }
+
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    border: 1.5px solid var(--btn-color, var(--color-accent, #c9a84c));
+    color: var(--btn-color, var(--color-accent, #c9a84c));
+    background: transparent;
+    border-radius: var(--card-btn-radius, 0.25rem);
+    padding: var(--card-btn-py, 0.5rem) var(--card-btn-px, 1.25rem);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:hover { background-color: rgba(0, 0, 0, 0.06); }
+  }
+
+  // ── Overlay variant ────────────────────────────────────────────────────────
+  &--overlay {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    min-height: 275px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  &__overlay-title {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    font-weight: 700;
+    z-index: 1;
+    transition: opacity 0.2s ease;
+  }
+
+  &--overlay-open &__overlay-title {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &__overlay-panel {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1.5rem;
+    background: var(--card-overlay-panel-bg, rgba(30, 30, 30, 0.92));
+    z-index: 2;
+  }
+
+  &--overlay-open &__overlay-panel {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  &__overlay-content { flex: 1; overflow-y: auto; }
+}

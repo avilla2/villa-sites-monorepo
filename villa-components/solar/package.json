@@ -14,6 +14,7 @@
     "@base-ui/react": "^1.3.0",
     "@react-router/node": "7.12.0",
     "@react-router/serve": "7.12.0",
+    "@strapi/blocks-react-renderer": "^1.0.2",
     "@villa-components/graphql-queries": "file:../graphql-queries",
     "isbot": "^5.1.31",
     "react": "^18.2.0",
