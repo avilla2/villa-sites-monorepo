@@ -2,27 +2,33 @@ import React from 'react'
 import { useOutletContext } from 'react-router'
 import Page from '../components/pages/page'
 
-export function meta ({ data }) {
-  const context = data || {}
-  const website = context.website
+export function meta ({ matches }) {
+  // Get parent loader data (from root.jsx)
+  const rootData = matches.find(match => match.id === 'root')?.data
+  const website = rootData?.website
+
+  const siteTitle = website?.site_settings?.SiteTitle
+  const homepageTitle = website?.homepage?.Title
+  const siteDescription = website?.site_settings?.SiteDescription
+  const metadata = website?.site_settings?.SiteMetadata
 
   return [
-    { title: website?.homepage?.Title || 'Home' },
-    { name: 'description', content: website?.site_settings?.SiteTitle || 'Welcome' }
+    { title: homepageTitle ? `${homepageTitle} ${siteTitle}` : siteTitle || 'Page Not Found' },
+    { name: 'description', content: siteDescription || 'Site Description' },
+    { name: 'theme-color', content: metadata?.ThemeColor || '#000000' }
   ]
 }
 
 export default function Home () {
-  const { website, setPage } = useOutletContext()
+  const { website } = useOutletContext()
 
   if (!website) return null
 
   return (
     <Page
       content={website.homepage?.Content}
-      pageName={website.homepage?.PageName || 'Home'}
+      pageName={website.homepage?.PageName || ''}
       path="/"
-      setPage={setPage}
       siteName={website.name}
     />
   )

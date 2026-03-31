@@ -47,7 +47,6 @@ export default function Faq ({ content }) {
 
   return (
     <div className="faq">
-      {content.Title && <h2 className="faq__title">{content.Title}</h2>}
       <ul className="faq__list">
         {content.Entry.map((entry, index) => (
           <FaqItem

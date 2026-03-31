@@ -32,19 +32,17 @@ function getSectionPadding (typename, isLast) {
  * @param {import('../../../../components/src/types').ContentComponent[]} props.content
  * @param {string}   props.pageName
  * @param {string}   props.path      - URL path for analytics page_view event
- * @param {function} props.setPage   - Sets the page title in the layout
  * @param {string}   [props.siteName]
  */
-export default function HomePage ({ content, pageName, path, setPage, siteName }) {
+export default function Page ({ content, pageName, path, siteName }) {
   useEffect(() => {
-    setPage(pageName)
     if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
       window.gtag('event', 'page_view', {
         page_path: path,
         page_title: pageName
       })
     }
-  }, [pageName, path, setPage])
+  }, [pageName, path])
 
   if (!content?.length) return null
 

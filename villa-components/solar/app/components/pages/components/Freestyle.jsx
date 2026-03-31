@@ -12,7 +12,6 @@ export default function Freestyle ({ content }) {
 
   return (
     <div className="freestyle">
-      {content.Title && <h2 className="freestyle__title">{content.Title}</h2>}
       <div className="freestyle__body">
         <BlocksRenderer content={content.RichText} />
       </div>

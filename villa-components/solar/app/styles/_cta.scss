@@ -25,8 +25,9 @@
 
   --cta-media-radius:   8px;
 
-  margin: 0 var(--cta-padding-x);
-  padding: var(--cta-padding-y) 0;
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: var(--cta-padding-y) var(--cta-padding-x);
 
   &--card {
     background:    var(--cta-card-bg);

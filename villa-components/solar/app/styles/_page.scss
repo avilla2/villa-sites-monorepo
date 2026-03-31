@@ -20,7 +20,9 @@
 
 // Section-level title rendered above non-full-height components
 .page__section-title {
-  margin: 0 var(--page-section-title-margin-x) 0.5em;
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 0 var(--page-section-title-margin-x) 0.5em;
   font-size: var(--page-section-title-font-size);
   font-weight: var(--page-section-title-weight);
   line-height: var(--page-section-title-line-height);

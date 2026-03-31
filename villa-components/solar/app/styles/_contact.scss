@@ -18,10 +18,10 @@
   --contact-btn-px:             1.25rem;
   --contact-btn-py:             0.6rem;
 
+  max-width: 1920px;
+  margin: 0 auto;
   padding-left: var(--contact-padding-x);
   padding-right: var(--contact-padding-x);
-  margin: 0 auto;
-  max-width: 800px;
 
   &__title {
     font-size: 1.75rem;

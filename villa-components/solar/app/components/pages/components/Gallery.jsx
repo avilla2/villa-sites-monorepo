@@ -9,7 +9,6 @@ export default function Gallery ({ content }) {
 
   return (
     <div className="gallery">
-      {content.Title && <h2 className="gallery__title">{content.Title}</h2>}
       <div className="gallery__grid">
         {content.Pictures.map((picture, index) => (
           <div className="gallery__item" key={index}>

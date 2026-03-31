@@ -10,7 +10,6 @@ export default function PictureGrid ({ content }) {
 
   return (
     <div className="picture-grid">
-      {content.Title && <h2 className="picture-grid__title">{content.Title}</h2>}
       <div className="picture-grid__grid">
         {content.Entry.map((entry, index) => (
           <div key={index} className="picture-grid__item">

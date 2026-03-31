@@ -178,10 +178,8 @@ export default function Navbar ({
             </div>
           )}
         </header>
-        {/* Spacer so page content starts below the fixed bar — omitted when navbar is transparent */}
-        {!isTransparent && (
-          <div style={{ height: desktopBarHeight }} aria-hidden="true" />
-        )}
+        {/* Spacer so page content starts below the fixed bar - height is 0 when transparent */}
+        <div style={{ height: isTransparent ? 0 : desktopBarHeight }} aria-hidden="true" />
       </div>
 
       {/* ── Mobile ───────────────────────────────────────────────────────── */}
@@ -229,10 +227,8 @@ export default function Navbar ({
             />
           </div>
         </header>
-        {/* Dynamic spacer matching measured bar height — omitted when navbar is transparent */}
-        {!isTransparent && (
-          <div style={{ height: mobileBarHeight }} aria-hidden="true" />
-        )}
+        {/* Dynamic spacer matching measured bar height - height is 0 when transparent */}
+        <div style={{ height: isTransparent ? 0 : mobileBarHeight }} aria-hidden="true" />
       </div>
     </div>
   )

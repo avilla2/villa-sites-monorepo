@@ -36,8 +36,10 @@
   border-radius: var(--slideshow-radius);
   background-color: var(--slideshow-bg);
 
-  // Aspect ratio only applies to the standalone page variant
+  // Aspect ratio and max-width only apply to the standalone page variant
   &:not(.slideshow--background) {
+    max-width: 1920px;
+    margin: 0 auto;
     aspect-ratio: var(--slideshow-aspect-ratio);
   }
 }

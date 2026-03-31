@@ -33,7 +33,6 @@ export default function List ({ content }) {
 
   return (
     <div className="list">
-      {content.Title && <h2 className="list__title">{content.Title}</h2>}
       <div className={`list__layout${hasCaption ? '' : ' list__layout--full'}`}>
         {hasCaption && (
           <div className="list__caption">

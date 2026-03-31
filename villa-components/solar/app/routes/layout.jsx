@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Outlet, useOutletContext, useNavigate, useLocation } from 'react-router'
 import Navbar from '../components/navbar/Navbar'
 import Footer from '../components/footer/Footer'
@@ -7,8 +7,23 @@ export default function Layout () {
   const { website } = useOutletContext()
   const navigate = useNavigate()
   const location = useLocation()
-  const [page, setPage] = useState('Home')
   const isContentPage = location.pathname !== '/'
+
+  // Derive page name from location and website data
+  const getPageName = () => {
+    if (location.pathname === '/') {
+      return website?.homepage?.PageName || 'Home'
+    }
+    if (location.pathname === '/sitemap') {
+      return 'Site Map'
+    }
+    const contentPage = website?.content_pages?.find(
+      page => page.Link === location.pathname
+    )
+    return contentPage?.Title || 'Not Found'
+  }
+
+  const page = getPageName()
 
   if (!website) {
     return <div>Loading...</div>
@@ -35,7 +50,7 @@ export default function Layout () {
       )}
 
       {/* Page Content */}
-      <Outlet context={{ website, page, setPage }} />
+      <Outlet context={{ website }} />
 
       {/* Footer */}
       {website.footer && (

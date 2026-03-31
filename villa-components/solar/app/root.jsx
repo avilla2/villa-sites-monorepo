@@ -6,7 +6,8 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useLoaderData
+  useLoaderData,
+  useRouteLoaderData
 } from 'react-router'
 import { ApolloProvider } from '@apollo/client/react'
 import { apolloClient } from './lib/apollo'
@@ -38,20 +39,38 @@ export async function loader ({ request }) {
   }
 }
 
-export const links = () => [
-  { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-  {
-    rel: 'preconnect',
-    href: 'https://fonts.gstatic.com',
-    crossOrigin: 'anonymous'
-  },
-  {
-    rel: 'stylesheet',
-    href: 'https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Racing+Sans+One&display=swap'
-  }
-]
+export function meta ({ data } = {}) {
+  const website = data?.website
+  const metadata = website?.site_settings?.SiteMetadata
+
+  return [
+    { title: website?.site_settings?.SiteTitle || 'Website' },
+    {
+      name: 'description',
+      content: website?.site_settings?.SiteDescription || 'Professional websites'
+    },
+    { name: 'theme-color', content: metadata?.ThemeColor || '#000000' }
+  ]
+}
+
+export function links ({ data } = {}) {
+  // Static font preconnects only
+  return [
+    { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+    {
+      rel: 'preconnect',
+      href: 'https://fonts.gstatic.com',
+      crossOrigin: 'anonymous'
+    }
+  ]
+}
 
 export function Layout ({ children }) {
+  const data = useRouteLoaderData('root')
+  const website = data?.website
+  const metadata = website?.site_settings?.SiteMetadata
+  const googleFontURL = metadata?.GoogleFontURL || 'https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Racing+Sans+One&display=swap'
+
   return (
     <html lang="en">
       <head>
@@ -59,6 +78,11 @@ export function Layout ({ children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
+        {/* Dynamic metadata links */}
+        <link rel="stylesheet" href={googleFontURL} />
+        {metadata?.Favicon?.url && <link rel="icon" href={metadata.Favicon.url} />}
+        {metadata?.AppleTouchIcon?.url && <link rel="apple-touch-icon" href={metadata.AppleTouchIcon.url} />}
+        {metadata?.Manifest?.url && <link rel="manifest" href={metadata.Manifest.url} />}
       </head>
       <body>
         {children}

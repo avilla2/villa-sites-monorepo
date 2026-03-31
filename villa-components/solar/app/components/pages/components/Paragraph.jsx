@@ -12,7 +12,6 @@ export default function Paragraph ({ content }) {
 
   return (
     <div className="paragraph">
-      {content.Title && <h2 className="paragraph__title">{content.Title}</h2>}
       <div className="paragraph__body">
         <ReactMarkdown>{content.Body}</ReactMarkdown>
       </div>

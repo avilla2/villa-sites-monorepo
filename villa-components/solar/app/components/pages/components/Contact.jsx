@@ -98,7 +98,6 @@ export default function Contact ({ content, siteName }) {
 
   return (
     <div className="contact">
-      {content.Title && <h2 className="contact__title">{content.Title}</h2>}
       <form className="contact__form" noValidate>
         <div className="contact__fields">
           {content.formFields.map(field => (
