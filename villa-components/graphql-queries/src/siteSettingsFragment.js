@@ -12,6 +12,20 @@ fragment SiteSettingsFragment on WebsiteSetting {
     warning
     info
   }
+  SiteDescription
+  SiteMetadata {
+    ThemeColor
+    GoogleFontURL
+    Favicon {
+      url
+    }
+    Manifest {
+      url
+    }
+    AppleTouchIcon {
+      url
+    }
+  }
 }
 `
 
