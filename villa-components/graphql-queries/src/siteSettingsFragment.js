@@ -5,6 +5,7 @@ fragment SiteSettingsFragment on WebsiteSetting {
   DesktopBreakpoint
   EnableLocalization
   SiteTitle
+  gTag
   Palette {
     primary
     success

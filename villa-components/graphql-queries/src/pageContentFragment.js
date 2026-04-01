@@ -213,6 +213,7 @@ fragment Content on ContentPageContentDynamicZone {
   ... on ComponentContentPageComponentsCardGroup {
     Title
     fullWidth
+    CardGroupStyle
     Cards {
       Image {
         url
