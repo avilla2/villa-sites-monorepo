@@ -1,10 +1,8 @@
 // Map hostnames to Strapi website document IDs
 const HOSTNAME_TO_WEBSITE_ID = {
   localhost: 'gphzmmnxs62yz5xy17mlnjpn', // demo-site
-  '127.0.0.1': 'gphzmmnxs62yz5xy17mlnjpn' // demo-site
-  // Add more mappings as needed:
-  // 'pacwest.com': 'pacwest-site-id',
-  // 'buildpro.com': 'buildpro-site-id',
+  '127.0.0.1': 'gphzmmnxs62yz5xy17mlnjpn', // demo-site
+  'losvaldiviaslandscaping.com': 'ulbqjd1omixehd4gjnitqgg7' // Replace with actual website ID
 }
 
 export function getWebsiteIdFromHostname (hostname) {

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useOutletContext } from 'react-router'
-import Page from '../components/pages/page'
+import Page from '../components/pages/Page'
 
 export function meta ({ matches }) {
   // Get parent loader data (from root.jsx)

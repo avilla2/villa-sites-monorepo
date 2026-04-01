@@ -1,6 +1,6 @@
 import React from 'react'
 import { useOutletContext, useParams } from 'react-router'
-import Page from '../components/pages/page'
+import Page from '../components/pages/Page'
 import NotFound from '../components/pages/NotFound'
 
 export function meta ({ params, matches }) {
