@@ -1,15 +1,12 @@
-import React, { useEffect } from 'react'
-import { useOutletContext } from 'react-router'
+import React from 'react'
 import NotFound from '../components/pages/NotFound'
+import { getWebsiteFromMatches, buildSiteMeta } from '../lib/siteMeta'
 
-export function meta () {
-  return [{ title: 'Page Not Found' }]
+export function meta ({ matches }) {
+  const website = getWebsiteFromMatches(matches)
+  return buildSiteMeta(website, 'Page Not Found')
 }
 
 export default function NotFoundRoute () {
-  const { setPage } = useOutletContext()
-
-  useEffect(() => { setPage('Not Found') }, [])
-
   return <NotFound />
 }

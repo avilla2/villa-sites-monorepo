@@ -46,10 +46,14 @@ npm run build
 To build and run using Docker:
 
 ```bash
-docker build -t my-app .
+cd ../villa-components
+docker build -t solar -f solar/Dockerfile .
 
 # Run the container
-docker run -p 3000:3000 my-app
+docker run -p 3000:3000 \
+  -e BACKEND_URL=https://api.villawebsolutions.com \
+  -e API_TOKEN=your_token_here \
+  solar
 ```
 
 The containerized application can be deployed to any platform that supports Docker, including:

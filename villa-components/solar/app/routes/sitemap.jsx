@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useOutletContext } from 'react-router'
 import Sitemap from '../components/pages/Sitemap'
+import { getWebsiteFromMatches, buildSiteMeta } from '../lib/siteMeta'
 
-export function meta () {
-  return [{ title: 'Site Map' }]
+export function meta ({ matches }) {
+  const website = getWebsiteFromMatches(matches)
+  return buildSiteMeta(website, 'Site Map')
 }
 
 export default function SitemapRoute () {
-  const { website, setPage } = useOutletContext()
-
-  useEffect(() => { setPage('Site Map') }, [])
+  const { website } = useOutletContext()
 
   return <Sitemap contentPages={website?.content_pages || []} />
 }

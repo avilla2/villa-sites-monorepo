@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useFetcher } from 'react-router'
 
 const SendIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -18,11 +19,21 @@ export default function Contact ({ content, siteName }) {
   const defaultData = Object.fromEntries(content.formFields.map(f => [f.name, '']))
   const defaultErrors = Object.fromEntries(content.formFields.map(f => [f.name, false]))
 
+  const fetcher = useFetcher()
   const [data, setData] = useState(defaultData)
   const [errors, setErrors] = useState({ ...defaultErrors, body: false })
   const [body, setBody] = useState('')
-  const [status, setStatus] = useState('idle')
-  const [loading, setLoading] = useState(false)
+
+  const loading = fetcher.state !== 'idle'
+  const status = fetcher.data?.ok === true
+    ? 'success'
+    : fetcher.data?.ok === false
+      ? 'failure'
+      : 'idle'
+
+  useEffect(() => {
+    if (fetcher.data?.ok === true) clearForm()
+  }, [fetcher.data])
 
   const handleChange = (name, value) => {
     setData(prev => ({ ...prev, [name]: value }))
@@ -50,49 +61,31 @@ export default function Contact ({ content, siteName }) {
 
     if (hasError) { setErrors(newErrors); return }
 
-    setLoading(true)
-    setStatus('idle')
+    const subjectLine = content.formFields
+      .filter(f => f.includeInSubjectLine && data[f.name])
+      .map(f => data[f.name])
+      .join(' ') || 'Unknown'
 
-    try {
-      const subjectLine = content.formFields
-        .filter(f => f.includeInSubjectLine && data[f.name])
-        .map(f => data[f.name])
-        .join(' ') || 'Unknown'
+    const emailBody = [
+      ...content.formFields.map(f => `${f.label}: ${data[f.name]}`),
+      '',
+      `${content.bodyTitle || 'Message'}:`,
+      body
+    ]
 
-      const emailBody = [
-        ...content.formFields.map(f => `${f.label}: ${data[f.name]}`),
-        '',
-        `${content.bodyTitle || 'Message'}:`,
-        body
-      ]
+    fetcher.submit(
+      JSON.stringify({
+        to: content.sendTo,
+        from: content.sendFrom,
+        replyTo: data.email || null,
+        subject: `${siteName}: Contact Form from ${subjectLine}`,
+        text: emailBody.join('\n')
+      }),
+      { method: 'POST', action: '/send-email', encType: 'application/json' }
+    )
 
-      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/email`, {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-          Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`
-        },
-        body: JSON.stringify({
-          to: content.sendTo,
-          from: content.sendFrom,
-          replyTo: data.email || null,
-          subject: `${siteName}: Contact Form from ${subjectLine}`,
-          text: emailBody.join('\n')
-        })
-      })
-
-      if (!res.ok) throw new Error('Request failed')
-
-      setStatus('success')
-      clearForm()
-
-      if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
-        window.gtag('event', 'form_submission', { form_type: 'contact_form' })
-      }
-    } catch {
-      setStatus('failure')
-    } finally {
-      setLoading(false)
+    if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+      window.gtag('event', 'form_submission', { form_type: 'contact_form' })
     }
   }
 
