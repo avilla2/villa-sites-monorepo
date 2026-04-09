@@ -53,7 +53,7 @@ export function meta ({ data } = {}) {
   ]
 }
 
-export function links ({ data } = {}) {
+export function links () {
   // Static font preconnects only
   return [
     { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -69,17 +69,18 @@ export function Layout ({ children }) {
   const data = useRouteLoaderData('root')
   const website = data?.website
   const metadata = website?.site_settings?.SiteMetadata
-  const googleFontURL = metadata?.GoogleFontURL || 'https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Racing+Sans+One&display=swap'
+  // const googleFontURL = metadata?.GoogleFontURL
   const gTag = metadata?.gTag
 
   return (
-    <html lang="en">
-      <head>
+    <html lang="en" suppressHydrationWarning>
+      <head suppressHydrationWarning>
         {/* Google tag (gtag.js) */}
         {gTag && (
           <>
             <script async src={`https://www.googletagmanager.com/gtag/js?id=${gTag}`}></script>
             <script
+              suppressHydrationWarning
               dangerouslySetInnerHTML={{
                 __html: `
                   window.dataLayer = window.dataLayer || [];
@@ -96,13 +97,11 @@ export function Layout ({ children }) {
         <Meta />
         <Links />
         {/* Dynamic metadata links */}
-        <link rel="stylesheet" href={googleFontURL} />
-        {metadata?.Favicon?.url && <link rel="icon" href={metadata.Favicon.url} />}
-        {metadata?.AppleTouchIcon?.url && <link rel="apple-touch-icon" href={metadata.AppleTouchIcon.url} />}
-        {metadata?.Manifest?.url && <link rel="manifest" href={metadata.Manifest.url} />}
       </head>
-      <body>
-        {children}
+      <body suppressHydrationWarning>
+        <ApolloProvider client={apolloClient}>
+          {children}
+        </ApolloProvider>
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -114,9 +113,7 @@ export default function App () {
   const { website } = useLoaderData()
 
   return (
-    <ApolloProvider client={apolloClient}>
-      <Outlet context={{ website }} />
-    </ApolloProvider>
+    <Outlet context={{ website }} />
   )
 }
 
@@ -129,9 +126,11 @@ export function ErrorBoundary ({ error }) {
   if (isRouteErrorResponse(error)) {
     message = `Error ${error.status}`
     details = error.statusText || details
-  } else if (import.meta.env.DEV && error && error instanceof Error) {
+  } else if (error && error instanceof Error) {
     details = error.message
-    stack = error.stack
+    if (import.meta.env.DEV || process?.env?.VITE_DEBUG === 'true') {
+      stack = error.stack
+    }
   }
 
   return (

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import ReactMarkdown from 'react-markdown'
 
 /**
@@ -6,6 +6,9 @@ import ReactMarkdown from 'react-markdown'
  * @param {import('../../../../../components/src/types').GridComponent} props.content
  */
 export default function PictureGrid ({ content }) {
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => { setMounted(true) }, [])
+
   if (!content?.Entry?.length) return null
 
   return (
@@ -22,7 +25,10 @@ export default function PictureGrid ({ content }) {
             )}
             {entry.Caption && (
               <div className="picture-grid__caption">
-                <ReactMarkdown>{entry.Caption}</ReactMarkdown>
+                {mounted
+                  ? <ReactMarkdown>{entry.Caption}</ReactMarkdown>
+                  : <p>{entry.Caption}</p>
+                }
               </div>
             )}
           </div>

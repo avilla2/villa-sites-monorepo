@@ -47,13 +47,21 @@ To build and run using Docker:
 
 ```bash
 cd ../villa-components
-docker build -t solar -f solar/Dockerfile .
+export CR_PAT=<token>
+echo $CR_PAT | docker login ghcr.io -u avilla2 --password-stdin
+docker build -t ghcr.io/avilla2/solar -f solar/Dockerfile .
+
+
 
 # Run the container
 docker run -p 3000:3000 \
-  -e BACKEND_URL=https://api.villawebsolutions.com \
+  -e BACKEND_URL=http://localhost:1337 \
   -e API_TOKEN=your_token_here \
-  solar
+  ghcr.io/avilla2/solar
+
+# Deploy container
+
+docker push ghcr.io/avilla2/solar:latest
 ```
 
 The containerized application can be deployed to any platform that supports Docker, including:
