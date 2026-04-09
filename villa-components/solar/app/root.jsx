@@ -73,14 +73,13 @@ export function Layout ({ children }) {
   const gTag = metadata?.gTag
 
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head suppressHydrationWarning>
+    <html lang="en">
+      <head>
         {/* Google tag (gtag.js) */}
         {gTag && (
           <>
             <script async src={`https://www.googletagmanager.com/gtag/js?id=${gTag}`}></script>
             <script
-              suppressHydrationWarning
               dangerouslySetInnerHTML={{
                 __html: `
                   window.dataLayer = window.dataLayer || [];
@@ -98,7 +97,7 @@ export function Layout ({ children }) {
         <Links />
         {/* Dynamic metadata links */}
       </head>
-      <body suppressHydrationWarning>
+      <body>
         <ApolloProvider client={apolloClient}>
           {children}
         </ApolloProvider>
@@ -126,11 +125,9 @@ export function ErrorBoundary ({ error }) {
   if (isRouteErrorResponse(error)) {
     message = `Error ${error.status}`
     details = error.statusText || details
-  } else if (error && error instanceof Error) {
+  } else if (import.meta.env.DEV && error && error instanceof Error) {
     details = error.message
-    if (import.meta.env.DEV || process?.env?.VITE_DEBUG === 'true') {
-      stack = error.stack
-    }
+    stack = error.stack
   }
 
   return (
