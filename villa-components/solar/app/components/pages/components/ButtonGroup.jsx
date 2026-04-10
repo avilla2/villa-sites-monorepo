@@ -28,6 +28,8 @@ export default function ButtonGroup ({ content }) {
       ? 'btn-group__btn--contained'
       : 'btn-group__btn--outlined'
 
+  const textColor = Style?.TextColor
+
   return (
     <div className="btn-group">
       <div
@@ -36,7 +38,11 @@ export default function ButtonGroup ({ content }) {
       >
         {Entry.map((entry, i) => {
           const btnClass = `btn-group__btn ${btnStyleMod}`
-          const style = entry.ButtonColor ? { '--btn-color': entry.ButtonColor } : undefined
+          const style = {
+            ...(entry.ButtonColor ? { '--btn-color': entry.ButtonColor } : {}),
+            ...(textColor ? { '--btn-text-color': textColor } : {})
+          }
+          const hasStyle = Object.keys(style).length > 0 ? style : undefined
 
           return isExternalLink(entry.Link)
             ? (
@@ -44,7 +50,7 @@ export default function ButtonGroup ({ content }) {
               key={i}
               href={entry.Link}
               className={btnClass}
-              style={style}
+              style={hasStyle}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -52,7 +58,7 @@ export default function ButtonGroup ({ content }) {
             </a>
               )
             : (
-            <Link key={i} to={entry.Link} className={btnClass} style={style}>
+            <Link key={i} to={entry.Link} className={btnClass} style={hasStyle}>
               {entry.Text}
             </Link>
               )

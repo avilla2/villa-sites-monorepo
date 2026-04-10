@@ -10,7 +10,7 @@
   --navbar-shadow:              0 2px 8px rgba(0, 0, 0, 0.25);
   --navbar-transition:          background-color 0.3s ease, box-shadow 0.3s ease;
   --navbar-z:                   1100;
-  --navbar-font-family:         inherit;
+  --navbar-font-family:         var(--font-heading, inherit);
   --navbar-font-size:           1rem;
 
   // Links
@@ -153,10 +153,9 @@ $breakpoints: (xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536);
     > * { flex: 1; }
   }
 
-  // Spaced: flush left, first item (logo) gets remaining space
+  // Spaced: items centered across the full toolbar width
   &--spaced {
-    justify-content: flex-start;
-    > *:first-child { flex: 1; }
+    justify-content: center;
   }
 
   // Left aligned: all items flush left
@@ -252,6 +251,7 @@ $breakpoints: (xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536);
 
 // ── NavLink – slide-reveal animation ─────────────────────────────────────────
 .nav-link {
+  justify-content: center;
   display: inline-flex;
   align-items: center;
   text-decoration: none;

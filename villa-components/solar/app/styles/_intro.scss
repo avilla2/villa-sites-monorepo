@@ -135,6 +135,7 @@
 .intro__text {
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--intro-heading-font);
+    font-weight: normal;
     line-height: 1.2;
     margin: 0 0 0.4em;
   }
@@ -147,6 +148,7 @@
   p {
     margin: 0 0 0.9em;
     line-height: 1.6;
+    font-weight: normal;
   }
 
   strong { font-weight: 700; }

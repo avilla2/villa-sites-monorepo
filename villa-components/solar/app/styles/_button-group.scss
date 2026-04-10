@@ -30,6 +30,7 @@
       .btn-group__btn {
         border-radius: 0;
 
+        &:only-child  { border-radius: var(--btn-group-radius); }
         &:first-child { border-radius: var(--btn-group-radius) 0 0 var(--btn-group-radius); }
         &:last-child  { border-radius: 0 var(--btn-group-radius) var(--btn-group-radius) 0; }
         &:not(:last-child) { border-right: none; }
@@ -58,18 +59,18 @@
     &--outlined {
       background-color: transparent;
       border: 2px solid var(--btn-color);
-      color: var(--btn-color);
+      color: var(--btn-text-color, var(--btn-color));
 
       &:hover {
         background-color: var(--btn-color);
-        color: #fff;
+        color: var(--btn-text-color, #fff);
       }
     }
 
     &--contained {
       background-color: var(--btn-color);
       border: 2px solid var(--btn-color);
-      color: #fff;
+      color: var(--btn-text-color, #fff);
 
       &:hover { opacity: 0.85; }
     }
