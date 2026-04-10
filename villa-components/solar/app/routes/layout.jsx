@@ -12,7 +12,7 @@ export default function Layout () {
   // Derive page name from location and website data
   const getPageName = () => {
     if (location.pathname === '/') {
-      return website?.homepage?.PageName || 'Home'
+      return website?.homepage?.Title || 'Home'
     }
     if (location.pathname === '/sitemap') {
       return 'Site Map'

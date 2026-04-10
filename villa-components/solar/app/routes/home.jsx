@@ -5,7 +5,7 @@ import { getWebsiteFromMatches, buildSiteMeta } from '../lib/siteMeta'
 
 export function meta ({ matches }) {
   const website = getWebsiteFromMatches(matches)
-  return buildSiteMeta(website, website?.homepage?.Title)
+  return buildSiteMeta(website, website?.homepage?.PageName)
 }
 
 export default function Home () {
@@ -16,7 +16,7 @@ export default function Home () {
   return (
     <Page
       content={website.homepage?.Content}
-      pageName={website.homepage?.PageName || ''}
+      pageName={website.homepage?.Title || ''}
       path="/"
       siteName={website.name}
     />

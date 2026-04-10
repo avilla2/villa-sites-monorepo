@@ -18,9 +18,10 @@ export default function ButtonGroup ({ content }) {
         ? 'btn-group__row--spaced'
         : null
 
+  const alignMap = { left: 'flex-start', right: 'flex-end', center: 'center' }
   const justifyContent =
-    !ButtonArrangement || ButtonArrangement === 'default'
-      ? (Style?.textAlign ?? 'center')
+    ButtonArrangement !== 'spaced_evenly'
+      ? (alignMap[Style?.textAlign] ?? 'center')
       : undefined
 
   const btnStyleMod =

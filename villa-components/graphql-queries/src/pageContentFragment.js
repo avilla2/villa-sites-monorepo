@@ -294,6 +294,9 @@ fragment Content on ContentPageContentDynamicZone {
       ...StyleFragment
     }
   }
+  ... on ComponentContentPageComponentsCustom {
+    componentName
+  }
 }
 `
 export default PAGE_CONTENT_FRAGMENT

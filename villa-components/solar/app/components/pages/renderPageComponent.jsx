@@ -13,6 +13,7 @@ import List from './components/List'
 import Cta from './components/Cta'
 import CardGroup from './components/CardGroup'
 import Contact from './components/Contact'
+import Custom from './components/Custom'
 
 /**
  * Renders the correct page component for a given content block.
@@ -52,6 +53,8 @@ export default function renderPageComponent (component, siteName) {
       return <CardGroup content={component} />
     case 'ComponentContentPageComponentsForm':
       return <Contact content={component} siteName={siteName} />
+    case 'ComponentContentPageComponentsCustom':
+      return <Custom content={component} />
     default:
       // Unimplemented component types are silently skipped for now
       return null

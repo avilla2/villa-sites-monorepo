@@ -26,6 +26,10 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(var(--picture-grid-min-col, 260px), 1fr));
     gap: var(--picture-grid-gap, 1.5rem);
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 
   &__item {

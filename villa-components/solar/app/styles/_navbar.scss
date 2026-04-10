@@ -102,6 +102,24 @@ $breakpoints: (xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536);
   &--transparent {
     background-color: transparent !important;
     box-shadow: none !important;
+
+    // Text shadow for items not already covered by the --shadow prop
+    .navbar__hamburger svg,
+    .navbar__back-btn svg {
+      filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.55));
+    }
+
+    .navbar__mobile-title {
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.55);
+    }
+
+    .nav-button {
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.55);
+    }
+
+    .nav-button-icon__img {
+      filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.55));
+    }
   }
 }
 
@@ -325,6 +343,7 @@ $breakpoints: (xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536);
 
 // ── NavButtonIcon – logo/image link ──────────────────────────────────────────
 .nav-button-icon {
+  justify-content: center;
   display: inline-flex;
   align-items: center;
   text-decoration: none;

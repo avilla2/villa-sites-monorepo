@@ -1,0 +1,197 @@
+// ─── Intake Form ──────────────────────────────────────────────────────────────
+// Multi-section structured form used by custom components.
+// Scope: .intake-form
+
+.intake-form {
+  --intake-padding-x:           5vw;
+  --intake-max-width:           860px;
+  --intake-gap:                 1rem;
+  --intake-section-gap:         2rem;
+  --intake-input-radius:        4px;
+  --intake-input-border:        1px solid rgba(255, 255, 255, 0.18);
+  --intake-input-border-focus:  var(--color-accent, #5a8f3c);
+  --intake-input-bg:            rgba(255, 255, 255, 0.06);
+  --intake-input-color:         inherit;
+  --intake-input-padding:       0.6rem 0.75rem;
+  --intake-label-size:          0.875rem;
+  --intake-section-border:      var(--color-accent, #5a8f3c);
+  --intake-error-color:         #f44336;
+  --intake-success-color:       #4caf50;
+  --intake-btn-bg:              var(--color-accent, #5a8f3c);
+  --intake-btn-color:           #fff;
+  --intake-btn-radius:          4px;
+
+  max-width: var(--intake-max-width);
+  margin: 0 auto;
+  padding: 2rem var(--intake-padding-x);
+
+  &__title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+    line-height: 1.2;
+  }
+
+  &__subtitle {
+    font-size: 1rem;
+    opacity: 0.72;
+    margin: 0 0 2.5rem;
+    line-height: 1.6;
+  }
+
+  // ── Sections ───────────────────────────────────────────────────────────────
+  &__section {
+    margin-bottom: var(--intake-section-gap);
+  }
+
+  &__section-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    padding-bottom: 0.5rem;
+    margin: 0 0 0.3rem;
+    border-bottom: 2px solid var(--intake-section-border);
+    line-height: 1.3;
+  }
+
+  &__section-hint {
+    font-size: 0.82rem;
+    opacity: 0.65;
+    margin: 0.35rem 0 1rem;
+  }
+
+  // ── Grid for contact fields ────────────────────────────────────────────────
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--intake-gap);
+
+    @media (max-width: 600px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+
+    &--full { grid-column: 1 / -1; }
+  }
+
+  &__label {
+    font-size: var(--intake-label-size);
+    font-weight: 500;
+  }
+
+  &__input,
+  &__textarea {
+    width: 100%;
+    padding: var(--intake-input-padding);
+    border: var(--intake-input-border);
+    border-radius: var(--intake-input-radius);
+    background: var(--intake-input-bg);
+    color: var(--intake-input-color);
+    font-size: 1rem;
+    font-family: inherit;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    &::placeholder { opacity: 0.45; }
+
+    &:focus {
+      outline: none;
+      border-color: var(--intake-input-border-focus);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--intake-input-border-focus) 25%, transparent);
+    }
+
+    &--error { border-color: var(--intake-error-color) !important; }
+  }
+
+  &__textarea {
+    resize: vertical;
+    min-height: 130px;
+  }
+
+  &__error-msg {
+    font-size: 0.78rem;
+    color: var(--intake-error-color);
+  }
+
+  // ── Checkbox / radio groups ────────────────────────────────────────────────
+  &__check-group,
+  &__radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+
+  &__check-item,
+  &__radio-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    cursor: pointer;
+    font-size: 0.95rem;
+    line-height: 1.4;
+
+    input[type='checkbox'],
+    input[type='radio'] {
+      width: 1.05rem;
+      height: 1.05rem;
+      accent-color: var(--intake-section-border);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    &--disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      input { cursor: not-allowed; }
+    }
+  }
+
+  &__other-input {
+    margin-top: 0.75rem;
+  }
+
+  // ── Submit row ─────────────────────────────────────────────────────────────
+  &__submit {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1.5rem;
+  }
+
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.75rem;
+    background-color: var(--intake-btn-bg);
+    color: var(--intake-btn-color);
+    border: none;
+    border-radius: var(--intake-btn-radius);
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+
+    &:hover:not(:disabled) { opacity: 0.85; }
+    &:disabled { opacity: 0.5; cursor: not-allowed; }
+  }
+
+  // ── Status messages ────────────────────────────────────────────────────────
+  &__status {
+    margin-top: 1.25rem;
+  }
+
+  &__success {
+    color: var(--intake-success-color);
+    font-weight: 500;
+  }
+
+  &__failure {
+    color: var(--intake-error-color);
+    font-weight: 500;
+  }
+}
