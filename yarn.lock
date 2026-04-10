@@ -5026,6 +5026,8 @@
 
 "@villa-components/graphql-queries@file:villa-components/graphql-queries":
   version "1.0.0"
+  dependencies:
+    graphql-tag "^2.0.0"
 
 "@webassemblyjs/ast@1.12.1", "@webassemblyjs/ast@^1.11.5":
   version "1.12.1"
