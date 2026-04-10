@@ -11,7 +11,7 @@ import {
 } from 'react-router'
 import { ApolloProvider } from '@apollo/client/react'
 import { apolloClient } from './lib/apollo'
-import { getWebsiteIdFromHostname } from './lib/websiteMapping'
+import { getWebsiteIdFromHostname, getSiteNameFromHostname } from './lib/websiteMapping'
 import { APP_QUERY } from '@villa-components/graphql-queries'
 
 import './app.scss'
@@ -19,6 +19,7 @@ import './app.scss'
 export async function loader ({ request }) {
   const url = new URL(request.url)
   const websiteId = getWebsiteIdFromHostname(url.hostname)
+  const siteName = getSiteNameFromHostname(url.hostname)
 
   try {
     const { data } = await apolloClient.query({
@@ -31,7 +32,8 @@ export async function loader ({ request }) {
 
     return {
       website: data.website,
-      websiteId
+      websiteId,
+      siteName
     }
   } catch (error) {
     console.error('Error loading website data:', error)
@@ -68,12 +70,12 @@ export function links () {
 export function Layout ({ children }) {
   const data = useRouteLoaderData('root')
   const website = data?.website
+  const siteName = data?.siteName
   const metadata = website?.site_settings?.SiteMetadata
-  // const googleFontURL = metadata?.GoogleFontURL
   const gTag = metadata?.gTag
 
   return (
-    <html lang="en">
+    <html lang="en" data-site={siteName}>
       <head>
         {/* Google tag (gtag.js) */}
         {gTag && (
@@ -96,6 +98,10 @@ export function Layout ({ children }) {
         <Meta />
         <Links />
         {/* Dynamic metadata links */}
+        {metadata?.GoogleFontURL && <link rel="stylesheet" href={metadata.GoogleFontURL} />}
+        {metadata?.Favicon?.url && <link rel="icon" href={metadata.Favicon.url} />}
+        {metadata?.AppleTouchIcon?.url && <link rel="apple-touch-icon" href={metadata.AppleTouchIcon.url} />}
+        {metadata?.Manifest?.url && <link rel="manifest" href={metadata.Manifest.url} />}
       </head>
       <body>
         <ApolloProvider client={apolloClient}>

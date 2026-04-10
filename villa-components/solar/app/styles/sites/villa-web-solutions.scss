@@ -1,21 +1,18 @@
-// ─── Demo Site ───────────────────────────────────────────────────────────────
-// All tokens are scoped to [data-site="demo-site"] so they only apply when
-// root.jsx sets <html data-site="demo-site">.
-//
-// Color palette: deep charcoal + warm gold accents.
+// ─── Villa Web Solutions ───────────────────────────────────────────────────────
+// Color palette: deep navy + electric violet — professional tech / web agency.
 
-[data-site="demo-site"] {
+[data-site="villa-web-solutions"] {
   // ── Brand tokens ────────────────────────────────────────────────────────
-  --color-bg-dark:      #1c2530;
-  --color-bg-dark-2:    #243040;
-  --color-accent:       #c9a84c;
-  --color-accent-light: #e0c47a;
-  --color-text-light:   #e6e9ef;
-  --color-text-muted:   #9aa3b0;
-  --color-divider:      rgba(201, 168, 76, 0.35);
+  --color-bg-dark:      #0d1117;
+  --color-bg-dark-2:    #161b22;
+  --color-accent:       #7c3aed;
+  --color-accent-light: #a78bfa;
+  --color-text-light:   #f0f0ff;
+  --color-text-muted:   #8b949e;
+  --color-divider:      rgba(124, 58, 237, 0.3);
 
-  --font-primary: 'Poppins', 'Helvetica Neue', Arial, sans-serif;
-  --font-heading: 'Racing Sans One', 'Helvetica Neue', Arial, sans-serif;
+  --font-primary: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --font-heading: 'Inter', 'Helvetica Neue', Arial, sans-serif;
 
   // ── Footer ──────────────────────────────────────────────────────────────
   --footer-bg:                  var(--color-bg-dark);
@@ -40,40 +37,40 @@
   --footer-icon-color:          var(--color-text-muted);
   --footer-icon-gap:            0.1rem;
   --footer-icon-padding:        0.45rem;
-  --footer-icon-hover-bg:       rgba(201, 168, 76, 0.15);
+  --footer-icon-hover-bg:       rgba(124, 58, 237, 0.15);
 
   // ── Navbar ──────────────────────────────────────────────────────────────
   --navbar-bg:                   var(--color-bg-dark);
   --navbar-color:                var(--color-text-light);
   --navbar-height:               72px;
-  --navbar-shadow:               0 4px 20px rgba(0, 0, 0, 0.5);
+  --navbar-shadow:               0 4px 24px rgba(0, 0, 0, 0.6);
   --navbar-font-family:          var(--font-primary);
   --navbar-link-font-size:       0.9rem;
   --navbar-link-weight:          500;
   --navbar-link-h-padding:       0.9rem;
   --navbar-link-line-height:     16px;
   --navbar-link-transition:      0.2s ease;
-  --navbar-active-color:         var(--color-accent);
-  --navbar-hover-bg:             rgba(201, 168, 76, 0.1);
+  --navbar-active-color:         var(--color-accent-light);
+  --navbar-hover-bg:             rgba(124, 58, 237, 0.1);
   --navbar-button-bg:            var(--color-accent);
-  --navbar-button-color:         var(--color-bg-dark);
+  --navbar-button-color:         #ffffff;
   --navbar-button-border:        var(--color-accent);
   --navbar-button-px:            1.4rem;
   --navbar-button-font-size:     0.875rem;
   --navbar-button-weight:        700;
   --nav-menu-bg:                 var(--color-bg-dark-2);
-  --nav-menu-shadow:             0 8px 24px rgba(0, 0, 0, 0.45);
+  --nav-menu-shadow:             0 8px 32px rgba(0, 0, 0, 0.6);
   --nav-menu-radius:             6px;
-  --nav-menu-item-hover-bg:      rgba(201, 168, 76, 0.1);
+  --nav-menu-item-hover-bg:      rgba(124, 58, 237, 0.12);
   --nav-menu-item-hover-color:   var(--color-accent-light);
-  --nav-menu-item-active-color:  var(--color-accent);
+  --nav-menu-item-active-color:  var(--color-accent-light);
   --mobile-drawer-width:         260px;
   --mobile-drawer-bg:            var(--color-bg-dark);
   --mobile-drawer-color:         var(--color-text-light);
   --mobile-drawer-header-border: var(--color-divider);
-  --mobile-drawer-active-color:  var(--color-accent);
+  --mobile-drawer-active-color:  var(--color-accent-light);
   --site-banner-bg:              var(--color-accent);
-  --site-banner-color:           var(--color-bg-dark);
+  --site-banner-color:           #ffffff;
 
   // ── Intro ───────────────────────────────────────────────────────────────
   --intro-heading-font:        var(--font-heading);
@@ -86,53 +83,22 @@
   --intro-btn-letter-spacing:  0.04em;
 }
 
-// ── Selector-level refinements ───────────────────────────────────────────────
-// (Cannot be expressed as variable overrides)
-
-[data-site="demo-site"] {
-  .footer-image__img {
-    filter: brightness(0.92);
-    transition: filter 0.3s ease;
-    &:hover { filter: brightness(1.05); }
-  }
-
-  .footer-icons__btn {
-    &:hover, &:focus-visible { color: var(--color-accent-light); }
-  }
-
-  .footer__link {
-    &:hover, &:focus-visible {
-      color: var(--color-accent-light);
-      opacity: 1;
-      text-decoration: none;
-    }
-  }
-
-  .footer__locale-btn {
-    color: var(--color-text-muted);
-    &:hover, &:focus-visible { color: var(--color-accent-light); opacity: 1; }
-  }
-
-  .navbar__toolbar--split-top {
-    --navbar-split-top-bg: #ffffff;
-    --navbar-split-top-color: var(--color-bg-dark);
-  }
-
+[data-site="villa-web-solutions"] {
   .nav-menu__trigger--active,
   .nav-menu__trigger:hover {
-    color: var(--color-accent) !important;
+    color: var(--color-accent-light) !important;
   }
 
   .mobile-drawer__item--active,
   .mobile-drawer__subitem--active {
-    color: var(--color-accent) !important;
+    color: var(--color-accent-light) !important;
   }
 
   .intro__btn {
     border-color: var(--color-accent);
     color: var(--color-text-light);
     &:hover, &:focus-visible {
-      background-color: rgba(201, 168, 76, 0.2);
+      background-color: rgba(124, 58, 237, 0.2);
     }
   }
 }

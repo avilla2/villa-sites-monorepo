@@ -12,9 +12,26 @@ const HOSTNAME_TO_WEBSITE_ID = {
   'www.cvlandscapemaintenance.com': 'dhj98a3qpodsav9ffj8s2jb1'
 }
 
-export function getWebsiteIdFromHostname (hostname) {
-  // Remove port if present
-  const cleanHostname = hostname.split(':')[0]
+// Map hostnames to the CSS data-site attribute value
+const HOSTNAME_TO_SITE_NAME = {
+  localhost: 'demo-site',
+  '127.0.0.1': 'demo-site',
+  'losvaldiviaslandscaping.com': 'los-valdivias',
+  'www.losvaldiviaslandscaping.com': 'los-valdivias',
+  'villawebsolutions.com': 'villa-web-solutions',
+  'www.villawebsolutions.com': 'villa-web-solutions',
+  'solar-vjhe7.ondigitalocean.app': 'villa-web-solutions',
+  'alexandrovilla.com': 'villa-web-solutions',
+  'cvlandscapemaintenance.com': 'cv-landscape',
+  'www.cvlandscapemaintenance.com': 'cv-landscape'
+}
 
+export function getWebsiteIdFromHostname (hostname) {
+  const cleanHostname = hostname.split(':')[0]
   return HOSTNAME_TO_WEBSITE_ID[cleanHostname] || HOSTNAME_TO_WEBSITE_ID.localhost
+}
+
+export function getSiteNameFromHostname (hostname) {
+  const cleanHostname = hostname.split(':')[0]
+  return HOSTNAME_TO_SITE_NAME[cleanHostname] || HOSTNAME_TO_SITE_NAME.localhost
 }

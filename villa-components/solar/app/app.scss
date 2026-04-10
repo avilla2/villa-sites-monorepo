@@ -1,7 +1,36 @@
 // ─── Solar – main stylesheet entry point ─────────────────────────────────────
 // @use rules must come first in Sass.
-// Site-specific files import component partials and set CSS variables.
+// Partials define component styles + default CSS variables.
+// Site files override variables scoped to [data-site="<name>"].
+
+// ── Shared component partials ─────────────────────────────────────────────────
+@use './styles/footer';
+@use './styles/navbar';
+@use './styles/intro';
+@use './styles/slideshow';
+@use './styles/freestyle';
+@use './styles/paragraph';
+@use './styles/image';
+@use './styles/button-group';
+@use './styles/video';
+@use './styles/faq';
+@use './styles/gallery';
+@use './styles/picture-grid';
+@use './styles/list';
+@use './styles/cta';
+@use './styles/card-group';
+@use './styles/contact';
+@use './styles/page';
+@use './styles/utility-pages';
+
+// ── Global fallback tokens ────────────────────────────────────────────────────
+@use './styles/defaults';
+
+// ── Per-site theme overrides ──────────────────────────────────────────────────
 @use './styles/sites/demo-site';
+@use './styles/sites/los-valdivias';
+@use './styles/sites/cv-landscape';
+@use './styles/sites/villa-web-solutions';
 
 // ── Base resets ───────────────────────────────────────────────────────────────
 *,

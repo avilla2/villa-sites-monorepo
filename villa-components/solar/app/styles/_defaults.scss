@@ -1,0 +1,32 @@
+// ─── Default tokens ───────────────────────────────────────────────────────────
+// Bare-minimum :root fallbacks so components never render completely unstyled
+// if no [data-site] attribute is matched (e.g. unknown hostname, SSR flash).
+// Site files override these via [data-site="<name>"] { … }.
+
+:root {
+  // Brand
+  --color-bg-dark:      #1a1a1a;
+  --color-bg-dark-2:    #2a2a2a;
+  --color-accent:       #4a90e2;
+  --color-accent-light: #74aef0;
+  --color-text-light:   #f0f0f0;
+  --color-text-muted:   #999999;
+  --color-divider:      rgba(255, 255, 255, 0.15);
+
+  // Typography
+  --font-primary: 'Poppins', 'Helvetica Neue', Arial, sans-serif;
+  --font-heading: 'Poppins', 'Helvetica Neue', Arial, sans-serif;
+
+  // Navbar
+  --navbar-bg:            #1a1a1a;
+  --navbar-color:         #f0f0f0;
+  --navbar-height:        64px;
+  --navbar-font-family:   var(--font-primary);
+  --navbar-active-color:  var(--color-accent);
+
+  // Footer
+  --footer-bg:          #1a1a1a;
+  --footer-color:       #f0f0f0;
+  --footer-font-family: var(--font-primary);
+  --footer-accent:      var(--color-accent);
+}
