@@ -42,7 +42,7 @@ export default function Layout () {
           Appearance={website.navbar.Appearance}
           FontColor={website.navbar.FontColor}
           minSize={website.site_settings?.DesktopBreakpoint || 'md'}
-          mobileTitle={website.site_settings?.SiteTitle || ''}
+          mobileTitle={website.homepage?.Title || website.site_settings?.SiteTitle || ''}
           onBackClick={() => navigate(-1)}
         />
       )}

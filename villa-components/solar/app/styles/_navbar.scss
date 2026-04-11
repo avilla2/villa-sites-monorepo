@@ -171,9 +171,13 @@ $breakpoints: (xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536);
     > * { flex: 1; }
   }
 
-  // Spaced: items centered across the full toolbar width
+  // Spaced: first item flush left (takes remaining space), remaining items grouped flush right
   &--spaced {
-    justify-content: center;
+    justify-content: flex-start;
+    gap: 0.25rem;
+
+    > * { flex: unset; }
+    > *:first-child { flex: 1; justify-content: flex-start; }
   }
 
   // Left aligned: all items flush left
