@@ -29,7 +29,7 @@
   --navbar-button-radius:       9999px;
   --navbar-button-px:           1.25rem;
   --navbar-button-font-size:    0.875rem;
-  --navbar-button-weight:       600;
+  --navbar-button-weight:       normal;
 
   // Dropdown
   --nav-menu-bg:                #243040;
@@ -115,6 +115,7 @@ $breakpoints: (xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536);
 
     .nav-button {
       text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.55);
+      filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.55));
     }
 
     .nav-button-icon__img {

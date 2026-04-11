@@ -10,7 +10,7 @@ import {
   useRouteLoaderData
 } from 'react-router'
 import { ApolloProvider } from '@apollo/client/react'
-import { apolloClient, createApolloClient } from './lib/apollo'
+import { apolloClient, createApolloClient, loaderFetchPolicy } from './lib/apollo'
 import { getWebsiteIdFromHostname, getSiteNameFromHostname } from './lib/websiteMapping'
 import { APP_QUERY } from '@villa-components/graphql-queries'
 
@@ -29,7 +29,7 @@ export async function loader ({ request }) {
         id: websiteId,
         locale: 'en'
       },
-      fetchPolicy: 'network-only'
+      fetchPolicy: loaderFetchPolicy
     })
 
     return {

@@ -6,6 +6,15 @@ const backendUrl =
   import.meta.env.VITE_BACKEND_URL
 
 /**
+ * Fetch policy for loader queries.
+ * Set APOLLO_FETCH_POLICY=network-only (or any valid policy) to override.
+ * Defaults to 'cache-first'.
+ */
+export const loaderFetchPolicy =
+  (typeof process !== 'undefined' && process.env?.APOLLO_FETCH_POLICY) ||
+  'cache-first'
+
+/**
  * Creates a fresh ApolloClient instance.
  * Call once per server request to avoid cross-request cache contamination.
  */
