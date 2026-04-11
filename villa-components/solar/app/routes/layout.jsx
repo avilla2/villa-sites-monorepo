@@ -7,7 +7,6 @@ export default function Layout () {
   const { website } = useOutletContext()
   const navigate = useNavigate()
   const location = useLocation()
-  const isContentPage = location.pathname !== '/'
 
   // Derive page name from location and website data
   const getPageName = () => {
@@ -35,7 +34,7 @@ export default function Layout () {
       {website.navbar && (
         <Navbar
           page={page}
-          navIndex="/"
+          navIndex={location.pathname}
           Items={website.navbar.Items}
           MobileConfig={website.navbar.MobileConfig}
           siteBanner={website.navbar.siteBanner}
@@ -43,8 +42,7 @@ export default function Layout () {
           Appearance={website.navbar.Appearance}
           FontColor={website.navbar.FontColor}
           minSize={website.site_settings?.DesktopBreakpoint || 'md'}
-          mobileTitle={page}
-          pageTitle={isContentPage ? page : undefined}
+          mobileTitle={website.site_settings?.SiteTitle || ''}
           onBackClick={() => navigate(-1)}
         />
       )}

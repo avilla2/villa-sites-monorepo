@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Drawer } from '@base-ui/react/drawer'
 import { Collapsible } from '@base-ui/react/collapsible'
 import { Link } from 'react-router'
@@ -32,6 +32,10 @@ function ChevronIcon () {
  * - NavButtons and (showInMobile) ImageLinks pinned to the bottom
  */
 export default function MobileDrawer ({ links, drawerLink, drawerText, fontColor, active }) {
+  const [open, setOpen] = useState(false)
+
+  const close = () => setOpen(false)
+
   // Collect CTA items to render at the bottom
   const ctaItems = links.filter(
     item =>
@@ -40,7 +44,7 @@ export default function MobileDrawer ({ links, drawerLink, drawerText, fontColor
   )
 
   return (
-    <Drawer.Root swipeDirection="right">
+    <Drawer.Root open={open} onOpenChange={setOpen} swipeDirection="right">
       <Drawer.Trigger className="navbar__hamburger" aria-label="Open menu">
         <HamburgerIcon />
       </Drawer.Trigger>
@@ -95,6 +99,7 @@ export default function MobileDrawer ({ links, drawerLink, drawerText, fontColor
                             {...linkProps}
                             className={`mobile-drawer__subitem${isSubActive ? ' mobile-drawer__subitem--active' : ''}`}
                             style={!isSubActive && fontColor ? { color: fontColor } : undefined}
+                            onClick={close}
                           >
                             {sub.icon && (
                               <img src={sub.icon.url} alt={sub.icon.alternativeText || ''} className="mobile-drawer__subitem-icon" />
@@ -120,6 +125,7 @@ export default function MobileDrawer ({ links, drawerLink, drawerText, fontColor
                     {...linkProps}
                     className={`mobile-drawer__item${isItemActive ? ' mobile-drawer__item--active' : ''}`}
                     style={!isItemActive && fontColor ? { color: fontColor } : undefined}
+                    onClick={close}
                   >
                     {item.Title}
                   </Tag>

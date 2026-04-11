@@ -10,7 +10,7 @@ import {
   useRouteLoaderData
 } from 'react-router'
 import { ApolloProvider } from '@apollo/client/react'
-import { apolloClient } from './lib/apollo'
+import { apolloClient, createApolloClient } from './lib/apollo'
 import { getWebsiteIdFromHostname, getSiteNameFromHostname } from './lib/websiteMapping'
 import { APP_QUERY } from '@villa-components/graphql-queries'
 
@@ -22,12 +22,14 @@ export async function loader ({ request }) {
   const siteName = getSiteNameFromHostname(url.hostname)
 
   try {
-    const { data } = await apolloClient.query({
+    const client = createApolloClient()
+    const { data } = await client.query({
       query: APP_QUERY,
       variables: {
         id: websiteId,
         locale: 'en'
-      }
+      },
+      fetchPolicy: 'network-only'
     })
 
     return {

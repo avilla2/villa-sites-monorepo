@@ -1,6 +1,7 @@
 import { index, route, layout } from '@react-router/dev/routes'
 
 export default [
+  route('send-email', 'routes/send-email.jsx'),
   layout('routes/layout.jsx', [
     index('routes/home.jsx'),
     route('sitemap', 'routes/sitemap.jsx'),

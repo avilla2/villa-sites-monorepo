@@ -68,7 +68,6 @@ export default function Navbar ({
   FontColor: fontColor,
   minSize = 'md',
   mobileTitle,
-  pageTitle,
   onBackClick
 }) {
   const [mounted, setMounted] = useState(false)
@@ -94,7 +93,7 @@ export default function Navbar ({
     measure()
     window.addEventListener('resize', measure)
     return () => window.removeEventListener('resize', measure)
-  }, [siteBanner, pageTitle])
+  }, [siteBanner])
 
   useEffect(() => {
     const measure = () => {
@@ -171,12 +170,6 @@ export default function Navbar ({
                 ))}
               </div>
               )}
-
-          {pageTitle && (
-            <div className={`navbar__page-title${appearance === 'fade_in' ? ' navbar__page-title--pill' : ''}`}>
-              {pageTitle}
-            </div>
-          )}
         </header>
         {/* Spacer so page content starts below the fixed bar - height is 0 when transparent */}
         <div style={{ height: isTransparent ? 0 : desktopBarHeight }} aria-hidden="true" />
@@ -212,9 +205,9 @@ export default function Navbar ({
                 </Link>
                 )}
 
-            {/* Center: page title */}
+            {/* Center: site title */}
             <span className="navbar__mobile-title">
-              {navIndex === '/' ? mobileTitle : page}
+              {mobileTitle}
             </span>
 
             {/* Right: hamburger → drawer */}
