@@ -3,6 +3,7 @@ import ReactMarkdown from 'react-markdown'
 import { Link } from 'react-router'
 import isExternal from '../../../lib/isExternalLink'
 import Slideshow from './Slideshow'
+import ResponsiveImage from '../../shared/ResponsiveImage'
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -26,10 +27,11 @@ function IntroSingleMedia ({ file }) {
   }
 
   return (
-    <img
+    <ResponsiveImage
       className="intro__image"
       src={file.url}
       alt={file.alternativeText || ''}
+      sizes={{ sm: '425px', md: '1024px', lg: '1440px' }}
     />
   )
 }

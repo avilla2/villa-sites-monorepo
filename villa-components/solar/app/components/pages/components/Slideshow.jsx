@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
+import ResponsiveImage from '../../shared/ResponsiveImage'
 
 // ── Arrow icons ───────────────────────────────────────────────────────────────
 const PrevIcon = () => (
@@ -74,11 +75,12 @@ export default function Slideshow ({ content, slides: slidesProp, background = f
       {/* Slide images — all rendered, opacity drives visibility */}
       <div className="slideshow__track">
         {slides.map((slide, i) => (
-          <img
+          <ResponsiveImage
             key={i}
             className={`slideshow__slide${i === current ? ' slideshow__slide--active' : ''}`}
             src={slide.url}
             alt={slide.alternativeText || ''}
+            sizes={{ sm: '425px', md: '1024px', lg: '1440px' }}
           />
         ))}
       </div>

@@ -1,5 +1,6 @@
 import React from 'react'
 import Paragraph from './Paragraph'
+import ResponsiveImage from '../../shared/ResponsiveImage'
 
 /**
  * Image component — renders an image with optional parallax (CSS-only), paper
@@ -16,6 +17,17 @@ export default function Image ({ content }) {
 
   // ── Parallax variant ──────────────────────────────────────────────────────
   if (imageStyle === 'Parallax') {
+    const parallaxUrl = (() => {
+      try {
+        const u = new URL(asset.url)
+        u.searchParams.set('format', 'webp')
+        u.searchParams.set('quality', '90')
+        return u.toString()
+      } catch {
+        return `${asset.url}?format=webp&quality=90`
+      }
+    })()
+
     return (
       <figure
         className="image image--parallax"
@@ -23,7 +35,7 @@ export default function Image ({ content }) {
       >
         <div
           className="image__parallax-bg"
-          style={{ backgroundImage: `url(${asset.url})` }}
+          style={{ backgroundImage: `url(${parallaxUrl})` }}
           role="img"
           aria-label={asset.alternativeText}
         />
@@ -49,7 +61,7 @@ export default function Image ({ content }) {
           '--image-height': heightValue
         }}
       >
-        <img
+        <ResponsiveImage
           src={asset.url}
           alt={asset.alternativeText}
           className="image__img"

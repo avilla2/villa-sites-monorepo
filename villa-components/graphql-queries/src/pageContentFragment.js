@@ -57,6 +57,7 @@ fragment Content on ContentPageContentDynamicZone {
       Pictures {
         url
         width
+        height
         alternativeText
       
       }
