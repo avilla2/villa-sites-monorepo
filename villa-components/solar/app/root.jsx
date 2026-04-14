@@ -58,15 +58,7 @@ export function meta ({ data } = {}) {
 }
 
 export function links () {
-  // Static font preconnects only
-  return [
-    { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-    {
-      rel: 'preconnect',
-      href: 'https://fonts.gstatic.com',
-      crossOrigin: 'anonymous'
-    }
-  ]
+  return []
 }
 
 export function Layout ({ children }) {
@@ -76,9 +68,36 @@ export function Layout ({ children }) {
   const metadata = website?.site_settings?.SiteMetadata
   const gTag = metadata?.gTag
 
+  // Extract all font URLs for preloading
+  const fontUrls = [
+    ...(metadata?.primaryFont || []),
+    ...(metadata?.headingFont || [])
+  ].map(font => font.url).filter(Boolean)
+
+  // Get CDN domain for preconnect
+  const cdnDomain = fontUrls[0] ? new URL(fontUrls[0]).origin : null
+
   return (
     <html lang="en" data-site={siteName}>
       <head>
+        {/* Preconnect to CDN for faster font loading */}
+        {cdnDomain && (
+          <>
+            <link rel="preconnect" href={cdnDomain} />
+            <link rel="dns-prefetch" href={cdnDomain} />
+          </>
+        )}
+        {/* Preload font files to prevent FOUT */}
+        {fontUrls.map((url, index) => (
+          <link
+            key={index}
+            rel="preload"
+            href={url}
+            as="font"
+            type="font/ttf"
+            crossOrigin="anonymous"
+          />
+        ))}
         {/* Google tag (gtag.js) */}
         {gTag && (
           <>
@@ -99,8 +118,42 @@ export function Layout ({ children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
+        {/* Dynamic @font-face declarations for CDN fonts */}
+        {(metadata?.primaryFont || metadata?.headingFont) && (
+          <style dangerouslySetInnerHTML={{
+            __html: `
+              ${metadata?.primaryFont?.map(font => `
+                @font-face {
+                  font-family: 'PrimaryFont';
+                  src: url('${font.url}') format('truetype');
+                  font-display: block;
+                }
+              `).join('') || ''}
+              ${metadata?.headingFont?.map(font => `
+                @font-face {
+                  font-family: 'HeadingFont';
+                  src: url('${font.url}') format('truetype');
+                  font-display: block;
+                }
+              `).join('') || ''}
+              ${metadata?.primaryFont
+                ? `
+                body {
+                  font-family: 'PrimaryFont', sans-serif;
+                }
+              `
+                : ''}
+              ${metadata?.headingFont
+                ? `
+                h1, h2, h3, h4, h5, h6 {
+                  font-family: 'HeadingFont', sans-serif;
+                }
+              `
+                : ''}
+            `
+          }} />
+        )}
         {/* Dynamic metadata links */}
-        {metadata?.GoogleFontURL && <link rel="stylesheet" href={metadata.GoogleFontURL} />}
         {metadata?.Favicon?.url && <link rel="icon" href={metadata.Favicon.url} />}
         {metadata?.AppleTouchIcon?.url && <link rel="apple-touch-icon" href={metadata.AppleTouchIcon.url} />}
         {metadata?.Manifest?.url && <link rel="manifest" href={metadata.Manifest.url} />}

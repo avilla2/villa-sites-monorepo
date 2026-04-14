@@ -16,7 +16,14 @@ fragment SiteSettingsFragment on WebsiteSetting {
   SiteDescription
   SiteMetadata {
     ThemeColor
-    GoogleFontURL
+    primaryFont {
+      url
+      name
+    }
+    headingFont {
+      url
+      name
+    }
     Favicon {
       url
     }

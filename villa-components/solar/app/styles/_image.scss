@@ -62,6 +62,13 @@
 
   &__media {
     flex: 1 1 var(--image-caption-side-basis);
+
+    // Full width on small displays (same breakpoint as intro) - standard only
+    .image--standard & {
+      @media (max-width: 767px) {
+        width: 100%;
+      }
+    }
   }
 
   &__img {
@@ -74,6 +81,13 @@
     .image--paper & {
       border-radius: var(--image-paper-radius);
       box-shadow: var(--image-paper-shadow);
+    }
+
+    // Force 100% width on small displays (same breakpoint as intro) - standard only
+    .image--standard & {
+      @media (max-width: 767px) {
+        width: 100%;
+      }
     }
   }
 

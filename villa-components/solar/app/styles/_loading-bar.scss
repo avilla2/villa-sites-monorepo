@@ -1,0 +1,16 @@
+.loading-bar-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 9999;
+  overflow: hidden;
+  background-color: transparent;
+}
+
+.loading-bar {
+  height: 100%;
+  transition: width 0.3s ease-out;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}

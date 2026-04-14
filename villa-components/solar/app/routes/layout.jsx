@@ -2,6 +2,7 @@ import React from 'react'
 import { Outlet, useOutletContext, useNavigate, useLocation } from 'react-router'
 import Navbar from '../components/navbar/Navbar'
 import Footer from '../components/footer/Footer'
+import LoadingBar from '../components/shared/LoadingBar'
 
 export default function Layout () {
   const { website } = useOutletContext()
@@ -30,6 +31,9 @@ export default function Layout () {
 
   return (
     <>
+      {/* Global Loading Bar */}
+      <LoadingBar color={website.site_settings?.Palette?.secondary || '#6c757d'} />
+
       {/* Navbar */}
       {website.navbar && (
         <Navbar
