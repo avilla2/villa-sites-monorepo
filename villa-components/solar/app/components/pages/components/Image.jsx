@@ -1,16 +1,7 @@
 import React from 'react'
 import Paragraph from './Paragraph'
 import ResponsiveImage from '../../shared/ResponsiveImage'
-
-function buildUrl (src, params) {
-  try {
-    const url = new URL(src)
-    Object.entries(params).forEach(([key, value]) => url.searchParams.set(key, String(value)))
-    return url.toString()
-  } catch {
-    return `${src}?${new URLSearchParams(params).toString()}`
-  }
-}
+import buildUrl from '../../../lib/buildUrl'
 
 /**
  * Image component — renders an image with optional parallax (CSS-only), paper
@@ -28,24 +19,20 @@ export default function Image ({ content }) {
   // ── Parallax variant ──────────────────────────────────────────────────────
   if (imageStyle === 'Parallax') {
     // Generate URLs for different resolutions (matching ResponsiveImage breakpoints)
-    const url320 = buildUrl(asset.url, { format: 'webp', quality: 90, width: 320 })
     const url768 = buildUrl(asset.url, { format: 'webp', quality: 90, width: 768 })
     const url1280 = buildUrl(asset.url, { format: 'webp', quality: 90, width: 1280 })
-
-    const backgroundImageSet = `image-set(
-      url("${url320}") 1x,
-      url("${url768}") 1.5x,
-      url("${url1280}") 2x
-    )`
 
     return (
       <figure
         className="image image--parallax"
-        style={{ '--parallax-height': heightValue === 'auto' ? '50vh' : heightValue }}
+        style={{
+          '--parallax-height': heightValue === 'auto' ? '50vh' : heightValue,
+          '--parallax-bg-md': `url("${url768}")`,
+          '--parallax-bg-lg': `url("${url1280}")`
+        }}
       >
         <div
           className="image__parallax-bg"
-          style={{ backgroundImage: backgroundImageSet }}
           role="img"
           aria-label={asset.alternativeText}
         />

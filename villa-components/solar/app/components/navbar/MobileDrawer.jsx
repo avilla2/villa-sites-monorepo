@@ -5,6 +5,7 @@ import { Link } from 'react-router'
 import NavButton from './NavButton'
 import NavButtonIcon from './NavButtonIcon'
 import isExternal from '../../lib/isExternalLink'
+import buildUrl from '../../lib/buildUrl'
 
 // Hamburger icon
 function HamburgerIcon () {
@@ -142,15 +143,18 @@ export default function MobileDrawer ({ links, drawerLink, drawerText, fontColor
               {ctaItems.map((item, i) =>
                 item.__typename === 'ComponentNavbarComponentsImageLink'
                   ? (
-                    <div key={i} className="mobile-drawer__cta-icon">
-                      <NavButtonIcon
-                        link={item.Link}
-                        external={isExternal(item.Link)}
-                        src={item.Image.url}
-                        alt={item.Image.alternativeText || item.Image.name}
-                        width={item.Width}
-                      />
-                    </div>
+                      item.Image?.url
+                        ? (
+                          <div key={i} className="mobile-drawer__cta-icon">
+                            <NavButtonIcon
+                              link={item.Link}
+                              external={isExternal(item.Link)}
+                              src={buildUrl(item.Image.url, { format: 'webp', quality: 90, width: item.Width || 80 })}
+                              alt={item.Image.alternativeText || item.Image.name}
+                            />
+                          </div>
+                          )
+                        : null
                     )
                   : (
                     <NavButton

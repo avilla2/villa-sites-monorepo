@@ -13,7 +13,7 @@ export default function NavButtonIcon ({ link, external, src, alt, width }) {
       <img
         src={src}
         alt={alt || ''}
-        width={width || 80}
+        {...(width ? { width } : {})}
         className="nav-button-icon__img"
       />
     </Tag>

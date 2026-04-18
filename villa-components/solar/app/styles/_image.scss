@@ -33,6 +33,12 @@
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+    background-image: var(--parallax-bg-md);
+
+    // Responsive background images matching ResponsiveImage breakpoints
+    @media (min-width: 769px) {
+      background-image: var(--parallax-bg-lg);
+    }
 
     // iOS / touch: background-attachment: fixed is broken — fall back to scroll
     @media (hover: none) {

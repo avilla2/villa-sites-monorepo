@@ -1,16 +1,7 @@
 import React from 'react'
+import buildUrl from '../../lib/buildUrl'
 
 const DEFAULT_SIZES = { sm: '100vw', md: '50vw', lg: '33vw' }
-
-function buildUrl (src, params) {
-  try {
-    const url = new URL(src)
-    Object.entries(params).forEach(([key, value]) => url.searchParams.set(key, String(value)))
-    return url.toString()
-  } catch {
-    return `${src}?${new URLSearchParams(params).toString()}`
-  }
-}
 
 /**
  * Renders a responsive `<img>` with a WebP srcset generated via CDN query params.
