@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router'
 import { BlocksRenderer } from '@strapi/blocks-react-renderer'
 import isExternalLink from '../../../lib/isExternalLink'
+import ResponsiveImage from '../../shared/ResponsiveImage'
 
 function CardLink ({ href, className, style, children, stopPropagation }) {
   const handleClick = stopPropagation ? e => e.stopPropagation() : undefined
@@ -54,7 +55,7 @@ function SingleCard ({ Image, Title, Text, ButtonText, ButtonColor, CardColor, C
     <div className="card" style={{ backgroundColor: CardColor || undefined, color: Color || undefined }}>
       {Image?.url && (
         <div className="card__media">
-          <img className="card__img" src={Image.url} alt={Image.alternativeText || ''} />
+          <ResponsiveImage className="card__img" src={Image.url} alt={Image.alternativeText || ''} sizes={{ sm: '100vw', md: '40vw', lg: '20vw' }}/>
         </div>
       )}
       <div className="card__content">

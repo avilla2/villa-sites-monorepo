@@ -2,6 +2,16 @@ import React from 'react'
 import Paragraph from './Paragraph'
 import ResponsiveImage from '../../shared/ResponsiveImage'
 
+function buildUrl (src, params) {
+  try {
+    const url = new URL(src)
+    Object.entries(params).forEach(([key, value]) => url.searchParams.set(key, String(value)))
+    return url.toString()
+  } catch {
+    return `${src}?${new URLSearchParams(params).toString()}`
+  }
+}
+
 /**
  * Image component — renders an image with optional parallax (CSS-only), paper
  * card style, and a caption that can be positioned on any side.
@@ -17,16 +27,16 @@ export default function Image ({ content }) {
 
   // ── Parallax variant ──────────────────────────────────────────────────────
   if (imageStyle === 'Parallax') {
-    const parallaxUrl = (() => {
-      try {
-        const u = new URL(asset.url)
-        u.searchParams.set('format', 'webp')
-        u.searchParams.set('quality', '90')
-        return u.toString()
-      } catch {
-        return `${asset.url}?format=webp&quality=90`
-      }
-    })()
+    // Generate URLs for different resolutions (matching ResponsiveImage breakpoints)
+    const url320 = buildUrl(asset.url, { format: 'webp', quality: 90, width: 320 })
+    const url768 = buildUrl(asset.url, { format: 'webp', quality: 90, width: 768 })
+    const url1280 = buildUrl(asset.url, { format: 'webp', quality: 90, width: 1280 })
+
+    const backgroundImageSet = `image-set(
+      url("${url320}") 1x,
+      url("${url768}") 1.5x,
+      url("${url1280}") 2x
+    )`
 
     return (
       <figure
@@ -35,7 +45,7 @@ export default function Image ({ content }) {
       >
         <div
           className="image__parallax-bg"
-          style={{ backgroundImage: `url(${parallaxUrl})` }}
+          style={{ backgroundImage: backgroundImageSet }}
           role="img"
           aria-label={asset.alternativeText}
         />

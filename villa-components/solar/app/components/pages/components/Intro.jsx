@@ -15,7 +15,7 @@ const POSITION_CLASS = {
 }
 
 // ── Single media element ──────────────────────────────────────────────────────
-function IntroSingleMedia ({ file }) {
+function IntroSingleMedia ({ file, mobileFile }) {
   const mime = getMimeType(file.mime)
 
   if (mime === 'video') {
@@ -30,33 +30,24 @@ function IntroSingleMedia ({ file }) {
     <ResponsiveImage
       className="intro__image"
       src={file.url}
+      mobileSrc={mobileFile?.url}
       alt={file.alternativeText || ''}
-      sizes={{ sm: '425px', md: '1024px', lg: '1440px' }}
+      sizes={{ sm: '100vw', md: '100vw', lg: '100vw' }}
     />
   )
 }
 
 // ── Background media renderer ─────────────────────────────────────────────────
-// Defaults to desktop files on SSR (isMobile = false).
-// After hydration, useEffect detects the viewport and may switch to mobileFiles.
 function IntroBg ({ files, mobileFiles }) {
-  const [isMobile, setIsMobile] = useState(false)
+  if (!files?.length) return null
 
-  useEffect(() => {
-    const mq = window.matchMedia('(max-width: 767px)')
-    setIsMobile(mq.matches)
-    const handler = (e) => setIsMobile(e.matches)
-    mq.addEventListener('change', handler)
-    return () => mq.removeEventListener('change', handler)
-  }, [])
+  // If multiple files, use slideshow (slideshow handles its own responsive logic)
+  if (files.length > 1) {
+    return <Slideshow slides={files} background />
+  }
 
-  const activeFiles = (isMobile && mobileFiles?.length) ? mobileFiles : files
-
-  if (!activeFiles?.length) return null
-
-  return activeFiles.length > 1
-    ? <Slideshow slides={activeFiles} background />
-    : <IntroSingleMedia file={activeFiles[0]} />
+  // Single file - use ResponsiveImage with optional mobile variant
+  return <IntroSingleMedia file={files[0]} mobileFile={mobileFiles?.[0]} />
 }
 
 // ── CTA buttons ───────────────────────────────────────────────────────────────

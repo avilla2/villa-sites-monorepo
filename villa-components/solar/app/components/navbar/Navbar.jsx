@@ -70,7 +70,7 @@ export default function Navbar ({
   mobileTitle,
   onBackClick
 }) {
-  const [mounted, setMounted] = useState(false)
+  const [mounted, setMounted] = useState(typeof window !== 'undefined')
   const scrolled = useScrollTrigger(65)
   const [active, setActive] = useState(navIndex)
   const desktopBarRef = useRef(null)
@@ -109,10 +109,12 @@ export default function Navbar ({
   if (!content || !mobileData) return null
 
   // Elevation + transparency logic (mirrors original)
-  const UTILITY_PAGES = new Set(['Site Map', undefined, null, '', 'Not Found'])
+  const UTILITY_PAGES = new Set(['Site Map', 'Not Found'])
   const isFadeIn = appearance === 'fade_in' && !UTILITY_PAGES.has(page)
-  const showElevation = !mounted || scrolled
-  const isTransparent = mounted && !scrolled && isFadeIn
+
+  // On SSR or before scroll is known, fade_in navbars start transparent
+  const showElevation = mounted ? scrolled : !isFadeIn
+  const isTransparent = mounted ? (!scrolled && isFadeIn) : isFadeIn
   const showBackButton = navIndex !== '/'
 
   // Toolbar layout variant class

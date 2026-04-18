@@ -31,26 +31,13 @@ const NextIcon = () => (
  * @param {number}  [props.interval=5000] - Auto-advance interval in ms
  */
 export default function Slideshow ({ content, slides: slidesProp, background = false, interval = 5000 }) {
-  // SSR-safe mobile detection — default to desktop so server + first render match
-  const [isMobile, setIsMobile] = useState(false)
   const [current, setCurrent] = useState(0)
 
-  // Only needed when using content prop (desktop/mobile slide sets)
-  useEffect(() => {
-    if (!content) return
-    const mq = window.matchMedia('(max-width: 767px)')
-    setIsMobile(mq.matches)
-    const handler = (e) => setIsMobile(e.matches)
-    mq.addEventListener('change', handler)
-    return () => mq.removeEventListener('change', handler)
-  }, [!!content])
-
   // Resolve the active slides array
-  const slides = slidesProp ?? (
-    content
-      ? (isMobile && content.slidesMobile?.length ? content.slidesMobile : content.slidesDesktop)
-      : []
-  )
+  // In content mode, use desktop slides with optional mobile variants
+  // In direct mode (slidesProp), just use those slides
+  const slides = slidesProp ?? content?.slidesDesktop ?? []
+  const mobileSlides = content?.slidesMobile ?? []
 
   // Reset current index when the slide set changes length
   useEffect(() => { setCurrent(0) }, [slides?.length])
@@ -79,8 +66,9 @@ export default function Slideshow ({ content, slides: slidesProp, background = f
             key={i}
             className={`slideshow__slide${i === current ? ' slideshow__slide--active' : ''}`}
             src={slide.url}
+            mobileSrc={mobileSlides[i]?.url}
+            sizes={{ sm: '100vw', md: '100vw', lg: '100vw' }}
             alt={slide.alternativeText || ''}
-            sizes={{ sm: '425px', md: '1024px', lg: '1440px' }}
           />
         ))}
       </div>

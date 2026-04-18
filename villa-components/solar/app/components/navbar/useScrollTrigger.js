@@ -6,7 +6,10 @@ import { useState, useEffect } from 'react'
  * @param {number} [threshold=65]
  */
 export default function useScrollTrigger (threshold = 65) {
-  const [triggered, setTriggered] = useState(false)
+  const [triggered, setTriggered] = useState(() => {
+    if (typeof window === 'undefined') return false
+    return window.scrollY > threshold
+  })
 
   useEffect(() => {
     const handler = () => setTriggered(window.scrollY > threshold)

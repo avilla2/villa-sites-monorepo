@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import ReactMarkdown from 'react-markdown'
+import ResponsiveImage from '../../shared/ResponsiveImage'
 
 /**
  * @param {Object} props
@@ -17,7 +18,7 @@ export default function PictureGrid ({ content }) {
         {content.Entry.map((entry, index) => (
           <div key={index} className="picture-grid__item">
             {entry.Picture?.url && (
-              <img
+              <ResponsiveImage
                 className="picture-grid__img"
                 src={entry.Picture.url}
                 alt={entry.Picture.alternativeText ?? ''}

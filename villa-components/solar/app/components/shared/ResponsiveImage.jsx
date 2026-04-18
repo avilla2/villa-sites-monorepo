@@ -1,7 +1,6 @@
 import React from 'react'
 
-const CDN_WIDTHS = [300, 600, 900]
-const DEFAULT_SIZES = { sm: '300px', md: '600px', lg: '900px' }
+const DEFAULT_SIZES = { sm: '100vw', md: '50vw', lg: '33vw' }
 
 function buildUrl (src, params) {
   try {
@@ -19,25 +18,29 @@ function buildUrl (src, params) {
  * configurable via the `sizes` prop.
  *
  * @param {Object}  props
- * @param {string}  props.src                  - Absolute Strapi asset URL
+ * @param {string}  props.src                  - Absolute Strapi asset URL (desktop)
+ * @param {string}  [props.mobileSrc]          - Optional mobile-specific source (used ≤ 600px)
  * @param {string}  props.alt                  - Alt text
  * @param {string}  [props.className]
  * @param {{ sm?: string, md?: string, lg?: string }} [props.sizes]
  *   Rendered width hint per tier (CSS length).
- *   Defaults: sm = '300px' (≤ 600 px), md = '600px' (≤ 900 px), lg = '900px'
  */
-export default function ResponsiveImage ({ src, alt, className, sizes: sizesProp }) {
+export default function ResponsiveImage ({ src, mobileSrc, alt, className, sizes: sizesProp }) {
   const sizes = { ...DEFAULT_SIZES, ...sizesProp }
 
-  const srcSet = CDN_WIDTHS
-    .map(w => `${buildUrl(src, { format: 'webp', quality: 90, width: w })} ${w}w`)
-    .join(', ')
+  // Generate srcset - use mobileSrc for small sizes if provided
+  const smallSrc = mobileSrc || src
+  const srcSet = [
+    `${buildUrl(smallSrc, { format: 'webp', quality: 90, width: 320 })} 320w`,
+    `${buildUrl(smallSrc, { format: 'webp', quality: 90, width: 768 })} 768w`,
+    `${buildUrl(src, { format: 'webp', quality: 90, width: 1280 })} 1280w`
+  ].join(', ')
 
-  const sizesAttr = `(max-width: 600px) ${sizes.sm}, (max-width: 900px) ${sizes.md}, ${sizes.lg}`
+  const sizesAttr = `(max-width: 320px) ${sizes.sm}, (max-width: 768px) ${sizes.md}, ${sizes.lg}`
 
   return (
     <img
-      src={buildUrl(src, { format: 'webp', quality: 90, width: 900 })}
+      src={buildUrl(src, { format: 'webp', quality: 90, width: 1280 })}
       srcSet={srcSet}
       sizes={sizesAttr}
       alt={alt}

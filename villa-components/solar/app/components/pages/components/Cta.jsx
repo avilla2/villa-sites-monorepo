@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router'
 import { BlocksRenderer } from '@strapi/blocks-react-renderer'
 import isExternalLink from '../../../lib/isExternalLink'
+import ResponsiveImage from '../../shared/ResponsiveImage'
 
 function CtaButton ({ btn }) {
   const style = btn.ButtonColor ? { '--btn-color': btn.ButtonColor } : undefined
@@ -69,7 +70,7 @@ export default function Cta ({ content }) {
 
         {media?.url && (
           <div className={`cta__media${variant === 'rounded' ? ' cta__media--rounded' : ''}`}>
-            <img className="cta__img" src={media.url} alt={media.alternativeText || ''} />
+            <ResponsiveImage className="cta__img" src={media.url} alt={media.alternativeText || ''} sizes={{ sm: '100vw', md: '40vw', lg: '40vw' }}/>
           </div>
         )}
       </div>
