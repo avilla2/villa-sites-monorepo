@@ -12,6 +12,7 @@ export default function Gallery ({ content }) {
     <div className="gallery">
       <div className="gallery__grid">
         {content.Pictures.map((picture, index) => {
+          if (!picture?.url) return null
           return (
             <div className="gallery__item" key={index}>
               <ResponsiveImage

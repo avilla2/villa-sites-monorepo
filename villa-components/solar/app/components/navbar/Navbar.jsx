@@ -32,7 +32,7 @@ function DesktopItem ({ item, active, fontColor, shadow }) {
     case 'ComponentNavbarComponentsTextLink':
       return <NavLink id={item.Link} title={item.Title} link={item.Link} active={active} shadow={shadow} />
     case 'ComponentNavbarComponentsImageLink':
-      return <NavButtonIcon id={item.Link} external={isExternal(item.Link)} width={item.Width} link={item.Link} src={item.Image.url} alt={item.Image.alternativeText || item.Image.name} />
+      return item.Image?.url ? <NavButtonIcon id={item.Link} external={isExternal(item.Link)} width={item.Width} link={item.Link} src={item.Image.url} alt={item.Image.alternativeText || item.Image.name} /> : null
     case 'ComponentNavbarComponentsNavButton':
       return <NavButton id={item.Link} link={item.Link} color={item.Color} text={item.Text} fontColor={fontColor} />
     case 'ComponentNavbarComponentsNavMenu':

@@ -16,6 +16,8 @@ const POSITION_CLASS = {
 
 // ── Single media element ──────────────────────────────────────────────────────
 function IntroSingleMedia ({ file, mobileFile }) {
+  if (!file?.url) return null
+
   const mime = getMimeType(file.mime)
 
   if (mime === 'video') {

@@ -16,6 +16,8 @@ import { APP_QUERY } from '@villa-components/graphql-queries'
 
 import './app.scss'
 
+const cdnDomain = 'https://static.villawebsolutions.com'
+
 export async function loader ({ request }) {
   const url = new URL(request.url)
   const websiteId = getWebsiteIdFromHostname(url.hostname)
@@ -58,7 +60,10 @@ export function meta ({ data } = {}) {
 }
 
 export function links () {
-  return []
+  return [
+    { rel: 'preconnect', href: cdnDomain },
+    { rel: 'dns-prefetch', href: cdnDomain }
+  ]
 }
 
 export function Layout ({ children }) {
@@ -74,19 +79,11 @@ export function Layout ({ children }) {
     ...(metadata?.headingFont || [])
   ].map(font => font.url).filter(Boolean)
 
-  // Get CDN domain for preconnect
-  const cdnDomain = fontUrls[0] ? new URL(fontUrls[0]).origin : null
-
   return (
     <html lang="en" data-site={siteName}>
       <head>
-        {/* Preconnect to CDN for faster font loading */}
-        {cdnDomain && (
-          <>
-            <link rel="preconnect" href={cdnDomain} />
-            <link rel="dns-prefetch" href={cdnDomain} />
-          </>
-        )}
+        <Links />
+        <Meta />
         {/* Preload font files to prevent FOUT */}
         {fontUrls.map((url, index) => (
           <link
@@ -116,8 +113,6 @@ export function Layout ({ children }) {
         )}
         <meta name="emotion-insertion-point" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <Meta />
-        <Links />
         {/* Dynamic @font-face declarations for CDN fonts */}
         {(metadata?.primaryFont || metadata?.headingFont) && (
           <style dangerouslySetInnerHTML={{

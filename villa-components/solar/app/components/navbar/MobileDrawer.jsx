@@ -5,7 +5,6 @@ import { Link } from 'react-router'
 import NavButton from './NavButton'
 import NavButtonIcon from './NavButtonIcon'
 import isExternal from '../../lib/isExternalLink'
-import buildUrl from '../../lib/buildUrl'
 
 // Hamburger icon
 function HamburgerIcon () {
@@ -149,7 +148,7 @@ export default function MobileDrawer ({ links, drawerLink, drawerText, fontColor
                             <NavButtonIcon
                               link={item.Link}
                               external={isExternal(item.Link)}
-                              src={buildUrl(item.Image.url, { format: 'webp', quality: 90, width: item.Width || 80 })}
+                              src={item.Image.url}
                               alt={item.Image.alternativeText || item.Image.name}
                             />
                           </div>
