@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import * as Menu from '@base-ui/react/menu'
+import { Menu } from '@base-ui/react/menu'
 import { Link } from 'react-router'
 import isExternal from '../../lib/isExternalLink'
 
@@ -40,12 +40,13 @@ export default function NavMenu ({ title, menuItem, active, shadow, fontColor })
       </Menu.Trigger>
 
       <Menu.Portal>
-        <Menu.Positioner className="nav-menu__positioner" sideOffset={4} align="start">
+        <Menu.Positioner className="nav-menu__positioner" sideOffset={12} align="start">
           <Menu.Popup
             className="nav-menu__popup"
             onMouseEnter={openMenu}
             onMouseLeave={scheduleClose}
           >
+            <Menu.Arrow className="nav-menu__arrow" />
             {menuItem.map((item, i) => (
               <Menu.LinkItem
                 key={i}
@@ -55,6 +56,7 @@ export default function NavMenu ({ title, menuItem, active, shadow, fontColor })
                 rel={isExternal(item.link) ? 'noopener noreferrer' : undefined}
                 render={isExternal(item.link) ? undefined : <Link to={item.link} />}
                 onClick={() => setOpen(false)}
+                style={fontColor ? { color: fontColor } : undefined}
               >
                 {item.icon && (
                   <img

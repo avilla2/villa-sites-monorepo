@@ -16,6 +16,19 @@
 .page__section {
   width: 100%;
   box-sizing: border-box;
+  
+  // Background image support with responsive sizing
+  &--with-bg-image {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: var(--section-bg-md);
+    position: relative;
+
+    @media (min-width: 769px) {
+      background-image: var(--section-bg-lg);
+    }
+  }
 }
 
 // Section-level title rendered above non-full-height components

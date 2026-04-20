@@ -15,7 +15,7 @@ const HOSTNAME_TO_WEBSITE_ID = {
 
 // Map hostnames to the CSS data-site attribute value
 const HOSTNAME_TO_SITE_NAME = {
-  localhost: 'demo-site',
+  localhost: 'cv-landscape',
   '127.0.0.1': 'demo-site',
   'losvaldiviaslandscaping.com': 'los-valdivias',
   'www.losvaldiviaslandscaping.com': 'los-valdivias',

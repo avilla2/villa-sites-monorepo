@@ -55,12 +55,12 @@ export default function ButtonGroup ({ content }) {
               target="_blank"
               rel="noopener noreferrer"
             >
-              {entry.Text}
+              <span>{entry.Text}</span>
             </a>
               )
             : (
             <Link key={i} to={entry.Link} className={btnClass} style={hasStyle}>
-              {entry.Text}
+              <span>{entry.Text}</span>
             </Link>
               )
         })}

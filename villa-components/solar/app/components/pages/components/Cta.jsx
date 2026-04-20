@@ -9,11 +9,11 @@ function CtaButton ({ btn }) {
   if (isExternalLink(btn.Link)) {
     return (
       <a href={btn.Link} className="cta__btn" style={style} target="_blank" rel="noopener noreferrer">
-        {btn.Text}
+        <span>{btn.Text}</span>
       </a>
     )
   }
-  return <Link to={btn.Link} className="cta__btn" style={style}>{btn.Text}</Link>
+  return <Link to={btn.Link} className="cta__btn" style={style}><span>{btn.Text}</span></Link>
 }
 
 /**

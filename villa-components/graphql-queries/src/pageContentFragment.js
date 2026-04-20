@@ -9,6 +9,12 @@ fragment StyleFragment on ComponentContentPageComponentsStyle {
     size
     paddingTop
     paddingBottom
+    backgroundImage {
+      url
+      width
+      height
+      alternativeText
+    }
 }
 fragment Content on ContentPageContentDynamicZone {
   __typename

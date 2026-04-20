@@ -32,6 +32,7 @@
  * @property {string} size - Size specification
  * @property {string} paddingTop - Top padding value
  * @property {string} paddingBottom - Bottom padding value
+ * @property {Image} backgroundImage - Background image URL
  */
 
 /**

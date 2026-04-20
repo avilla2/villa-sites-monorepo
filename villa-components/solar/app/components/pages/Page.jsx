@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import renderPageComponent from './renderPageComponent'
+import buildUrl from '../../lib/buildUrl'
 
 // Component __typenames that span full viewport height.
 // These receive no top/bottom padding and their .Title is suppressed
@@ -52,8 +53,18 @@ export default function Page ({ content, pageName, path, siteName }) {
         const isLast = index === content.length - 1
         const isFull = FULL_HEIGHT.has(component.__typename)
         const styles = component?.Style || {}
-
+        const bgImage = styles.backgroundImage
+        console.log('Rendering component', component.__typename, { isFull, bgImage })
         const padding = getSectionPadding(component.__typename, isLast)
+
+        // Generate responsive background image URLs if backgroundImage exists
+        let bgImageVars = {}
+        if (bgImage?.url) {
+          bgImageVars = {
+            '--section-bg-md': `url("${buildUrl(bgImage.url, { format: 'webp', quality: 90, width: 768 })}")`,
+            '--section-bg-lg': `url("${buildUrl(bgImage.url, { format: 'webp', quality: 90, width: 1280 })}")`
+          }
+        }
 
         const sectionStyle = {
           ...(padding ? { padding } : {}),
@@ -62,13 +73,20 @@ export default function Page ({ content, pageName, path, siteName }) {
           ...(styles.paddingBottom != null && styles.paddingBottom !== '' ? { paddingBottom: styles.paddingBottom } : {}),
           ...(styles.TextColor ? { color: styles.TextColor } : {}),
           ...(styles.BackgroundColor ? { backgroundColor: styles.BackgroundColor } : {}),
-          ...(styles.textAlign ? { textAlign: styles.textAlign } : {})
+          ...(styles.textAlign ? { textAlign: styles.textAlign } : {}),
+          ...bgImageVars
         }
+
+        // Add className for sections with background images
+        const sectionClasses = [
+          'page__section',
+          bgImage?.url ? 'page__section--with-bg-image' : ''
+        ].filter(Boolean).join(' ')
 
         return (
           <section
             key={index}
-            className="page__section"
+            className={sectionClasses}
             style={Object.keys(sectionStyle).length ? sectionStyle : undefined}
           >
             {/* Section title — suppressed for full-height / visual-fill components */}

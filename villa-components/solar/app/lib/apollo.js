@@ -12,7 +12,7 @@ const backendUrl =
  */
 export const loaderFetchPolicy =
   (typeof process !== 'undefined' && process.env?.APOLLO_FETCH_POLICY) ||
-  'cache-first'
+  'network-only'
 
 /**
  * Creates a fresh ApolloClient instance.

@@ -35,7 +35,7 @@
   --nav-menu-bg:                #243040;
   --nav-menu-shadow:            0 4px 16px rgba(0, 0, 0, 0.3);
   --nav-menu-radius:            6px;
-  --nav-menu-min-width:         140px;
+  --nav-menu-min-width:         180px;
   --nav-menu-item-color:        inherit;
   --nav-menu-item-hover-bg:     rgba(255, 255, 255, 0.06);
   --nav-menu-item-hover-color:  currentColor;
@@ -349,7 +349,7 @@ $breakpoints: (xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536);
 
 // ── NavButtonIcon – logo/image link ──────────────────────────────────────────
 .nav-button-icon {
-  justify-content: center;
+  justify-content: flex-start;
   display: inline-flex;
   align-items: center;
   text-decoration: none;
@@ -408,6 +408,12 @@ $breakpoints: (xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536);
 
 .nav-menu__positioner {
   z-index: calc(var(--navbar-z) + 10);
+}
+
+.nav-menu__arrow {
+  fill: var(--nav-menu-bg);
+  width: 12px;
+  height: 8px;
 }
 
 .nav-menu__popup {

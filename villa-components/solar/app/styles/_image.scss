@@ -67,7 +67,19 @@
   }
 
   &__media {
-    flex: 1 1 var(--image-caption-side-basis);
+    // For side captions (left/right), allow flex to work
+    .image--caption-left &,
+    .image--caption-right & {
+      flex: 1 1 var(--image-caption-side-basis);
+    }
+
+    // For top/bottom captions, constrain to image width
+    .image--caption-top &,
+    .image--caption-bottom & {
+      width: var(--image-width);
+      max-width: 100%;
+      margin: 0 auto;
+    }
 
     // Full width on small displays (same breakpoint as intro) - standard only
     .image--standard & {

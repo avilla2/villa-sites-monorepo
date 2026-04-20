@@ -42,7 +42,7 @@ function SingleCard ({ Image, Title, Text, ButtonText, ButtonColor, CardColor, C
           {cardLink && (
             <div className="card__actions">
               <CardLink href={cardLink} className="card__btn" style={btnStyle} stopPropagation>
-                {ButtonText}
+                <span>{ButtonText}</span>
               </CardLink>
             </div>
           )}
@@ -52,7 +52,7 @@ function SingleCard ({ Image, Title, Text, ButtonText, ButtonColor, CardColor, C
   }
 
   return (
-    <div className="card" style={{ backgroundColor: CardColor || undefined, color: Color || undefined }}>
+    <div className="card" style={{ backgroundColor: CardColor || '#ffffff', color: Color || undefined }}>
       {Image?.url && (
         <div className="card__media">
           <ResponsiveImage className="card__img" src={Image.url} alt={Image.alternativeText || ''} sizes={{ sm: '100vw', md: '40vw', lg: '20vw' }}/>
@@ -64,7 +64,7 @@ function SingleCard ({ Image, Title, Text, ButtonText, ButtonColor, CardColor, C
       </div>
       {cardLink && (
         <div className="card__actions">
-          <CardLink href={cardLink} className="card__btn" style={btnStyle}>{ButtonText}</CardLink>
+          <CardLink href={cardLink} className="card__btn" style={btnStyle}><span>{ButtonText}</span></CardLink>
         </div>
       )}
     </div>

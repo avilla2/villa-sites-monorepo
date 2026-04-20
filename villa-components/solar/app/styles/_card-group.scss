@@ -36,6 +36,17 @@
     }
   }
 
+  // Respect text alignment for grid justification
+  &[style*="text-align: center"] &__grid,
+  &[style*="text-align:center"] &__grid {
+    justify-content: center;
+  }
+
+  &[style*="text-align: right"] &__grid,
+  &[style*="text-align:right"] &__grid {
+    justify-content: flex-end;
+  }
+
   &__item {
     display: flex;
     flex-direction: column;

@@ -174,7 +174,7 @@ export default function Navbar ({
               )}
         </header>
         {/* Spacer so page content starts below the fixed bar - height is 0 when transparent */}
-        <div style={{ height: isTransparent ? 0 : desktopBarHeight }} aria-hidden="true" />
+        <div className="navbar__spacer" style={{ height: isTransparent ? 0 : desktopBarHeight }} aria-hidden="true" />
       </div>
 
       {/* ── Mobile ───────────────────────────────────────────────────────── */}
