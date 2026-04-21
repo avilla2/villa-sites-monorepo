@@ -54,7 +54,6 @@ export default function Page ({ content, pageName, path, siteName }) {
         const isFull = FULL_HEIGHT.has(component.__typename)
         const styles = component?.Style || {}
         const bgImage = styles.backgroundImage
-        console.log('Rendering component', component.__typename, { isFull, bgImage })
         const padding = getSectionPadding(component.__typename, isLast)
 
         // Generate responsive background image URLs if backgroundImage exists

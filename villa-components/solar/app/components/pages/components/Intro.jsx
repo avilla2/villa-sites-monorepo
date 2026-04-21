@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import ReactMarkdown from 'react-markdown'
+import React from 'react'
 import { Link } from 'react-router'
 import isExternal from '../../../lib/isExternalLink'
 import Slideshow from './Slideshow'
@@ -84,9 +83,6 @@ function IntroButton ({ text, link, buttonColor }) {
  * @param {{ content: import('../../../../../components/src/types').IntroComponent }} props
  */
 export default function Intro ({ content }) {
-  const [mounted, setMounted] = useState(false)
-  useEffect(() => { setMounted(true) }, [])
-
   const styles = content?.Style || {}
 
   const overlayClass = [
@@ -118,12 +114,7 @@ export default function Intro ({ content }) {
       <div className={overlayClass}>
         <div className={`intro__content${animation ? ` intro__content--${animation}` : ''}`}>
           {content.IntroText && (
-            <div className="intro__text">
-              {mounted
-                ? <ReactMarkdown>{content.IntroText}</ReactMarkdown>
-                : <p>{content.IntroText}</p>
-              }
-            </div>
+            <div className="intro__text" dangerouslySetInnerHTML={{ __html: content.IntroText }} />
           )}
 
           {content?.Buttons?.length > 0 && (

@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import ReactMarkdown from 'react-markdown'
+import React from 'react'
 import ResponsiveImage from '../../shared/ResponsiveImage'
 
 /**
@@ -7,8 +6,6 @@ import ResponsiveImage from '../../shared/ResponsiveImage'
  * @param {import('../../../../../components/src/types').GridComponent} props.content
  */
 export default function PictureGrid ({ content }) {
-  const [mounted, setMounted] = useState(false)
-  useEffect(() => { setMounted(true) }, [])
 
   if (!content?.Entry?.length) return null
 
@@ -25,12 +22,7 @@ export default function PictureGrid ({ content }) {
               />
             )}
             {entry.Caption && (
-              <div className="picture-grid__caption">
-                {mounted
-                  ? <ReactMarkdown>{entry.Caption}</ReactMarkdown>
-                  : <p>{entry.Caption}</p>
-                }
-              </div>
+              <div className="picture-grid__caption" dangerouslySetInnerHTML={{ __html: entry.Caption }} />
             )}
           </div>
         ))}

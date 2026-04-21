@@ -57,4 +57,24 @@
     strong { font-weight: 700; }
     em     { font-style: italic; }
   }
+
+  // ── Scroll animations ────────────────────────────────────────────────────
+  &--animate-slide,
+  &--animate-fade {
+    opacity: 0;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  &--animate-slide {
+    transform: translateY(40px);
+  }
+
+  &--animate-fade {
+    transform: none;
+  }
+
+  &--visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

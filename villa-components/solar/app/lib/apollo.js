@@ -12,16 +12,22 @@ const backendUrl =
  */
 export const loaderFetchPolicy =
   (typeof process !== 'undefined' && process.env?.APOLLO_FETCH_POLICY) ||
-  'network-only'
+  'cache-first'
 
 /**
- * Creates a fresh ApolloClient instance.
- * Call once per server request to avoid cross-request cache contamination.
+ * Shared cache instance for server-side requests.
+ * Persists across requests for better performance.
+ */
+const sharedCache = new InMemoryCache({ possibleTypes })
+
+/**
+ * Creates a fresh ApolloClient instance with shared cache.
+ * Cache persists across requests for performance.
  */
 export function createApolloClient () {
   return new ApolloClient({
     link: new HttpLink({ uri: `${backendUrl}/graphql` }),
-    cache: new InMemoryCache({ possibleTypes }),
+    cache: sharedCache,
     ssrMode: true
   })
 }

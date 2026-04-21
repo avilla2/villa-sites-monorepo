@@ -302,6 +302,11 @@
     }
   }
 
+  // ── Intro background - darken for text visibility ──────────────────────
+  .intro__bg {
+    filter: brightness(0.6) contrast(1.1);
+  }
+
   // ── CTA card variant with angled styling ────────────────────────────────
   .cta--card {
     transform: skewX(-3deg);

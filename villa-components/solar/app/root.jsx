@@ -10,9 +10,10 @@ import {
   useRouteLoaderData
 } from 'react-router'
 import { ApolloProvider } from '@apollo/client/react'
-import { apolloClient, loaderFetchPolicy } from './lib/apollo'
+import { apolloClient, createApolloClient, loaderFetchPolicy } from './lib/apollo'
 import { getWebsiteIdFromHostname, getSiteNameFromHostname } from './lib/websiteMapping'
 import { APP_QUERY } from '@villa-components/graphql-queries'
+import { parseMarkdownInContent, parseMarkdownInFooter } from './utils/markdown'
 
 import './app.scss'
 
@@ -24,7 +25,7 @@ export async function loader ({ request }) {
   const siteName = getSiteNameFromHostname(url.hostname)
 
   try {
-    const client = apolloClient
+    const client = createApolloClient()
     const { data } = await client.query({
       query: APP_QUERY,
       variables: {
@@ -34,8 +35,37 @@ export async function loader ({ request }) {
       fetchPolicy: loaderFetchPolicy
     })
 
+    // Parse markdown in homepage content
+    const homepageContent = data.website?.homepage?.Content
+      ? await parseMarkdownInContent(data.website.homepage.Content)
+      : null
+
+    // Parse markdown in all content pages
+    const contentPages = data.website?.content_pages
+      ? await Promise.all(
+        data.website.content_pages.map(async (page) => ({
+          ...page,
+          Content: page.Content ? await parseMarkdownInContent(page.Content) : null
+        }))
+      )
+      : []
+
+    // Parse markdown in footer content
+    const footerContent = data.website?.footer?.Content
+      ? await parseMarkdownInFooter(data.website.footer.Content)
+      : null
+
     return {
-      website: data.website,
+      website: {
+        ...data.website,
+        homepage: data.website?.homepage
+          ? { ...data.website.homepage, Content: homepageContent }
+          : null,
+        content_pages: contentPages,
+        footer: data.website?.footer
+          ? { ...data.website.footer, Content: footerContent }
+          : null
+      },
       websiteId,
       siteName
     }
