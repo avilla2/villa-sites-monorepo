@@ -91,7 +91,7 @@ export async function parseMarkdownInFooter (footerContent) {
 
   return Promise.all(
     footerContent.map(async (block) => {
-      if (block.__typename === 'ComponentFooterText') {
+      if (block.__typename === 'ComponentFooterComponentsText') {
         return {
           ...block,
           Text: block.Text ? await parseMarkdown(block.Text) : block.Text

@@ -186,7 +186,10 @@ export class StrapiRESTClient {
       'populate[12]': 'Content.Image',
       'populate[13]': 'Content.Items',
       'populate[14]': 'Content.Caption',
-      'populate[15]': 'Content.RichText'
+      'populate[15]': 'Content.RichText',
+      'populate[16]': 'Content.Entry.Picture',
+      'populate[17]': 'Content.media',
+      'populate[18]': 'Content.buttons'
     }
 
     if (filters.Name) {
@@ -224,7 +227,10 @@ export class StrapiRESTClient {
       'populate[12]': 'Content.Image',
       'populate[13]': 'Content.Items',
       'populate[14]': 'Content.Caption',
-      'populate[15]': 'Content.RichText'
+      'populate[15]': 'Content.RichText',
+      'populate[16]': 'Content.Entry.Picture',
+      'populate[17]': 'Content.media',
+      'populate[18]': 'Content.buttons'
     })
   }
 
@@ -330,7 +336,10 @@ export class StrapiRESTClient {
       'populate[9]': 'Content.Cards',
       'populate[10]': 'Content.Icon',
       'populate[11]': 'Content.Image',
-      'populate[12]': 'Content.Items'
+      'populate[12]': 'Content.Items',
+      'populate[13]': 'Content.Entry.Picture',
+      'populate[14]': 'Content.media',
+      'populate[15]': 'Content.buttons'
     })
   }
 
@@ -420,5 +429,71 @@ export class StrapiRESTClient {
     }
 
     return this.updateWebsiteRelations(documentId, data)
+  }
+
+  // ============================================
+  // MEDIA LIBRARY OPERATIONS
+  // ============================================
+
+  /**
+   * List files from the media library
+   * @param {Object} filters - Filter options { name, mime, ext }
+   * @param {Object} pagination - Pagination options { page, pageSize, limit }
+   */
+  async listMedia (filters = {}, pagination = { pageSize: 25 }) {
+    const params = {}
+
+    if (filters.name) {
+      params['filters[name][$containsi]'] = filters.name
+    }
+
+    if (filters.url) {
+      params['filters[url][$containsi]'] = filters.url
+    }
+
+    if (filters.mime) {
+      params['filters[mime][$containsi]'] = filters.mime
+    }
+
+    if (filters.ext) {
+      params['filters[ext][$eq]'] = filters.ext
+    }
+
+    if (pagination.page) {
+      params['pagination[page]'] = pagination.page
+    }
+
+    if (pagination.pageSize) {
+      params['pagination[pageSize]'] = pagination.pageSize
+    }
+
+    if (pagination.limit) {
+      params['pagination[limit]'] = pagination.limit
+    }
+
+    return this.get('/upload/files', params)
+  }
+
+  /**
+   * Get a specific media file by ID
+   * @param {string} id - Media file ID (not documentId)
+   */
+  async getMedia (id) {
+    return this.get(`/upload/files/${id}`)
+  }
+
+  /**
+   * Search media by URL
+   * @param {string} url - Full or partial URL to search for
+   */
+  async searchMediaByUrl (url) {
+    // Extract filename from URL if full URL provided
+    let searchTerm = url
+    if (url.includes('/uploads/')) {
+      const parts = url.split('/uploads/')
+      searchTerm = parts[parts.length - 1]
+    }
+
+    return this.listMedia({ name: searchTerm }, { pageSize: 100 })
   }
 }

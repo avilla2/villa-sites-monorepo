@@ -1,11 +1,22 @@
 import React from 'react'
 import { useOutletContext } from 'react-router'
 import Page from '../components/pages/Page'
-import { getWebsiteFromMatches, buildSiteMeta } from '../lib/siteMeta'
+import { getWebsiteFromMatches, buildSiteMeta, getFirstImageFromContent } from '../lib/siteMeta'
 
-export function meta ({ matches }) {
+export function meta ({ matches, request }) {
   const website = getWebsiteFromMatches(matches)
-  return buildSiteMeta(website, website?.homepage?.PageName)
+
+  // Build base meta tags
+  const image = getFirstImageFromContent(website?.homepage?.Content)
+  const baseOptions = { image }
+
+  // Add URL and canonical only if request is available
+  if (request) {
+    const url = new URL(request.url)
+    baseOptions.url = url.origin
+  }
+
+  return buildSiteMeta(website, website?.homepage?.PageName, baseOptions)
 }
 
 export default function Home () {

@@ -602,6 +602,71 @@ const TOOLS = [
       },
       required: ['documentId']
     }
+  },
+
+  // Media Library tools
+  {
+    name: 'list_media',
+    description: 'List files from the Strapi media library. Search by name, URL, file type, or extension. Essential for finding existing images to reference in components.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        nameFilter: {
+          type: 'string',
+          description: 'Filter by filename (partial match, case insensitive)'
+        },
+        urlFilter: {
+          type: 'string',
+          description: 'Filter by URL (partial match). Can be full URL or just filename.'
+        },
+        mimeFilter: {
+          type: 'string',
+          description: 'Filter by MIME type (e.g., "image/jpeg", "video/mp4")'
+        },
+        extFilter: {
+          type: 'string',
+          description: 'Filter by file extension (e.g., ".jpg", ".png", ".mp4")'
+        },
+        pageSize: {
+          type: 'number',
+          description: 'Number of results per page',
+          default: 25
+        },
+        page: {
+          type: 'number',
+          description: 'Page number (1-indexed)',
+          default: 1
+        }
+      }
+    }
+  },
+  {
+    name: 'get_media',
+    description: 'Get detailed information about a specific media file by its ID.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: {
+          type: 'number',
+          description: 'The numeric ID of the media file'
+        }
+      },
+      required: ['id']
+    }
+  },
+  {
+    name: 'search_media_by_url',
+    description: 'Search for media files by URL. Useful when you have a URL and need to find the media file details and ID to reference in components.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        url: {
+          type: 'string',
+          description: 'Full or partial URL to search for (e.g., "https://static.villawebsolutions.com/uploads/turf_1_2025_8a22d3c470.JPG" or just "turf_1_2025")'
+        }
+      },
+      required: ['url']
+    }
   }
 ]
 
@@ -776,8 +841,8 @@ const COMPONENT_EXAMPLES = {
     __component: 'component-content-page-components.grid',
     Title: 'Image Grid',
     Entry: [
-      { Caption: 'Image 1 caption' },
-      { Caption: 'Image 2 caption' }
+      { Caption: 'Image 1 caption', Picture: null },
+      { Caption: 'Image 2 caption', Picture: null }
     ],
     Style: {
       paddingTop: 30,
@@ -1235,6 +1300,51 @@ const toolHandlers = {
       content: [{
         type: 'text',
         text: `Site settings updated successfully: ${result.data.Name}`
+      }]
+    }
+  },
+
+  // Media Library handlers
+  async list_media (args) {
+    const filters = {}
+    if (args.nameFilter) filters.name = args.nameFilter
+    if (args.urlFilter) filters.url = args.urlFilter
+    if (args.mimeFilter) filters.mime = args.mimeFilter
+    if (args.extFilter) filters.ext = args.extFilter
+
+    const pagination = {
+      pageSize: args.pageSize || 25,
+      page: args.page || 1
+    }
+
+    const result = await strapiClient.listMedia(filters, pagination)
+
+    return {
+      content: [{
+        type: 'text',
+        text: JSON.stringify(result, null, 2)
+      }]
+    }
+  },
+
+  async get_media (args) {
+    const result = await strapiClient.getMedia(args.id)
+
+    return {
+      content: [{
+        type: 'text',
+        text: JSON.stringify(result, null, 2)
+      }]
+    }
+  },
+
+  async search_media_by_url (args) {
+    const result = await strapiClient.searchMediaByUrl(args.url)
+
+    return {
+      content: [{
+        type: 'text',
+        text: JSON.stringify(result, null, 2)
       }]
     }
   }

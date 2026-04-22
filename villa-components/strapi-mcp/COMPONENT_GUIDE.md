@@ -214,8 +214,8 @@ For structured content layouts.
   "__component": "component-content-page-components.grid",
   "Title": "Portfolio",
   "Entry": [
-    {"Caption": "Project 1"},
-    {"Caption": "Project 2"}
+    {"Caption": "Project 1", "Picture": null},
+    {"Caption": "Project 2", "Picture": null}
   ]
 }
 ```
@@ -469,14 +469,17 @@ The Intro component does **not** have a `Subtext` field. Include all text in `In
 
 The Buttons component does NOT have a `GroupButtonStyle` field. Valid fields are:
 - `ButtonStyle` - Style of the buttons (e.g., "contained", "outlined")
-- `ButtonArrangement` - Layout arrangement (e.g., "center", "left", "right")
+- `ButtonArrangement` - Layout arrangement
 - `Entry` - Array of button objects
+
+**ButtonArrangement** only accepts these specific values:
 
 ❌ **INCORRECT:**
 ```json
 {
   "__component": "content-page-components.buttons",
-  "GroupButtonStyle": "primary"
+  "GroupButtonStyle": "primary",
+  "ButtonArrangement": "center"
 }
 ```
 
@@ -485,10 +488,12 @@ The Buttons component does NOT have a `GroupButtonStyle` field. Valid fields are
 {
   "__component": "content-page-components.buttons",
   "ButtonStyle": "contained",
-  "ButtonArrangement": "center",
+  "ButtonArrangement": "together",
   "Entry": [{"Text": "Click Me", "Link": "/page"}]
 }
 ```
+
+Allowed values for `ButtonArrangement`: `"together"`, `"space between"`, `"spaced evenly"`
 
 ### Card Group CardStyle Enum Values
 
@@ -524,6 +529,57 @@ The `CardStyle` field in card-group components only accepts **"standard"** or **
 
 Allowed values: `"standard"`, `"overlay"`
 
+### CTA Component Alignment
+
+The CTA component uses **two separate properties** to control alignment:
+
+- **`justify`** - Controls **vertical alignment** of text/buttons relative to the image (accepts: `"start"`, `"center"`, `"space-between"`)
+  - `"start"` - Aligns content to the top of the image
+  - `"center"` - Centers content vertically with the image
+  - `"space-between"` - Spreads text and button evenly across the vertical space
+  
+- **`Style.textAlign`** - Controls **horizontal alignment** of text and buttons (accepts: `"left"`, `"center"`, `"right"`)
+
+❌ **INCORRECT (using "left" for justify):**
+```json
+{
+  "__component": "home-page-components.cta",
+  "Title": "Transform Your Property",
+  "justify": "left"
+}
+```
+
+✅ **CORRECT (left-aligned text, top-aligned with image):**
+```json
+{
+  "__component": "home-page-components.cta",
+  "Title": "Transform Your Property",
+  "justify": "start",
+  "media": { "id": 123 },
+  "Style": {
+    "textAlign": "left"
+  }
+}
+```
+
+✅ **CORRECT (centered text, vertically centered with image):**
+```json
+{
+  "__component": "home-page-components.cta",
+  "Title": "Transform Your Property",
+  "justify": "center",
+  "media": { "id": 123 },
+  "Style": {
+    "textAlign": "center"
+  }
+}
+```
+
+**Important:** 
+- Use `justify` to control vertical positioning relative to the image
+- Use `Style.textAlign` to control horizontal text/button alignment
+- The `justify` field only accepts `"start"`, `"center"`, or `"space-between"` (NOT `"left"` or `"right"`)
+
 ### Invalid Relations Error
 
 If you receive an "Invalid relations" error when creating pages with image/file references, ensure that:
@@ -551,6 +607,76 @@ If you receive an "Invalid relations" error when creating pages with image/file 
 
 Then update later with actual uploaded image URLs.
 
+## Important: Connecting Pages to Websites
+
+**After creating a content page, you MUST connect it to a website for it to appear on the site.**
+
+Creating a page only stores it in Strapi. To make it accessible on the website, use:
+
+```javascript
+{
+  "name": "connect_content_pages",
+  "arguments": {
+    "websiteId": "your-website-document-id",
+    "contentPageIds": ["your-page-document-id"]
+  }
+}
+```
+
+This is a required step after every `create_content_page` call.
+
+## Working with Images and Media
+
+### Finding Existing Media
+
+To reference images in components, you need the media file's ID. Use these tools to find existing media:
+
+**Search by URL:**
+```javascript
+{
+  "name": "search_media_by_url",
+  "arguments": {
+    "url": "https://static.villawebsolutions.com/uploads/turf_1_2025_8a22d3c470.JPG"
+  }
+}
+```
+
+**Search by filename:**
+```javascript
+{
+  "name": "list_media",
+  "arguments": {
+    "nameFilter": "turf_1_2025"
+  }
+}
+```
+
+**Filter by type:**
+```javascript
+{
+  "name": "list_media",
+  "arguments": {
+    "mimeFilter": "image/jpeg",
+    "extFilter": ".jpg"
+  }
+}
+```
+
+### Using Media in Components
+
+Once you have the media file information, reference it by its **numeric `id`** (not `documentId`):
+
+```json
+{
+  "__component": "content-page-components.image",
+  "asset": {
+    "id": 905
+  }
+}
+```
+
+**Note:** You only need to provide the `id` field when creating/updating components. Strapi will populate all other media fields (url, formats, etc.) automatically.
+
 ## Troubleshooting
 
 **Q: Can I use Intro on a content page?**  
@@ -567,3 +693,6 @@ A: Some components like CardGroup contain nested objects (Cards), but components
 
 **Q: I'm getting enum validation errors**  
 A: Check the Field Name Corrections section above. Some enum values require specific formatting (e.g., spaces instead of underscores).
+
+**Q: I created a page but it doesn't show up on the website**  
+A: Did you connect it to the website? Use `connect_content_pages` after creating any new content page.
