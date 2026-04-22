@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 import { BlocksRenderer } from '@strapi/blocks-react-renderer'
 import isExternalLink from '../../../lib/isExternalLink'
 import ResponsiveImage from '../../shared/ResponsiveImage'
+import buildUrl from '../../../lib/buildUrl'
 
 function CardLink ({ href, className, style, children, stopPropagation }) {
   const handleClick = stopPropagation ? e => e.stopPropagation() : undefined
@@ -47,6 +48,29 @@ function SingleCard ({ Image, Title, Text, ButtonText, ButtonColor, CardColor, C
             </div>
           )}
         </div>
+      </div>
+    )
+  }
+
+  if (CardStyle === 'slideshow') {
+    return (
+      <div className="card card--slideshow" style={{ backgroundColor: CardColor || '#ffffff', color: Color || undefined }}>
+        <div className="card__header">
+          <h3 className="card__title">{Title}</h3>
+          {Image?.url && (
+            <div className="card__avatar">
+              <img className="card__avatar-img" src={buildUrl(Image.url, { width: 40 })} alt={Image.alternativeText || ''} />
+            </div>
+          )}
+        </div>
+        <div className="card__content">
+          {Text && <div className="card__body"><BlocksRenderer content={Text} /></div>}
+        </div>
+        {cardLink && (
+          <div className="card__actions">
+            <CardLink href={cardLink} className="card__btn" style={btnStyle}><span>{ButtonText}</span></CardLink>
+          </div>
+        )}
       </div>
     )
   }
@@ -157,7 +181,7 @@ export default function CardGroup ({ content }) {
                 >
                   <SingleCard
                     {...card}
-                    Color={Style?.TextColor}
+                    Color={card.TextColor || Style?.TextColor}
                     active={activeCard === index}
                     onToggle={() => setActiveCard(prev => prev === index ? -1 : index)}
                   />
@@ -204,7 +228,7 @@ export default function CardGroup ({ content }) {
           <div key={index} className="card-group__item">
             <SingleCard
               {...card}
-              Color={Style?.TextColor}
+              Color={card.TextColor || Style?.TextColor}
               active={activeCard === index}
               onToggle={() => setActiveCard(prev => prev === index ? -1 : index)}
             />

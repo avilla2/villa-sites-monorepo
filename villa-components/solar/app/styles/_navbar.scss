@@ -367,6 +367,7 @@ $breakpoints: (xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536);
 .nav-menu__trigger {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.2rem;
   padding: 0 var(--navbar-link-h-padding);
   background: none;

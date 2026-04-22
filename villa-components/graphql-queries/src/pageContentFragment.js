@@ -233,6 +233,7 @@ fragment Content on ContentPageContentDynamicZone {
       ButtonColor
       CardColor
       CardStyle
+      TextColor
       Link
     }
     Style {

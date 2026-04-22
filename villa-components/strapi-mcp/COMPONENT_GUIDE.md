@@ -304,6 +304,11 @@ Here's a content page using components from both categories:
 5. **Test responsiveness**: Consider mobile vs desktop layout needs
 6. **Use list_component_types**: Always check available components before building pages
 7. **Get examples first**: Use get_component_example to see all available fields
+8. **Card text colors**: Always set `TextColor` on individual cards within card-groups, not just at the card-group level. Cards often have contrasting backgrounds (e.g., white cards on black page background) requiring different text colors than the section title
+9. **Button group backgrounds**: When a button group follows a paragraph or rich-text component, set the button group's `Style.BackgroundColor` to match the previous component for visual continuity
+10. **Button group padding**: ALWAYS add `paddingBottom: 32` to button group Style objects for proper spacing. The default padding is insufficient
+11. **Text alignment**: Use `textAlign: "left"` in Style objects for readable, professional layouts. Only use `center` alignment for galleries or specific design needs
+12. **PRESERVE ALL CONTENT**: When updating pages, ALWAYS include all original fields (images, MobileFile, File, etc.). Never accidentally remove existing content - reference the original data and maintain all fields
 
 ## Component Selection Guide
 
@@ -528,6 +533,51 @@ The `CardStyle` field in card-group components only accepts **"standard"** or **
 ```
 
 Allowed values: `"standard"`, `"overlay"`
+
+### Card Group Text Colors
+
+**IMPORTANT:** Individual cards within a card-group need their own `TextColor` set because cards typically have contrasting backgrounds from the page.
+
+❌ **INCORRECT (only setting TextColor at card-group level):**
+```json
+{
+  "__component": "content-page-components.card-group",
+  "Title": "Our Services",
+  "Cards": [
+    {
+      "Title": "Service 1",
+      "Text": "Description of service",
+      "CardStyle": "standard"
+    }
+  ],
+  "Style": {
+    "BackgroundColor": "#000000",
+    "TextColor": "#ffffff"
+  }
+}
+```
+
+✅ **CORRECT (setting TextColor on each card):**
+```json
+{
+  "__component": "content-page-components.card-group",
+  "Title": "Our Services",
+  "Cards": [
+    {
+      "Title": "Service 1",
+      "Text": "Description of service",
+      "CardStyle": "standard",
+      "TextColor": "#000000"
+    }
+  ],
+  "Style": {
+    "BackgroundColor": "#000000",
+    "TextColor": "#ffffff"
+  }
+}
+```
+
+**Why:** Card-group `Style.TextColor` applies to the section title, but cards often have white/light backgrounds while the page has dark backgrounds. Set each card's `TextColor` to ensure text is readable on the card's background (typically `"#000000"` for white cards).
 
 ### CTA Component Alignment
 
