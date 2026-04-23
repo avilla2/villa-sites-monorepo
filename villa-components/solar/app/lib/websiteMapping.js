@@ -6,8 +6,7 @@ const HOSTNAME_TO_WEBSITE_ID = {
   'www.losvaldiviaslandscaping.com': 'ulbqjd1omixehd4gjnitqgg7',
   'villawebsolutions.com': 'detjyq65tnfm7csk52vubz9f',
   'www.villawebsolutions.com': 'detjyq65tnfm7csk52vubz9f',
-  // 'solar-vjhe7.ondigitalocean.app': 'detjyq65tnfm7csk52vubz9f',
-  'solar-vjhe7.ondigitalocean.app': 'dhj98a3qpodsav9ffj8s2jb1', // temp
+  'solar-vjhe7.ondigitalocean.app': 'detjyq65tnfm7csk52vubz9f',
   'alexandrovilla.com': 'detjyq65tnfm7csk52vubz9f',
   'cvlandscapemaintenance.com': 'dhj98a3qpodsav9ffj8s2jb1',
   'www.cvlandscapemaintenance.com': 'dhj98a3qpodsav9ffj8s2jb1'
@@ -21,8 +20,7 @@ const HOSTNAME_TO_SITE_NAME = {
   'www.losvaldiviaslandscaping.com': 'los-valdivias',
   'villawebsolutions.com': 'villa-web-solutions',
   'www.villawebsolutions.com': 'villa-web-solutions',
-  // 'solar-vjhe7.ondigitalocean.app': 'villa-web-solutions',
-  'solar-vjhe7.ondigitalocean.app': 'cv-landscape', // temp
+  'solar-vjhe7.ondigitalocean.app': 'villa-web-solutions',
   'alexandrovilla.com': 'villa-web-solutions',
   'cvlandscapemaintenance.com': 'cv-landscape',
   'www.cvlandscapemaintenance.com': 'cv-landscape'

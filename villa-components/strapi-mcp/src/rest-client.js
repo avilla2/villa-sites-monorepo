@@ -230,7 +230,9 @@ export class StrapiRESTClient {
       'populate[15]': 'Content.RichText',
       'populate[16]': 'Content.Entry.Picture',
       'populate[17]': 'Content.media',
-      'populate[18]': 'Content.buttons'
+      'populate[18]': 'Content.buttons',
+      'populate[19]': 'Content.slidesDesktop',
+      'populate[20]': 'Content.slidesMobile'
     })
   }
 
@@ -339,7 +341,9 @@ export class StrapiRESTClient {
       'populate[12]': 'Content.Items',
       'populate[13]': 'Content.Entry.Picture',
       'populate[14]': 'Content.media',
-      'populate[15]': 'Content.buttons'
+      'populate[15]': 'Content.buttons',
+      'populate[16]': 'Content.slidesDesktop',
+      'populate[17]': 'Content.slidesMobile'
     })
   }
 

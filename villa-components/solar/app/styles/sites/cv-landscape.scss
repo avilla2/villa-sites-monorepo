@@ -18,6 +18,7 @@
   // ── Root page background ────────────────────────────────────────────────
   background-color: var(--color-bg-dark);
   color: var(--color-text-light);
+  overflow-x: hidden;
 
   // ── Footer ──────────────────────────────────────────────────────────────
   --footer-bg:                  var(--color-bg-dark);
@@ -97,7 +98,7 @@
 
   // ── Contact Form ────────────────────────────────────────────────────────
   --contact-input-bg:          var(--color-bg-dark-2);
-  --contact-input-color:       var(--color-text-light);
+  --contact-input-color:       #000000;
   --contact-input-border:      1px solid rgba(12, 159, 255, 0.3);
   --contact-input-border-focus: var(--color-accent-blue);
   --contact-btn-bg:            var(--color-accent-orange);

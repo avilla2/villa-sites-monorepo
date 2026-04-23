@@ -47,6 +47,7 @@ body {
   padding: 0;
   font-family: var(--font-primary, 'PrimaryFont', 'Helvetica Neue', Arial, sans-serif);
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 a {

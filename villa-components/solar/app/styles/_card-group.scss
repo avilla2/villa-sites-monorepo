@@ -219,8 +219,7 @@
   .card-group__slideshow-track {
     position: relative;
     flex: 1;
-    overflow-x: hidden;
-    overflow-y: visible;
+    overflow: visible;
     display: grid;
     align-items: center;
     justify-content: center;
