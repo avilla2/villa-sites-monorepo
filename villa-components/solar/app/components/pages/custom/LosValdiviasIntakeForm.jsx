@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useFetcher } from 'react-router'
 
-const SEND_TO = 'losvaldivias@losvaldiviaslandscaping.com'
-const SEND_FROM = 'noreply@villawebsolutions.com'
+const SEND_TO = 'info@losvaldiviaslandscaping.com'
+const SEND_FROM = 'notifications@villawebsolutions.com'
 
 const PROJECT_TYPES = [
   'New Landscape Installation',

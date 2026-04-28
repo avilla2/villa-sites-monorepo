@@ -248,7 +248,6 @@
     align-items: stretch;
 
     @media (min-width: 769px) {
-      max-width: 350px;
       
       &--visible {
         display: block;
@@ -260,7 +259,8 @@
     }
 
     @media (max-width: 768px) {
-      max-width: 90%;
+      max-width: 115%;
+      padding: 0 0.5rem;
     }
 
     .card {

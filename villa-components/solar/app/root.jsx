@@ -228,3 +228,32 @@ export function ErrorBoundary ({ error }) {
     </main>
   )
 }
+
+export function HydrateFallback () {
+  return (
+    <div style={{
+      position: 'fixed',
+      inset: 0,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: '#ffffff'
+    }}>
+      <div style={{
+        width: '48px',
+        height: '48px',
+        border: '4px solid rgba(0, 0, 0, 0.1)',
+        borderTopColor: 'var(--color-accent, #c9a84c)',
+        borderRadius: '50%',
+        animation: 'spin 0.8s linear infinite'
+      }} />
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          @keyframes spin {
+            to { transform: rotate(360deg); }
+          }
+        `
+      }} />
+    </div>
+  )
+}
