@@ -189,7 +189,8 @@ export class StrapiRESTClient {
       'populate[15]': 'Content.RichText',
       'populate[16]': 'Content.Entry.Picture',
       'populate[17]': 'Content.media',
-      'populate[18]': 'Content.buttons'
+      'populate[18]': 'Content.buttons',
+      'populate[19]': 'Content.Cards.Image'
     }
 
     if (filters.Name) {
@@ -232,7 +233,8 @@ export class StrapiRESTClient {
       'populate[17]': 'Content.media',
       'populate[18]': 'Content.buttons',
       'populate[19]': 'Content.slidesDesktop',
-      'populate[20]': 'Content.slidesMobile'
+      'populate[20]': 'Content.slidesMobile',
+      'populate[21]': 'Content.Cards.Image'
     })
   }
 
@@ -343,7 +345,8 @@ export class StrapiRESTClient {
       'populate[14]': 'Content.media',
       'populate[15]': 'Content.buttons',
       'populate[16]': 'Content.slidesDesktop',
-      'populate[17]': 'Content.slidesMobile'
+      'populate[17]': 'Content.slidesMobile',
+      'populate[18]': 'Content.Cards.Image'
     })
   }
 

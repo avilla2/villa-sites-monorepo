@@ -309,6 +309,7 @@ Here's a content page using components from both categories:
 10. **Button group padding**: ALWAYS add `paddingBottom: 32` to button group Style objects for proper spacing. The default padding is insufficient
 11. **Text alignment**: Use `textAlign: "left"` in Style objects for readable, professional layouts. Only use `center` alignment for galleries or specific design needs
 12. **PRESERVE ALL CONTENT**: When updating pages, ALWAYS include all original fields (images, MobileFile, File, etc.). Never accidentally remove existing content - reference the original data and maintain all fields
+13. **Markdown line breaks**: Use actual newline characters in markdown fields, NOT escaped `\n` strings. In JSON, this means using actual line breaks within the string value, not the literal characters "\" and "n"
 
 ## Component Selection Guide
 
