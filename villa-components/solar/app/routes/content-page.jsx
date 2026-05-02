@@ -16,7 +16,10 @@ export function meta ({ params, matches, request }) {
 
   // Build base meta tags
   const image = getFirstImageFromContent(contentPage.Content)
-  const baseOptions = { image }
+  const baseOptions = {
+    image,
+    description: contentPage.metaDescription
+  }
 
   // Add URL and canonical only if request is available
   if (request) {

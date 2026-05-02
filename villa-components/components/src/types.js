@@ -470,6 +470,7 @@
  * @property {string} Name - Internal page name
  * @property {string} Title - Page display title
  * @property {string} Link - Page URL link
+ * @property {string} metaDescription - Meta description for SEO
  * @property {ContentComponent[]} Content - Array of page content components
  */
 

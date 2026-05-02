@@ -36,6 +36,7 @@ query Website($id: ID!, $locale: I18NLocaleCode) {
       Name
       Title
       Link
+      metaDescription
       Content {
         ...Content
       }

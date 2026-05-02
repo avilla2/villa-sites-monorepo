@@ -370,11 +370,6 @@
       transform: skewX(3deg);
     }
 
-    // Add interior padding
-    .card__content {
-      padding: 0 calc(1.25rem + 8px) calc(1rem + 8px);
-    }
-
     .card__actions {
       padding: calc(0.75rem + 8px) calc(1.25rem + 8px) calc(1.25rem + 8px);
     }

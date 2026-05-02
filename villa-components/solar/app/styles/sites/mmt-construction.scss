@@ -1,0 +1,348 @@
+// ─── MMT Construction & Management ────────────────────────────────────────────
+// Professional construction theme with teal brushstroke accents
+
+[data-site="mmt-construction"] {
+  // ── Brand tokens ────────────────────────────────────────────────────────
+  --color-primary:      #4E8991;  // Teal from logo
+  --color-primary-dark: #3D7278;  // Darker teal
+  --color-primary-light: #78B5BC; // Lighter teal
+  --color-accent:       #2C5357;  // Deep teal
+  --color-bg-light:     #F8F9FA;
+  --color-bg-white:     #FFFFFF;
+  --color-text-dark:    #2B2B2B;
+  --color-text-muted:   #A9A9A9;
+  --color-divider:      rgba(90, 159, 168, 0.2);
+
+  --font-primary: 'PrimaryFont', 'Helvetica Neue', Arial, sans-serif;
+  --font-heading: 'HeadingFont', 'Helvetica Neue', Arial, sans-serif;
+
+  // ── Root page background ────────────────────────────────────────────────
+  background-color: var(--color-bg-white);
+  color: var(--color-text-dark);
+  overflow-x: hidden;
+
+  // ── Footer ──────────────────────────────────────────────────────────────
+  --footer-bg:                  #3F3F3F;
+  --footer-color:               #FFFFFF;
+  --footer-font-family:         var(--font-primary);
+  --footer-font-size:           0.95rem;
+  --footer-padding-top:         64px;
+  --footer-padding-x:           6vw;
+  --footer-padding-bottom:      32px;
+  --footer-content-gap:         2.5rem;
+  --footer-divider-color:       rgba(255, 255, 255, 0.2);
+  --footer-divider-margin-top:  2rem;
+  --footer-divider-padding-top: 1.5rem;
+  --footer-link-color:          rgba(255, 255, 255, 0.8);
+  --footer-link-font-size:      0.9rem;
+  --footer-accent:              var(--color-primary-light);
+  --footer-image-width:         220px;
+  --footer-text-weight:         400;
+  --footer-text-line-height:    1.7;
+  --footer-text-padding-x:      8%;
+  --footer-icon-size:           1.8rem;
+  --footer-icon-color:          #FFFFFF;
+  --footer-icon-gap:            0.2rem;
+  --footer-icon-padding:        0.5rem;
+  --footer-icon-hover-bg:       rgba(90, 159, 168, 0.3);
+
+  // ── Navbar ──────────────────────────────────────────────────────────────
+  --navbar-bg:                   #FFFFFF;
+  --navbar-color:                var(--color-text-dark);
+  --navbar-height:               85px;
+  --navbar-shadow:               0 2px 12px rgba(90, 159, 168, 0.15);
+  --navbar-font-family:          var(--font-heading);
+  --navbar-link-font-size:       1rem;
+  --navbar-link-weight:          600;
+  --navbar-link-h-padding:       1.2rem;
+  --navbar-link-line-height:     20px;
+  --navbar-link-transition:      0.3s ease;
+  --navbar-active-color:         var(--color-primary);
+  --navbar-hover-bg:             rgba(90, 159, 168, 0.08);
+  --navbar-button-bg:            var(--color-primary);
+  --navbar-button-color:         #FFFFFF;
+  --navbar-button-border:        var(--color-primary);
+  --navbar-button-px:            1.8rem;
+  --navbar-button-font-size:     0.95rem;
+  --navbar-button-weight:        700;
+  --nav-menu-bg:                 #FFFFFF;
+  --nav-menu-shadow:             0 8px 24px rgba(90, 159, 168, 0.2);
+  --nav-menu-radius:             8px;
+  --nav-menu-item-color:         var(--color-text-dark);
+  --nav-menu-item-hover-bg:      rgba(90, 159, 168, 0.1);
+  --nav-menu-item-hover-color:   var(--color-primary);
+  --nav-menu-item-active-color:  var(--color-primary);
+  --mobile-drawer-width:         300px;
+  --mobile-drawer-bg:            #FFFFFF;
+  --mobile-drawer-color:         var(--color-text-dark);
+  --mobile-drawer-header-border: var(--color-divider);
+  --mobile-drawer-active-color:  var(--color-primary);
+  --site-banner-bg:              var(--color-primary);
+  --site-banner-color:           #FFFFFF;
+  --site-banner-font-weight:     600;
+
+  // ── Intro ───────────────────────────────────────────────────────────────
+  --intro-heading-font:        var(--font-heading);
+  --intro-font-size:           clamp(1.1rem, 2.5vw, 1.7rem);
+  --intro-font-weight:         700;
+  --intro-btn-border-radius:   50px;
+  --intro-btn-px:              2.2rem;
+  --intro-btn-py:              0.9rem;
+  --intro-btn-font-size:       1.05rem;
+  --intro-btn-weight:          700;
+  --intro-btn-letter-spacing:  0.02em;
+
+  // ── Card Group ──────────────────────────────────────────────────────────
+  --card-radius:               12px;
+  --card-shadow:               0 4px 20px rgba(90, 159, 168, 0.15);
+  --card-btn-radius:           50px;
+
+  // ── Contact Form ────────────────────────────────────────────────────────
+  --contact-input-bg:          #FFFFFF;
+  --contact-input-border:      #CED4DA;
+  --contact-input-focus:       var(--color-primary);
+  --contact-btn-bg:            var(--color-primary);
+  --contact-btn-color:         #FFFFFF;
+}
+
+[data-site="mmt-construction"] {
+  // ── Navbar Styles ───────────────────────────────────────────────────────
+  .navbar__bar {
+    background-color: #FFFFFF !important;
+    border-bottom: 1px solid rgba(90, 159, 168, 0.1);
+
+    // Sloped extension - hangs down on left, slopes up to right
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: 0;
+      right: 0;
+      height: 45px;
+      background-color: #FFFFFF;
+      clip-path: polygon(0 0, 100% 30%, 0 100%);
+      box-shadow: 0 6px 16px rgba(90, 159, 168, 0.2), 0 2px 4px rgba(90, 159, 168, 0.15);
+      filter: blur(1px);
+      z-index: -1;
+
+      @media (max-width: 768px) {
+        bottom: -15px;
+        height: 30px;
+      }
+    }
+  }
+
+  // Hide desktop navbar spacer
+  .navbar__spacer {
+    display: none !important;
+  }
+
+  // ── Footer Styles with reversed slope extension ────────────────────────
+  .footer {
+    position: relative;
+
+    // Sloped extension - slopes down from left to right (opposite of navbar)
+    &::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      left: 0;
+      right: 0;
+      height: 45px;
+      background-color: #3F3F3F;
+      clip-path: polygon(0 70%, 100% 0, 100% 100%, 0 100%);
+      box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.25), 0 -4px 8px rgba(0, 0, 0, 0.2);
+      filter: blur(1px);
+      z-index: -1;
+
+      @media (max-width: 768px) {
+        top: -15px;
+        height: 30px;
+      }
+    }
+  }
+
+  // ── Brushstroke Button Styles ───────────────────────────────────────────
+  // Inspired by the circular brushstroke from the MMT logo
+  
+  .intro__btn,
+  .card__btn,
+  .contact__btn,
+  .btn-group__btn,
+  .cta__btn,
+  .nav-button {
+    color: var(--color-bg-white) !important;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0;
+    transition: all 0.3s ease;
+    
+    // Hand-drawn brush stroke clip-path with irregular edges
+    clip-path: polygon(
+      2% 8%, 8% 3%, 15% 1%, 25% 0%, 35% 1%, 45% 0%, 55% 1%, 65% 0%, 75% 2%, 85% 1%, 92% 4%, 98% 10%,
+      99% 20%, 100% 30%, 99% 40%, 100% 50%, 99% 60%, 100% 70%, 98% 80%, 99% 90%, 95% 96%, 88% 99%,
+      80% 100%, 70% 99%, 60% 100%, 50% 99%, 40% 100%, 30% 98%, 20% 100%, 12% 97%, 5% 92%,
+      2% 85%, 0% 75%, 1% 65%, 0% 55%, 1% 45%, 0% 35%, 2% 25%, 1% 15%
+    );
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(90, 159, 168, 0.3);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  // ── Intro buttons ───────────────────────────────────────────────────────
+  .intro__btn {
+    background-color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+    color: #FFFFFF;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(90, 159, 168, 0.3);
+    
+    &:hover, &:focus-visible {
+      background-color: var(--color-primary-dark);
+      border-color: var(--color-primary-dark);
+      box-shadow: 0 6px 20px rgba(90, 159, 168, 0.4);
+    }
+  }
+
+  // ── Card buttons ────────────────────────────────────────────────────────
+  .card__btn {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #FFFFFF;
+    font-weight: 700;
+
+    &:hover {
+      background-color: var(--color-primary-dark);
+      border-color: var(--color-primary-dark);
+    }
+  }
+
+  // ── Contact Form submit button ──────────────────────────────────────────
+  .contact__btn {
+    background-color: var(--color-primary);
+    color: #FFFFFF;
+    
+    &:hover:not(:disabled),
+    &:focus-visible:not(:disabled) {
+      background-color: var(--color-primary-dark);
+    }
+  }
+
+  // ── CTA buttons ─────────────────────────────────────────────────────────
+  .cta__btn {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    
+    &:hover,
+    &:focus-visible {
+      background-color: var(--color-primary-dark);
+      border-color: var(--color-primary-dark);
+    }
+  }
+
+  // ── ButtonGroup buttons ─────────────────────────────────────────────────
+  .btn-group__btn {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    
+    &:hover,
+    &:focus-visible {
+      background-color: var(--color-primary-dark);
+      border-color: var(--color-primary-dark);
+    }
+  }
+
+  // ── Nav buttons with distressed brush stroke effect ────────────────────
+  .nav-button {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    position: relative;
+    border-radius: 50px;
+    
+    // Hand-drawn brush stroke clip-path with irregular edges
+    clip-path: polygon(
+      2% 8%, 8% 3%, 15% 1%, 25% 0%, 35% 1%, 45% 0%, 55% 1%, 65% 0%, 75% 2%, 85% 1%, 92% 4%, 98% 10%,
+      99% 20%, 100% 30%, 99% 40%, 100% 50%, 99% 60%, 100% 70%, 98% 80%, 99% 90%, 95% 96%, 88% 99%,
+      80% 100%, 70% 99%, 60% 100%, 50% 99%, 40% 100%, 30% 98%, 20% 100%, 12% 97%, 5% 92%,
+      2% 85%, 0% 75%, 1% 65%, 0% 55%, 1% 45%, 0% 35%, 2% 25%, 1% 15%
+    );
+    
+    // CSS fallback for rough edges using box-shadow
+    box-shadow: 
+      0 0 0 1px rgba(78, 137, 145, 0.3),
+      1px -1px 0 0 rgba(78, 137, 145, 0.8),
+      -1px 1px 0 0 rgba(78, 137, 145, 0.7),
+      2px 0 0 0 rgba(78, 137, 145, 0.4),
+      0 2px 0 0 rgba(78, 137, 145, 0.5),
+      -2px -1px 0 0 rgba(78, 137, 145, 0.6),
+      3px 2px 8px rgba(78, 137, 145, 0.3);
+    
+    &:hover,
+    &:focus-visible {
+      background-color: var(--color-primary-dark);
+      border-color: var(--color-primary-dark);
+      
+      box-shadow: 
+        0 0 0 1px rgba(61, 114, 120, 0.3),
+        1px -1px 0 0 rgba(61, 114, 120, 0.8),
+        -1px 1px 0 0 rgba(61, 114, 120, 0.7),
+        2px 0 0 0 rgba(61, 114, 120, 0.4),
+        0 2px 0 0 rgba(61, 114, 120, 0.5),
+        -2px -1px 0 0 rgba(61, 114, 120, 0.6),
+        4px 4px 12px rgba(61, 114, 120, 0.4);
+    }
+  }
+
+  // ── Heading Styles ──────────────────────────────────────────────────────
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+
+  h2 {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    line-height: 1.3;
+    margin-bottom: 1.25rem;
+  }
+
+  // ── Link Styles ─────────────────────────────────────────────────────────
+  a {
+    text-decoration: none;
+    transition: color 0.2s ease;
+    
+    &:hover {
+      color: var(--color-primary-dark);
+      text-decoration: underline;
+    }
+  }
+
+  // ── Image Styles with hand-drawn clip-path ─────────────────────────────
+  .image--paper .image__img,
+  .cta--card .cta__img {
+    border-radius: 0;
+    clip-path: polygon(
+      2% 8%, 8% 3%, 15% 1%, 25% 0%, 35% 1%, 45% 0%, 55% 1%, 65% 0%, 75% 2%, 85% 1%, 92% 4%, 98% 10%,
+      99% 20%, 100% 30%, 99% 40%, 100% 50%, 99% 60%, 100% 70%, 98% 80%, 99% 90%, 95% 96%, 88% 99%,
+      80% 100%, 70% 99%, 60% 100%, 50% 99%, 40% 100%, 30% 98%, 20% 100%, 12% 97%, 5% 92%,
+      2% 85%, 0% 75%, 1% 65%, 0% 55%, 1% 45%, 0% 35%, 2% 25%, 1% 15%
+    );
+  }
+
+  // ── Card Styles with asymmetric border radius ──────────────────────────
+  .cta--card,
+  .card {
+    border-radius: 0 16px 0 16px; // top-right and bottom-left rounded
+  }
+}
