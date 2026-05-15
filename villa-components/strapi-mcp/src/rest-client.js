@@ -171,6 +171,10 @@ export class StrapiRESTClient {
    */
   async listContentPages (filters = {}, pagination = { limit: 25 }) {
     const params = {
+      'fields[0]': 'Name',
+      'fields[1]': 'Link',
+      'fields[2]': 'Title',
+      'fields[3]': 'metaDescription',
       'populate[0]': 'Content.Style',
       'populate[1]': 'Content.File',
       'populate[2]': 'Content.MobileFile',
@@ -213,6 +217,10 @@ export class StrapiRESTClient {
    */
   async getContentPage (documentId) {
     return this.get(`/content-pages/${documentId}`, {
+      'fields[0]': 'Name',
+      'fields[1]': 'Link',
+      'fields[2]': 'Title',
+      'fields[3]': 'metaDescription',
       'populate[0]': 'Content.Style',
       'populate[1]': 'Content.File',
       'populate[2]': 'Content.MobileFile',

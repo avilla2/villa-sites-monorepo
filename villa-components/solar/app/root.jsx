@@ -101,7 +101,7 @@ export function Layout ({ children }) {
   const website = data?.website
   const siteName = data?.siteName
   const metadata = website?.site_settings?.SiteMetadata
-  const gTag = metadata?.gTag
+  const gTag = website?.site_settings?.gTag
 
   // Extract all font URLs for preloading
   const fontUrls = [

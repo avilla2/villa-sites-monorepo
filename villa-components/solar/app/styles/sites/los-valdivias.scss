@@ -13,6 +13,7 @@
 
   --font-primary: 'PrimaryFont', 'Helvetica Neue', Arial, sans-serif;
   --font-heading: 'HeadingFont', 'Helvetica Neue', Arial, serif;
+  --heading-weight: normal;
 
   // ── Footer ──────────────────────────────────────────────────────────────
   --footer-bg:                  var(--color-bg-dark);
@@ -84,6 +85,10 @@
 }
 
 [data-site="los-valdivias"] {
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: var(--heading-weight);
+  }
+
   .nav-menu__trigger--active,
   .nav-menu__trigger:hover {
     color: var(--color-accent) !important;
@@ -95,10 +100,12 @@
   }
 
   .intro__btn {
+    background-color: var(--color-accent);
     border-color: var(--color-accent);
-    color: var(--color-text-light);
+    color: #ffffff;
     &:hover, &:focus-visible {
-      background-color: rgba(90, 143, 60, 0.2);
+      background-color: var(--color-accent-light);
+      border-color: var(--color-accent-light);
     }
   }
 }

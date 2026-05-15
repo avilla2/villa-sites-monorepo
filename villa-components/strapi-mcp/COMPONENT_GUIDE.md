@@ -177,7 +177,7 @@ For user engagement and data collection.
 }
 ```
 
-**Instant Quote** - Quote calculator
+**Instant Quote** - Quote calculator ⚠️ **DEPRECATED - Avoid using this component**
 ```json
 {
   "__component": "component-content-page-components.instant-quote",
@@ -187,6 +187,8 @@ For user engagement and data collection.
   ]
 }
 ```
+
+**Note:** The instant-quote component is deprecated and should be avoided. Use a contact form with a pricing paragraph instead.
 
 ### Organizational Components
 
@@ -320,14 +322,25 @@ Here's a content page using components from both categories:
 | Call to action | CTA, Buttons |
 | Images | Image, Gallery, Grid |
 | Videos | Video, Media |
-| User input | Form, InstantQuote |
+| User input | Form |
 | Product/service showcase | CardGroup |
 | Features list | List |
 | Help content | FAQ |
 
+**Note:** The InstantQuote component is deprecated and should not be used.
+
 ## Field Name Corrections
 
-When using components, be aware of these field name requirements:
+When using components, be aware of these field name requirements. **Common mistakes to avoid:**
+
+- ❌ `Markdown` in CTA → ✅ Use `content`
+- ❌ `File` in Gallery → ✅ Use `Pictures`
+- ❌ `asset` in Intro → ✅ Use `File` and `MobileFile`
+- ❌ Plain strings in Card Text → ✅ Use blocks array format
+- ❌ `type: "email"` in forms → ✅ Use `type: "any"` with validation
+- ❌ `ButtonArrangement: "center"` → ✅ Use `"together"`, `"space between"`, or `"spaced evenly"`
+- ❌ Component prefix in API → ✅ Use short format (e.g., `"home-page-components.intro"`)
+- ❌ `instant-quote` component → ✅ Use Paragraph with pricing info + Form for contact
 
 ### Component Type Naming Convention
 
@@ -452,6 +465,29 @@ The `type` field in form components only accepts **"any"** or **"phone"** values
 
 ### Intro Component Fields
 
+The Intro component uses **`File` and `MobileFile`** fields for images/videos, not generic asset fields. Both should be arrays of media objects:
+
+❌ **INCORRECT:**
+```json
+{
+  "__component": "home-page-components.intro",
+  "IntroText": "Welcome",
+  "asset": {"id": 896}
+}
+```
+
+✅ **CORRECT:**
+```json
+{
+  "__component": "home-page-components.intro",
+  "IntroText": "Welcome",
+  "File": [{"id": 896}],
+  "MobileFile": [{"id": 896}]
+}
+```
+
+**Note:** Always provide both `File` (desktop) and `MobileFile` arrays for responsive images. Use the same image ID for both if you don't have separate mobile assets.
+
 The Intro component does **not** have a `Subtext` field. Include all text in `IntroText`:
 
 ❌ **INCORRECT:**
@@ -468,6 +504,33 @@ The Intro component does **not** have a `Subtext` field. Include all text in `In
 {
   "__component": "home-page-components.intro",
   "IntroText": "Main heading. Secondary text can be included in the same field."
+}
+```
+
+**IMPORTANT:** Do not set `paddingTop` or `paddingBottom` in the Intro component's Style. Intro components are designed to be full-height hero sections and should not have vertical padding:
+
+❌ **INCORRECT:**
+```json
+{
+  "__component": "home-page-components.intro",
+  "IntroText": "Welcome",
+  "Style": {
+    "BackgroundColor": "#f8f9fa",
+    "paddingTop": 60,
+    "paddingBottom": 60
+  }
+}
+```
+
+✅ **CORRECT:**
+```json
+{
+  "__component": "home-page-components.intro",
+  "IntroText": "Welcome",
+  "Style": {
+    "BackgroundColor": "#f8f9fa",
+    "textAlign": "center"
+  }
 }
 ```
 
@@ -580,6 +643,56 @@ Allowed values: `"standard"`, `"overlay"`
 
 **Why:** Card-group `Style.TextColor` applies to the section title, but cards often have white/light backgrounds while the page has dark backgrounds. Set each card's `TextColor` to ensure text is readable on the card's background (typically `"#000000"` for white cards).
 
+### Card Group Text Format
+
+The `Text` field in card-group cards uses **Strapi blocks format as an array** (not wrapped in a root object):
+
+❌ **INCORRECT (wrapped in root object):**
+```json
+{
+  "Title": "Service 1",
+  "Text": {
+    "type": "root",
+    "children": [
+      {
+        "type": "paragraph",
+        "children": [{"type": "text", "text": "Description"}]
+      }
+    ]
+  }
+}
+```
+
+❌ **INCORRECT (plain string):**
+```json
+{
+  "Title": "Service 1",
+  "Text": "Description of service"
+}
+```
+
+✅ **CORRECT (blocks array format):**
+```json
+{
+  "Title": "Service 1",
+  "Text": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "text": "Description of service with proper formatting."
+        }
+      ]
+    }
+  ],
+  "CardStyle": "standard",
+  "TextColor": "#000000"
+}
+```
+
+**Note:** The `Text` field must be an array of block objects, not a plain string or wrapped in a root object.
+
 ### CTA Component Alignment
 
 The CTA component uses **two separate properties** to control alignment:
@@ -631,6 +744,124 @@ The CTA component uses **two separate properties** to control alignment:
 - Use `Style.textAlign` to control horizontal text/button alignment
 - The `justify` field only accepts `"start"`, `"center"`, or `"space-between"` (NOT `"left"` or `"right"`)
 
+### CTA Component Content Field
+
+The CTA component uses **`content`** field (not `Markdown`) for rich text content. The `content` field accepts Strapi blocks format:
+
+❌ **INCORRECT (using Markdown field):**
+```json
+{
+  "__component": "home-page-components.cta",
+  "Title": "Transform Your Property",
+  "Markdown": "Contact us today for a free consultation.",
+  "justify": "center"
+}
+```
+
+✅ **CORRECT (using content field):**
+```json
+{
+  "__component": "home-page-components.cta",
+  "Title": "Transform Your Property",
+  "content": {},
+  "justify": "center",
+  "buttons": [
+    {
+      "Text": "Get Started",
+      "Link": "/contact"
+    }
+  ]
+}
+```
+
+**Note:** The `content` field is for rich text blocks. For simple text, you can leave it as an empty object `{}` and rely on the `Title` field. Use the CTA's `buttons` array for action buttons.
+
+### Gallery Component Pictures Field
+
+The Gallery component uses **`Pictures`** field (not `File`) and expects an array of media objects:
+
+❌ **INCORRECT (using File field):**
+```json
+{
+  "__component": "home-page-components.gallery",
+  "Title": "Our Projects",
+  "File": [
+    {"id": 896},
+    {"id": 900}
+  ]
+}
+```
+
+✅ **CORRECT (using Pictures field):**
+```json
+{
+  "__component": "home-page-components.gallery",
+  "Title": "Our Projects",
+  "Pictures": [
+    {"id": 896},
+    {"id": 900},
+    {"id": 898}
+  ]
+}
+```
+
+**Note:** Always use `Pictures` for gallery components. Each item in the array should be an object with an `id` property referencing a media file.
+
+### Footer Component Space Values
+
+The `Space` field in all footer components (Text, Image, Icons) must be a **number between 1 and 12**, and **all Space values in a footer must add up to exactly 12**.
+
+❌ **INCORRECT (using strings instead of numbers):**
+```json
+{
+  "__component": "footer-components.text",
+  "Text": "Company Name",
+  "Space": "medium"
+}
+```
+
+❌ **INCORRECT (total doesn't add up to 12):**
+```json
+[
+  {
+    "__component": "footer-components.text",
+    "Text": "Company Name",
+    "Space": 4
+  },
+  {
+    "__component": "footer-components.text",
+    "Text": "Tagline",
+    "Space": 4
+  }
+]
+```
+
+✅ **CORRECT (numbers that add up to 12):**
+```json
+[
+  {
+    "__component": "footer-components.text",
+    "Text": "Company Name",
+    "Space": 4
+  },
+  {
+    "__component": "footer-components.text",
+    "Text": "Serving the local area",
+    "Space": 3
+  },
+  {
+    "__component": "footer-components.text",
+    "Text": "Licensed & Insured",
+    "Space": 5
+  }
+]
+```
+
+**Note:** Think of the footer as a 12-column grid. Each component's `Space` value represents how many columns it occupies. Common patterns:
+- Equal thirds: 4, 4, 4
+- Halves: 6, 6
+- Asymmetric: 5, 4, 3 or 6, 3, 3
+
 ### Invalid Relations Error
 
 If you receive an "Invalid relations" error when creating pages with image/file references, ensure that:
@@ -657,6 +888,61 @@ If you receive an "Invalid relations" error when creating pages with image/file 
 ```
 
 Then update later with actual uploaded image URLs.
+
+## Content Page Best Practices
+
+### Page Naming Convention
+
+**IMPORTANT:** Always prefix content page names with the company or website name for easier searching and organization.
+
+❌ **INCORRECT:**
+```javascript
+{
+  "name": "create_content_page",
+  "arguments": {
+    "name": "Services",
+    "link": "/services",
+    "title": "Our Services"
+  }
+}
+```
+
+✅ **CORRECT:**
+```javascript
+{
+  "name": "create_content_page",
+  "arguments": {
+    "name": "MMT Construction - Services",
+    "link": "/services",
+    "title": "Our Services"
+  }
+}
+```
+
+**Why:** When managing multiple websites in Strapi, prefixing page names with the company name makes it much easier to search and filter pages later. For example, searching "MMT" will show all MMT Construction pages.
+
+### Meta Description Field
+
+Content pages support a `metaDescription` field for SEO optimization. This description appears in search engine results.
+
+```javascript
+{
+  "name": "create_content_page",
+  "arguments": {
+    "name": "MMT Construction - Residential Painting",
+    "link": "/residential-painting",
+    "title": "Professional Residential Painting Services",
+    "metaDescription": "Expert interior and exterior painting services in Tualatin and Portland. Licensed, bonded, and insured. Get a free estimate today.",
+    "content": [...]
+  }
+}
+```
+
+**Best Practices:**
+- Keep meta descriptions between 150-160 characters
+- Include primary keywords naturally
+- Make it compelling - this is your search result ad copy
+- If omitted, the site settings' SiteDescription will be used as fallback
 
 ## Important: Connecting Pages to Websites
 

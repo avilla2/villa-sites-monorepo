@@ -11,8 +11,8 @@ const HOSTNAME_TO_WEBSITE_ID = {
   'alexandrovilla.com': 'detjyq65tnfm7csk52vubz9f',
   'cvlandscapemaintenance.com': 'dhj98a3qpodsav9ffj8s2jb1',
   'www.cvlandscapemaintenance.com': 'dhj98a3qpodsav9ffj8s2jb1',
-  'mmtconstruction.com': 'td259ds3af0i437m3ljkgetf',
-  'www.mmtconstruction.com': 'td259ds3af0i437m3ljkgetf'
+  'mmtconstruction.net': 'td259ds3af0i437m3ljkgetf',
+  'www.mmtconstruction.net': 'td259ds3af0i437m3ljkgetf'
 }
 
 // Map hostnames to the CSS data-site attribute value
@@ -28,8 +28,8 @@ const HOSTNAME_TO_SITE_NAME = {
   'alexandrovilla.com': 'villa-web-solutions',
   'cvlandscapemaintenance.com': 'cv-landscape',
   'www.cvlandscapemaintenance.com': 'cv-landscape',
-  'mmtconstruction.com': 'mmt-construction',
-  'www.mmtconstruction.com': 'mmt-construction'
+  'mmtconstruction.net': 'mmt-construction',
+  'www.mmtconstruction.net': 'mmt-construction'
 }
 
 export function getWebsiteIdFromHostname (hostname) {

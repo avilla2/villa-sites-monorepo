@@ -289,6 +289,10 @@ const TOOLS = [
           type: 'string',
           description: 'The page title'
         },
+        metaDescription: {
+          type: 'string',
+          description: 'SEO meta description for the page (150-160 characters recommended). If omitted, site settings SiteDescription will be used.'
+        },
         content: {
           type: 'string',
           description: 'JSON string array of content components. Use list_component_types to see available components. Components can include intro, cta, slideshow, rich-text, media, gallery, paragraph, image, video, form, buttons, card-group, grid, list, faq, instant-quote.'
@@ -318,6 +322,10 @@ const TOOLS = [
         title: {
           type: 'string',
           description: 'New page title'
+        },
+        metaDescription: {
+          type: 'string',
+          description: 'SEO meta description for the page (150-160 characters recommended)'
         },
         content: {
           type: 'string',
@@ -1108,6 +1116,7 @@ const toolHandlers = {
       Link: args.link
     }
     if (args.title) data.Title = args.title
+    if (args.metaDescription) data.metaDescription = args.metaDescription
     if (args.content) {
       data.Content = JSON.parse(args.content)
     }
@@ -1127,6 +1136,7 @@ const toolHandlers = {
     if (args.name) data.Name = args.name
     if (args.link) data.Link = args.link
     if (args.title) data.Title = args.title
+    if (args.metaDescription) data.metaDescription = args.metaDescription
     if (args.content) {
       data.Content = JSON.parse(args.content)
     }
