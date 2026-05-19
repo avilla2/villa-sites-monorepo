@@ -13,9 +13,26 @@
   flex-grow: 1;
 }
 
+.page__grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  // column-gap: var(--page-grid-gap, 1rem);
+  width: 100%;
+
+  // Mobile: single column (all sections stack vertically)
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
 .page__section {
   width: 100%;
   box-sizing: border-box;
+  
+  // Apply grid column span only on desktop (mobile is always full-width)
+  @media (min-width: 769px) {
+    grid-column: span var(--grid-column-span, 12);
+  }
   
   // Background image support with responsive sizing
   &--with-bg-image {

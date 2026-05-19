@@ -56,9 +56,15 @@ export default function Slideshow ({ content, slides: slidesProp, background = f
 
   const rootClass = ['slideshow', background ? 'slideshow--background' : ''].filter(Boolean).join(' ')
   const showControls = !background && slides.length > 1
+  const hasMobileSlides = mobileSlides?.length > 0
 
   return (
-    <div className={rootClass}>
+    <div
+      className={rootClass}
+      style={{
+        '--has-mobile-slides': hasMobileSlides ? '1' : '0'
+      }}
+    >
       {/* Slide images — all rendered, opacity drives visibility */}
       <div className="slideshow__track">
         {slides.map((slide, i) => (

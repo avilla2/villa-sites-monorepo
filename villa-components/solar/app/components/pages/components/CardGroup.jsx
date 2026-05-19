@@ -223,7 +223,16 @@ export default function CardGroup ({ content }) {
         color: Style?.TextColor || undefined
       }}
     >
-      <div className={`card-group__grid${fullWidth ? ' card-group__grid--full-width' : ''}`}>
+      <div
+        className={`card-group__grid${fullWidth ? ' card-group__grid--full-width' : ''}`}
+        style={{
+          justifyContent: Style?.textAlign === 'center'
+            ? 'center'
+            : Style?.textAlign === 'right'
+              ? 'flex-end'
+              : 'flex-start'
+        }}
+      >
         {Cards.map((card, index) => (
           <div key={index} className="card-group__item">
             <SingleCard

@@ -26,7 +26,10 @@
     gap: var(--list-gap);
     align-items: flex-start;
 
-    &--full .list__items { flex: 1 1 100%; }
+    &--full {
+      flex-direction: column;
+      .list__items { flex: 1 1 100%; }
+    }
 
     @media (max-width: 768px) { flex-direction: column; }
   }

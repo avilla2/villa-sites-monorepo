@@ -30,10 +30,12 @@ export default function List ({ content }) {
 
   const hasCaption = Boolean(content.Caption?.length)
   const justifyContent = content.Style?.textAlign === 'left' ? 'flex-start' : 'center'
+  const size = content.Style?.size ?? 12
+  const shouldStack = !hasCaption || size < 12
 
   return (
     <div className="list">
-      <div className={`list__layout${hasCaption ? '' : ' list__layout--full'}`}>
+      <div className={`list__layout${shouldStack ? ' list__layout--full' : ''}`}>
         {hasCaption && (
           <div className="list__caption">
             <BlocksRenderer content={content.Caption} />

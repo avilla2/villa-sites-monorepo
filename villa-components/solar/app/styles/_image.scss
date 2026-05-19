@@ -81,9 +81,15 @@
       margin: 0 auto;
     }
 
-    // Full width on small displays (same breakpoint as intro) - standard only
+    // Full width on small displays (same breakpoint as intro)
     .image--standard & {
       @media (max-width: 767px) {
+        width: 100%;
+      }
+    }
+
+    .image--paper & {
+      @media (max-width: 768px) {
         width: 100%;
       }
     }

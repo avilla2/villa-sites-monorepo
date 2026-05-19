@@ -37,6 +37,11 @@ export default function Cta ({ content }) {
     justify === 'space_between' && 'cta__inner--justify-between'
   ].filter(Boolean).join(' ')
 
+  const contentClass = [
+    'cta__content',
+    !media && 'cta__content--no-media'
+  ].filter(Boolean).join(' ')
+
   return (
     <section
       className={rootClass}
@@ -46,7 +51,7 @@ export default function Cta ({ content }) {
       }}
     >
       <div className={innerClass}>
-        <div className="cta__content" style={Style.textAlign ? { textAlign: Style.textAlign } : undefined}>
+        <div className={contentClass} style={Style.textAlign ? { textAlign: Style.textAlign } : undefined}>
           {body && (
             <div className="cta__body">
               <BlocksRenderer content={body} />

@@ -49,54 +49,59 @@ export default function Page ({ content, pageName, path, siteName }) {
 
   return (
     <div className="page">
-      {content.map((component, index) => {
-        const isLast = index === content.length - 1
-        const isFull = FULL_HEIGHT.has(component.__typename)
-        const styles = component?.Style || {}
-        const bgImage = styles.backgroundImage
-        const padding = getSectionPadding(component.__typename, isLast)
+      <div className="page__grid">
+        {content.map((component, index) => {
+          const isLast = index === content.length - 1
+          const isFull = FULL_HEIGHT.has(component.__typename)
+          const styles = component?.Style || {}
+          const bgImage = styles.backgroundImage
+          const padding = getSectionPadding(component.__typename, isLast)
+          // Grid column span: use styles.size or default to 12 (full-width)
+          const gridColumnSpan = styles?.size || 12
 
-        // Generate responsive background image URLs if backgroundImage exists
-        let bgImageVars = {}
-        if (bgImage?.url) {
-          bgImageVars = {
-            '--section-bg-md': `url("${buildUrl(bgImage.url, { format: 'webp', quality: 90, width: 768 })}")`,
-            '--section-bg-lg': `url("${buildUrl(bgImage.url, { format: 'webp', quality: 90, width: 1280 })}")`
+          // Generate responsive background image URLs if backgroundImage exists
+          let bgImageVars = {}
+          if (bgImage?.url) {
+            bgImageVars = {
+              '--section-bg-md': `url("${buildUrl(bgImage.url, { format: 'webp', quality: 90, width: 768 })}")`,
+              '--section-bg-lg': `url("${buildUrl(bgImage.url, { format: 'webp', quality: 90, width: 1280 })}")`
+            }
           }
-        }
 
-        const sectionStyle = {
-          ...(padding ? { padding } : {}),
-          // Per-component style overrides always win over calculated padding
-          ...(styles.paddingTop != null && styles.paddingTop !== '' ? { paddingTop: styles.paddingTop } : {}),
-          ...(styles.paddingBottom != null && styles.paddingBottom !== '' ? { paddingBottom: styles.paddingBottom } : {}),
-          ...(styles.TextColor ? { color: styles.TextColor } : {}),
-          ...(styles.BackgroundColor ? { backgroundColor: styles.BackgroundColor } : {}),
-          ...(styles.textAlign ? { textAlign: styles.textAlign } : {}),
-          ...bgImageVars
-        }
+          const sectionStyle = {
+            '--grid-column-span': gridColumnSpan,
+            ...(padding ? { padding } : {}),
+            // Per-component style overrides always win over calculated padding
+            ...(styles.paddingTop != null && styles.paddingTop !== '' ? { paddingTop: styles.paddingTop } : {}),
+            ...(styles.paddingBottom != null && styles.paddingBottom !== '' ? { paddingBottom: styles.paddingBottom } : {}),
+            ...(styles.TextColor ? { color: styles.TextColor } : {}),
+            ...(styles.BackgroundColor ? { backgroundColor: styles.BackgroundColor } : {}),
+            ...(styles.textAlign ? { textAlign: styles.textAlign } : {}),
+            ...bgImageVars
+          }
 
-        // Add className for sections with background images
-        const sectionClasses = [
-          'page__section',
-          bgImage?.url ? 'page__section--with-bg-image' : ''
-        ].filter(Boolean).join(' ')
+          // Add className for sections with background images
+          const sectionClasses = [
+            'page__section',
+            bgImage?.url ? 'page__section--with-bg-image' : ''
+          ].filter(Boolean).join(' ')
 
-        return (
-          <section
-            key={index}
-            className={sectionClasses}
-            style={Object.keys(sectionStyle).length ? sectionStyle : undefined}
-          >
-            {/* Section title — suppressed for full-height / visual-fill components */}
-            {!isFull && component?.Title && (
-              <h2 className="page__section-title">{component.Title}</h2>
-            )}
+          return (
+            <section
+              key={index}
+              className={sectionClasses}
+              style={Object.keys(sectionStyle).length ? sectionStyle : undefined}
+            >
+              {/* Section title — suppressed for full-height / visual-fill components */}
+              {!isFull && component?.Title && (
+                <h2 className="page__section-title">{component.Title}</h2>
+              )}
 
-            {renderPageComponent(component, siteName)}
-          </section>
-        )
-      })}
+              {renderPageComponent(component, siteName)}
+            </section>
+          )
+        })}
+      </div>
     </div>
   )
 }

@@ -4,6 +4,7 @@
 
 :root {
   --slideshow-aspect-ratio:      16 / 9;
+  --slideshow-aspect-ratio-mobile-tall: 9 / 16;
   --slideshow-radius:            0px;
   --slideshow-bg:                #000;
   --slideshow-transition:        opacity 1.2s ease;
@@ -41,6 +42,15 @@
     max-width: 1920px;
     margin: 0 auto;
     aspect-ratio: var(--slideshow-aspect-ratio);
+
+    // On mobile: use tall aspect ratio if mobile slides exist, otherwise keep 16/9
+    @media (max-width: 768px) {
+      aspect-ratio: var(--slideshow-aspect-ratio-mobile-tall);
+
+      &[style*="--has-mobile-slides: 0"] {
+        aspect-ratio: var(--slideshow-aspect-ratio);
+      }
+    }
   }
 }
 
