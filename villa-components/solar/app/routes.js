@@ -2,6 +2,7 @@ import { index, route, layout } from '@react-router/dev/routes'
 
 export default [
   route('send-email', 'routes/send-email.jsx'),
+  route('clear-cache', 'routes/clear-cache.jsx'),
   route('sitemap.xml', 'routes/sitemap[.]xml.jsx'),
   route('robots.txt', 'routes/robots[.]txt.jsx'),
   layout('routes/layout.jsx', [

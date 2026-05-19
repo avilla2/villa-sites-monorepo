@@ -21,6 +21,14 @@ export const loaderFetchPolicy =
 const sharedCache = new InMemoryCache({ possibleTypes })
 
 /**
+ * Clears the Apollo cache completely.
+ * Useful for invalidating stale data after CMS updates.
+ */
+export function clearApolloCache () {
+  return sharedCache.reset()
+}
+
+/**
  * Creates a fresh ApolloClient instance with shared cache.
  * Cache persists across requests for performance.
  */

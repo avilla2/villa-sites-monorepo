@@ -70,7 +70,7 @@ export default function Navbar ({
   mobileTitle,
   onBackClick
 }) {
-  const [mounted, setMounted] = useState(typeof window !== 'undefined')
+  const [mounted, setMounted] = useState(false)
   const scrolled = useScrollTrigger(65)
   const [active, setActive] = useState(navIndex)
   const desktopBarRef = useRef(null)
@@ -113,8 +113,9 @@ export default function Navbar ({
   const isFadeIn = appearance === 'fade_in' && !UTILITY_PAGES.has(page)
 
   // On SSR or before scroll is known, fade_in navbars start transparent
-  const showElevation = mounted ? scrolled : !isFadeIn
-  const isTransparent = mounted ? (!scrolled && isFadeIn) : isFadeIn
+  // Match SSR state: when not mounted, showElevation = !isFadeIn
+  const showElevation = !mounted ? !isFadeIn : scrolled
+  const isTransparent = !mounted ? isFadeIn : (!scrolled && isFadeIn)
   const showBackButton = navIndex !== '/'
 
   // Toolbar layout variant class
