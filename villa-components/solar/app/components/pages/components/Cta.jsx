@@ -34,12 +34,19 @@ export default function Cta ({ content }) {
   const innerClass = [
     'cta__inner',
     reversed && 'cta__inner--reversed',
-    justify === 'space_between' && 'cta__inner--justify-between'
+    justify === 'space_between' && 'cta__inner--justify-between',
+    justify === 'center' && 'cta__inner--justify-center',
+    justify === 'start' && 'cta__inner--justify-start'
   ].filter(Boolean).join(' ')
 
   const contentClass = [
     'cta__content',
-    !media && 'cta__content--no-media'
+    !media && 'cta__content--no-media',
+    justify === 'center' && 'cta__content--center-layout',
+    justify === 'start' && 'cta__content--start-layout',
+    Style.textAlign === 'center' && 'cta__content--text-center',
+    Style.textAlign === 'right' && 'cta__content--text-right',
+    Style.textAlign === 'left' && 'cta__content--text-left'
   ].filter(Boolean).join(' ')
 
   return (
