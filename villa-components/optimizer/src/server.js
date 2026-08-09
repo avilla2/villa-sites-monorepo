@@ -49,13 +49,14 @@ app.post('/optimize', async (req, res, next) => {
           // Crop to square, then resize to 1080x1080
           pipeline = pipeline
             .extract({ left, top, width: size, height: size })
-            .resize(1080, 1080, { fit: 'cover' })
+            .resize(1920, 1920, { fit: 'cover' })
         } else {
           // Original behavior: resize width to 1080
-          pipeline = pipeline.resize({ width: 1080 })
+          pipeline = pipeline.resize({ width: 1920 })
         }
 
         const output = await pipeline
+          .withMetadata()
           .jpeg({
             quality: 100,
             chromaSubsampling: '4:4:4'
