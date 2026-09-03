@@ -837,7 +837,7 @@ const COMPONENT_EXAMPLES = {
         CardColor: '#ffffff',
         TextColor: '#333333',
         Link: '/service-1',
-        Image: null // Optional: media file ID for card image
+        Image: 123 // Optional: numeric media file ID for card image
       }
     ],
     Style: {

@@ -693,6 +693,48 @@ The `Text` field in card-group cards uses **Strapi blocks format as an array** (
 
 **Note:** The `Text` field must be an array of block objects, not a plain string or wrapped in a root object.
 
+### Card Group Image Field
+
+**To add images to individual cards within a card-group, use the `Image` field (not `File`).** The Image field accepts a media file ID.
+
+❌ **INCORRECT (will cause validation error):**
+```json
+{
+  "__component": "content-page-components.card-group",
+  "Title": "Our Services",
+  "Cards": [
+    {
+      "Title": "Service 1",
+      "Text": [...],
+      "CardStyle": "standard",
+      "TextColor": "#000000",
+      "File": [{"id": 990}]
+    }
+  ]
+}
+```
+
+**Error:** `REST API error: {"status":400,"name":"ValidationError","message":"Invalid key File at Content.Cards"}`
+
+✅ **CORRECT (using Cards.Image field):**
+```json
+{
+  "__component": "content-page-components.card-group",
+  "Title": "Our Services",
+  "Cards": [
+    {
+      "Title": "Service 1",
+      "Text": [...],
+      "CardStyle": "standard",
+      "TextColor": "#000000",
+      "Image": 990
+    }
+  ]
+}
+```
+
+**Note:** The `Image` field accepts a numeric media file ID. Use `list_media` or `search_media_by_url` to find the appropriate media file ID.
+
 ### CTA Component Alignment
 
 The CTA component uses **two separate properties** to control alignment:
