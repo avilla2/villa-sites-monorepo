@@ -217,7 +217,12 @@
 }
 
 // ── Inner layout wrapper (text + optional form) ──────────────────────────────
+// Flex + inherited align-items keeps .intro__content shrink-wrapped and
+// positioned the same way it was when it sat directly in .intro__overlay.
 .intro__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: inherit;
   width: 100%;
 }
 
