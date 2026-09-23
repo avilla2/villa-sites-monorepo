@@ -57,6 +57,8 @@
  * @property {string} SendTo - Email address to send form submissions to
  * @property {string} SendFrom - Email address to send from
  * @property {string} BodyTitle - Title for the email body
+ * @property {string} FormTitle - Title displayed above the form fields
+ * @property {string} FormDescription - Description displayed above the form fields
  */
 
 /**

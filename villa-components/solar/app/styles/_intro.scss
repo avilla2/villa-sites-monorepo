@@ -215,3 +215,128 @@
     transform: translateY(0);
   }
 }
+
+// ── Inner layout wrapper (text + optional form) ──────────────────────────────
+.intro__inner {
+  width: 100%;
+}
+
+// ── Embedded form (Intro + Form) ──────────────────────────────────────────────
+// Renders a Contact form card alongside/underneath the hero content.
+:root {
+  --intro-form-card-bg:     #ffffff;
+  --intro-form-card-color:  #1a1a1a;
+  --intro-form-desc-color:  #555555;
+  --intro-form-mobile-media-height: 55vh;
+}
+
+.intro__form-wrap {
+  width: 100%;
+  max-width: 420px;
+  flex: 0 0 auto;
+
+  @media (min-width: 1440px) {
+    max-width: 520px;
+  }
+}
+
+.intro__form-card {
+  background: var(--intro-form-card-bg);
+  color: var(--intro-form-card-color);
+  border-radius: 8px;
+  padding: 1.75rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+  text-shadow: none; // overrides the hero's text-shadow inherited from .intro__overlay
+  text-align: left; // form text stays left-aligned regardless of TextPosition
+
+  // .contact is normally a full-bleed section — reset its own spacing/max-width
+  // so it fits naturally inside the card
+  .contact {
+    max-width: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .contact__fields {
+    grid-template-columns: 1fr;
+  }
+}
+
+.intro__form-title {
+  font-family: var(--intro-heading-font);
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 0.5rem;
+}
+
+.intro__form-desc {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--intro-form-desc-color);
+  margin: 0 0 1.25rem;
+}
+
+// ── With-form variant ─────────────────────────────────────────────────────────
+// Stacks the text content and form card side-by-side on desktop; on mobile the
+// hero media shrinks so the form card can overhang its bottom edge, with room
+// left below for the rest of the page.
+@media (min-width: 768px) {
+  .intro--with-form .intro__overlay {
+    // stretch so .intro__inner spans the full row width for the space-between layout
+    align-items: stretch;
+  }
+}
+
+.intro--with-form .intro__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: inherit; // follow whatever TextPosition variant set on .intro__overlay
+  gap: 2rem;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+  }
+}
+
+.intro--with-form .intro__content {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+@media (max-width: 767px) {
+  .intro--with-form {
+    min-height: 0;
+    padding-bottom: 4rem; // spacing beneath the overhanging form card
+  }
+
+  .intro--with-form .intro__bg {
+    inset: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--intro-form-mobile-media-height);
+  }
+
+  .intro--with-form .intro__overlay {
+    min-height: var(--intro-form-mobile-media-height);
+    justify-content: flex-start; // keep the title pinned to the top of the media, clear of the form card below
+    padding-top: 4.5rem; // extra breathing room above the title since it's pinned to the top
+  }
+
+  .intro--with-form .intro__inner {
+    gap: 4rem; // more room between the title and the form card
+  }
+
+  .intro--with-form .intro__form-wrap {
+    max-width: none;
+    // No negative margin here — the form simply flows after the title with the
+    // normal .intro__inner gap. Because the media is a fixed height and shorter
+    // than the combined title + form, the card naturally lands over the tail
+    // end of the image (overhang) without ever risking an overlap with the text.
+  }
+}
+

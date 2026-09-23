@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 import isExternal from '../../../lib/isExternalLink'
 import Slideshow from './Slideshow'
 import ResponsiveImage from '../../shared/ResponsiveImage'
+import Contact from './Contact'
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -80,10 +81,11 @@ function IntroButton ({ text, link, buttonColor }) {
 /**
  * Full-viewport hero section with media background, text overlay, and optional CTA buttons.
  *
- * @param {{ content: import('../../../../../components/src/types').IntroComponent }} props
+ * @param {{ content: import('../../../../../components/src/types').IntroComponent, siteName?: string }} props
  */
-export default function Intro ({ content }) {
+export default function Intro ({ content, siteName }) {
   const styles = content?.Style || {}
+  const hasForm = Boolean(content?.FormData && content?.FormFields?.length)
 
   const overlayClass = [
     'intro__overlay',
@@ -102,7 +104,7 @@ export default function Intro ({ content }) {
 
   return (
     <section
-      className="intro"
+      className={`intro${hasForm ? ' intro--with-form' : ''}`}
       style={Object.keys(sectionStyle).length ? sectionStyle : undefined}
     >
       {/* ── Background media ───────────────────────────────────────────── */}
@@ -112,21 +114,45 @@ export default function Intro ({ content }) {
 
       {/* ── Text / button overlay ──────────────────────────────────────── */}
       <div className={overlayClass}>
-        <div className={`intro__content${animation ? ` intro__content--${animation}` : ''}`}>
-          {content.IntroText && (
-            <div className="intro__text" dangerouslySetInnerHTML={{ __html: content.IntroText }} />
-          )}
+        <div className="intro__inner">
+          <div className={`intro__content${animation ? ` intro__content--${animation}` : ''}`}>
+            {content.IntroText && (
+              <div className="intro__text" dangerouslySetInnerHTML={{ __html: content.IntroText }} />
+            )}
 
-          {content?.Buttons?.length > 0 && (
-            <div className="intro__buttons">
-              {content.Buttons.map((btn, i) => (
-                <IntroButton
-                  key={i}
-                  text={btn.Text}
-                  link={btn.Link}
-                  buttonColor={btn.ButtonColor}
+            {content?.Buttons?.length > 0 && (
+              <div className="intro__buttons">
+                {content.Buttons.map((btn, i) => (
+                  <IntroButton
+                    key={i}
+                    text={btn.Text}
+                    link={btn.Link}
+                    buttonColor={btn.ButtonColor}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+
+          {hasForm && (
+            <div className="intro__form-wrap">
+              <div className="intro__form-card">
+                {content.FormData.FormTitle && (
+                  <h3 className="intro__form-title">{content.FormData.FormTitle}</h3>
+                )}
+                {content.FormData.FormDescription && (
+                  <p className="intro__form-desc">{content.FormData.FormDescription}</p>
+                )}
+                <Contact
+                  content={{
+                    formFields: content.FormFields,
+                    sendTo: content.FormData.SendTo,
+                    sendFrom: content.FormData.SendFrom,
+                    bodyTitle: content.FormData.BodyTitle
+                  }}
+                  siteName={siteName}
                 />
-              ))}
+              </div>
             </div>
           )}
         </div>

@@ -45,6 +45,8 @@ fragment Content on ContentPageContentDynamicZone {
       SendTo
       SendFrom
       BodyTitle
+      FormTitle
+      FormDescription
     }
     FormFields {
       name
