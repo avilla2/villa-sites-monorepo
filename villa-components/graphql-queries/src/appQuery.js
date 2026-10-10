@@ -5,49 +5,58 @@ import PAGE_CONTENT_FRAGMENT from './pageContentFragment'
 import SITESETTINGS_FRAGMENT from './siteSettingsFragment'
 
 const APP_QUERY = gql`
-query Website($id: ID!, $locale: I18NLocaleCode) {
-  i18NLocales {
-    code
-    name
-  }
-  website(documentId: $id, locale: $locale) {
-    name
-    locale
-    localizations {
+  query Website($id: ID!, $locale: I18NLocaleCode) {
+    i18NLocales {
+      code
+      name
+    }
+    website(documentId: $id, locale: $locale) {
+      name
       locale
-    }
-    navbar {
-      ...NavbarFragment
-    }
-    footer {
-      ...FooterFragment
-    }
-    site_settings {
-      ...SiteSettingsFragment
-    }
-    homepage {
-      PageName
-      Title
-      Content {
-        ...Content
+      localizations {
+        locale
       }
-    }
-    content_pages(pagination: { limit: 50 }) {
-      Name
-      Title
-      Link
-      metaDescription
-      Content {
-        ...Content
+      navbar {
+        ...NavbarFragment
+      }
+      footer {
+        ...FooterFragment
+      }
+      site_settings {
+        ...SiteSettingsFragment
+      }
+      homepage {
+        PageName
+        Title
+        Content {
+          ...Content
+        }
+      }
+      modal {
+        Name
+        Title
+        Link
+        metaDescription
+        Content {
+          ...Content
+        }
+      }
+      content_pages(pagination: { limit: 50 }) {
+        Name
+        Title
+        Link
+        metaDescription
+        Content {
+          ...Content
+        }
       }
     }
   }
-}
 
-${NAVBAR_FRAGMENT}
-${FOOTER_FRAGMENT}
-${PAGE_CONTENT_FRAGMENT}
-${SITESETTINGS_FRAGMENT}
+  ${NAVBAR_FRAGMENT}
+  ${FOOTER_FRAGMENT}
+  ${PAGE_CONTENT_FRAGMENT}
+  ${SITESETTINGS_FRAGMENT}
 `
 
 export default APP_QUERY
