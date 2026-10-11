@@ -17,6 +17,7 @@
     "@strapi/blocks-react-renderer": "^1.0.2",
     "@villa-components/graphql-queries": "file:../graphql-queries",
     "isbot": "^5.1.31",
+    "lucide-react": "^1.55.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router": "^7.12.0",

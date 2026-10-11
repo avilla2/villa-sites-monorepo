@@ -1,6 +1,7 @@
 # Getting Started with Villa Sites
 
 ## Installing
+
 ```bash
 yarn install
 ```
@@ -14,6 +15,11 @@ yarn build-all
 ## Testing
 
 Coming Soon
+
+## Formatting
+
+Prettier is configured for the repository. Run `yarn format` to format supported files, or
+`yarn format:check` to check formatting without changing files.
 
 ## Deploy Websites
 

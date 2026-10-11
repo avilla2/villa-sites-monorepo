@@ -1,13 +1,22 @@
 import React from 'react'
-import { Outlet, useOutletContext, useNavigate, useLocation } from 'react-router'
+import {
+  Outlet,
+  useOutletContext,
+  useNavigate,
+  useLocation,
+  useRouteLoaderData
+} from 'react-router'
 import Navbar from '../components/navbar/Navbar'
 import Footer from '../components/footer/Footer'
 import LoadingBar from '../components/shared/LoadingBar'
+import WebsiteModal from '../components/shared/WebsiteModal'
 
-export default function Layout () {
+export default function Layout() {
   const { website } = useOutletContext()
+  const rootData = useRouteLoaderData('root')
   const navigate = useNavigate()
   const location = useLocation()
+  const isHomepage = location.pathname === '/'
 
   // Derive page name from location and website data
   const getPageName = () => {
@@ -17,9 +26,7 @@ export default function Layout () {
     if (location.pathname === '/sitemap') {
       return 'Site Map'
     }
-    const contentPage = website?.content_pages?.find(
-      page => page.Link === location.pathname
-    )
+    const contentPage = website?.content_pages?.find((page) => page.Link === location.pathname)
     return contentPage?.Title || 'Not Found'
   }
 
@@ -53,6 +60,14 @@ export default function Layout () {
 
       {/* Page Content */}
       <Outlet context={{ website }} />
+
+      {isHomepage && website.modal && (
+        <WebsiteModal
+          modal={website.modal}
+          websiteId={rootData?.websiteId}
+          siteName={website.name}
+        />
+      )}
 
       {/* Footer */}
       {website.footer && (
