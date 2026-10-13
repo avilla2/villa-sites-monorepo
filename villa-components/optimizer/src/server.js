@@ -4,80 +4,153 @@ import sharp from 'sharp'
 import path, { dirname } from 'path'
 import { fileURLToPath } from 'url'
 import * as fs from 'node:fs/promises'
+import os from 'node:os'
+import { randomUUID } from 'node:crypto'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 const app = express()
-const port = 3000
+const port = Number(process.env.PORT || 3000)
+const uploadsPath = path.join(__dirname, 'uploads')
+
+const CROP_PRESETS = {
+  square: { width: 1080, height: 1080 },
+  tall: { width: 1080, height: 1350 },
+  wide: { width: 1920, height: 1080 }
+}
+
+app.use('/uploads', express.static(uploadsPath, { fallthrough: false }))
 
 app.get('/', (req, res) => {
   res.send(`
-      <h2>Image Optimizer</h2>
-      <form action="/optimize" enctype="multipart/form-data" method="post">
-        <div>Output File Prefix: <input type="text" name="title" /></div>
-        <div>File: <input type="file" name="someExpressFiles" multiple="multiple" /></div>
-        <div><label><input type="checkbox" name="squareImage" value="true" /> Generate Square Images (1080x1080)</label></div>
-        <input type="submit" value="Upload" />
-      </form>
-    `)
+    <h2>Image Optimizer</h2>
+    <form action="/optimize" enctype="multipart/form-data" method="post">
+      <div>Images: <input type="file" name="files" accept="image/*" multiple required /></div>
+      <fieldset>
+        <legend>Crop formats (JPEG)</legend>
+        <label><input type="checkbox" name="cropTypes" value="square" checked /> Square (1080×1080)</label><br />
+        <label><input type="checkbox" name="cropTypes" value="tall" checked /> Tall (1080×1350)</label><br />
+        <label><input type="checkbox" name="cropTypes" value="wide" checked /> Wide (1920×1080)</label>
+      </fieldset>
+      <input type="submit" value="Generate Crops" />
+    </form>
+  `)
 })
 
-app.post('/optimize', async (req, res, next) => {
-  const form = formidable({})
-  const basePath = path.join(__dirname, 'uploads')
+async function handleCropRequest(req, res, next, htmlResponse = false) {
+  const tempDirectory = await fs.mkdtemp(path.join(os.tmpdir(), 'villa-image-optimizer-'))
+  const form = formidable({
+    uploadDir: tempDirectory,
+    keepExtensions: true,
+    multiples: true,
+    maxFiles: 20,
+    maxFileSize: 50 * 1024 * 1024
+  })
 
-  form.parse(req, async (err, fields, files) => {
-    if (err) {
-      next(err)
-      return
-    }
-    const prefix = fields.title[0] || 'output'
-    const squareImage = fields.squareImage && fields.squareImage[0] === 'true'
-    const validationsPromises = files.someExpressFiles.map(async (file, index) => {
-      const fileName = `${basePath}/${prefix}_${index}.jpeg`
-      try {
-        let pipeline = sharp(file.filepath)
+  form.parse(req, async (error, fields, files) => {
+    try {
+      if (error) throw error
 
-        if (squareImage) {
-          // Get image metadata to determine crop dimensions
-          const metadata = await sharp(file.filepath).metadata()
-          const size = Math.min(metadata.width, metadata.height)
-          const left = Math.floor((metadata.width - size) / 2)
-          const top = Math.floor((metadata.height - size) / 2)
-
-          // Crop to square, then resize to 1080x1080
-          pipeline = pipeline
-            .extract({ left, top, width: size, height: size })
-            .resize(1920, 1920, { fit: 'cover' })
-        } else {
-          // Original behavior: resize width to 1080
-          pipeline = pipeline.resize({ width: 1920 })
-        }
-
-        const output = await pipeline
-          .withMetadata()
-          .jpeg({
-            quality: 100,
-            chromaSubsampling: '4:4:4'
-          })
-          .toBuffer()
-        fs.writeFile(fileName, output)
-        return true
-      } catch (e) {
-        console.error('Failed to Optimize', fileName, e)
-        return false
+      const sourceFiles = files.files
+        ? Array.isArray(files.files)
+          ? files.files
+          : [files.files]
+        : []
+      if (!sourceFiles.length) {
+        res.status(400).json({ error: 'Upload at least one image in the files field.' })
+        return
       }
-    })
-    const validations = await Promise.all(validationsPromises)
-    if (validations.some(val => val === false)) {
-      res.send('Completed With Errors')
-    } else {
-      res.send('Successfully Optimized All Images')
+
+      let requestedTypes = fields.cropTypes
+        ? Array.isArray(fields.cropTypes)
+          ? fields.cropTypes
+          : [fields.cropTypes]
+        : Object.keys(CROP_PRESETS)
+      if (requestedTypes.length === 1 && String(requestedTypes[0]).startsWith('[')) {
+        try {
+          requestedTypes = JSON.parse(requestedTypes[0])
+        } catch {
+          requestedTypes = []
+        }
+      }
+      if (!Array.isArray(requestedTypes)) requestedTypes = []
+      const cropTypes = [...new Set(requestedTypes.map(String))]
+      const invalidTypes = cropTypes.filter((type) => !CROP_PRESETS[type])
+      if (!cropTypes.length || invalidTypes.length) {
+        res.status(400).json({
+          error: `Select one or more crop types: ${Object.keys(CROP_PRESETS).join(', ')}.`
+        })
+        return
+      }
+
+      const jobId = randomUUID()
+      const jobDirectory = path.join(uploadsPath, jobId)
+      await fs.mkdir(jobDirectory, { recursive: true })
+      const crops = []
+
+      for (let fileIndex = 0; fileIndex < sourceFiles.length; fileIndex++) {
+        const source = sourceFiles[fileIndex]
+        const sourceStem =
+          path
+            .parse(source.originalFilename || `image-${fileIndex + 1}`)
+            .name.replace(/[^a-zA-Z0-9_-]+/g, '-')
+            .replace(/^-+|-+$/g, '') || `image-${fileIndex + 1}`
+
+        for (const cropType of cropTypes) {
+          const { width, height } = CROP_PRESETS[cropType]
+          const filename = `${fileIndex + 1}-${sourceStem}-${cropType}.jpg`
+          const outputPath = path.join(jobDirectory, filename)
+          const result = await sharp(source.filepath)
+            .rotate()
+            .resize(width, height, { fit: 'cover', position: sharp.strategy.attention })
+            .jpeg({ quality: 82, mozjpeg: true })
+            .toFile(outputPath)
+
+          crops.push({
+            sourceName: source.originalFilename,
+            cropType,
+            filename,
+            url: `/uploads/${jobId}/${filename}`,
+            width: result.width,
+            height: result.height,
+            size: result.size,
+            mime: 'image/jpeg'
+          })
+        }
+      }
+
+      if (htmlResponse) {
+        res
+          .type('html')
+          .send(
+            `Generated ${crops.length} JPEG crop(s):<ul>${crops
+              .map(
+                (crop) =>
+                  `<li><a href="${crop.url}">${crop.filename}</a> (${crop.width}×${crop.height})</li>`
+              )
+              .join('')}</ul><p><a href="/">Generate more</a></p>`
+          )
+      } else {
+        res.json({ crops })
+      }
+    } catch (requestError) {
+      next(requestError)
+    } finally {
+      await fs.rm(tempDirectory, { recursive: true, force: true })
     }
   })
+}
+
+app.post('/api/crops', (req, res, next) => handleCropRequest(req, res, next))
+app.post('/optimize', (req, res, next) => handleCropRequest(req, res, next, true))
+
+app.use((error, req, res, next) => {
+  console.error('Image optimization failed:', error)
+  if (res.headersSent) return next(error)
+  res.status(500).json({ error: error.message || 'Image optimization failed.' })
 })
 
 app.listen(port, () => {
-  console.log(`Example app listening on port http://localhost:${port}`)
+  console.log(`Image optimizer listening on http://localhost:${port}`)
 })

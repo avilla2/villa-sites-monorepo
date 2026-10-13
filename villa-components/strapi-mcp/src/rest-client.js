@@ -1,11 +1,15 @@
 import fetch from 'cross-fetch'
+import FormData from 'form-data'
+import { createReadStream } from 'node:fs'
+import { stat } from 'node:fs/promises'
+import { basename } from 'node:path'
 
 /**
  * REST API Client for Strapi
  * Handles all CRUD operations via Strapi REST API
  */
 export class StrapiRESTClient {
-  constructor (endpoint, apiToken) {
+  constructor(endpoint, apiToken) {
     // Convert GraphQL endpoint to REST endpoint
     this.endpoint = endpoint
     this.headers = {
@@ -17,7 +21,7 @@ export class StrapiRESTClient {
   /**
    * Generic GET request
    */
-  async get (path, params = {}) {
+  async get(path, params = {}) {
     const queryString = new URLSearchParams(params).toString()
     const url = `${this.endpoint}${path}${queryString ? `?${queryString}` : ''}`
 
@@ -38,7 +42,7 @@ export class StrapiRESTClient {
   /**
    * Generic POST request
    */
-  async post (path, data) {
+  async post(path, data) {
     const response = await fetch(`${this.endpoint}${path}`, {
       method: 'POST',
       headers: this.headers,
@@ -57,7 +61,7 @@ export class StrapiRESTClient {
   /**
    * Generic PUT request
    */
-  async put (path, data) {
+  async put(path, data) {
     const response = await fetch(`${this.endpoint}${path}`, {
       method: 'PUT',
       headers: this.headers,
@@ -76,7 +80,7 @@ export class StrapiRESTClient {
   /**
    * Generic DELETE request
    */
-  async delete (path) {
+  async delete(path) {
     const response = await fetch(`${this.endpoint}${path}`, {
       method: 'DELETE',
       headers: this.headers
@@ -98,7 +102,7 @@ export class StrapiRESTClient {
   /**
    * List all websites
    */
-  async listWebsites (filters = {}, pagination = { limit: 25 }) {
+  async listWebsites(filters = {}, pagination = { limit: 25 }) {
     const params = {
       'populate[navbar][fields][0]': 'Name',
       'populate[footer][fields][0]': 'Name',
@@ -120,7 +124,7 @@ export class StrapiRESTClient {
   /**
    * Get a website by document ID
    */
-  async getWebsite (documentId) {
+  async getWebsite(documentId) {
     return this.get(`/websites/${documentId}`, {
       'populate[navbar][fields][0]': 'Name',
       'populate[navbar][fields][1]': 'Style',
@@ -144,21 +148,21 @@ export class StrapiRESTClient {
   /**
    * Create a website
    */
-  async createWebsite (data) {
+  async createWebsite(data) {
     return this.post('/websites', data)
   }
 
   /**
    * Update a website
    */
-  async updateWebsite (documentId, data) {
+  async updateWebsite(documentId, data) {
     return this.put(`/websites/${documentId}`, data)
   }
 
   /**
    * Delete a website
    */
-  async deleteWebsite (documentId) {
+  async deleteWebsite(documentId) {
     return this.delete(`/websites/${documentId}`)
   }
 
@@ -169,7 +173,7 @@ export class StrapiRESTClient {
   /**
    * List content pages
    */
-  async listContentPages (filters = {}, pagination = { limit: 25 }) {
+  async listContentPages(filters = {}, pagination = { limit: 25 }) {
     const params = {
       'fields[0]': 'Name',
       'fields[1]': 'Link',
@@ -215,7 +219,7 @@ export class StrapiRESTClient {
   /**
    * Get a content page by document ID
    */
-  async getContentPage (documentId) {
+  async getContentPage(documentId) {
     return this.get(`/content-pages/${documentId}`, {
       'fields[0]': 'Name',
       'fields[1]': 'Link',
@@ -249,21 +253,21 @@ export class StrapiRESTClient {
   /**
    * Create a content page
    */
-  async createContentPage (data) {
+  async createContentPage(data) {
     return this.post('/content-pages', data)
   }
 
   /**
    * Update a content page
    */
-  async updateContentPage (documentId, data) {
+  async updateContentPage(documentId, data) {
     return this.put(`/content-pages/${documentId}`, data)
   }
 
   /**
    * Delete a content page
    */
-  async deleteContentPage (documentId) {
+  async deleteContentPage(documentId) {
     return this.delete(`/content-pages/${documentId}`)
   }
 
@@ -274,21 +278,21 @@ export class StrapiRESTClient {
   /**
    * Create a navbar
    */
-  async createNavbar (data) {
+  async createNavbar(data) {
     return this.post('/website-navbars', data)
   }
 
   /**
    * Update a navbar
    */
-  async updateNavbar (documentId, data) {
+  async updateNavbar(documentId, data) {
     return this.put(`/website-navbars/${documentId}`, data)
   }
 
   /**
    * Get a navbar by document ID
    */
-  async getNavbar (documentId) {
+  async getNavbar(documentId) {
     return this.get(`/website-navbars/${documentId}`, {
       populate: '*',
       'populate[siteBanner][populate]': '*'
@@ -302,21 +306,21 @@ export class StrapiRESTClient {
   /**
    * Create a footer
    */
-  async createFooter (data) {
+  async createFooter(data) {
     return this.post('/website-footers', data)
   }
 
   /**
    * Update a footer
    */
-  async updateFooter (documentId, data) {
+  async updateFooter(documentId, data) {
     return this.put(`/website-footers/${documentId}`, data)
   }
 
   /**
    * Get a footer by document ID
    */
-  async getFooter (documentId) {
+  async getFooter(documentId) {
     return this.get(`/website-footers/${documentId}`, { populate: '*' })
   }
 
@@ -327,14 +331,14 @@ export class StrapiRESTClient {
   /**
    * Create a homepage
    */
-  async createHomepage (data) {
+  async createHomepage(data) {
     return this.post('/website-homepages', data)
   }
 
   /**
    * Get a homepage by document ID
    */
-  async getHomepage (documentId) {
+  async getHomepage(documentId) {
     return this.get(`/website-homepages/${documentId}`, {
       'populate[0]': 'Content.Style',
       'populate[1]': 'Content.File',
@@ -361,7 +365,7 @@ export class StrapiRESTClient {
   /**
    * Update a homepage
    */
-  async updateHomepage (documentId, data) {
+  async updateHomepage(documentId, data) {
     return this.put(`/website-homepages/${documentId}`, data)
   }
 
@@ -372,21 +376,21 @@ export class StrapiRESTClient {
   /**
    * Create site settings
    */
-  async createSiteSettings (data) {
+  async createSiteSettings(data) {
     return this.post('/website-site-settings', data)
   }
 
   /**
    * Update site settings
    */
-  async updateSiteSettings (documentId, data) {
+  async updateSiteSettings(documentId, data) {
     return this.put(`/website-site-settings/${documentId}`, data)
   }
 
   /**
    * Get site settings by document ID
    */
-  async getSiteSettings (documentId) {
+  async getSiteSettings(documentId) {
     return this.get(`/website-site-settings/${documentId}`, { populate: '*' })
   }
 
@@ -397,7 +401,7 @@ export class StrapiRESTClient {
   /**
    * Update website relations (navbar, footer, homepage, site_settings, content_pages)
    */
-  async updateWebsiteRelations (documentId, data) {
+  async updateWebsiteRelations(documentId, data) {
     return this.put(`/websites/${documentId}`, data)
   }
 
@@ -406,10 +410,10 @@ export class StrapiRESTClient {
    * @param {string} documentId - Website document ID
    * @param {string[]} contentPageIds - Array of content page document IDs to connect
    */
-  async connectContentPages (documentId, contentPageIds) {
+  async connectContentPages(documentId, contentPageIds) {
     const data = {
       content_pages: {
-        connect: contentPageIds.map(id => ({ documentId: id }))
+        connect: contentPageIds.map((id) => ({ documentId: id }))
       }
     }
 
@@ -421,10 +425,10 @@ export class StrapiRESTClient {
    * @param {string} documentId - Website document ID
    * @param {string[]} contentPageIds - Array of content page document IDs to disconnect
    */
-  async disconnectContentPages (documentId, contentPageIds) {
+  async disconnectContentPages(documentId, contentPageIds) {
     const data = {
       content_pages: {
-        disconnect: contentPageIds.map(id => ({ documentId: id }))
+        disconnect: contentPageIds.map((id) => ({ documentId: id }))
       }
     }
 
@@ -436,10 +440,10 @@ export class StrapiRESTClient {
    * @param {string} documentId - Website document ID
    * @param {string[]} contentPageIds - Array of content page document IDs to set
    */
-  async setContentPages (documentId, contentPageIds) {
+  async setContentPages(documentId, contentPageIds) {
     const data = {
       content_pages: {
-        set: contentPageIds.map(id => ({ documentId: id }))
+        set: contentPageIds.map((id) => ({ documentId: id }))
       }
     }
 
@@ -455,7 +459,7 @@ export class StrapiRESTClient {
    * @param {Object} filters - Filter options { name, mime, ext }
    * @param {Object} pagination - Pagination options { page, pageSize, limit }
    */
-  async listMedia (filters = {}, pagination = { pageSize: 25 }) {
+  async listMedia(filters = {}, pagination = { pageSize: 25 }) {
     const params = {}
 
     if (filters.name) {
@@ -493,7 +497,7 @@ export class StrapiRESTClient {
    * Get a specific media file by ID
    * @param {string} id - Media file ID (not documentId)
    */
-  async getMedia (id) {
+  async getMedia(id) {
     return this.get(`/upload/files/${id}`)
   }
 
@@ -501,7 +505,7 @@ export class StrapiRESTClient {
    * Search media by URL
    * @param {string} url - Full or partial URL to search for
    */
-  async searchMediaByUrl (url) {
+  async searchMediaByUrl(url) {
     // Extract filename from URL if full URL provided
     let searchTerm = url
     if (url.includes('/uploads/')) {
@@ -510,5 +514,140 @@ export class StrapiRESTClient {
     }
 
     return this.listMedia({ name: searchTerm }, { pageSize: 100 })
+  }
+
+  /**
+   * Upload one or more local files to Strapi's Upload plugin endpoint.
+   * @param {string[]} filePaths - Absolute or relative paths readable by this MCP server
+   * @param {Object} options - Metadata or entry-link fields accepted by Strapi
+   */
+  async uploadMedia(filePaths, options = {}) {
+    if (!Array.isArray(filePaths) || filePaths.length === 0) {
+      throw new Error('At least one file path is required')
+    }
+
+    const form = new FormData()
+
+    for (const filePath of filePaths) {
+      const fileStats = await stat(filePath)
+      if (!fileStats.isFile()) {
+        throw new Error(`Not a file: ${filePath}`)
+      }
+
+      form.append('files', createReadStream(filePath), { filename: basename(filePath) })
+    }
+
+    this.appendUploadOptions(form, options)
+    return this.postUploadForm(form)
+  }
+
+  /**
+   * Generate image variants with the optimizer service and upload those JPEGs to Strapi.
+   * @param {string[]} filePaths - Source image paths accessible to this MCP server
+   * @param {string[]} cropTypes - Requested optimizer presets
+   * @param {Object} options - Optimizer URL, metadata, and optional Strapi entry fields
+   */
+  async generateAndUploadCrops(
+    filePaths,
+    cropTypes,
+    options = {},
+    optimizerEndpoint = 'http://localhost:3000'
+  ) {
+    if (!Array.isArray(filePaths) || filePaths.length === 0) {
+      throw new Error('At least one source image path is required')
+    }
+    if (!Array.isArray(cropTypes) || cropTypes.length === 0) {
+      throw new Error('Select at least one crop type: square, tall, or wide')
+    }
+
+    const optimizerBase = optimizerEndpoint.replace(/\/+$/, '')
+    const optimizerForm = new FormData()
+    for (const filePath of filePaths) {
+      const fileStats = await stat(filePath)
+      if (!fileStats.isFile()) throw new Error(`Not a file: ${filePath}`)
+      optimizerForm.append('files', createReadStream(filePath), { filename: basename(filePath) })
+    }
+    optimizerForm.append('cropTypes', JSON.stringify(cropTypes))
+
+    const cropResponse = await fetch(`${optimizerBase}/api/crops`, {
+      method: 'POST',
+      headers: optimizerForm.getHeaders(),
+      body: optimizerForm
+    })
+    const cropResponseText = await cropResponse.text()
+    let cropResult
+    try {
+      cropResult = cropResponseText ? JSON.parse(cropResponseText) : null
+    } catch {
+      cropResult = null
+    }
+    if (!cropResponse.ok) {
+      throw new Error(cropResult?.error || cropResponseText || 'Image optimizer request failed')
+    }
+    if (!Array.isArray(cropResult?.crops)) {
+      throw new Error('Image optimizer returned an invalid crop response')
+    }
+
+    const uploadedCrops = []
+    for (const crop of cropResult.crops) {
+      const cropUrl = new URL(crop.url, `${optimizerBase}/`)
+      if (cropUrl.origin !== new URL(optimizerBase).origin) {
+        throw new Error('Image optimizer returned a crop URL outside its configured origin')
+      }
+
+      const imageResponse = await fetch(cropUrl.href)
+      if (!imageResponse.ok) {
+        throw new Error(`Could not download optimized image: ${crop.filename}`)
+      }
+      const buffer = Buffer.from(await imageResponse.arrayBuffer())
+      const fileInfo = {
+        name: crop.filename,
+        ...(options.alternativeText ? { alternativeText: options.alternativeText } : {}),
+        ...(options.caption ? { caption: options.caption } : {})
+      }
+      const uploadForm = new FormData()
+      uploadForm.append('files', buffer, { filename: crop.filename, contentType: 'image/jpeg' })
+      this.appendUploadOptions(uploadForm, { ...options, fileInfo })
+      const uploaded = await this.postUploadForm(uploadForm)
+      uploadedCrops.push({ ...crop, uploaded })
+    }
+
+    return uploadedCrops
+  }
+
+  appendUploadOptions(form, options = {}) {
+    if (options.fileInfo) form.append('fileInfo', JSON.stringify(options.fileInfo))
+    for (const field of ['refId', 'ref', 'source', 'field', 'path']) {
+      if (options[field] !== undefined && options[field] !== '') {
+        form.append(field, String(options[field]))
+      }
+    }
+  }
+
+  async postUploadForm(form) {
+    const response = await fetch(`${this.endpoint}/upload`, {
+      method: 'POST',
+      headers: {
+        ...form.getHeaders(),
+        ...(this.headers.Authorization ? { Authorization: this.headers.Authorization } : {})
+      },
+      body: form
+    })
+
+    const responseText = await response.text()
+    let result
+    try {
+      result = responseText ? JSON.parse(responseText) : null
+    } catch {
+      result = responseText
+    }
+
+    if (!response.ok) {
+      const error =
+        typeof result === 'object' && result?.error ? JSON.stringify(result.error) : responseText
+      throw new Error(`REST API error: ${error || response.statusText}`)
+    }
+
+    return result
   }
 }

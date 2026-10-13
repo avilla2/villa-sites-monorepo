@@ -2,10 +2,7 @@
 
 import { Server } from '@modelcontextprotocol/sdk/server/index.js'
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
-import {
-  CallToolRequestSchema,
-  ListToolsRequestSchema
-} from '@modelcontextprotocol/sdk/types.js'
+import { CallToolRequestSchema, ListToolsRequestSchema } from '@modelcontextprotocol/sdk/types.js'
 import dotenv from 'dotenv'
 import { StrapiRESTClient } from './rest-client.js'
 
@@ -20,9 +17,11 @@ const strapiClient = new StrapiRESTClient(STRAPI_REST_ENDPOINT, STRAPI_API_TOKEN
 // Component type reference
 const COMPONENT_TYPES = {
   // Layout & Hero Components (usable on both homepages and content pages)
-  'component-home-page-components.intro': 'Hero section with image/video, text, buttons, and optional form fields',
+  'component-home-page-components.intro':
+    'Hero section with image/video, text, buttons, and optional form fields',
   'component-home-page-components.cta': 'Call-to-action with media, rich text content, and buttons',
-  'component-home-page-components.slideshow': 'Image/video slideshow with separate mobile and desktop slides',
+  'component-home-page-components.slideshow':
+    'Image/video slideshow with separate mobile and desktop slides',
 
   // Content Components (usable on both homepages and content pages)
   'component-home-page-components.rich-text': 'Rich text editor content with styling options',
@@ -33,12 +32,15 @@ const COMPONENT_TYPES = {
   'component-content-page-components.video': 'Video player with controls (autoplay, loop, muted)',
 
   // Interactive Components (usable on both homepages and content pages)
-  'component-content-page-components.form': 'Custom form with configurable fields and email settings',
+  'component-content-page-components.form':
+    'Custom form with configurable fields and email settings',
   'component-content-page-components.buttons': 'Group of styled buttons with links',
-  'component-content-page-components.instant-quote': 'Quote calculator form with job types and pricing',
+  'component-content-page-components.instant-quote':
+    'Quote calculator form with job types and pricing',
 
   // Organizational Components (usable on both homepages and content pages)
-  'component-content-page-components.card-group': 'Grid of cards with images, text, and optional buttons',
+  'component-content-page-components.card-group':
+    'Grid of cards with images, text, and optional buttons',
   'component-content-page-components.grid': 'Image grid with captions',
   'component-content-page-components.list': 'Bulleted or numbered list with optional icons',
   'component-content-page-components.faq': 'Accordion-style FAQ with questions and answers'
@@ -49,13 +51,15 @@ const TOOLS = [
   // Component reference tool
   {
     name: 'list_component_types',
-    description: 'List all available content component types that can be used in homepages and content pages. Components can be used interchangeably between homepages and content pages.',
+    description:
+      'List all available content component types that can be used in homepages and content pages. Components can be used interchangeably between homepages and content pages.',
     inputSchema: {
       type: 'object',
       properties: {
         category: {
           type: 'string',
-          description: 'Filter by component category: layout, content, interactive, or organizational',
+          description:
+            'Filter by component category: layout, content, interactive, or organizational',
           enum: ['layout', 'content', 'interactive', 'organizational', 'all']
         }
       }
@@ -63,7 +67,8 @@ const TOOLS = [
   },
   {
     name: 'get_component_example',
-    description: 'Get a JSON example of a specific component type with all available fields and typical values.',
+    description:
+      'Get a JSON example of a specific component type with all available fields and typical values.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -96,7 +101,8 @@ const TOOLS = [
   },
   {
     name: 'get_website',
-    description: 'Get detailed information about a specific website including navbar, footer, homepage, site settings, and content pages.',
+    description:
+      'Get detailed information about a specific website including navbar, footer, homepage, site settings, and content pages.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -124,7 +130,8 @@ const TOOLS = [
   },
   {
     name: 'update_website',
-    description: 'Update an existing website. Can update name and link to navbar, footer, homepage, or site_settings.',
+    description:
+      'Update an existing website. Can update name and link to navbar, footer, homepage, or site_settings.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -172,7 +179,8 @@ const TOOLS = [
   },
   {
     name: 'connect_content_pages',
-    description: 'Connect content pages to a website. This adds pages to the website without removing existing ones.',
+    description:
+      'Connect content pages to a website. This adds pages to the website without removing existing ones.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -193,7 +201,8 @@ const TOOLS = [
   },
   {
     name: 'disconnect_content_pages',
-    description: 'Disconnect content pages from a website. This removes the relation but does not delete the pages.',
+    description:
+      'Disconnect content pages from a website. This removes the relation but does not delete the pages.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -214,7 +223,8 @@ const TOOLS = [
   },
   {
     name: 'set_content_pages',
-    description: 'Set content pages for a website. This replaces all existing content page relations with the new ones.',
+    description:
+      'Set content pages for a website. This replaces all existing content page relations with the new ones.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -224,7 +234,7 @@ const TOOLS = [
         },
         contentPageIds: {
           type: 'array',
-          description: 'Array of content page document IDs to set as the website\'s content pages',
+          description: "Array of content page document IDs to set as the website's content pages",
           items: {
             type: 'string'
           }
@@ -259,7 +269,8 @@ const TOOLS = [
   },
   {
     name: 'get_content_page',
-    description: 'Get detailed information about a specific content page including all content components.',
+    description:
+      'Get detailed information about a specific content page including all content components.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -273,7 +284,8 @@ const TOOLS = [
   },
   {
     name: 'create_content_page',
-    description: 'Create a new content page with name, link, title, and optional content components. Content pages can use any component type from homepages or content pages.',
+    description:
+      'Create a new content page with name, link, title, and optional content components. Content pages can use any component type from homepages or content pages.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -291,11 +303,13 @@ const TOOLS = [
         },
         metaDescription: {
           type: 'string',
-          description: 'SEO meta description for the page (150-160 characters recommended). If omitted, site settings SiteDescription will be used.'
+          description:
+            'SEO meta description for the page (150-160 characters recommended). If omitted, site settings SiteDescription will be used.'
         },
         content: {
           type: 'string',
-          description: 'JSON string array of content components. Use list_component_types to see available components. Components can include intro, cta, slideshow, rich-text, media, gallery, paragraph, image, video, form, buttons, card-group, grid, list, faq, instant-quote.'
+          description:
+            'JSON string array of content components. Use list_component_types to see available components. Components can include intro, cta, slideshow, rich-text, media, gallery, paragraph, image, video, form, buttons, card-group, grid, list, faq, instant-quote.'
         }
       },
       required: ['name', 'link']
@@ -303,7 +317,8 @@ const TOOLS = [
   },
   {
     name: 'update_content_page',
-    description: 'Update an existing content page. Can update name, link, title, and content components. All component types are available.',
+    description:
+      'Update an existing content page. Can update name, link, title, and content components. All component types are available.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -329,7 +344,8 @@ const TOOLS = [
         },
         content: {
           type: 'string',
-          description: 'JSON string array of content components to replace existing content. Use list_component_types and get_component_example for help.'
+          description:
+            'JSON string array of content components to replace existing content. Use list_component_types and get_component_example for help.'
         }
       },
       required: ['documentId']
@@ -353,7 +369,8 @@ const TOOLS = [
   // Navbar tools
   {
     name: 'create_navbar',
-    description: 'Create a new navbar with configuration for style, appearance, items, and mobile config.',
+    description:
+      'Create a new navbar with configuration for style, appearance, items, and mobile config.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -375,7 +392,8 @@ const TOOLS = [
         },
         items: {
           type: 'string',
-          description: 'JSON string of navbar items (dynamic zone with TextLink, NavButton, NavMenu, ImageLink)'
+          description:
+            'JSON string of navbar items (dynamic zone with TextLink, NavButton, NavMenu, ImageLink)'
         },
         mobileConfig: {
           type: 'string',
@@ -485,7 +503,8 @@ const TOOLS = [
   // Homepage tools
   {
     name: 'get_homepage',
-    description: 'Get detailed information about a specific homepage including all content components.',
+    description:
+      'Get detailed information about a specific homepage including all content components.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -499,7 +518,8 @@ const TOOLS = [
   },
   {
     name: 'create_homepage',
-    description: 'Create a new homepage with page name, title, and content components. Homepages can use any component type from homepages or content pages.',
+    description:
+      'Create a new homepage with page name, title, and content components. Homepages can use any component type from homepages or content pages.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -513,7 +533,8 @@ const TOOLS = [
         },
         content: {
           type: 'string',
-          description: 'JSON string array of content components. Use list_component_types to see all available components. Can include intro, cta, slideshow, gallery, rich-text, media, paragraph, image, video, form, buttons, card-group, grid, list, faq, instant-quote.'
+          description:
+            'JSON string array of content components. Use list_component_types to see all available components. Can include intro, cta, slideshow, gallery, rich-text, media, paragraph, image, video, form, buttons, card-group, grid, list, faq, instant-quote.'
         }
       },
       required: ['pageName', 'title']
@@ -521,7 +542,8 @@ const TOOLS = [
   },
   {
     name: 'update_homepage',
-    description: 'Update an existing homepage configuration. All component types from both homepages and content pages are available.',
+    description:
+      'Update an existing homepage configuration. All component types from both homepages and content pages are available.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -539,7 +561,8 @@ const TOOLS = [
         },
         content: {
           type: 'string',
-          description: 'JSON string array of content components. Use list_component_types and get_component_example for reference.'
+          description:
+            'JSON string array of content components. Use list_component_types and get_component_example for reference.'
         }
       },
       required: ['documentId']
@@ -549,7 +572,8 @@ const TOOLS = [
   // Site Settings tools
   {
     name: 'create_site_settings',
-    description: 'Create site settings with color palette, desktop breakpoint, and localization settings.',
+    description:
+      'Create site settings with color palette, desktop breakpoint, and localization settings.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -614,8 +638,107 @@ const TOOLS = [
 
   // Media Library tools
   {
+    name: 'generate_and_upload_image_crops',
+    description:
+      'Send local source images to the configured optimizer, generate square/tall/wide JPEG variants, and upload each crop to Strapi Media Library. Requires the optimizer service at IMAGE_OPTIMIZER_ENDPOINT (default http://localhost:3000).',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        filePaths: {
+          type: 'array',
+          description: 'One or more local source image paths readable by this MCP server.',
+          items: { type: 'string' },
+          minItems: 1
+        },
+        cropTypes: {
+          type: 'array',
+          description: 'Crop presets to create. Defaults to all three formats when omitted.',
+          items: { type: 'string', enum: ['square', 'tall', 'wide'] },
+          uniqueItems: true
+        },
+        alternativeText: {
+          type: 'string',
+          description: 'Optional alternative text applied to each uploaded crop.'
+        },
+        caption: {
+          type: 'string',
+          description: 'Optional caption applied to each uploaded crop.'
+        },
+        refId: {
+          type: 'string',
+          description: 'Optional ID of a Strapi entry to link the uploaded crops to.'
+        },
+        ref: {
+          type: 'string',
+          description: 'Optional Strapi model UID for entry linking, e.g. api::article.article.'
+        },
+        field: {
+          type: 'string',
+          description: 'Optional media field on the linked entry.'
+        },
+        source: {
+          type: 'string',
+          description: 'Optional Strapi plugin name for the linked model.'
+        },
+        path: {
+          type: 'string',
+          description: 'Optional folder path, supported only by the Strapi AWS S3 upload provider.'
+        }
+      },
+      required: ['filePaths']
+    }
+  },
+  {
+    name: 'upload_media',
+    description:
+      'Upload one or more local files to the Strapi Media Library. File paths must be readable by the machine running this MCP server. Optional fileInfo sets name, alternativeText, and caption; refId, ref, field, and source link uploads to a Strapi entry.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        filePaths: {
+          type: 'array',
+          description: 'One or more local file paths readable by this MCP server.',
+          items: { type: 'string' },
+          minItems: 1
+        },
+        fileInfo: {
+          type: 'object',
+          description: 'Optional metadata for uploaded files: name, alternativeText, and caption.',
+          properties: {
+            name: { type: 'string' },
+            alternativeText: { type: 'string' },
+            caption: { type: 'string' }
+          }
+        },
+        refId: {
+          type: 'string',
+          description: 'ID of the Strapi entry to link uploaded files to.'
+        },
+        ref: {
+          type: 'string',
+          description: 'Strapi model UID to link uploaded files to, e.g. api::article.article.'
+        },
+        field: {
+          type: 'string',
+          description: 'Media field on the linked Strapi entry.'
+        },
+        source: {
+          type: 'string',
+          description: 'Optional Strapi plugin name for the linked model.'
+        },
+        path: {
+          type: 'string',
+          description:
+            'Optional upload folder path; only supported by the Strapi AWS S3 upload provider.'
+        }
+      },
+      required: ['filePaths']
+    }
+  },
+  {
     name: 'list_media',
-    description: 'List files from the Strapi media library. Search by name, URL, file type, or extension. Essential for finding existing images to reference in components.',
+    description:
+      'List files from the Strapi media library. Search by name, URL, file type, or extension. Essential for finding existing images to reference in components.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -664,13 +787,15 @@ const TOOLS = [
   },
   {
     name: 'search_media_by_url',
-    description: 'Search for media files by URL. Useful when you have a URL and need to find the media file details and ID to reference in components.',
+    description:
+      'Search for media files by URL. Useful when you have a URL and need to find the media file details and ID to reference in components.',
     inputSchema: {
       type: 'object',
       properties: {
         url: {
           type: 'string',
-          description: 'Full or partial URL to search for (e.g., "https://static.villawebsolutions.com/uploads/turf_1_2025_8a22d3c470.JPG" or just "turf_1_2025")'
+          description:
+            'Full or partial URL to search for (e.g., "https://static.villawebsolutions.com/uploads/turf_1_2025_8a22d3c470.JPG" or just "turf_1_2025")'
         }
       },
       required: ['url']
@@ -684,12 +809,8 @@ const COMPONENT_EXAMPLES = {
     __component: 'component-home-page-components.intro',
     IntroText: 'Welcome to our website',
     TextPosition: 'left', // or 'right', 'center'
-    Buttons: [
-      { Text: 'Get Started', Link: '/contact', ButtonColor: '#007bff' }
-    ],
-    FormFields: [
-      { name: 'email', label: 'Email', type: 'email', validation: 'required' }
-    ],
+    Buttons: [{ Text: 'Get Started', Link: '/contact', ButtonColor: '#007bff' }],
+    FormFields: [{ name: 'email', label: 'Email', type: 'email', validation: 'required' }],
     FormData: {
       SendFrom: 'noreply@example.com',
       SendTo: 'contact@example.com',
@@ -705,13 +826,13 @@ const COMPONENT_EXAMPLES = {
   'component-home-page-components.cta': {
     __component: 'component-home-page-components.cta',
     Title: 'Call to Action Title',
-    content: { /* Rich text JSON */ },
+    content: {
+      /* Rich text JSON */
+    },
     justify: 'center', // 'left', 'right', 'center'
     variant: 'default', // 'default', 'outlined', 'contained'
     reversed: false,
-    buttons: [
-      { Text: 'Learn More', Link: '/about', ButtonColor: '#28a745' }
-    ],
+    buttons: [{ Text: 'Learn More', Link: '/about', ButtonColor: '#28a745' }],
     Style: {
       BackgroundColor: '#ffffff',
       paddingTop: 30,
@@ -739,7 +860,9 @@ const COMPONENT_EXAMPLES = {
   'component-home-page-components.rich-text': {
     __component: 'component-home-page-components.rich-text',
     Title: 'About Us',
-    RichText: { /* Rich text JSON structure */ },
+    RichText: {
+      /* Rich text JSON structure */
+    },
     Style: {
       BackgroundColor: '#ffffff',
       TextColor: '#333333',
@@ -801,8 +924,20 @@ const COMPONENT_EXAMPLES = {
     sendFrom: 'noreply@example.com',
     formFields: [
       { name: 'name', label: 'Name', type: 'text', validation: 'required', fullWidth: true },
-      { name: 'email', label: 'Email', type: 'email', validation: 'required|email', fullWidth: true },
-      { name: 'message', label: 'Message', type: 'textarea', validation: 'required', fullWidth: true }
+      {
+        name: 'email',
+        label: 'Email',
+        type: 'email',
+        validation: 'required|email',
+        fullWidth: true
+      },
+      {
+        name: 'message',
+        label: 'Message',
+        type: 'textarea',
+        validation: 'required',
+        fullWidth: true
+      }
     ],
     Style: {
       BackgroundColor: '#f8f9fa',
@@ -830,7 +965,9 @@ const COMPONENT_EXAMPLES = {
     Cards: [
       {
         Title: 'Service 1',
-        Text: { /* Rich text JSON */ },
+        Text: {
+          /* Rich text JSON */
+        },
         CardStyle: 'outlined', // 'outlined', 'elevation'
         ButtonText: 'Learn More',
         ButtonColor: '#007bff',
@@ -861,12 +998,10 @@ const COMPONENT_EXAMPLES = {
   'component-content-page-components.list': {
     __component: 'component-content-page-components.list',
     Title: 'Features',
-    Caption: { /* Rich text JSON for intro text */ },
-    Items: [
-      { Text: 'First item' },
-      { Text: 'Second item' },
-      { Text: 'Third item' }
-    ],
+    Caption: {
+      /* Rich text JSON for intro text */
+    },
+    Items: [{ Text: 'First item' }, { Text: 'Second item' }, { Text: 'Third item' }],
     Style: {
       BackgroundColor: '#ffffff',
       paddingTop: 25,
@@ -909,7 +1044,7 @@ const COMPONENT_EXAMPLES = {
 // Tool handlers
 const toolHandlers = {
   // Component documentation handlers
-  async list_component_types (args) {
+  async list_component_types(args) {
     const category = args.category || 'all'
     let components = { ...COMPONENT_TYPES }
 
@@ -922,9 +1057,9 @@ const toolHandlers = {
         organizational: ['card-group', 'grid', 'list', 'faq']
       }
 
-      Object.keys(components).forEach(key => {
+      Object.keys(components).forEach((key) => {
         const componentName = key.split('.')[1]
-        if (categoryMap[category]?.some(c => componentName.includes(c))) {
+        if (categoryMap[category]?.some((c) => componentName.includes(c))) {
           filtered[key] = components[key]
         }
       })
@@ -937,44 +1072,58 @@ const toolHandlers = {
     }))
 
     return {
-      content: [{
-        type: 'text',
-        text: JSON.stringify({
-          note: 'All components can be used in both homepages and content pages',
-          components: formatted
-        }, null, 2)
-      }]
+      content: [
+        {
+          type: 'text',
+          text: JSON.stringify(
+            {
+              note: 'All components can be used in both homepages and content pages',
+              components: formatted
+            },
+            null,
+            2
+          )
+        }
+      ]
     }
   },
 
-  async get_component_example (args) {
+  async get_component_example(args) {
     const example = COMPONENT_EXAMPLES[args.componentType]
 
     if (!example) {
       return {
-        content: [{
-          type: 'text',
-          text: `Component type "${args.componentType}" not found. Use list_component_types to see available components.`
-        }],
+        content: [
+          {
+            type: 'text',
+            text: `Component type "${args.componentType}" not found. Use list_component_types to see available components.`
+          }
+        ],
         isError: true
       }
     }
 
     return {
-      content: [{
-        type: 'text',
-        text: JSON.stringify({
-          componentType: args.componentType,
-          description: COMPONENT_TYPES[args.componentType],
-          example,
-          usage: 'Include this object in the Content array when creating or updating pages'
-        }, null, 2)
-      }]
+      content: [
+        {
+          type: 'text',
+          text: JSON.stringify(
+            {
+              componentType: args.componentType,
+              description: COMPONENT_TYPES[args.componentType],
+              example,
+              usage: 'Include this object in the Content array when creating or updating pages'
+            },
+            null,
+            2
+          )
+        }
+      ]
     }
   },
 
   // Website handlers
-  async list_websites (args) {
+  async list_websites(args) {
     const filters = {}
     if (args.nameFilter) {
       filters.name = args.nameFilter
@@ -985,37 +1134,43 @@ const toolHandlers = {
     })
 
     return {
-      content: [{
-        type: 'text',
-        text: JSON.stringify(result.data, null, 2)
-      }]
+      content: [
+        {
+          type: 'text',
+          text: JSON.stringify(result.data, null, 2)
+        }
+      ]
     }
   },
 
-  async get_website (args) {
+  async get_website(args) {
     const result = await strapiClient.getWebsite(args.documentId)
 
     return {
-      content: [{
-        type: 'text',
-        text: JSON.stringify(result.data, null, 2)
-      }]
+      content: [
+        {
+          type: 'text',
+          text: JSON.stringify(result.data, null, 2)
+        }
+      ]
     }
   },
 
-  async create_website (args) {
+  async create_website(args) {
     const data = { name: args.name }
     const result = await strapiClient.createWebsite(data)
 
     return {
-      content: [{
-        type: 'text',
-        text: `Website created successfully with ID: ${result.data.documentId}`
-      }]
+      content: [
+        {
+          type: 'text',
+          text: `Website created successfully with ID: ${result.data.documentId}`
+        }
+      ]
     }
   },
 
-  async update_website (args) {
+  async update_website(args) {
     const data = {}
     if (args.name) data.name = args.name
     if (args.navbarId) data.navbar = args.navbarId
@@ -1026,59 +1181,69 @@ const toolHandlers = {
     const result = await strapiClient.updateWebsite(args.documentId, data)
 
     return {
-      content: [{
-        type: 'text',
-        text: `Website updated successfully: ${result.data.name}`
-      }]
+      content: [
+        {
+          type: 'text',
+          text: `Website updated successfully: ${result.data.name}`
+        }
+      ]
     }
   },
 
-  async delete_website (args) {
+  async delete_website(args) {
     await strapiClient.deleteWebsite(args.documentId)
 
     return {
-      content: [{
-        type: 'text',
-        text: 'Website deleted successfully'
-      }]
+      content: [
+        {
+          type: 'text',
+          text: 'Website deleted successfully'
+        }
+      ]
     }
   },
 
-  async connect_content_pages (args) {
+  async connect_content_pages(args) {
     await strapiClient.connectContentPages(args.websiteId, args.contentPageIds)
 
     return {
-      content: [{
-        type: 'text',
-        text: `Successfully connected ${args.contentPageIds.length} content page(s) to website`
-      }]
+      content: [
+        {
+          type: 'text',
+          text: `Successfully connected ${args.contentPageIds.length} content page(s) to website`
+        }
+      ]
     }
   },
 
-  async disconnect_content_pages (args) {
+  async disconnect_content_pages(args) {
     await strapiClient.disconnectContentPages(args.websiteId, args.contentPageIds)
 
     return {
-      content: [{
-        type: 'text',
-        text: `Successfully disconnected ${args.contentPageIds.length} content page(s) from website`
-      }]
+      content: [
+        {
+          type: 'text',
+          text: `Successfully disconnected ${args.contentPageIds.length} content page(s) from website`
+        }
+      ]
     }
   },
 
-  async set_content_pages (args) {
+  async set_content_pages(args) {
     await strapiClient.setContentPages(args.websiteId, args.contentPageIds)
 
     return {
-      content: [{
-        type: 'text',
-        text: `Successfully set ${args.contentPageIds.length} content page(s) for website`
-      }]
+      content: [
+        {
+          type: 'text',
+          text: `Successfully set ${args.contentPageIds.length} content page(s) for website`
+        }
+      ]
     }
   },
 
   // Content Page handlers
-  async list_content_pages (args) {
+  async list_content_pages(args) {
     const filters = {}
     if (args.websiteId) {
       filters.website = { documentId: { eq: args.websiteId } }
@@ -1092,25 +1257,29 @@ const toolHandlers = {
     })
 
     return {
-      content: [{
-        type: 'text',
-        text: JSON.stringify(result.data, null, 2)
-      }]
+      content: [
+        {
+          type: 'text',
+          text: JSON.stringify(result.data, null, 2)
+        }
+      ]
     }
   },
 
-  async get_content_page (args) {
+  async get_content_page(args) {
     const result = await strapiClient.getContentPage(args.documentId)
 
     return {
-      content: [{
-        type: 'text',
-        text: JSON.stringify(result.data, null, 2)
-      }]
+      content: [
+        {
+          type: 'text',
+          text: JSON.stringify(result.data, null, 2)
+        }
+      ]
     }
   },
 
-  async create_content_page (args) {
+  async create_content_page(args) {
     const data = {
       Name: args.name,
       Link: args.link
@@ -1124,14 +1293,16 @@ const toolHandlers = {
     const result = await strapiClient.createContentPage(data)
 
     return {
-      content: [{
-        type: 'text',
-        text: `Content page created successfully with ID: ${result.data.documentId}`
-      }]
+      content: [
+        {
+          type: 'text',
+          text: `Content page created successfully with ID: ${result.data.documentId}`
+        }
+      ]
     }
   },
 
-  async update_content_page (args) {
+  async update_content_page(args) {
     const data = {}
     if (args.name) data.Name = args.name
     if (args.link) data.Link = args.link
@@ -1144,26 +1315,30 @@ const toolHandlers = {
     const result = await strapiClient.updateContentPage(args.documentId, data)
 
     return {
-      content: [{
-        type: 'text',
-        text: `Content page updated successfully: ${result.data.Name}`
-      }]
+      content: [
+        {
+          type: 'text',
+          text: `Content page updated successfully: ${result.data.Name}`
+        }
+      ]
     }
   },
 
-  async delete_content_page (args) {
+  async delete_content_page(args) {
     await strapiClient.deleteContentPage(args.documentId)
 
     return {
-      content: [{
-        type: 'text',
-        text: 'Content page deleted successfully'
-      }]
+      content: [
+        {
+          type: 'text',
+          text: 'Content page deleted successfully'
+        }
+      ]
     }
   },
 
   // Navbar handlers
-  async create_navbar (args) {
+  async create_navbar(args) {
     const data = { Name: args.name }
     if (args.style) data.Style = args.style
     if (args.appearance) data.Appearance = args.appearance
@@ -1174,14 +1349,16 @@ const toolHandlers = {
     const result = await strapiClient.createNavbar(data)
 
     return {
-      content: [{
-        type: 'text',
-        text: `Navbar created successfully with ID: ${result.data.documentId}`
-      }]
+      content: [
+        {
+          type: 'text',
+          text: `Navbar created successfully with ID: ${result.data.documentId}`
+        }
+      ]
     }
   },
 
-  async update_navbar (args) {
+  async update_navbar(args) {
     const data = {}
     if (args.name) data.Name = args.name
     if (args.style) data.Style = args.style
@@ -1193,15 +1370,17 @@ const toolHandlers = {
     const result = await strapiClient.updateNavbar(args.documentId, data)
 
     return {
-      content: [{
-        type: 'text',
-        text: `Navbar updated successfully: ${result.data.Name}`
-      }]
+      content: [
+        {
+          type: 'text',
+          text: `Navbar updated successfully: ${result.data.Name}`
+        }
+      ]
     }
   },
 
   // Footer handlers
-  async create_footer (args) {
+  async create_footer(args) {
     const data = { Name: args.name }
     if (args.fontColor) data.FontColor = args.fontColor
     if (args.content) data.Content = JSON.parse(args.content)
@@ -1210,14 +1389,16 @@ const toolHandlers = {
     const result = await strapiClient.createFooter(data)
 
     return {
-      content: [{
-        type: 'text',
-        text: `Footer created successfully with ID: ${result.data.documentId}`
-      }]
+      content: [
+        {
+          type: 'text',
+          text: `Footer created successfully with ID: ${result.data.documentId}`
+        }
+      ]
     }
   },
 
-  async update_footer (args) {
+  async update_footer(args) {
     const data = {}
     if (args.name) data.Name = args.name
     if (args.fontColor) data.FontColor = args.fontColor
@@ -1227,26 +1408,30 @@ const toolHandlers = {
     const result = await strapiClient.updateFooter(args.documentId, data)
 
     return {
-      content: [{
-        type: 'text',
-        text: `Footer updated successfully: ${result.data.Name}`
-      }]
+      content: [
+        {
+          type: 'text',
+          text: `Footer updated successfully: ${result.data.Name}`
+        }
+      ]
     }
   },
 
   // Homepage handlers
-  async get_homepage (args) {
+  async get_homepage(args) {
     const result = await strapiClient.getHomepage(args.documentId)
 
     return {
-      content: [{
-        type: 'text',
-        text: JSON.stringify(result.data, null, 2)
-      }]
+      content: [
+        {
+          type: 'text',
+          text: JSON.stringify(result.data, null, 2)
+        }
+      ]
     }
   },
 
-  async create_homepage (args) {
+  async create_homepage(args) {
     const data = {
       PageName: args.pageName,
       Title: args.title
@@ -1256,14 +1441,16 @@ const toolHandlers = {
     const result = await strapiClient.createHomepage(data)
 
     return {
-      content: [{
-        type: 'text',
-        text: `Homepage created successfully with ID: ${result.data.documentId}`
-      }]
+      content: [
+        {
+          type: 'text',
+          text: `Homepage created successfully with ID: ${result.data.documentId}`
+        }
+      ]
     }
   },
 
-  async update_homepage (args) {
+  async update_homepage(args) {
     const data = {}
     if (args.pageName) data.PageName = args.pageName
     if (args.title) data.Title = args.title
@@ -1272,15 +1459,17 @@ const toolHandlers = {
     const result = await strapiClient.updateHomepage(args.documentId, data)
 
     return {
-      content: [{
-        type: 'text',
-        text: `Homepage updated successfully: ${result.data.PageName}`
-      }]
+      content: [
+        {
+          type: 'text',
+          text: `Homepage updated successfully: ${result.data.PageName}`
+        }
+      ]
     }
   },
 
   // Site Settings handlers
-  async create_site_settings (args) {
+  async create_site_settings(args) {
     const data = { Name: args.name }
     if (args.siteTitle) data.SiteTitle = args.siteTitle
     if (args.desktopBreakpoint) data.DesktopBreakpoint = args.desktopBreakpoint
@@ -1290,14 +1479,16 @@ const toolHandlers = {
     const result = await strapiClient.createSiteSettings(data)
 
     return {
-      content: [{
-        type: 'text',
-        text: `Site settings created successfully with ID: ${result.data.documentId}`
-      }]
+      content: [
+        {
+          type: 'text',
+          text: `Site settings created successfully with ID: ${result.data.documentId}`
+        }
+      ]
     }
   },
 
-  async update_site_settings (args) {
+  async update_site_settings(args) {
     const data = {}
     if (args.name) data.Name = args.name
     if (args.siteTitle) data.SiteTitle = args.siteTitle
@@ -1308,15 +1499,63 @@ const toolHandlers = {
     const result = await strapiClient.updateSiteSettings(args.documentId, data)
 
     return {
-      content: [{
-        type: 'text',
-        text: `Site settings updated successfully: ${result.data.Name}`
-      }]
+      content: [
+        {
+          type: 'text',
+          text: `Site settings updated successfully: ${result.data.Name}`
+        }
+      ]
     }
   },
 
   // Media Library handlers
-  async list_media (args) {
+  async generate_and_upload_image_crops(args) {
+    const result = await strapiClient.generateAndUploadCrops(
+      args.filePaths,
+      args.cropTypes || ['square', 'tall', 'wide'],
+      {
+        alternativeText: args.alternativeText,
+        caption: args.caption,
+        refId: args.refId,
+        ref: args.ref,
+        source: args.source,
+        field: args.field,
+        path: args.path
+      },
+      process.env.IMAGE_OPTIMIZER_ENDPOINT || 'http://localhost:3000'
+    )
+
+    return {
+      content: [
+        {
+          type: 'text',
+          text: JSON.stringify(result, null, 2)
+        }
+      ]
+    }
+  },
+
+  async upload_media(args) {
+    const result = await strapiClient.uploadMedia(args.filePaths, {
+      fileInfo: args.fileInfo,
+      refId: args.refId,
+      ref: args.ref,
+      source: args.source,
+      field: args.field,
+      path: args.path
+    })
+
+    return {
+      content: [
+        {
+          type: 'text',
+          text: JSON.stringify(result, null, 2)
+        }
+      ]
+    }
+  },
+
+  async list_media(args) {
     const filters = {}
     if (args.nameFilter) filters.name = args.nameFilter
     if (args.urlFilter) filters.url = args.urlFilter
@@ -1331,32 +1570,38 @@ const toolHandlers = {
     const result = await strapiClient.listMedia(filters, pagination)
 
     return {
-      content: [{
-        type: 'text',
-        text: JSON.stringify(result, null, 2)
-      }]
+      content: [
+        {
+          type: 'text',
+          text: JSON.stringify(result, null, 2)
+        }
+      ]
     }
   },
 
-  async get_media (args) {
+  async get_media(args) {
     const result = await strapiClient.getMedia(args.id)
 
     return {
-      content: [{
-        type: 'text',
-        text: JSON.stringify(result, null, 2)
-      }]
+      content: [
+        {
+          type: 'text',
+          text: JSON.stringify(result, null, 2)
+        }
+      ]
     }
   },
 
-  async search_media_by_url (args) {
+  async search_media_by_url(args) {
     const result = await strapiClient.searchMediaByUrl(args.url)
 
     return {
-      content: [{
-        type: 'text',
-        text: JSON.stringify(result, null, 2)
-      }]
+      content: [
+        {
+          type: 'text',
+          text: JSON.stringify(result, null, 2)
+        }
+      ]
     }
   }
 }
@@ -1394,17 +1639,19 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     return await handler(args || {})
   } catch (error) {
     return {
-      content: [{
-        type: 'text',
-        text: `Error: ${error.message}`
-      }],
+      content: [
+        {
+          type: 'text',
+          text: `Error: ${error.message}`
+        }
+      ],
       isError: true
     }
   }
 })
 
 // Start the server
-async function main () {
+async function main() {
   const transport = new StdioServerTransport()
   await server.connect(transport)
   console.error('Strapi MCP Server running on stdio')

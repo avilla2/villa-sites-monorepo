@@ -14,6 +14,7 @@ A Model Context Protocol (MCP) server that enables AI agents to manage Strapi we
 - **Footers**: Manage footer content and links
 - **Homepages**: Create homepages with rich content components
 - **Site Settings**: Configure site-wide settings including color palettes and breakpoints
+- **Media Uploads**: Upload local files to the Strapi Media Library, optionally attaching them to an entry
 - **Component Discovery**: Tools to list and get examples of all available components
 - **Universal Components**: Use any component type on any page (homepages or content pages)
 - **Content Components**: Support for all Strapi content components including:
@@ -38,11 +39,13 @@ Create a `.env` file in the project root:
 ```env
 STRAPI_GRAPHQL_ENDPOINT=http://localhost:1337/graphql
 STRAPI_API_TOKEN=your_api_token_here
+IMAGE_OPTIMIZER_ENDPOINT=http://localhost:3000
 ```
 
 **Note:** Despite the variable name being `STRAPI_GRAPHQL_ENDPOINT`, the server now uses the REST API exclusively. The endpoint is automatically converted from `/graphql` to `/api`.
 
 For production, use:
+
 ```env
 STRAPI_GRAPHQL_ENDPOINT=https://api.villawebsolutions.com/graphql
 STRAPI_API_TOKEN=your_production_api_token
@@ -57,6 +60,7 @@ npm start
 ```
 
 Or in development mode with auto-reload:
+
 ```bash
 npm run dev
 ```
@@ -72,7 +76,9 @@ Add this to your Claude Desktop configuration file:
   "mcpServers": {
     "strapi": {
       "command": "node",
-      "args": ["/Users/alexvilla/Projects/villa-sites-monorepo/villa-components/strapi-mcp/src/index.js"],
+      "args": [
+        "/Users/alexvilla/Projects/villa-sites-monorepo/villa-components/strapi-mcp/src/index.js"
+      ],
       "env": {
         "STRAPI_GRAPHQL_ENDPOINT": "http://localhost:1337/graphql",
         "STRAPI_API_TOKEN": "your_api_token_here"
@@ -128,6 +134,12 @@ Add this to your Claude Desktop configuration file:
 - `create_site_settings`: Create site settings with color palette
 - `update_site_settings`: Update site configuration
 
+### Media Library Tools
+
+- `generate_and_upload_image_crops`: Send local image paths through the optimizer and upload the generated square (1080×1080), tall (1080×1350), and/or wide (1920×1080) JPEGs (quality 82) to Strapi. Start the optimizer with `yarn workspace @villa-components/optimizer start`; configure its URL with `IMAGE_OPTIMIZER_ENDPOINT` if it is not available at `http://localhost:3000`.
+- `upload_media`: Upload one or more local files using Strapi's multipart REST upload endpoint. The file paths must be accessible to the machine running this MCP server. Optional `fileInfo` sets `name`, `alternativeText`, or `caption`; `refId`, `ref`, `field`, and `source` can link uploads to a Strapi entry.
+- `list_media`, `get_media`, `search_media_by_url`: Find uploaded media and retrieve its ID and URL.
+
 ## Content Components
 
 **Important**: All content components can be used interchangeably in both homepages and content pages! You're not limited to using "homepage components" only on homepages or "content page components" only on content pages. Mix and match as needed.
@@ -135,11 +147,13 @@ Add this to your Claude Desktop configuration file:
 Use the `list_component_types` tool to see all available components, and `get_component_example` to get JSON examples with all fields.
 
 ### Layout & Hero Components
+
 - **Intro** (`component-home-page-components.intro`): Hero sections with images, text, buttons, and optional forms
 - **CTA** (`component-home-page-components.cta`): Call-to-action components with media, rich text, and buttons
 - **Slideshow** (`component-home-page-components.slideshow`): Image/video slideshows for mobile and desktop
 
 ### Content Components
+
 - **RichText** (`component-home-page-components.rich-text`): Rich text content with styling
 - **Media** (`component-home-page-components.media`): Single media assets (images/videos)
 - **Gallery** (`component-home-page-components.gallery`): Image galleries
@@ -148,23 +162,27 @@ Use the `list_component_types` tool to see all available components, and `get_co
 - **Video** (`component-content-page-components.video`): Video embeds with controls
 
 ### Interactive Components
+
 - **Form** (`component-content-page-components.form`): Custom forms with various field types
 - **Buttons** (`component-content-page-components.buttons`): Button groups with styling
 - **InstantQuote** (`component-content-page-components.instant-quote`): Quote calculation forms
 
 ### Organizational Components
+
 - **CardGroup** (`component-content-page-components.card-group`): Card-based content layouts
 - **Grid** (`component-content-page-components.grid`): Grid-based image layouts
 - **List** (`component-content-page-components.list`): Bulleted or numbered lists with icons
 - **FAQ** (`component-content-page-components.faq`): Frequently asked questions
 
 ### Navigation Components
+
 - **TextLink**: Simple text links
 - **NavButton**: Styled navigation buttons
 - **NavMenu**: Dropdown menus with menu items
 - **ImageLink**: Logo/image-based links
 
 ### Footer Components
+
 - **Text**: Text content
 - **Image**: Footer images/logos
 - **Icons**: Social media and other icons with links
@@ -261,6 +279,7 @@ Use the `list_component_types` tool to see all available components, and `get_co
 The server provides three methods for managing content page relations to websites:
 
 **connect_content_pages**: Adds pages to a website without removing existing ones
+
 ```javascript
 {
   "name": "connect_content_pages",
@@ -272,6 +291,7 @@ The server provides three methods for managing content page relations to website
 ```
 
 **disconnect_content_pages**: Removes the relation without deleting the pages
+
 ```javascript
 {
   "name": "disconnect_content_pages",
@@ -283,6 +303,7 @@ The server provides three methods for managing content page relations to website
 ```
 
 **set_content_pages**: Replaces all existing content page relations
+
 ```javascript
 {
   "name": "set_content_pages",
@@ -351,6 +372,7 @@ The server uses the Strapi GraphQL API with the following main types:
 ## Development
 
 The server is built using:
+
 - **@modelcontextprotocol/sdk**: MCP server implementation
 - **graphql-request**: GraphQL client for Strapi API
 - **dotenv**: Environment variable management
@@ -360,6 +382,7 @@ The server is built using:
 ### Connection Issues
 
 If you encounter connection issues:
+
 1. Verify Strapi is running and accessible
 2. Check the GraphQL endpoint URL in `.env`
 3. Verify the API token has proper permissions
@@ -367,6 +390,7 @@ If you encounter connection issues:
 ### Authentication Errors
 
 Ensure your Strapi API token has the following permissions:
+
 - Read/Write access to Website, ContentPage, WebsiteNavbar, WebsiteFooter, WebsiteHomepage, WebsiteSetting
 - Access to upload files if using media components
 

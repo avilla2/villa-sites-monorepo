@@ -36,14 +36,19 @@ export default function WebsiteModal({ modal, websiteId, siteName }) {
     if (!modal?.Content?.length) return
 
     const storageKey = `solar:modal-message-seen:${websiteId || siteName || 'website'}`
+    let dismissTimer
+    setShowMessage(true)
     try {
-      if (window.localStorage.getItem(storageKey) === 'true') return
-      window.localStorage.setItem(storageKey, 'true')
-      setShowMessage(true)
+      if (window.localStorage.getItem(storageKey) === 'true') {
+        dismissTimer = window.setTimeout(() => setShowMessage(false), 5000)
+      } else {
+        window.localStorage.setItem(storageKey, 'true')
+      }
     } catch {
       // Keep the first-visit message available when browser storage is disabled.
-      setShowMessage(true)
     }
+
+    return () => window.clearTimeout(dismissTimer)
   }, [modal, siteName, websiteId])
 
   useEffect(() => {

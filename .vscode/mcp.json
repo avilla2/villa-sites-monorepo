@@ -5,6 +5,12 @@
       "id": "strapi-api-key",
       "description": "Strapi API Key",
       "password": true
+    },
+    {
+      "type": "promptString",
+      "id": "strapi-admin-token",
+      "description": "Strapi Admin Token",
+      "password": true
     }
   ],
   "servers": {
@@ -18,6 +24,13 @@
         "STRAPI_REST_ENDPOINT": "https://api.villawebsolutions.com/api",
         // "STRAPI_REST_ENDPOINT": "http://localhost:1337/graphql",
         "STRAPI_API_TOKEN": "${input:strapi-api-key}"
+      }
+    },
+    "strapi-mcp-official": {
+      "type": "http",
+      "url": "https://api.villawebsolutions.com/mcp",
+      "headers": {
+        "Authorization": "Bearer ${input:strapi-admin-token}"
       }
     }
   }
