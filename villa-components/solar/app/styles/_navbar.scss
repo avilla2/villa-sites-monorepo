@@ -477,7 +477,7 @@ $breakpoints: (xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536);
   position: fixed;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: calc(var(--navbar-z) + 50);
+  z-index: calc(var(--navbar-z) + 250);
 
   &[data-starting-style],
   &[data-ending-style] {
@@ -491,7 +491,7 @@ $breakpoints: (xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536);
 .mobile-drawer__viewport {
   position: fixed;
   inset: 0;
-  z-index: calc(var(--navbar-z) + 60);
+  z-index: calc(var(--navbar-z) + 260);
 }
 
 .mobile-drawer {

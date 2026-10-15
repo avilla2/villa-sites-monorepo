@@ -3,32 +3,32 @@
 // All size/color values are CSS custom properties — override per-site.
 
 :root {
-  --intro-min-height:         100vh;
-  --intro-mobile-min-height:  85vh;
-  --intro-overlay-padding:    3%;
-  --intro-text-shadow:        3px 3px 20px rgba(0, 0, 0, 0.45);
-  --intro-bg-color:           #1a1a1a; // fallback when no media is loaded
+  --intro-min-height: 100vh;
+  --intro-mobile-min-height: 85vh;
+  --intro-overlay-padding: 3%;
+  --intro-text-shadow: 3px 3px 20px rgba(0, 0, 0, 0.45);
+  --intro-bg-color: #1a1a1a; // fallback when no media is loaded
 
   // Responsive font sizing via clamp
-  --intro-font-size:          clamp(0.85rem, 2.5vw, 1.5rem);
+  --intro-font-size: clamp(0.85rem, 2.5vw, 1.5rem);
 
   // Heading font (override with a display/display-alt font per site)
-  --intro-heading-font:       var(--font-primary, inherit);
+  --intro-heading-font: var(--font-primary, inherit);
 
   // CTA button defaults — outlined style
-  --intro-btn-border-radius:  4px;
-  --intro-btn-px:             1.5rem;
-  --intro-btn-py:             0.65rem;
-  --intro-btn-font-size:      0.9rem;
-  --intro-btn-weight:         600;
+  --intro-btn-border-radius: 4px;
+  --intro-btn-px: 1.5rem;
+  --intro-btn-py: 0.65rem;
+  --intro-btn-font-size: 0.9rem;
+  --intro-btn-weight: 600;
   --intro-btn-letter-spacing: 0.02em;
-  --intro-btn-transition:     background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  --intro-btn-transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 // ── svh unit support ─────────────────────────────────────────────────────────
 @supports (min-height: 100svh) {
   :root {
-    --intro-min-height:        100svh;
+    --intro-min-height: 100svh;
     --intro-mobile-min-height: 85svh;
   }
 }
@@ -133,7 +133,12 @@
 
 // ── Intro text (ReactMarkdown output) ────────────────────────────────────────
 .intro__text {
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--intro-heading-font);
     font-weight: normal;
     line-height: 1.2;
@@ -141,10 +146,18 @@
     color: inherit;
   }
 
-  h1 { font-size: 2.2em; }
-  h2 { font-size: 1.6em; }
-  h3 { font-size: 1.25em; }
-  h4 { font-size: 1.2em; }
+  h1 {
+    font-size: 2.2em;
+  }
+  h2 {
+    font-size: 1.6em;
+  }
+  h3 {
+    font-size: 1.25em;
+  }
+  h4 {
+    font-size: 1.2em;
+  }
 
   p {
     margin: 0 0 0.9em;
@@ -153,13 +166,21 @@
     color: inherit;
   }
 
-  strong { font-weight: 700; }
+  strong {
+    font-weight: 700;
+  }
 
   // Scale headings down on mobile
   @media (max-width: 767px) {
-    h1 { font-size: 1.5em; }
-    h2 { font-size: 1.2em; }
-    h3 { font-size: 1.05em; }
+    h1 {
+      font-size: 1.5em;
+    }
+    h2 {
+      font-size: 1.2em;
+    }
+    h3 {
+      font-size: 1.05em;
+    }
   }
 }
 
@@ -201,8 +222,12 @@
 
 // ── Keyframes ─────────────────────────────────────────────────────────────────
 @keyframes intro-fade-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes intro-slide-up {
@@ -229,10 +254,11 @@
 // ── Embedded form (Intro + Form) ──────────────────────────────────────────────
 // Renders a Contact form card alongside/underneath the hero content.
 :root {
-  --intro-form-card-bg:     #ffffff;
-  --intro-form-card-color:  #1a1a1a;
-  --intro-form-desc-color:  #555555;
+  --intro-form-card-bg: #ffffff;
+  --intro-form-card-color: #1a1a1a;
+  --intro-form-desc-color: #555555;
   --intro-form-mobile-media-height: 55vh;
+  --intro-form-mobile-media-aspect-ratio: 9 / 16;
 }
 
 .intro__form-wrap {
@@ -263,7 +289,12 @@
   }
 
   .contact__fields {
-    grid-template-columns: 1fr;
+    // Honor field.fullWidth even when the form is inside a narrow hero card.
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .contact__field {
+    min-width: 0;
   }
 }
 
@@ -286,7 +317,7 @@
 // Stacks the text content and form card side-by-side on desktop; on mobile the
 // hero media shrinks so the form card can overhang its bottom edge, with room
 // left below for the rest of the page.
-@media (min-width: 768px) {
+@media (min-width: 900px) {
   .intro--with-form .intro__overlay {
     // stretch so .intro__inner spans the full row width for the space-between layout
     align-items: stretch;
@@ -299,7 +330,7 @@
   align-items: inherit; // follow whatever TextPosition variant set on .intro__overlay
   gap: 2rem;
 
-  @media (min-width: 768px) {
+  @media (min-width: 900px) {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
@@ -312,7 +343,7 @@
   min-width: 0;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 899px) {
   .intro--with-form {
     min-height: 0;
     padding-bottom: 4rem; // spacing beneath the overhanging form card
@@ -323,7 +354,8 @@
     top: 0;
     left: 0;
     right: 0;
-    height: var(--intro-form-mobile-media-height);
+    height: auto;
+    aspect-ratio: var(--intro-form-mobile-media-aspect-ratio);
   }
 
   .intro--with-form .intro__overlay {
@@ -336,6 +368,10 @@
     gap: 4rem; // more room between the title and the form card
   }
 
+  .intro--with-form .intro__text {
+    padding-block: 2.5rem;
+  }
+
   .intro--with-form .intro__form-wrap {
     max-width: none;
     // No negative margin here — the form simply flows after the title with the
@@ -344,4 +380,3 @@
     // end of the image (overhang) without ever risking an overlap with the text.
   }
 }
-

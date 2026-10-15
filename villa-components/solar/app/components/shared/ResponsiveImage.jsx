@@ -10,26 +10,26 @@ const DEFAULT_SIZES = { sm: '100vw', md: '50vw', lg: '33vw' }
  *
  * @param {Object}  props
  * @param {string}  props.src                  - Absolute Strapi asset URL (desktop)
- * @param {string}  [props.mobileSrc]          - Optional mobile-specific source (used ≤ 600px)
+ * @param {string}  [props.mobileSrc]          - Optional mobile-specific source (used ≤ 767px)
  * @param {string}  props.alt                  - Alt text
  * @param {string}  [props.className]
  * @param {{ sm?: string, md?: string, lg?: string }} [props.sizes]
  *   Rendered width hint per tier (CSS length).
  */
-export default function ResponsiveImage ({ src, mobileSrc, alt, className, sizes: sizesProp }) {
+export default function ResponsiveImage({ src, mobileSrc, alt, className, sizes: sizesProp }) {
   const sizes = { ...DEFAULT_SIZES, ...sizesProp }
 
-  // Generate srcset - use mobileSrc for small sizes if provided
-  const smallSrc = mobileSrc || src
-  const srcSet = [
-    `${buildUrl(smallSrc, { format: 'webp', quality: 90, width: 320 })} 320w`,
-    `${buildUrl(smallSrc, { format: 'webp', quality: 90, width: 768 })} 768w`,
-    `${buildUrl(src, { format: 'webp', quality: 90, width: 1280 })} 1280w`
-  ].join(', ')
+  // Keep each asset in its own source set: pixel density must not choose
+  // the desktop composition on a mobile viewport.
+  const makeSrcSet = (source) =>
+    [320, 768, 1280]
+      .map((width) => `${buildUrl(source, { format: 'webp', quality: 90, width })} ${width}w`)
+      .join(', ')
+  const srcSet = makeSrcSet(src)
 
   const sizesAttr = `(max-width: 320px) ${sizes.sm}, (max-width: 768px) ${sizes.md}, ${sizes.lg}`
 
-  return (
+  const image = (
     <img
       src={buildUrl(src, { format: 'webp', quality: 90, width: 1280 })}
       srcSet={srcSet}
@@ -38,5 +38,14 @@ export default function ResponsiveImage ({ src, mobileSrc, alt, className, sizes
       className={className}
       loading="lazy"
     />
+  )
+
+  if (!mobileSrc) return image
+
+  return (
+    <picture style={{ display: 'contents' }}>
+      <source media="(max-width: 767px)" srcSet={makeSrcSet(mobileSrc)} sizes={sizesAttr} />
+      {image}
+    </picture>
   )
 }

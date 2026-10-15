@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 import isExternal from '../../../lib/isExternalLink'
 import Slideshow from './Slideshow'
@@ -15,15 +15,26 @@ const POSITION_CLASS = {
 }
 
 // ── Single media element ──────────────────────────────────────────────────────
-function IntroSingleMedia ({ file, mobileFile }) {
+function IntroSingleMedia({ file, mobileFile }) {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const query = window.matchMedia('(max-width: 767px)')
+    const update = () => setIsMobile(query.matches)
+    update()
+    query.addEventListener('change', update)
+    return () => query.removeEventListener('change', update)
+  }, [])
+
   if (!file?.url) return null
 
-  const mime = getMimeType(file.mime)
+  const selectedFile = isMobile && mobileFile?.url ? mobileFile : file
+  const mime = getMimeType(selectedFile.mime)
 
   if (mime === 'video') {
     return (
-      <video className="intro__video" loop autoPlay muted playsInline>
-        <source src={file.url} type={file.mime} />
+      <video key={selectedFile.url} className="intro__video" loop autoPlay muted playsInline>
+        <source src={selectedFile.url} type={selectedFile.mime} />
       </video>
     )
   }
@@ -31,7 +42,7 @@ function IntroSingleMedia ({ file, mobileFile }) {
   return (
     <ResponsiveImage
       className="intro__image"
-      src={file.url}
+      src={getMimeType(file.mime) === 'video' ? selectedFile.url : file.url}
       mobileSrc={mobileFile?.url}
       alt={file.alternativeText || ''}
       sizes={{ sm: '100vw', md: '100vw', lg: '100vw' }}
@@ -40,12 +51,12 @@ function IntroSingleMedia ({ file, mobileFile }) {
 }
 
 // ── Background media renderer ─────────────────────────────────────────────────
-function IntroBg ({ files, mobileFiles }) {
+function IntroBg({ files, mobileFiles }) {
   if (!files?.length) return null
 
   // If multiple files, use slideshow (slideshow handles its own responsive logic)
   if (files.length > 1) {
-    return <Slideshow slides={files} background />
+    return <Slideshow content={{ slidesDesktop: files, slidesMobile: mobileFiles }} background />
   }
 
   // Single file - use ResponsiveImage with optional mobile variant
@@ -53,18 +64,12 @@ function IntroBg ({ files, mobileFiles }) {
 }
 
 // ── CTA buttons ───────────────────────────────────────────────────────────────
-function IntroButton ({ text, link, buttonColor }) {
+function IntroButton({ text, link, buttonColor }) {
   const style = buttonColor ? { '--btn-color': buttonColor } : undefined
 
   if (isExternal(link)) {
     return (
-      <a
-        href={link}
-        className="intro__btn"
-        style={style}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <a href={link} className="intro__btn" style={style} target="_blank" rel="noopener noreferrer">
         {text}
       </a>
     )
@@ -83,7 +88,7 @@ function IntroButton ({ text, link, buttonColor }) {
  *
  * @param {{ content: import('../../../../../components/src/types').IntroComponent, siteName?: string }} props
  */
-export default function Intro ({ content, siteName }) {
+export default function Intro({ content, siteName }) {
   const styles = content?.Style || {}
   const hasForm = Boolean(content?.FormData && content?.FormFields?.length)
 
@@ -93,9 +98,10 @@ export default function Intro ({ content, siteName }) {
   ].join(' ')
 
   // Animation class derived from Style.Animation ('Fade' | 'Slide' | 'None' | undefined)
-  const animation = styles.Animation && styles.Animation !== 'None'
-    ? styles.Animation.toLowerCase() // 'fade' | 'slide'
-    : null
+  const animation =
+    styles.Animation && styles.Animation !== 'None'
+      ? styles.Animation.toLowerCase() // 'fade' | 'slide'
+      : null
 
   const sectionStyle = {
     ...(styles.TextColor ? { color: styles.TextColor } : {}),
@@ -117,7 +123,10 @@ export default function Intro ({ content, siteName }) {
         <div className="intro__inner">
           <div className={`intro__content${animation ? ` intro__content--${animation}` : ''}`}>
             {content.IntroText && (
-              <div className="intro__text" dangerouslySetInnerHTML={{ __html: content.IntroText }} />
+              <div
+                className="intro__text"
+                dangerouslySetInnerHTML={{ __html: content.IntroText }}
+              />
             )}
 
             {content?.Buttons?.length > 0 && (

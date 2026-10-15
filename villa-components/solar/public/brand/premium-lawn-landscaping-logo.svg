@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 240" role="img" aria-labelledby="title desc">
+  <title id="title">Premium Lawn &amp; Landscaping</title>
+  <desc id="desc">Green Oregon outline and grass motif surrounding the Premium Lawn &amp; Landscaping wordmark.</desc>
+  <g fill="none" stroke="#78ad45" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M37 19 56 17 69 23 88 17 104 27 119 21 137 35 140 65 157 79 185 86 209 79 224 69 246 72 260 82 279 74 299 79 318 68 337 71 359 59 386 55 412 44 438 46 455 37 501 38 513 48 534 51 543 63 558 69 568 83 559 103 551 122 538 131 530 153 522 166 528 176 525 218 49 218 38 207 40 184 31 171 42 151 37 118 39 86 42 65 38 42Z"/>
+    <path d="M404 143c-10-35-22-55-47-73 24 8 46 25 57 52 2-35 12-67 37-96-14 33-22 66-24 106" stroke-width="5"/>
+  </g>
+  <g font-family="Arial, Helvetica, sans-serif" font-weight="900" letter-spacing="-3">
+    <text x="67" y="163" font-size="83" fill="#78ad45" transform="translate(7 7)">PREMIUM</text>
+    <text x="67" y="163" font-size="83" fill="#f7f7f5">PREMIUM</text>
+    <text x="70" y="204" font-size="34" letter-spacing="-1.2" fill="#78ad45">LAWN <tspan fill="#78ad45" font-size="40">&amp;</tspan> LANDSCAPING</text>
+  </g>
+</svg>
