@@ -1,10 +1,37 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
+import { createServer } from 'node:http'
 import { mkdtemp, mkdir, writeFile, symlink, rm } from 'node:fs/promises'
 import path from 'node:path'
 import os from 'node:os'
 import { AssetJobs, collectImages } from '../src/asset-jobs.js'
 import { batchFolderName } from '../src/batch-folder.js'
+
+async function mockOptimizer(t, respond = () => ({ status: 'dry-run' })) {
+  const previousEndpoint = process.env.IMAGE_OPTIMIZER_ENDPOINT
+  const previousToken = process.env.ASSET_PIPELINE_TOKEN
+  const requests = []
+  const server = createServer(async (request, response) => {
+    const chunks = []
+    for await (const chunk of request) chunks.push(chunk)
+    const body = Buffer.concat(chunks)
+    requests.push({ headers: request.headers, body: body.toString() })
+    const result = await respond(request, body)
+    response.writeHead(result.httpStatus ?? 200, { 'content-type': 'application/json' })
+    response.end(JSON.stringify(result.body ?? result))
+  })
+  await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve))
+  process.env.IMAGE_OPTIMIZER_ENDPOINT = `http://127.0.0.1:${server.address().port}`
+  process.env.ASSET_PIPELINE_TOKEN = 'test-pipeline-token'
+  t.after(() => {
+    if (previousEndpoint === undefined) delete process.env.IMAGE_OPTIMIZER_ENDPOINT
+    else process.env.IMAGE_OPTIMIZER_ENDPOINT = previousEndpoint
+    if (previousToken === undefined) delete process.env.ASSET_PIPELINE_TOKEN
+    else process.env.ASSET_PIPELINE_TOKEN = previousToken
+  })
+  t.after(() => new Promise((resolve) => server.close(resolve)))
+  return requests
+}
 
 async function fixture(t) {
   const root = await mkdtemp(path.join(os.tmpdir(), 'villa-job-test-'))
@@ -28,12 +55,13 @@ test('directory scanning is deterministic, skips hidden files and symlinks, supp
 
 test('jobs default to dry run, process sequentially, retain individual failures and paginate', async (t) => {
   const root = await fixture(t)
-  const calls = []
-  const jobs = new AssetJobs(async (filePath, options) => {
-    calls.push({ filePath, options })
-    if (path.basename(filePath) === 'a.png') throw new Error('Unsupported input')
+  const requests = await mockOptimizer(t, (_request, body) => {
+    if (body.toString().includes('filename="a.png"')) {
+      return { httpStatus: 422, body: { error: 'Unsupported input' } }
+    }
     return { status: 'dry-run', classification: { name: 'test' } }
   })
+  const jobs = new AssetJobs(process.env.ASSET_PIPELINE_TOKEN)
   const started = await jobs.start({ directory: root, instructions: 'Project images' })
   assert.equal(started.total, 2)
   await jobs.jobs.get(started.jobId).done
@@ -42,14 +70,18 @@ test('jobs default to dry run, process sequentially, retain individual failures 
   assert.deepEqual(status.counts, { failed: 1, 'dry-run': 1 })
   assert.equal(status.nextOffset, 1)
   assert.equal(jobs.status(started.jobId, 1, 1).results[0].status, 'dry-run')
-  assert.ok(calls.every((call) => call.options.dryRun === true))
-  assert.ok(calls.every((call) => call.options.subfolderName === started.subfolderName))
+  assert.equal(requests.length, 2)
+  assert.ok(requests.every((request) => request.body.includes('"dryRun":true')))
+  assert.ok(
+    requests.every((request) => request.body.includes(`"subfolderName":"${started.subfolderName}"`))
+  )
   assert.equal(started.subfolderName, batchFolderName())
 })
 
 test('job validation requires destination IDs for real uploads and validates options', async (t) => {
   const directory = await fixture(t)
-  const jobs = new AssetJobs(async () => ({ status: 'completed' }))
+  await mockOptimizer(t)
+  const jobs = new AssetJobs(process.env.ASSET_PIPELINE_TOKEN)
   for (const invalid of [
     { dryRun: false },
     { directory: 'relative' },
@@ -70,10 +102,11 @@ test('active jobs reject concurrent starts before traversal races', async (t) =>
   const wait = new Promise((resolve) => {
     release = resolve
   })
-  const jobs = new AssetJobs(async () => {
+  await mockOptimizer(t, async () => {
     await wait
     return { status: 'dry-run' }
   })
+  const jobs = new AssetJobs(process.env.ASSET_PIPELINE_TOKEN)
   const first = jobs.start({ directory, instructions: 'Images' })
   await assert.rejects(() => jobs.start({ directory, instructions: 'Images' }), /already running/)
   const started = await first
@@ -92,28 +125,26 @@ test('batch naming uses month and year by default and accepts prompt-inferred na
 
 test('every image receives the same explicit batch subfolder', async (t) => {
   const directory = await fixture(t)
-  const names = []
-  const jobs = new AssetJobs(async (filePath, options) => {
-    names.push(options.subfolderName)
-    return { status: 'dry-run' }
-  })
+  const requests = await mockOptimizer(t)
+  const jobs = new AssetJobs(process.env.ASSET_PIPELINE_TOKEN)
   const started = await jobs.start({
     directory,
     instructions: 'Upload the backyard remodel',
     subfolderName: 'Backyard Remodel'
   })
   await jobs.jobs.get(started.jobId).done
-  assert.deepEqual(names, ['Backyard Remodel', 'Backyard Remodel'])
+  assert.equal(requests.length, 2)
+  assert.ok(
+    requests.every((request) => request.body.includes('"subfolderName":"Backyard Remodel"'))
+  )
   assert.equal(jobs.status(started.jobId).subfolderName, 'Backyard Remodel')
 })
 
-test('jobs pass the configured pipeline token to the submit function', async (t) => {
+test('jobs pass the configured pipeline token to every submission', async (t) => {
   const directory = await fixture(t)
-  const receivedTokens = []
-  const jobs = new AssetJobs(async (_filePath, _options, token) => {
-    receivedTokens.push(token)
-    return { status: 'completed' }
-  }, 'configured-token')
+  const requests = await mockOptimizer(t, (_request) => ({ status: 'completed' }))
+  process.env.ASSET_PIPELINE_TOKEN = 'configured-token'
+  const jobs = new AssetJobs(process.env.ASSET_PIPELINE_TOKEN)
   const started = await jobs.start({
     directory,
     instructions: 'Upload project images',
@@ -121,5 +152,8 @@ test('jobs pass the configured pipeline token to the submit function', async (t)
     folderId: 26
   })
   await jobs.jobs.get(started.jobId).done
-  assert.deepEqual(receivedTokens, ['configured-token', 'configured-token'])
+  assert.equal(requests.length, 2)
+  assert.ok(
+    requests.every((request) => request.headers.authorization === 'Bearer configured-token')
+  )
 })

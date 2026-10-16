@@ -69,14 +69,13 @@ export async function submitAsset(filePath, options, token = process.env.ASSET_P
 }
 
 export class AssetJobs {
-  constructor(submit = submitAsset, token = process.env.ASSET_PIPELINE_TOKEN) {
+  constructor(token) {
     this.jobs = new Map()
-    this.submit = submit
     this.token = token
   }
 
   async start(args) {
-    if (!this.token && this.submit === submitAsset) {
+    if (!this.token) {
       throw new Error('Configure ASSET_PIPELINE_TOKEN before starting an ingestion job')
     }
     if (typeof args.directory !== 'string' || !path.isAbsolute(args.directory))
@@ -148,7 +147,7 @@ export class AssetJobs {
     for (const filePath of sources) {
       let result
       try {
-        result = await this.submit(filePath, options, this.token)
+        result = await submitAsset(filePath, options, this.token)
       } catch (error) {
         result = {
           status: 'failed',

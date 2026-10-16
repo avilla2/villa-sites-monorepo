@@ -11,6 +11,12 @@
       "id": "strapi-admin-token",
       "description": "Strapi Admin Token",
       "password": true
+    },
+    {
+      "type": "promptString",
+      "id": "asset-pipeline-token",
+      "description": "Asset Pipeline Token",
+      "password": true
     }
   ],
   "servers": {
@@ -23,7 +29,8 @@
       "env": {
         "STRAPI_REST_ENDPOINT": "https://api.villawebsolutions.com/api",
         // "STRAPI_REST_ENDPOINT": "http://localhost:1337/graphql",
-        "STRAPI_API_TOKEN": "${input:strapi-api-key}"
+        "STRAPI_API_TOKEN": "${input:strapi-api-key}",
+        "ASSET_PIPELINE_TOKEN": "${input:asset-pipeline-token}"
       }
     },
     "strapi-mcp-official": {

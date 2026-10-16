@@ -15,7 +15,7 @@ const STRAPI_API_TOKEN = process.env.STRAPI_API_TOKEN || ''
 
 // Initialize REST client
 const strapiClient = new StrapiRESTClient(STRAPI_REST_ENDPOINT, STRAPI_API_TOKEN)
-const assetJobs = new AssetJobs(undefined, process.env.ASSET_PIPELINE_TOKEN)
+const assetJobs = new AssetJobs(process.env.ASSET_PIPELINE_TOKEN)
 // Component type reference
 const COMPONENT_TYPES = {
   // Layout & Hero Components (usable on both homepages and content pages)
