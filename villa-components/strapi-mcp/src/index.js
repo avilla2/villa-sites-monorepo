@@ -5,6 +5,7 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { CallToolRequestSchema, ListToolsRequestSchema } from '@modelcontextprotocol/sdk/types.js'
 import dotenv from 'dotenv'
 import { StrapiRESTClient } from './rest-client.js'
+import { AssetJobs } from './asset-jobs.js'
 
 // Load environment variables
 dotenv.config()
@@ -14,6 +15,7 @@ const STRAPI_API_TOKEN = process.env.STRAPI_API_TOKEN || ''
 
 // Initialize REST client
 const strapiClient = new StrapiRESTClient(STRAPI_REST_ENDPOINT, STRAPI_API_TOKEN)
+const assetJobs = new AssetJobs()
 // Component type reference
 const COMPONENT_TYPES = {
   // Layout & Hero Components (usable on both homepages and content pages)
@@ -637,6 +639,70 @@ const TOOLS = [
   },
 
   // Media Library tools
+  {
+    name: 'ingest_asset_directory',
+    description:
+      'Start a background image ingestion job. Streams local directory images one at a time to the optimizer, which uses a small Copilot CLI vision classifier, generates named JPEG crops, uploads via upload_media, and moves exact uploaded asset IDs via the official Strapi MCP. Defaults to dryRun=true. For uploads, first resolve the destination requested in the original prompt with the official media_list_folders tool (create it only if requested), then pass its numeric folderId. Returns a job ID; poll get_asset_ingestion_job. No automatic retries; partial results may already contain uploaded assets.',
+    inputSchema: {
+      type: 'object',
+      additionalProperties: false,
+      properties: {
+        directory: {
+          type: 'string',
+          description: 'Absolute directory path readable by this MCP process, not the optimizer.'
+        },
+        instructions: {
+          type: 'string',
+          minLength: 1,
+          maxLength: 2000,
+          description:
+            'Original user intent, business context, and visual terminology. Do not include credentials.'
+        },
+        folderId: {
+          type: 'integer',
+          minimum: 1,
+          description:
+            'Numeric destination MEDIA FOLDER id (not an asset id). Required when dryRun=false.'
+        },
+        dryRun: {
+          type: 'boolean',
+          default: true,
+          description: 'Classify and generate temporary crops without uploading or moving anything.'
+        },
+        recursive: { type: 'boolean', default: false },
+        cropTypes: {
+          type: 'array',
+          minItems: 1,
+          uniqueItems: true,
+          items: { type: 'string', enum: ['square', 'tall', 'wide'] }
+        },
+        minConfidence: {
+          type: 'number',
+          minimum: 0,
+          maximum: 1,
+          default: 0.8,
+          description:
+            'Self-assessed visual confidence threshold; low confidence images are held for review.'
+        }
+      },
+      required: ['directory', 'instructions']
+    }
+  },
+  {
+    name: 'get_asset_ingestion_job',
+    description:
+      'Read compact progress and paginated image results for an ingestion job in this MCP process. Partial results include uploaded asset IDs; retry folder moves only, never blindly re-upload. Jobs expire on process restart.',
+    inputSchema: {
+      type: 'object',
+      additionalProperties: false,
+      properties: {
+        jobId: { type: 'string' },
+        offset: { type: 'integer', minimum: 0, default: 0 },
+        limit: { type: 'integer', minimum: 1, maximum: 100, default: 10 }
+      },
+      required: ['jobId']
+    }
+  },
   {
     name: 'generate_and_upload_image_crops',
     description:
@@ -1509,6 +1575,16 @@ const toolHandlers = {
   },
 
   // Media Library handlers
+  async ingest_asset_directory(args) {
+    const result = await assetJobs.start(args)
+    return { content: [{ type: 'text', text: JSON.stringify(result) }] }
+  },
+
+  async get_asset_ingestion_job(args) {
+    const result = assetJobs.status(args.jobId, args.offset ?? 0, args.limit ?? 10)
+    return { content: [{ type: 'text', text: JSON.stringify(result) }] }
+  },
+
   async generate_and_upload_image_crops(args) {
     const result = await strapiClient.generateAndUploadCrops(
       args.filePaths,

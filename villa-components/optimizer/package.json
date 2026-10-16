@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "start": "node src/server.js"
+    "start": "node --env-file-if-exists=.env src/server.js",
+    "test": "node --test"
   },
   "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4",
     "express": "^5.1.0",
     "formidable": "^3.5.4",
     "node-addon-api": "^8.5.0",

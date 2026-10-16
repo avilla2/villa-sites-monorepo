@@ -8,6 +8,15 @@ A Model Context Protocol (MCP) server that enables AI agents to manage Strapi we
 
 ## Features
 
+- **Classified asset ingestion**: `ingest_asset_directory` starts a bounded background
+  directory job; `get_asset_ingestion_job` returns paginated progress. The optimizer
+  classifies images via Copilot CLI, generates named crops, uploads via this server's
+  `upload_media`, and moves exact asset IDs through the official Strapi MCP.
+  See the [optimizer setup and safety guide](../optimizer/README.md).
+  Configure `IMAGE_OPTIMIZER_ENDPOINT` and `ASSET_PIPELINE_TOKEN` in this MCP's
+  environment. Dry runs default to enabled; actual uploads require a resolved
+  numeric destination folder ID and `dryRun=false`.
+
 - **Website Management**: Create, read, update, and delete websites
 - **Content Pages**: Manage content pages with dynamic component zones
 - **Navigation**: Create and update navigation bars with various item types

@@ -5,20 +5,66 @@ import path, { dirname } from 'path'
 import { fileURLToPath } from 'url'
 import * as fs from 'node:fs/promises'
 import os from 'node:os'
-import { randomUUID } from 'node:crypto'
+import { randomUUID, timingSafeEqual } from 'node:crypto'
+import { CROP_PRESETS, processAsset, validateAssetOptions } from './asset-pipeline.js'
+import { connectStrapiGateway } from './strapi-gateway.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
-const app = express()
+export const app = express()
 const port = Number(process.env.PORT || 3000)
 const uploadsPath = path.join(__dirname, 'uploads')
 
-const CROP_PRESETS = {
-  square: { width: 1080, height: 1080 },
-  tall: { width: 1080, height: 1350 },
-  wide: { width: 1920, height: 1080 }
-}
+let activeAssets = 0
+
+// Credential-protected because this endpoint spends AI credits and writes to Strapi.
+app.post('/api/assets', async (req, res, next) => {
+  const token = process.env.ASSET_PIPELINE_TOKEN
+  if (!token)
+    return res
+      .status(503)
+      .json({ error: 'Asset pipeline is disabled: configure ASSET_PIPELINE_TOKEN' })
+  const received = Buffer.from(req.headers.authorization || '')
+  const expected = Buffer.from(`Bearer ${token}`)
+  if (received.length !== expected.length || !timingSafeEqual(received, expected)) {
+    return res.status(401).json({ error: 'Unauthorized' })
+  }
+  if (activeAssets >= 2)
+    return res.status(429).json({ error: 'Optimizer is busy; no upload was processed' })
+  activeAssets++
+  let directory
+  try {
+    directory = await fs.mkdtemp(path.join(os.tmpdir(), 'villa-asset-'))
+    const form = formidable({
+      uploadDir: directory,
+      keepExtensions: true,
+      maxFiles: 1,
+      maxFileSize: 50 * 1024 * 1024,
+      maxTotalFileSize: 50 * 1024 * 1024,
+      maxFieldsSize: 8192
+    })
+    const [fields, files] = await form.parse(req)
+    const sources = files.files || []
+    if (sources.length !== 1)
+      return res.status(400).json({ error: 'Upload exactly one image in files' })
+    let options
+    try {
+      options = validateAssetOptions(JSON.parse(fields.options?.[0] || '{}'))
+    } catch (error) {
+      return res.status(400).json({ error: error.message })
+    }
+    const result = await processAsset(sources[0].filepath, directory, options, {
+      connect: connectStrapiGateway
+    })
+    res.json(result)
+  } catch (error) {
+    next(error)
+  } finally {
+    activeAssets--
+    if (directory) await fs.rm(directory, { recursive: true, force: true })
+  }
+})
 
 app.use('/uploads', express.static(uploadsPath, { fallthrough: false }))
 
@@ -76,7 +122,7 @@ async function handleCropRequest(req, res, next, htmlResponse = false) {
       }
       if (!Array.isArray(requestedTypes)) requestedTypes = []
       const cropTypes = [...new Set(requestedTypes.map(String))]
-      const invalidTypes = cropTypes.filter((type) => !CROP_PRESETS[type])
+      const invalidTypes = cropTypes.filter((type) => !Object.hasOwn(CROP_PRESETS, type))
       if (!cropTypes.length || invalidTypes.length) {
         res.status(400).json({
           error: `Select one or more crop types: ${Object.keys(CROP_PRESETS).join(', ')}.`
@@ -151,6 +197,8 @@ app.use((error, req, res, next) => {
   res.status(500).json({ error: error.message || 'Image optimization failed.' })
 })
 
-app.listen(port, () => {
-  console.log(`Image optimizer listening on http://localhost:${port}`)
-})
+if (process.argv[1] && path.resolve(process.argv[1]) === __filename) {
+  app.listen(port, process.env.HOST || '127.0.0.1', () => {
+    console.log(`Image optimizer listening on http://localhost:${port}`)
+  })
+}
