@@ -106,3 +106,20 @@ test('every image receives the same explicit batch subfolder', async (t) => {
   assert.deepEqual(names, ['Backyard Remodel', 'Backyard Remodel'])
   assert.equal(jobs.status(started.jobId).subfolderName, 'Backyard Remodel')
 })
+
+test('jobs pass the configured pipeline token to the submit function', async (t) => {
+  const directory = await fixture(t)
+  const receivedTokens = []
+  const jobs = new AssetJobs(async (_filePath, _options, token) => {
+    receivedTokens.push(token)
+    return { status: 'completed' }
+  }, 'configured-token')
+  const started = await jobs.start({
+    directory,
+    instructions: 'Upload project images',
+    dryRun: false,
+    folderId: 26
+  })
+  await jobs.jobs.get(started.jobId).done
+  assert.deepEqual(receivedTokens, ['configured-token', 'configured-token'])
+})

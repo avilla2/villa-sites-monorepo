@@ -15,7 +15,7 @@ const STRAPI_API_TOKEN = process.env.STRAPI_API_TOKEN || ''
 
 // Initialize REST client
 const strapiClient = new StrapiRESTClient(STRAPI_REST_ENDPOINT, STRAPI_API_TOKEN)
-const assetJobs = new AssetJobs()
+const assetJobs = new AssetJobs(undefined, process.env.ASSET_PIPELINE_TOKEN)
 // Component type reference
 const COMPONENT_TYPES = {
   // Layout & Hero Components (usable on both homepages and content pages)
@@ -713,7 +713,7 @@ const TOOLS = [
   {
     name: 'generate_and_upload_image_crops',
     description:
-      'Send local source images to the configured optimizer, generate square/tall/wide JPEG variants, and upload each crop to Strapi Media Library. Requires the optimizer service at IMAGE_OPTIMIZER_ENDPOINT (default http://localhost:3000).',
+      'Send a local source image to the configured optimizer, generate square/tall/wide JPEG variants, and upload each crop to Strapi Media Library. Requires the optimizer service at IMAGE_OPTIMIZER_ENDPOINT (default http://localhost:3000). For multiple images, use ingest_asset_directory instead.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -764,7 +764,7 @@ const TOOLS = [
   {
     name: 'upload_media',
     description:
-      'Upload one or more local files to the Strapi Media Library. File paths must be readable by the machine running this MCP server. Optional fileInfo sets name, alternativeText, and caption; refId, ref, field, and source link uploads to a Strapi entry.',
+      'Upload a single file to the Strapi Media Library. File paths must be readable by the machine running this MCP server. Optional fileInfo sets name, alternativeText, and caption; refId, ref, field, and source link uploads to a Strapi entry. For multiple files, use ingest_asset_directory instead.',
     inputSchema: {
       type: 'object',
       properties: {

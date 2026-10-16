@@ -32,8 +32,7 @@ export async function collectImages(directory, recursive = false, limit = 1000) 
   return result
 }
 
-export async function submitAsset(filePath, options) {
-  const token = process.env.ASSET_PIPELINE_TOKEN
+export async function submitAsset(filePath, options, token = process.env.ASSET_PIPELINE_TOKEN) {
   if (!token) throw new Error('Configure ASSET_PIPELINE_TOKEN in the Strapi MCP environment')
   const endpoint = new URL(process.env.IMAGE_OPTIMIZER_ENDPOINT || 'http://localhost:3000')
   if (
@@ -70,13 +69,14 @@ export async function submitAsset(filePath, options) {
 }
 
 export class AssetJobs {
-  constructor(submit = submitAsset) {
+  constructor(submit = submitAsset, token = process.env.ASSET_PIPELINE_TOKEN) {
     this.jobs = new Map()
     this.submit = submit
+    this.token = token
   }
 
   async start(args) {
-    if (!process.env.ASSET_PIPELINE_TOKEN && this.submit === submitAsset) {
+    if (!this.token && this.submit === submitAsset) {
       throw new Error('Configure ASSET_PIPELINE_TOKEN before starting an ingestion job')
     }
     if (typeof args.directory !== 'string' || !path.isAbsolute(args.directory))
@@ -148,7 +148,7 @@ export class AssetJobs {
     for (const filePath of sources) {
       let result
       try {
-        result = await this.submit(filePath, options)
+        result = await this.submit(filePath, options, this.token)
       } catch (error) {
         result = {
           status: 'failed',
