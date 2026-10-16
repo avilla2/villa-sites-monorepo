@@ -26,6 +26,39 @@ function hasFolder(value, id) {
   return Object.values(value).some((child) => hasFolder(child, id))
 }
 
+function findFolder(value, id) {
+  if (!value || typeof value !== 'object') return null
+  if (!Array.isArray(value) && value.id === id) return value
+  for (const child of Object.values(value)) {
+    const found = findFolder(child, id)
+    if (found) return found
+  }
+  return null
+}
+
+export async function ensureBatchFolder(call, parentId, name) {
+  const lookup = async () => {
+    const tree = await call('media_list_folders', {})
+    const parent = findFolder(tree, parentId)
+    if (!parent) throw new Error(`Destination project folder ${parentId} does not exist`)
+    return (parent.children || []).find((folder) => folder.name === name)
+  }
+  const existing = await lookup()
+  if (existing) return existing.id
+  try {
+    const response = await call('media_create_folder', { name, parent: parentId })
+    const folder = response.data ?? response
+    if (!Number.isSafeInteger(folder.id) || folder.id < 1)
+      throw new Error('Folder creation returned an invalid ID')
+    return folder.id
+  } catch (error) {
+    // Another batch may have created this same sibling, or the response may have been lost.
+    const created = await lookup()
+    if (created) return created.id
+    throw error
+  }
+}
+
 export async function connectStrapiGateway(directory) {
   const url = process.env.STRAPI_OFFICIAL_MCP_URL
   const token = process.env.STRAPI_OFFICIAL_MCP_TOKEN
@@ -83,6 +116,8 @@ export async function connectStrapiGateway(directory) {
       await client.callTool({ name, arguments: args }, undefined, { timeout: 120_000 })
     )
   return {
+    ensureSubfolder: (parentId, name) =>
+      ensureBatchFolder((tool, args) => call(official, tool, args), parentId, name),
     async validateFolder(id) {
       const folders = await call(official, 'media_list_folders', {})
       if (!hasFolder(folders, id)) throw new Error(`Destination media folder ${id} does not exist`)

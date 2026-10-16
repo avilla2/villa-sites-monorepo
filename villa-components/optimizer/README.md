@@ -34,10 +34,23 @@ Example prompt to the calling agent:
 > Use the existing Arias Builders / Projects media folder. First run a dry run;
 > report uncertain images. After approval, ingest with dryRun=false.
 
-Pass the original intent as `instructions`, the resolved folder as `folderId`, and
-set `recursive` if needed. All images in a job go to that one explicit destination;
-semantic multi-folder routing is not performed. This keeps folder decisions out
-of the image model and prevents accidental cross-client placement.
+Pass the original intent as `instructions` and the parent project folder as `folderId`.
+The calling agent infers one `subfolderName` from the original prompt (for example
+`Patio Renovation` or an explicitly requested `October 2026`). If the prompt does
+not specify a clear batch name, omit it: the job freezes the current month and year,
+such as `October 2026`, once at startup. Do not infer a name from each image.
+
+All crops from all images go under that **same child subfolder**. For example:
+`CV Landscape Media / October 2026`. The optimizer uses the official MCP to create
+the subfolder if missing or reuse the existing direct child with that exact name.
+An identically named folder under another project is never reused. Concurrent
+creation is reconciled by re-reading the parent's children. Dry runs report the
+planned name but never create folders. Result `folderId` is the actual child ID;
+`parentFolderId` and `subfolderName` identify its project and batch. Existing assets
+from previous uploads are not moved retroactively.
+
+Set `recursive` if needed. Semantic per-image routing is not performed, keeping
+destination decisions out of the image model and preventing cross-client placement.
 
 ## Configuration
 

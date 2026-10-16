@@ -4,6 +4,7 @@ import { mkdtemp, mkdir, writeFile, symlink, rm } from 'node:fs/promises'
 import path from 'node:path'
 import os from 'node:os'
 import { AssetJobs, collectImages } from '../src/asset-jobs.js'
+import { batchFolderName } from '../src/batch-folder.js'
 
 async function fixture(t) {
   const root = await mkdtemp(path.join(os.tmpdir(), 'villa-job-test-'))
@@ -42,6 +43,8 @@ test('jobs default to dry run, process sequentially, retain individual failures 
   assert.equal(status.nextOffset, 1)
   assert.equal(jobs.status(started.jobId, 1, 1).results[0].status, 'dry-run')
   assert.ok(calls.every((call) => call.options.dryRun === true))
+  assert.ok(calls.every((call) => call.options.subfolderName === started.subfolderName))
+  assert.equal(started.subfolderName, batchFolderName())
 })
 
 test('job validation requires destination IDs for real uploads and validates options', async (t) => {
@@ -53,6 +56,8 @@ test('job validation requires destination IDs for real uploads and validates opt
     { cropTypes: ['constructor'] },
     { minConfidence: 3 },
     { recursive: 'yes' },
+    { subfolderName: '../escape' },
+    { subfolderName: '' },
     { instructions: '' }
   ])
     await assert.rejects(() => jobs.start({ directory, instructions: 'Images', ...invalid }))
@@ -75,4 +80,29 @@ test('active jobs reject concurrent starts before traversal races', async (t) =>
   release()
   await jobs.jobs.get(started.jobId).done
   assert.equal(jobs.status(started.jobId).status, 'completed')
+})
+
+test('batch naming uses month and year by default and accepts prompt-inferred names', () => {
+  assert.equal(batchFolderName(undefined, new Date(2026, 9, 15)), 'October 2026')
+  assert.equal(batchFolderName('  Patio Renovation  '), 'Patio Renovation')
+  for (const value of ['', 'a/b', 'a\\b', '.', '..', 'a\nb', 'x'.repeat(101), null]) {
+    assert.throws(() => batchFolderName(value), /subfolderName/)
+  }
+})
+
+test('every image receives the same explicit batch subfolder', async (t) => {
+  const directory = await fixture(t)
+  const names = []
+  const jobs = new AssetJobs(async (filePath, options) => {
+    names.push(options.subfolderName)
+    return { status: 'dry-run' }
+  })
+  const started = await jobs.start({
+    directory,
+    instructions: 'Upload the backyard remodel',
+    subfolderName: 'Backyard Remodel'
+  })
+  await jobs.jobs.get(started.jobId).done
+  assert.deepEqual(names, ['Backyard Remodel', 'Backyard Remodel'])
+  assert.equal(jobs.status(started.jobId).subfolderName, 'Backyard Remodel')
 })

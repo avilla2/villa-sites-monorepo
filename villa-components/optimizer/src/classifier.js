@@ -83,7 +83,8 @@ Use this context only for relevant terminology, never to invent visible details:
     env,
     timeout: 120_000,
     killSignal: 'SIGKILL',
-    maxBuffer: 256 * 1024
+    // JSONL session events can include the base64 image attachment itself.
+    maxBuffer: 16 * 1024 * 1024
   })
   if (!stdout.trim())
     throw new Error(

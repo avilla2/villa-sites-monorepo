@@ -4,6 +4,7 @@ import path from 'node:path'
 import { randomUUID } from 'node:crypto'
 import fetch from 'cross-fetch'
 import FormData from 'form-data'
+import { batchFolderName } from './batch-folder.js'
 
 const IMAGE_EXTENSION = /\.(jpe?g|png|webp|avif|tiff?|heic|heif|gif)$/i
 
@@ -90,6 +91,8 @@ export class AssetJobs {
       throw new Error('dryRun must be a boolean')
     if (args.recursive !== undefined && typeof args.recursive !== 'boolean')
       throw new Error('recursive must be a boolean')
+    // Freeze the name once so a batch crossing a month boundary stays together.
+    const subfolderName = batchFolderName(args.subfolderName)
     const dryRun = args.dryRun ?? true
     if (!dryRun && (!Number.isSafeInteger(args.folderId) || args.folderId < 1))
       throw new Error(
@@ -115,6 +118,7 @@ export class AssetJobs {
       total: 0,
       processed: 0,
       dryRun,
+      subfolderName,
       startedAt: new Date().toISOString(),
       results: []
     }
@@ -130,6 +134,7 @@ export class AssetJobs {
     const options = {
       instructions: args.instructions,
       folderId: args.folderId,
+      subfolderName,
       dryRun,
       cropTypes,
       minConfidence

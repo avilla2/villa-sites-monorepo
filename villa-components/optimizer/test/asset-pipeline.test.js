@@ -6,14 +6,19 @@ import path from 'node:path'
 import sharp from 'sharp'
 import { classifyImage, parseClassification, parseCLIOutput } from '../src/classifier.js'
 import { CROP_PRESETS, processAsset, validateAssetOptions } from '../src/asset-pipeline.js'
-import { decodeToolResult } from '../src/strapi-gateway.js'
+import { decodeToolResult, ensureBatchFolder } from '../src/strapi-gateway.js'
 
 const metadata = {
   name: 'blue-test-image',
   alternativeText: 'A solid blue rectangle.',
   confidence: 0.98
 }
-const options = { instructions: 'Construction portfolio', folderId: 42, dryRun: false }
+const options = {
+  instructions: 'Construction portfolio',
+  folderId: 42,
+  subfolderName: 'Backyard Remodel',
+  dryRun: false
+}
 
 async function fixture(t) {
   const directory = await mkdtemp(path.join(os.tmpdir(), 'villa-pipeline-test-'))
@@ -128,7 +133,10 @@ test('moves only exact upload-returned asset IDs, never destination folder ID', 
   const result = await processAsset(source, directory, options, {
     classify: async () => metadata,
     connect: async () => ({
-      validateFolder: async (folder) => calls.push(['validate', folder]),
+      ensureSubfolder: async (folder, name) => {
+        calls.push(['resolve', folder, name])
+        return 77
+      },
       upload: async (filePath, fileInfo) => {
         assert.equal(fileInfo.alternativeText, metadata.alternativeText)
         return [{ id: ++id }]
@@ -141,7 +149,14 @@ test('moves only exact upload-returned asset IDs, never destination folder ID', 
     })
   })
   assert.equal(result.status, 'completed')
-  assert.deepEqual(calls, [['validate', 42], ['move', [101, 102, 103], 42], ['close']])
+  assert.deepEqual(calls, [
+    ['resolve', 42, 'Backyard Remodel'],
+    ['move', [101, 102, 103], 77],
+    ['close']
+  ])
+  assert.equal(result.folderId, 77)
+  assert.equal(result.parentFolderId, 42)
+  assert.equal(result.subfolderName, 'Backyard Remodel')
   assert.ok(result.assets.every((asset) => asset.moved))
 })
 
@@ -151,7 +166,7 @@ test('partial move failures preserve IDs and moved state', async (t) => {
   const result = await processAsset(source, directory, options, {
     classify: async () => metadata,
     connect: async () => ({
-      validateFolder: async () => {},
+      ensureSubfolder: async () => 77,
       upload: async () => [{ id: ++id }],
       move: async () => ({ moved: [{ id: 101 }], failed: [{ id: 102 }, { id: 103 }] }),
       close: async () => {}
@@ -171,7 +186,7 @@ test('upload failure retains already uploaded IDs without automatic retries', as
   const result = await processAsset(source, directory, options, {
     classify: async () => metadata,
     connect: async () => ({
-      validateFolder: async () => {},
+      ensureSubfolder: async () => 77,
       upload: async () => {
         if (++uploads === 2) throw new Error('Upload failed')
         return [{ id: 888 }]
@@ -193,7 +208,7 @@ test('missing folder prevents uploads', async (t) => {
   const result = await processAsset(source, directory, options, {
     classify: async () => metadata,
     connect: async () => ({
-      validateFolder: async () => {
+      ensureSubfolder: async () => {
         throw new Error('Folder not found')
       },
       upload: async () => assert.fail('Must not upload'),
@@ -202,6 +217,50 @@ test('missing folder prevents uploads', async (t) => {
   })
   assert.equal(result.status, 'failed')
   assert.deepEqual(result.assets, [])
+})
+
+test('batch folder lookup reuses only a direct child under the selected parent', async () => {
+  const calls = []
+  const tree = {
+    data: [
+      { id: 1, children: [{ id: 2, name: 'October 2026', children: [] }] },
+      { id: 42, children: [{ id: 77, name: 'October 2026', children: [] }] }
+    ]
+  }
+  const call = async (tool, args) => {
+    calls.push([tool, args])
+    return tree
+  }
+  assert.equal(await ensureBatchFolder(call, 42, 'October 2026'), 77)
+  assert.equal(calls.length, 1)
+})
+
+test('missing batch child is created once and reused on the next image', async () => {
+  const parent = { id: 42, children: [] }
+  let creations = 0
+  const call = async (tool, args) => {
+    if (tool === 'media_list_folders') return { data: [parent] }
+    assert.equal(tool, 'media_create_folder')
+    assert.deepEqual(args, { name: 'October 2026', parent: 42 })
+    creations++
+    parent.children.push({ id: 77, name: args.name, children: [] })
+    return { data: { id: 77 } }
+  }
+  assert.equal(await ensureBatchFolder(call, 42, 'October 2026'), 77)
+  assert.equal(await ensureBatchFolder(call, 42, 'October 2026'), 77)
+  assert.equal(creations, 1)
+})
+
+test('concurrent folder creation is reconciled by re-reading siblings', async () => {
+  let created = false
+  const call = async (tool) => {
+    if (tool === 'media_list_folders')
+      return { data: [{ id: 42, children: created ? [{ id: 77, name: 'Batch' }] : [] }] }
+    created = true
+    throw new Error('Already exists')
+  }
+  assert.equal(await ensureBatchFolder(call, 42, 'Batch'), 77)
+  await assert.rejects(() => ensureBatchFolder(call, 999, 'Batch'), /does not exist/)
 })
 
 test('MCP result decoding supports structured/text data and rejects tool errors', () => {

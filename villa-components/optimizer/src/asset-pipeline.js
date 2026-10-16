@@ -2,6 +2,32 @@ import sharp from 'sharp'
 import path from 'node:path'
 import { randomUUID } from 'node:crypto'
 import { classifyImage } from './classifier.js'
+import { execFile } from 'node:child_process'
+import { promisify } from 'node:util'
+import { batchFolderName } from '../../strapi-mcp/src/batch-folder.js'
+
+const execute = promisify(execFile)
+
+export async function readableImage(sourcePath, directory, dependencies = {}) {
+  try {
+    // Force decoding: metadata alone does not detect missing HEVC codecs.
+    await sharp(sourcePath).resize(1, 1).raw().toBuffer()
+    return sourcePath
+  } catch (error) {
+    if ((dependencies.platform || process.platform) !== 'darwin' || !/\.hei[cf]$/i.test(sourcePath))
+      throw error
+    const converted = path.join(directory, 'decoded-source.png')
+    await (dependencies.execute || execute)(
+      '/usr/bin/sips',
+      ['-s', 'format', 'png', sourcePath, '--out', converted],
+      {
+        timeout: 120_000,
+        maxBuffer: 1024 * 1024
+      }
+    )
+    return converted
+  }
+}
 
 export const CROP_PRESETS = {
   square: { width: 1080, height: 1080 },
@@ -33,12 +59,18 @@ export function validateAssetOptions(options) {
   if (!Number.isFinite(minConfidence) || minConfidence < 0 || minConfidence > 1) {
     throw new Error('minConfidence must be between 0 and 1')
   }
-  return { ...options, cropTypes: [...new Set(cropTypes)], minConfidence }
+  return {
+    ...options,
+    subfolderName: batchFolderName(options.subfolderName),
+    cropTypes: [...new Set(cropTypes)],
+    minConfidence
+  }
 }
 
 export async function processAsset(sourcePath, directory, rawOptions, dependencies = {}) {
   const options = validateAssetOptions(rawOptions)
   const classify = dependencies.classify || classifyImage
+  sourcePath = await readableImage(sourcePath, directory)
   // Normalize orientation and strip metadata; keep only a compact vision preview in context.
   const previewPath = path.join(directory, 'preview.jpg')
   await sharp(sourcePath)
@@ -72,6 +104,8 @@ export async function processAsset(sourcePath, directory, rawOptions, dependenci
   if (options.dryRun) {
     return {
       status: 'dry-run',
+      parentFolderId: options.folderId,
+      subfolderName: options.subfolderName,
       classification,
       crops: crops.map(({ filePath, ...crop }) => crop),
       assets: []
@@ -80,9 +114,15 @@ export async function processAsset(sourcePath, directory, rawOptions, dependenci
 
   const gateway = await dependencies.connect(directory)
   const assets = []
+  let folderId
+  const destination = () => ({
+    parentFolderId: options.folderId,
+    subfolderName: options.subfolderName,
+    folderId
+  })
   try {
     // Fail before upload if the official MCP server cannot validate the destination.
-    await gateway.validateFolder(options.folderId)
+    folderId = await gateway.ensureSubfolder(options.folderId, options.subfolderName)
     for (const crop of crops) {
       const uploaded = await gateway.upload(crop.filePath, {
         name: crop.filename,
@@ -106,7 +146,7 @@ export async function processAsset(sourcePath, directory, rawOptions, dependenci
     }
     const movement = await gateway.move(
       assets.map((asset) => asset.id),
-      options.folderId
+      folderId
     )
     const movedIds = new Set(
       (movement.moved || []).map((asset) => (typeof asset === 'number' ? asset : asset.id))
@@ -117,19 +157,19 @@ export async function processAsset(sourcePath, directory, rawOptions, dependenci
         status: 'partial',
         classification,
         assets,
-        folderId: options.folderId,
+        ...destination(),
         movement,
         message:
           'Some uploaded assets remain in the default folder. Retry ONLY their folder moves, not uploads.'
       }
     }
-    return { status: 'completed', classification, assets, folderId: options.folderId }
+    return { status: 'completed', classification, assets, ...destination() }
   } catch (error) {
     return {
       status: assets.length ? 'partial' : 'failed',
       classification,
       assets,
-      folderId: options.folderId,
+      ...destination(),
       error: error.message,
       message:
         'Do not automatically retry uploads. Reconcile returned asset IDs and the media library first.'

@@ -662,7 +662,14 @@ const TOOLS = [
           type: 'integer',
           minimum: 1,
           description:
-            'Numeric destination MEDIA FOLDER id (not an asset id). Required when dryRun=false.'
+            'Numeric parent project MEDIA FOLDER id (not an asset id). The batch is grouped in a child subfolder. Required when dryRun=false.'
+        },
+        subfolderName: {
+          type: 'string',
+          minLength: 1,
+          maxLength: 100,
+          description:
+            'Infer a single batch subfolder name from the original user prompt (e.g. Backyard Remodel or October 2026). Omit if no clear name/date is requested: defaults to the current month and year. All images share this name; the optimizer creates or reuses it under folderId. Do not infer separate folders per image.'
         },
         dryRun: {
           type: 'boolean',
