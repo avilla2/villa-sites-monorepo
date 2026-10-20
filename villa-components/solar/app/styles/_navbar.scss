@@ -4,57 +4,57 @@
 
 // ── Default design tokens ─────────────────────────────────────────────────────
 :root {
-  --navbar-bg:                  #1a1a2e;
-  --navbar-color:               #e8e8e8;
-  --navbar-height:              80px;
-  --navbar-shadow:              0 2px 8px rgba(0, 0, 0, 0.25);
-  --navbar-transition:          background-color 0.3s ease, box-shadow 0.3s ease;
-  --navbar-z:                   1100;
-  --navbar-font-family:         var(--font-heading, inherit);
-  --navbar-font-size:           1rem;
+  --navbar-bg: #1a1a2e;
+  --navbar-color: #e8e8e8;
+  --navbar-height: 80px;
+  --navbar-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  --navbar-transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  --navbar-z: 1100;
+  --navbar-font-family: var(--font-heading, inherit);
+  --navbar-font-size: 1rem;
 
   // Links
-  --navbar-link-font-size:      0.9375rem;
-  --navbar-link-weight:         500;
-  --navbar-link-h-padding:      1rem;
-  --navbar-link-line-height:    16px;
-  --navbar-link-transition:     0.22s ease;
-  --navbar-active-color:        currentColor; // sites should override
-  --navbar-hover-bg:            transparent;
+  --navbar-link-font-size: 0.9375rem;
+  --navbar-link-weight: 500;
+  --navbar-link-h-padding: 1rem;
+  --navbar-link-line-height: 16px;
+  --navbar-link-transition: 0.22s ease;
+  --navbar-active-color: currentColor; // sites should override
+  --navbar-hover-bg: transparent;
 
   // Buttons
-  --navbar-button-bg:           transparent;
-  --navbar-button-color:        inherit;
-  --navbar-button-border:       currentColor;
-  --navbar-button-radius:       9999px;
-  --navbar-button-px:           1.25rem;
-  --navbar-button-font-size:    0.875rem;
-  --navbar-button-weight:       normal;
+  --navbar-button-bg: transparent;
+  --navbar-button-color: inherit;
+  --navbar-button-border: currentColor;
+  --navbar-button-radius: 9999px;
+  --navbar-button-px: 1.25rem;
+  --navbar-button-font-size: 0.875rem;
+  --navbar-button-weight: normal;
 
   // Dropdown
-  --nav-menu-bg:                #243040;
-  --nav-menu-shadow:            0 4px 16px rgba(0, 0, 0, 0.3);
-  --nav-menu-radius:            6px;
-  --nav-menu-min-width:         180px;
-  --nav-menu-item-color:        inherit;
-  --nav-menu-item-hover-bg:     rgba(255, 255, 255, 0.06);
-  --nav-menu-item-hover-color:  currentColor;
+  --nav-menu-bg: #243040;
+  --nav-menu-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  --nav-menu-radius: 6px;
+  --nav-menu-min-width: 180px;
+  --nav-menu-item-color: inherit;
+  --nav-menu-item-hover-bg: rgba(255, 255, 255, 0.06);
+  --nav-menu-item-hover-color: currentColor;
   --nav-menu-item-active-color: currentColor;
 
   // Mobile drawer
-  --mobile-drawer-width:        260px;
-  --mobile-drawer-bg:           #1a1a2e;
-  --mobile-drawer-color:        #e8e8e8;
-  --mobile-drawer-header-border: rgba(255,255,255,0.15);
-  --mobile-drawer-item-py:      0.75rem;
-  --mobile-drawer-item-px:      1.25rem;
+  --mobile-drawer-width: 260px;
+  --mobile-drawer-bg: #1a1a2e;
+  --mobile-drawer-color: #e8e8e8;
+  --mobile-drawer-header-border: rgba(255, 255, 255, 0.15);
+  --mobile-drawer-item-py: 0.75rem;
+  --mobile-drawer-item-px: 1.25rem;
   --mobile-drawer-active-color: currentColor;
-  --mobile-drawer-subitem-pl:   2.5rem;
-  --mobile-drawer-cta-gap:      0.75rem;
+  --mobile-drawer-subitem-pl: 2.5rem;
+  --mobile-drawer-cta-gap: 0.75rem;
 
   // Site banner
-  --site-banner-font-size:      0.82rem;
-  --site-banner-font-weight:    500;
+  --site-banner-font-size: 0.82rem;
+  --site-banner-font-weight: 500;
 }
 
 // ── Navbar wrapper ─────────────────────────────────────────────────────────────
@@ -66,20 +66,38 @@
 // ── Breakpoint show/hide classes ──────────────────────────────────────────────
 // Compiled for each common breakpoint name. The wrapper gets
 // class `navbar--bp-{name}` and controls which subtree is visible.
-$breakpoints: (xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536);
+$breakpoints: (
+  xs: 0,
+  sm: 600,
+  md: 900,
+  lg: 1200,
+  xl: 1536
+);
 
 @each $name, $val in $breakpoints {
   .navbar--bp-#{$name} {
     @if $val == 0 {
-      .navbar__desktop { display: block; }
-      .navbar__mobile  { display: none;  }
+      .navbar__desktop {
+        display: block;
+      }
+      .navbar__mobile {
+        display: none;
+      }
     } @else {
-      .navbar__desktop { display: none; }
-      .navbar__mobile  { display: block; }
+      .navbar__desktop {
+        display: none;
+      }
+      .navbar__mobile {
+        display: block;
+      }
 
       @media (min-width: #{$val}px) {
-        .navbar__desktop { display: block; }
-        .navbar__mobile  { display: none;  }
+        .navbar__desktop {
+          display: block;
+        }
+        .navbar__mobile {
+          display: none;
+        }
       }
     }
   }
@@ -169,7 +187,9 @@ $breakpoints: (xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536);
   &--center {
     justify-content: center;
 
-    > * { flex: 1; }
+    > * {
+      flex: 1;
+    }
   }
 
   // Spaced: first item flush left (takes remaining space), remaining items grouped flush right
@@ -177,14 +197,36 @@ $breakpoints: (xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536);
     justify-content: flex-start;
     gap: 0.25rem;
 
-    > * { flex: unset; }
-    > *:first-child { flex: 1; justify-content: flex-start; }
+    > * {
+      flex: unset;
+    }
+    > *:first-child {
+      flex: 1;
+      justify-content: flex-start;
+    }
   }
 
-  // Left aligned: all items flush left
+  // Left aligned: navigation stays left while CTA buttons sit at the right edge
   &--left {
-    justify-content: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  &-left-links,
+  &-left-actions {
+    display: flex;
+    align-items: center;
     gap: 0.25rem;
+  }
+
+  &-left-actions {
+    flex-shrink: 0;
+    margin-left: auto;
+
+    .nav-button {
+      margin-right: 0;
+      margin-left: 0;
+    }
   }
 
   // Split variant – top row (images/buttons)
@@ -194,7 +236,9 @@ $breakpoints: (xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536);
     color: var(--navbar-split-top-color, #1a1a2e);
     padding: 0 2%;
     min-height: var(--navbar-split-row-height, 64px);
-    > *:first-child { flex: 1; }
+    > *:first-child {
+      flex: 1;
+    }
   }
 
   // Split variant – bottom row (text links)
@@ -202,7 +246,9 @@ $breakpoints: (xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536);
     justify-content: center;
     padding: 0 2%;
     min-height: var(--navbar-split-row-height, 64px);
-    > * { flex: 1; }
+    > * {
+      flex: 1;
+    }
   }
 
   // Mobile toolbar
@@ -228,7 +274,7 @@ $breakpoints: (xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536);
 
   &:hover,
   &:focus-visible {
-    background-color: var(--navbar-hover-bg, rgba(255,255,255,0.1));
+    background-color: var(--navbar-hover-bg, rgba(255, 255, 255, 0.1));
   }
 }
 
@@ -267,7 +313,7 @@ $breakpoints: (xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536);
 
   &:hover,
   &:focus-visible {
-    background-color: var(--navbar-hover-bg, rgba(255,255,255,0.1));
+    background-color: var(--navbar-hover-bg, rgba(255, 255, 255, 0.1));
   }
 }
 
@@ -337,7 +383,9 @@ $breakpoints: (xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536);
   font-family: inherit;
   text-decoration: none;
   cursor: pointer;
-  transition: opacity 0.2s ease, transform 0.1s ease;
+  transition:
+    opacity 0.2s ease,
+    transform 0.1s ease;
   white-space: nowrap;
 
   &:hover,
@@ -386,7 +434,7 @@ $breakpoints: (xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536);
 
   &:hover,
   &:focus-visible,
-  &[aria-expanded="true"],
+  &[aria-expanded='true'],
   &--active {
     color: var(--navbar-active-color);
   }
@@ -402,7 +450,7 @@ $breakpoints: (xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536);
   flex-shrink: 0;
   transition: transform 0.2s ease;
 
-  [aria-expanded="true"] & {
+  [aria-expanded='true'] & {
     transform: rotate(180deg);
   }
 }
@@ -428,7 +476,9 @@ $breakpoints: (xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536);
 
   // base-ui open/close animation
   transform-origin: top center;
-  transition: transform 0.15s ease, opacity 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    opacity 0.15s ease;
 
   &[data-starting-style],
   &[data-ending-style] {
@@ -450,7 +500,9 @@ $breakpoints: (xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536);
   background: none;
   width: 100%;
   text-align: left;
-  transition: background-color 0.15s ease, color 0.15s ease;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
 
   &:hover,
   &:focus-visible,
@@ -678,7 +730,9 @@ $breakpoints: (xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536);
     cursor: pointer;
     transition: opacity 0.2s ease;
 
-    &:hover { opacity: 0.8; }
+    &:hover {
+      opacity: 0.8;
+    }
   }
 
   &__timer {

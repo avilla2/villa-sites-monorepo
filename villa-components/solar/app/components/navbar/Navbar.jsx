@@ -18,25 +18,69 @@ const isNavText = (item) =>
 const BP = { xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536 }
 
 // Arrow back icon
-function ArrowBackIcon () {
+function ArrowBackIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
       <polyline points="15 18 9 12 15 6" />
     </svg>
   )
 }
 
 // Renders the right desktop item component for each data type
-function DesktopItem ({ item, active, fontColor, shadow }) {
+function DesktopItem({ item, active, fontColor, shadow }) {
   switch (item.__typename) {
     case 'ComponentNavbarComponentsTextLink':
-      return <NavLink id={item.Link} title={item.Title} link={item.Link} active={active} shadow={shadow} />
+      return (
+        <NavLink
+          id={item.Link}
+          title={item.Title}
+          link={item.Link}
+          active={active}
+          shadow={shadow}
+        />
+      )
     case 'ComponentNavbarComponentsImageLink':
-      return item.Image?.url ? <NavButtonIcon id={item.Link} external={isExternal(item.Link)} width={item.Width} link={item.Link} src={item.Image.url} alt={item.Image.alternativeText || item.Image.name} /> : null
+      return item.Image?.url ? (
+        <NavButtonIcon
+          id={item.Link}
+          external={isExternal(item.Link)}
+          width={item.Width}
+          link={item.Link}
+          src={item.Image.url}
+          alt={item.Image.alternativeText || item.Image.name}
+        />
+      ) : null
     case 'ComponentNavbarComponentsNavButton':
-      return <NavButton id={item.Link} link={item.Link} color={item.Color} text={item.Text} fontColor={fontColor} />
+      return (
+        <NavButton
+          id={item.Link}
+          link={item.Link}
+          color={item.Color}
+          text={item.Text}
+          fontColor={fontColor}
+        />
+      )
     case 'ComponentNavbarComponentsNavMenu':
-      return <NavMenu id={item.title} title={item.title} active={active} menuItem={item.menuItem} shadow={shadow} fontColor={fontColor} />
+      return (
+        <NavMenu
+          id={item.title}
+          title={item.title}
+          active={active}
+          menuItem={item.menuItem}
+          shadow={shadow}
+          fontColor={fontColor}
+        />
+      )
     default:
       return null
   }
@@ -57,7 +101,7 @@ function DesktopItem ({ item, active, fontColor, shadow }) {
  * @param {string} [props.mobileTitle]
  * @param {Function} [props.onBackClick]
  */
-export default function Navbar ({
+export default function Navbar({
   page,
   navIndex,
   Items: content,
@@ -78,7 +122,9 @@ export default function Navbar ({
   const mobileBarRef = useRef(null)
   const [mobileBarHeight, setMobileBarHeight] = useState(0)
 
-  useEffect(() => { setMounted(true) }, [])
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     if (navIndex) setActive(navIndex)
@@ -115,26 +161,36 @@ export default function Navbar ({
   // On SSR or before scroll is known, fade_in navbars start transparent
   // Match SSR state: when not mounted, showElevation = !isFadeIn
   const showElevation = !mounted ? !isFadeIn : scrolled
-  const isTransparent = !mounted ? isFadeIn : (!scrolled && isFadeIn)
+  const isTransparent = !mounted ? isFadeIn : !scrolled && isFadeIn
   const showBackButton = navIndex !== '/'
 
   // Toolbar layout variant class
-  const toolbarVariant = {
-    Spaced: 'navbar__toolbar--spaced',
-    Left_Aligned: 'navbar__toolbar--left',
-    Split: 'navbar__toolbar--split' // handled separately
-  }[style] || 'navbar__toolbar--center'
+  const toolbarVariant =
+    {
+      Spaced: 'navbar__toolbar--spaced',
+      Left_Aligned: 'navbar__toolbar--left',
+      Split: 'navbar__toolbar--split' // handled separately
+    }[style] || 'navbar__toolbar--center'
 
   // Bar modifier classes
   const barClasses = [
     'navbar__bar',
     showElevation ? 'navbar__bar--elevated' : '',
     isTransparent ? 'navbar__bar--transparent' : ''
-  ].filter(Boolean).join(' ')
+  ]
+    .filter(Boolean)
+    .join(' ')
 
   // For Split, separate text from non-text items
-  const splitImages = content.filter(item => !isNavText(item))
-  const splitText = content.filter(item => isNavText(item))
+  const splitImages = content.filter((item) => !isNavText(item))
+  const splitText = content.filter((item) => isNavText(item))
+  const leftAlignedLinks = content.filter(
+    (item) => item.__typename !== 'ComponentNavbarComponentsNavButton'
+  )
+  const leftAlignedButtons = content.filter(
+    (item) => item.__typename === 'ComponentNavbarComponentsNavButton'
+  )
+  const isLeftAligned = style === 'Left_Aligned' || style === 'Left Aligned'
 
   const bpPx = BP[minSize] || 900
 
@@ -151,31 +207,78 @@ export default function Navbar ({
         <header className={barClasses} ref={desktopBarRef} role="banner">
           {siteBanner && <SiteBanner siteBanner={siteBanner} />}
 
-          {style === 'Split'
-            ? (
-              <>
-                <div className="navbar__toolbar navbar__toolbar--split-top">
-                  {splitImages.map((item, i) => (
-                    <DesktopItem key={i} item={item} active={active} fontColor={fontColor} shadow={isTransparent} />
-                  ))}
-                </div>
-                <div className="navbar__toolbar navbar__toolbar--split-bottom">
-                  {splitText.map((item, i) => (
-                    <DesktopItem key={i} item={item} active={active} fontColor={fontColor} shadow={isTransparent} />
-                  ))}
-                </div>
-              </>
-              )
-            : (
-              <div className={`navbar__toolbar ${toolbarVariant}`}>
-                {content.map((item, i) => (
-                  <DesktopItem key={i} item={item} active={active} fontColor={fontColor} shadow={isTransparent} />
+          {style === 'Split' ? (
+            <>
+              <div className="navbar__toolbar navbar__toolbar--split-top">
+                {splitImages.map((item, i) => (
+                  <DesktopItem
+                    key={i}
+                    item={item}
+                    active={active}
+                    fontColor={fontColor}
+                    shadow={isTransparent}
+                  />
                 ))}
               </div>
+              <div className="navbar__toolbar navbar__toolbar--split-bottom">
+                {splitText.map((item, i) => (
+                  <DesktopItem
+                    key={i}
+                    item={item}
+                    active={active}
+                    fontColor={fontColor}
+                    shadow={isTransparent}
+                  />
+                ))}
+              </div>
+            </>
+          ) : isLeftAligned ? (
+            <div className="navbar__toolbar navbar__toolbar--left">
+              <div className="navbar__toolbar-left-links">
+                {leftAlignedLinks.map((item, i) => (
+                  <DesktopItem
+                    key={i}
+                    item={item}
+                    active={active}
+                    fontColor={fontColor}
+                    shadow={isTransparent}
+                  />
+                ))}
+              </div>
+              {leftAlignedButtons.length > 0 && (
+                <div className="navbar__toolbar-left-actions">
+                  {leftAlignedButtons.map((item, i) => (
+                    <DesktopItem
+                      key={i}
+                      item={item}
+                      active={active}
+                      fontColor={fontColor}
+                      shadow={isTransparent}
+                    />
+                  ))}
+                </div>
               )}
+            </div>
+          ) : (
+            <div className={`navbar__toolbar ${toolbarVariant}`}>
+              {content.map((item, i) => (
+                <DesktopItem
+                  key={i}
+                  item={item}
+                  active={active}
+                  fontColor={fontColor}
+                  shadow={isTransparent}
+                />
+              ))}
+            </div>
+          )}
         </header>
         {/* Spacer so page content starts below the fixed bar - height is 0 when transparent */}
-        <div className="navbar__spacer" style={{ height: isTransparent ? 0 : desktopBarHeight }} aria-hidden="true" />
+        <div
+          className="navbar__spacer"
+          style={{ height: isTransparent ? 0 : desktopBarHeight }}
+          aria-hidden="true"
+        />
       </div>
 
       {/* ── Mobile ───────────────────────────────────────────────────────── */}
@@ -184,34 +287,23 @@ export default function Navbar ({
           {siteBanner && <SiteBanner siteBanner={siteBanner} />}
           <div className="navbar__toolbar navbar__toolbar--mobile">
             {/* Left: back button or home icon */}
-            {showBackButton
-              ? (
-                <button
-                  className="navbar__back-btn"
-                  onClick={onBackClick}
-                  aria-label="Go back"
-                  style={fontColor ? { color: fontColor } : undefined}
-                >
-                  <ArrowBackIcon />
-                </button>
-                )
-              : (
-                <Link
-                  to={mobileData.IconLink || '/'}
-                  className="navbar__mobile-icon-link"
-                >
-                  <img
-                    src={mobileData.MobileIcon?.url}
-                    alt="Logo"
-                    className="navbar__mobile-icon"
-                  />
-                </Link>
-                )}
+            {showBackButton ? (
+              <button
+                className="navbar__back-btn"
+                onClick={onBackClick}
+                aria-label="Go back"
+                style={fontColor ? { color: fontColor } : undefined}
+              >
+                <ArrowBackIcon />
+              </button>
+            ) : (
+              <Link to={mobileData.IconLink || '/'} className="navbar__mobile-icon-link">
+                <img src={mobileData.MobileIcon?.url} alt="Logo" className="navbar__mobile-icon" />
+              </Link>
+            )}
 
             {/* Center: site title */}
-            <span className="navbar__mobile-title">
-              {mobileTitle}
-            </span>
+            <span className="navbar__mobile-title">{mobileTitle}</span>
 
             {/* Right: hamburger → drawer */}
             <MobileDrawer

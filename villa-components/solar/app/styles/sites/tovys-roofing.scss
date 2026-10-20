@@ -1,0 +1,257 @@
+// ─── Tovy's Roofing & More ──────────────────────────────────────────────────
+// Bright surfaces with the vivid blue and charcoal from the Tovy's logo.
+
+[data-site='tovys-roofing'] {
+  --color-primary: #1766d2;
+  --color-primary-dark: #0d4fae;
+  --color-primary-light: #5d9af0;
+  --color-accent: #1766d2;
+  --color-accent-light: #5d9af0;
+  --color-bg-light: #f5f8fc;
+  --color-bg-white: #ffffff;
+  --color-bg-dark: #15171b;
+  --color-bg-dark-2: #22262c;
+  --color-text-dark: #17191d;
+  --color-text-light: #f8fafc;
+  --color-text-muted: #5b6572;
+  --color-divider: rgba(23, 102, 210, 0.18);
+
+  --font-primary: 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
+  --font-heading: 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
+
+  --navbar-bg: #f8f8f9;
+  --navbar-color: #17191d;
+  --navbar-height: 94px;
+  --navbar-shadow: 0 8px 24px rgba(15, 23, 42, 0.28);
+  --navbar-font-family: var(--font-heading);
+  --navbar-link-font-size: 0.95rem;
+  --navbar-link-weight: 600;
+  --navbar-active-color: var(--color-primary);
+  --navbar-hover-bg: rgba(23, 102, 210, 0.07);
+  --navbar-button-bg: var(--color-primary);
+  --navbar-button-color: #ffffff;
+  --navbar-button-border: var(--color-primary);
+  --navbar-button-radius: 0;
+  --navbar-button-px: 1.35rem;
+  --navbar-button-weight: 700;
+  --nav-menu-bg: #ffffff;
+  --nav-menu-shadow: 0 14px 32px rgba(15, 23, 42, 0.24);
+  --nav-menu-radius: 0;
+  --nav-menu-item-color: #17191d;
+  --nav-menu-item-hover-bg: #f0f5fc;
+  --nav-menu-item-hover-color: var(--color-primary-dark);
+  --mobile-drawer-bg: #c6c6c7;
+  --mobile-drawer-color: #17191d;
+  --mobile-drawer-active-color: var(--color-primary);
+  --mobile-drawer-header-border: var(--color-divider);
+  --mobile-drawer-radius: 0;
+
+  --footer-bg: #15171b;
+  --footer-color: #f8fafc;
+  --footer-padding-top: 48px;
+  --footer-padding-bottom: 24px;
+  --footer-divider-color: rgba(255, 255, 255, 0.18);
+  --footer-link-color: #d6dfeb;
+  --footer-accent: #77aaf1;
+
+  --intro-min-height: min(82vh, 820px);
+  --intro-mobile-min-height: min(72vh, 680px);
+  --intro-overlay-padding: clamp(2rem, 8vw, 7rem);
+  --intro-bg-color: #f5f8fc;
+  --intro-text-shadow: 0 2px 8px rgba(0, 0, 0, 0.42);
+  --intro-font-size: clamp(1.05rem, 2vw, 1.35rem);
+  --intro-heading-font: var(--font-heading);
+  --intro-form-card-bg: rgba(255, 255, 255, 0.7);
+  --intro-btn-border-radius: 0;
+  --intro-btn-px: 1.65rem;
+  --intro-btn-py: 0.9rem;
+  --intro-btn-font-size: 0.95rem;
+  --intro-btn-weight: 700;
+
+  --paragraph-max-width: 960px;
+  --paragraph-padding-x: 6vw;
+  --paragraph-line-height: 1.8;
+  --paragraph-title-color: #17191d;
+  --paragraph-link-color: var(--color-primary-dark);
+  --paragraph-link-hover: var(--color-primary);
+  --card-group-padding-x: 6vw;
+  --card-group-gap: 1.25rem;
+  --card-min-width: 250px;
+  --card-radius: 0;
+  --card-btn-radius: 0;
+  --card-surface: rgba(255, 255, 255, 0.7);
+  --card-shadow: 0 10px 28px rgba(24, 45, 78, 0.09);
+  --cta-card-bg: #f5f8fc;
+  --cta-card-radius: 0;
+  --cta-card-shadow: 0 10px 28px rgba(24, 45, 78, 0.08);
+  --cta-border-radius: 0;
+  --cta-btn-radius: 0;
+  --cta-media-radius: 0;
+  --btn-group-radius: 0;
+  --contact-input-radius: 0;
+  --contact-btn-radius: 0;
+  --faq-radius: 0;
+  --video-radius: 0;
+  --slideshow-radius: 0;
+
+  min-height: 100%;
+  background-color: #ffffff;
+  color: var(--color-text-dark);
+  overflow-x: hidden;
+
+  .navbar__bar {
+    border-bottom: 1px solid rgba(23, 102, 210, 0.09);
+  }
+
+  // Keep interactive controls and component surfaces crisp and square.
+  :is(
+    button,
+    [role='button'],
+    .navbar__bar,
+    .nav-menu__popup,
+    .intro__form-card,
+    .intro__btn,
+    .nav-button,
+    .nav-button-icon,
+    .card,
+    .card__btn,
+    .cta,
+    .cta--card,
+    .cta--bordered,
+    .cta__btn,
+    .cta__img,
+    .btn-group__btn,
+    .contact__input,
+    .contact__textarea,
+    .contact__btn,
+    .video video,
+    .slideshow,
+    .faq__trigger,
+    .footer-icons__btn
+  ) {
+    border-radius: 0;
+  }
+
+  .intro__text h1,
+  .intro__text h2 {
+    font-weight: 750;
+    letter-spacing: -0.035em;
+  }
+
+  .intro__text h1 {
+    max-width: 900px;
+    color: var(--color-accent);
+    text-shadow: none;
+  }
+
+  .intro__text p {
+    max-width: 680px;
+    margin-right: auto;
+    margin-left: auto;
+    color: #4b5563;
+  }
+
+  .intro__text {
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.24);
+  }
+
+  .intro__form-card {
+    backdrop-filter: blur(8px);
+  }
+
+  .card:not(.card--overlay) {
+    position: relative;
+    isolation: isolate;
+    background-color: transparent !important;
+  }
+
+  .card:not(.card--overlay)::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-color: color-mix(in srgb, var(--card-surface-color, #ffffff) 90%, transparent);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    pointer-events: none;
+  }
+
+  .card:not(.card--overlay) > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta--card {
+    position: relative;
+    isolation: isolate;
+    border: none;
+    background-color: transparent !important;
+  }
+
+  .cta--card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-color: color-mix(in srgb, var(--cta-surface-color, #f5f8fc) 90%, transparent);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    pointer-events: none;
+  }
+
+  .cta--card > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .intro__btn,
+  .nav-button,
+  .card__btn,
+  .cta__btn,
+  .contact__btn,
+  .btn-group__btn {
+    border-radius: 0;
+    font-weight: 700;
+    transition:
+      transform 180ms ease,
+      box-shadow 180ms ease,
+      background-color 180ms ease;
+  }
+
+  .intro__btn,
+  .card__btn {
+    background-color: var(--btn-color, var(--color-accent));
+    border-color: var(--btn-color, var(--color-accent));
+    color: #ffffff;
+  }
+
+  .intro__btn:hover,
+  .nav-button:hover,
+  .card__btn:hover,
+  .cta__btn:hover,
+  .contact__btn:hover,
+  .btn-group__btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(23, 102, 210, 0.2);
+  }
+
+  .intro__btn:hover,
+  .intro__btn:focus-visible,
+  .card__btn:hover,
+  .card__btn:focus-visible {
+    background-color: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+    color: #ffffff;
+  }
+
+  .card {
+    border: none;
+    box-shadow:
+      var(--card-shadow),
+      inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  }
+
+  .footer {
+    margin-top: 0;
+  }
+}

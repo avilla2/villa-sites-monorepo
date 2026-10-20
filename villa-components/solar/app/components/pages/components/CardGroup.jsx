@@ -5,19 +5,42 @@ import isExternalLink from '../../../lib/isExternalLink'
 import ResponsiveImage from '../../shared/ResponsiveImage'
 import buildUrl from '../../../lib/buildUrl'
 
-function CardLink ({ href, className, style, children, stopPropagation }) {
-  const handleClick = stopPropagation ? e => e.stopPropagation() : undefined
+function CardLink({ href, className, style, children, stopPropagation }) {
+  const handleClick = stopPropagation ? (e) => e.stopPropagation() : undefined
   if (isExternalLink(href)) {
     return (
-      <a href={href} className={className} style={style} target="_blank" rel="noopener noreferrer" onClick={handleClick}>
+      <a
+        href={href}
+        className={className}
+        style={style}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={handleClick}
+      >
         {children}
       </a>
     )
   }
-  return <Link to={href} className={className} style={style} onClick={handleClick}>{children}</Link>
+  return (
+    <Link to={href} className={className} style={style} onClick={handleClick}>
+      {children}
+    </Link>
+  )
 }
 
-function SingleCard ({ Image, Title, Text, ButtonText, ButtonColor, CardColor, CardStyle, Color, active, onToggle, Link: cardLink }) {
+function SingleCard({
+  Image,
+  Title,
+  Text,
+  ButtonText,
+  ButtonColor,
+  CardColor,
+  CardStyle,
+  Color,
+  active,
+  onToggle,
+  Link: cardLink
+}) {
   const btnStyle = ButtonColor ? { '--btn-color': ButtonColor } : undefined
 
   if (CardStyle === 'overlay') {
@@ -33,12 +56,18 @@ function SingleCard ({ Image, Title, Text, ButtonText, ButtonColor, CardColor, C
         role="button"
         tabIndex={0}
         aria-expanded={active}
-        onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') onToggle() }}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') onToggle()
+        }}
       >
         <span className="card__overlay-title">{Title}</span>
         <div className="card__overlay-panel" aria-hidden={!active}>
           <div className="card__overlay-content">
-            {Text && <div className="card__body"><BlocksRenderer content={Text} /></div>}
+            {Text && (
+              <div className="card__body">
+                <BlocksRenderer content={Text} />
+              </div>
+            )}
           </div>
           {cardLink && (
             <div className="card__actions">
@@ -54,21 +83,38 @@ function SingleCard ({ Image, Title, Text, ButtonText, ButtonColor, CardColor, C
 
   if (CardStyle === 'slideshow') {
     return (
-      <div className="card card--slideshow" style={{ backgroundColor: CardColor || '#ffffff', color: Color || undefined }}>
+      <div
+        className="card card--slideshow"
+        style={{
+          '--card-surface-color': CardColor || '#ffffff',
+          backgroundColor: CardColor || '#ffffff',
+          color: Color || undefined
+        }}
+      >
         <div className="card__header">
           <h3 className="card__title">{Title}</h3>
           {Image?.url && (
             <div className="card__avatar">
-              <img className="card__avatar-img" src={buildUrl(Image.url, { width: 40 })} alt={Image.alternativeText || ''} />
+              <img
+                className="card__avatar-img"
+                src={buildUrl(Image.url, { width: 40 })}
+                alt={Image.alternativeText || ''}
+              />
             </div>
           )}
         </div>
         <div className="card__content">
-          {Text && <div className="card__body"><BlocksRenderer content={Text} /></div>}
+          {Text && (
+            <div className="card__body">
+              <BlocksRenderer content={Text} />
+            </div>
+          )}
         </div>
         {cardLink && (
           <div className="card__actions">
-            <CardLink href={cardLink} className="card__btn" style={btnStyle}><span>{ButtonText}</span></CardLink>
+            <CardLink href={cardLink} className="card__btn" style={btnStyle}>
+              <span>{ButtonText}</span>
+            </CardLink>
           </div>
         )}
       </div>
@@ -76,19 +122,37 @@ function SingleCard ({ Image, Title, Text, ButtonText, ButtonColor, CardColor, C
   }
 
   return (
-    <div className="card" style={{ backgroundColor: CardColor || '#ffffff', color: Color || undefined }}>
+    <div
+      className="card"
+      style={{
+        '--card-surface-color': CardColor || '#ffffff',
+        backgroundColor: CardColor || '#ffffff',
+        color: Color || undefined
+      }}
+    >
       {Image?.url && (
         <div className="card__media">
-          <ResponsiveImage className="card__img" src={Image.url} alt={Image.alternativeText || ''} sizes={{ sm: '100vw', md: '40vw', lg: '20vw' }}/>
+          <ResponsiveImage
+            className="card__img"
+            src={Image.url}
+            alt={Image.alternativeText || ''}
+            sizes={{ sm: '100vw', md: '40vw', lg: '20vw' }}
+          />
         </div>
       )}
       <div className="card__content">
         <h3 className="card__title">{Title}</h3>
-        {Text && <div className="card__body"><BlocksRenderer content={Text} /></div>}
+        {Text && (
+          <div className="card__body">
+            <BlocksRenderer content={Text} />
+          </div>
+        )}
       </div>
       {cardLink && (
         <div className="card__actions">
-          <CardLink href={cardLink} className="card__btn" style={btnStyle}><span>{ButtonText}</span></CardLink>
+          <CardLink href={cardLink} className="card__btn" style={btnStyle}>
+            <span>{ButtonText}</span>
+          </CardLink>
         </div>
       )}
     </div>
@@ -99,7 +163,7 @@ function SingleCard ({ Image, Title, Text, ButtonText, ButtonColor, CardColor, C
  * @param {Object} props
  * @param {import('../../../../../components/src/types').CardGroupComponent} props.content
  */
-export default function CardGroup ({ content }) {
+export default function CardGroup({ content }) {
   const [activeCard, setActiveCard] = useState(-1)
   const [currentSlide, setCurrentSlide] = useState(0)
   const [autoPlay, setAutoPlay] = useState(true)
@@ -113,19 +177,19 @@ export default function CardGroup ({ content }) {
   useEffect(() => {
     if (!isSlideshow || !autoPlay) return
     const interval = setInterval(() => {
-      setCurrentSlide(prev => (prev + 1) % Cards.length)
+      setCurrentSlide((prev) => (prev + 1) % Cards.length)
     }, 5000) // Change slide every 5 seconds
     return () => clearInterval(interval)
   }, [isSlideshow, autoPlay, Cards.length])
 
   const handlePrev = () => {
     setAutoPlay(false)
-    setCurrentSlide(prev => (prev - 1 + Cards.length) % Cards.length)
+    setCurrentSlide((prev) => (prev - 1 + Cards.length) % Cards.length)
   }
 
   const handleNext = () => {
     setAutoPlay(false)
-    setCurrentSlide(prev => (prev + 1) % Cards.length)
+    setCurrentSlide((prev) => (prev + 1) % Cards.length)
   }
 
   const handleDotClick = (index) => {
@@ -142,14 +206,20 @@ export default function CardGroup ({ content }) {
           color: Style?.TextColor || undefined
         }}
       >
-
         <div className="card-group__slideshow-container">
           <button
             className="card-group__arrow card-group__arrow--prev"
             onClick={handlePrev}
             aria-label="Previous card"
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
               <polyline points="15 18 9 12 15 6" />
             </svg>
           </button>
@@ -166,7 +236,7 @@ export default function CardGroup ({ content }) {
               // Add gap spacing: 110% accounts for 100% card width + 10% gap
               const translateX = offset * 110
               // Z-index: active card on top, visible cards in middle, others behind
-              const zIndex = isActive ? 10 : (isVisible ? 5 : 1)
+              const zIndex = isActive ? 10 : isVisible ? 5 : 1
 
               return (
                 <div
@@ -183,7 +253,7 @@ export default function CardGroup ({ content }) {
                     {...card}
                     Color={card.TextColor || Style?.TextColor}
                     active={activeCard === index}
-                    onToggle={() => setActiveCard(prev => prev === index ? -1 : index)}
+                    onToggle={() => setActiveCard((prev) => (prev === index ? -1 : index))}
                   />
                 </div>
               )
@@ -195,7 +265,14 @@ export default function CardGroup ({ content }) {
             onClick={handleNext}
             aria-label="Next card"
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
               <polyline points="9 18 15 12 9 6" />
             </svg>
           </button>
@@ -226,11 +303,12 @@ export default function CardGroup ({ content }) {
       <div
         className={`card-group__grid${fullWidth ? ' card-group__grid--full-width' : ''}`}
         style={{
-          justifyContent: Style?.textAlign === 'center'
-            ? 'center'
-            : Style?.textAlign === 'right'
-              ? 'flex-end'
-              : 'flex-start'
+          justifyContent:
+            Style?.textAlign === 'center'
+              ? 'center'
+              : Style?.textAlign === 'right'
+                ? 'flex-end'
+                : 'flex-start'
         }}
       >
         {Cards.map((card, index) => (
@@ -239,7 +317,7 @@ export default function CardGroup ({ content }) {
               {...card}
               Color={card.TextColor || Style?.TextColor}
               active={activeCard === index}
-              onToggle={() => setActiveCard(prev => prev === index ? -1 : index)}
+              onToggle={() => setActiveCard((prev) => (prev === index ? -1 : index))}
             />
           </div>
         ))}

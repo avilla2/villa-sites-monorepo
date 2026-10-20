@@ -1,7 +1,7 @@
 // Map hostnames to Strapi website document IDs
 const HOSTNAME_TO_WEBSITE_ID = {
-  localhost: 'gphzmmnxs62yz5xy17mlnjpn', // demo-site
-  '127.0.0.1': 'gphzmmnxs62yz5xy17mlnjpn', // demo-site
+  localhost: 'gphzmmnxs62yz5xy17mlnjpn', // Tovy's Roofing & More
+  '127.0.0.1': 'gphzmmnxs62yz5xy17mlnjpn', // Tovy's Roofing & More
   'losvaldiviaslandscaping.com': 'ulbqjd1omixehd4gjnitqgg7',
   'www.losvaldiviaslandscaping.com': 'ulbqjd1omixehd4gjnitqgg7',
   'villawebsolutions.com': 'detjyq65tnfm7csk52vubz9f',
@@ -17,9 +17,8 @@ const HOSTNAME_TO_WEBSITE_ID = {
 
 // Map hostnames to the CSS data-site attribute value
 const HOSTNAME_TO_SITE_NAME = {
-  // localhost: 'los-valdivias',
-  localhost: 'premium-lawn-landscaping', // premium-lawn-landscaping
-  '127.0.0.1': 'los-valdivias',
+  localhost: 'tovys-roofing',
+  '127.0.0.1': 'tovys-roofing',
   'losvaldiviaslandscaping.com': 'los-valdivias',
   'www.losvaldiviaslandscaping.com': 'los-valdivias',
   'villawebsolutions.com': 'villa-web-solutions',
