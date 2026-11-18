@@ -54,6 +54,10 @@ module.exports = {
   },
   resolve: {
     extensions: ['*', '.js', '.jsx'],
+    alias: {
+      // Use the workspace build rather than a stale file: dependency copy.
+      '@villa-components/components': path.resolve(__dirname, '../components')
+    },
     fallback: {
       process: false,
       path: false,
