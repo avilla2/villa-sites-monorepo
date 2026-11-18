@@ -32,9 +32,10 @@ const styles = {
     overflow: 'hidden',
     backgroundColor: '#1a1a1a',
     // Keep every carousel layer as tall as the hero, including portrait media.
-    '& > div, & .carousel-root, & .carousel, & .slider-wrapper, & .slider, & .slide, & .slide > div': {
-      height: '100%'
-    },
+    '& > div, & .carousel-root, & .carousel, & .slider-wrapper, & .slider, & .slide, & .slide > div':
+      {
+        height: '100%'
+      },
     '& .slide img': {
       height: '100%',
       objectFit: 'cover'
@@ -189,33 +190,17 @@ const GenerateMedia = ({ files = [] }) => {
     const mime = getMime(attributes.mime)
     if (mime === 'video') {
       return (
-        <video
-          key={attributes.url}
-          style={styles.media}
-          loop
-          autoPlay
-          muted
-          playsInline
-        >
-          <source
-            src={attributes.url}
-            type={attributes.mime}
-          />
+        <video key={attributes.url} style={styles.media} loop autoPlay muted playsInline>
+          <source src={attributes.url} type={attributes.mime} />
         </video>
       )
     } else if (mime === 'image') {
       return (
-        <img
-          style={styles.media}
-          src={attributes.url}
-          alt={attributes.alternativeText || ''}
-        />
+        <img style={styles.media} src={attributes.url} alt={attributes.alternativeText || ''} />
       )
     }
   } else if (data.length > 1) {
-    return (
-      <Slideshow content={{ slidesMobile: files, slidesDesktop: files }} fullscreen />
-    )
+    return <Slideshow content={{ slidesMobile: files, slidesDesktop: files }} fullscreen />
   }
   return null
 }
@@ -239,15 +224,30 @@ const getIntroStyle = (style) => {
  * @param {string} props.siteName - The name of the site, used for rendering components that require it (e.g., Contact form email subject line)
  * @returns {JSX.Element} The Intro component
  */
-export default function Intro ({ content, siteName }) {
-  const mobile = useMediaQuery(theme => theme.breakpoints.down('md'))
+export default function Intro({ content, siteName }) {
+  const mobile = useMediaQuery((theme) => theme.breakpoints.down('md'))
   const hasForm = Boolean(content?.FormData && content?.FormFields?.length)
   const position = getIntroStyle(content.TextPosition)
 
   return (
-    <Box component="section" sx={[styles.base, hasForm && styles.withForm, { color: content?.Style?.TextColor || 'inherit' }]}>
-      <Box sx={[styles.contentWrapper, hasForm && styles.formMedia, { backgroundColor: content?.Style?.BackgroundColor || '#1a1a1a' }]}>
-        <GenerateMedia files={mobile && content?.MobileFile?.length ? content.MobileFile : content.File} />
+    <Box
+      component="section"
+      sx={[
+        styles.base,
+        hasForm && styles.withForm,
+        { color: content?.Style?.TextColor || 'inherit' }
+      ]}
+    >
+      <Box
+        sx={[
+          styles.contentWrapper,
+          hasForm && styles.formMedia,
+          { backgroundColor: content?.Style?.BackgroundColor || '#1a1a1a' }
+        ]}
+      >
+        <GenerateMedia
+          files={mobile && content?.MobileFile?.length ? content.MobileFile : content.File}
+        />
       </Box>
       <Box sx={[styles.overlayWrapper, position, hasForm && styles.formOverlay]}>
         <Box sx={[styles.inner, hasForm && styles.formInner]}>
@@ -258,7 +258,12 @@ export default function Intro ({ content, siteName }) {
                 {content?.Buttons?.length > 0 && (
                   <Box sx={{ ...styles.buttons, justifyContent: position.alignItems }}>
                     {content.Buttons.map((button, index) => (
-                      <CustomButton key={index} buttonStyle="outlined" link={button.Link} color={button.ButtonColor}>
+                      <CustomButton
+                        key={index}
+                        buttonStyle="outlined"
+                        link={button.Link}
+                        color={button.ButtonColor}
+                      >
                         {button.Text}
                       </CustomButton>
                     ))}
@@ -270,10 +275,14 @@ export default function Intro ({ content, siteName }) {
           {hasForm && (
             <Box sx={styles.formCard}>
               {content.FormData.FormTitle && (
-                <Typography component="h3" sx={styles.formTitle}>{content.FormData.FormTitle}</Typography>
+                <Typography component="h3" sx={styles.formTitle}>
+                  {content.FormData.FormTitle}
+                </Typography>
               )}
               {content.FormData.FormDescription && (
-                <Typography component="p" sx={styles.formDescription}>{content.FormData.FormDescription}</Typography>
+                <Typography component="p" sx={styles.formDescription}>
+                  {content.FormData.FormDescription}
+                </Typography>
               )}
               <Contact
                 embedded

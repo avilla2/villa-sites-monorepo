@@ -29,7 +29,7 @@ import SiteBanner from './components/SiteBanner'
  * @param {Function} props.onBackClick - Callback function for back button click (required for SSR compatibility)
  * @returns {JSX.Element} The Navbar component with responsive desktop and mobile layouts
  */
-export default function Navbar ({
+export default function Navbar({
   page,
   navIndex,
   Items: content,
@@ -149,167 +149,167 @@ export default function Navbar ({
     }
   }
 
-  const isNavText = (itemType) => itemType === 'ComponentNavbarComponentsTextLink' || itemType === 'ComponentNavbarComponentsNavMenu'
+  const isNavText = (itemType) =>
+    itemType === 'ComponentNavbarComponentsTextLink' ||
+    itemType === 'ComponentNavbarComponentsNavMenu'
 
   return (
     <Box sx={fontColor && { color: fontColor }}>
       {/* Desktop Navbar */}
       <Box sx={{ display: { xs: 'none', [minSize]: 'block' } }}>
-        {style === 'Split'
-          ? (
-              <AppBar
-                ref={desktopAppBarRef}
-                sx={{ color: 'inherit' }}
-                position="fixed"
-                elevation={!mounted ? 1 : (!trigger ? 0 : 1)}
-                color={!mounted ? 'primary' : (!trigger && appearance === 'fade_in' ? 'transparent' : 'primary')}
-              >
-                {siteBanner && <SiteBanner siteBanner={siteBanner} />}
-                <Toolbar
-                  sx={{
-                    justifyContent: 'flex-start',
-                    px: '2%',
-                    minHeight: 128,
-                    alignItems: 'center',
-                    backgroundColor: 'white',
-                    '& a:first-of-type': {
-                      flexGrow: 1,
-                      display: 'flex',
-                      justifyContent: 'flex-start'
-                    }
-                  }}
-                >
-                  {content.map((item, index) => {
-                    if (!isNavText(item.__typename)) {
-                      return (
-                        <NavComponentDesktop
-                          item={item}
-                          key={index}
-                          active={active}
-                          fontColor={fontColor}
-                        />
-                      )
-                    }
-                    return <React.Fragment key={index}></React.Fragment>
-                  })}
-                </Toolbar>
-                <Toolbar
-                  sx={{
-                    justifyContent: 'center',
-                    mx: '2%',
-                    minHeight: 128,
-                    alignItems: 'center',
-                    '& a': {
-                      flexGrow: 1
-                    }
-                  }}
-                >
-                  {content.map((item, index) => {
-                    if (isNavText(item.__typename)) {
-                      return (
-                        <NavComponentDesktop
-                          item={item}
-                          key={index}
-                          active={active}
-                          fontColor={fontColor}
-                          shadow={appearance === 'fade_in'}
-                        />
-                      )
-                    }
-                    return <React.Fragment key={index}></React.Fragment>
-                  })}
-                </Toolbar>
-              </AppBar>
-            )
-          : (
-            <AppBar
-              ref={desktopAppBarRef}
-              sx={{ color: 'inherit' }}
-              position="fixed"
-              elevation={!mounted ? 1 : (!trigger ? 0 : 1)}
-              color={!mounted ? 'primary' : (!trigger && appearance === 'fade_in' ? 'transparent' : 'primary')}
+        {style === 'Split' ? (
+          <AppBar
+            ref={desktopAppBarRef}
+            sx={{ color: 'inherit' }}
+            position="fixed"
+            elevation={!mounted ? 1 : !trigger ? 0 : 1}
+            color={
+              !mounted
+                ? 'primary'
+                : !trigger && appearance === 'fade_in'
+                  ? 'transparent'
+                  : 'primary'
+            }
+          >
+            {siteBanner && <SiteBanner siteBanner={siteBanner} />}
+            <Toolbar
+              sx={{
+                justifyContent: 'flex-start',
+                px: '2%',
+                minHeight: 128,
+                alignItems: 'center',
+                backgroundColor: 'white',
+                '& a:first-of-type': {
+                  flexGrow: 1,
+                  display: 'flex',
+                  justifyContent: 'flex-start'
+                }
+              }}
             >
-              {siteBanner && <SiteBanner siteBanner={siteBanner} />}
-              <Toolbar sx={getToolbarStyles()}>
-                {content.map((item, index) => (
-                  <NavComponentDesktop
-                    item={item}
-                    key={index}
-                    fontColor={fontColor}
-                    active={active}
-                    shadow={appearance === 'fade_in'}
-                  />
-                ))}
-              </Toolbar>
-            </AppBar>
-            )}
+              {content.map((item, index) => {
+                if (!isNavText(item.__typename)) {
+                  return (
+                    <NavComponentDesktop
+                      item={item}
+                      key={index}
+                      active={active}
+                      fontColor={fontColor}
+                    />
+                  )
+                }
+                return <React.Fragment key={index}></React.Fragment>
+              })}
+            </Toolbar>
+            <Toolbar
+              sx={{
+                justifyContent: 'center',
+                mx: '2%',
+                minHeight: 128,
+                alignItems: 'center',
+                '& a': {
+                  flexGrow: 1
+                }
+              }}
+            >
+              {content.map((item, index) => {
+                if (isNavText(item.__typename)) {
+                  return (
+                    <NavComponentDesktop
+                      item={item}
+                      key={index}
+                      active={active}
+                      fontColor={fontColor}
+                      shadow={appearance === 'fade_in'}
+                    />
+                  )
+                }
+                return <React.Fragment key={index}></React.Fragment>
+              })}
+            </Toolbar>
+          </AppBar>
+        ) : (
+          <AppBar
+            ref={desktopAppBarRef}
+            sx={{ color: 'inherit' }}
+            position="fixed"
+            elevation={!mounted ? 1 : !trigger ? 0 : 1}
+            color={
+              !mounted
+                ? 'primary'
+                : !trigger && appearance === 'fade_in'
+                  ? 'transparent'
+                  : 'primary'
+            }
+          >
+            {siteBanner && <SiteBanner siteBanner={siteBanner} />}
+            <Toolbar sx={getToolbarStyles()}>
+              {content.map((item, index) => (
+                <NavComponentDesktop
+                  item={item}
+                  key={index}
+                  fontColor={fontColor}
+                  active={active}
+                  shadow={appearance === 'fade_in'}
+                />
+              ))}
+            </Toolbar>
+          </AppBar>
+        )}
       </Box>
 
       {/* Mobile Navbar */}
       <Box sx={{ display: { xs: 'block', [minSize]: 'none' } }}>
         <AppBar ref={mobileAppBarRef} position="fixed" sx={{ color: 'inherit' }}>
-              {siteBanner && <SiteBanner siteBanner={siteBanner} />}
-              <Toolbar sx={{ justifyContent: 'space-between' }}>
-                {showBackButton
-                  ? <IconButton
-                      onClick={onBackClick}
-                      edge="start"
-                      sx={{
-                        mr: '10px',
-                        ...(fontColor && { color: fontColor })
-                      }}
-                    >
-                      <ArrowBackIcon />
-                    </IconButton>
-                  : <IconButton
-                      component={Link}
-                      to={mobileData.IconLink}
-                      edge="start"
-                      sx={{
-                        mr: '10px',
-                        ...(fontColor && { color: fontColor })
-                      }}
-                    >
-                      <img
-                        style={{ width: '2.2rem' }}
-                        src={mobileData.MobileIcon.url}
-                        alt="Logo"
-                      />
-                    </IconButton>
-                }
-                <Drawer
-                  anchor="right"
-                  open={isOpen}
-                  onClose={toggleDrawer(false)}
-                >
-                  <MobileDrawer
-                    links={content}
-                    drawerLink={mobileData.DrawerLink}
-                    drawerText={mobileData.DrawerText}
-                    toggleDrawer={toggleDrawer}
-                    fontColor={fontColor}
-                    active={active}
-                  />
-                </Drawer>
-                <Typography
-                  variant="h6"
-                  sx={{
-                    flexGrow: 1,
-                    textAlign: 'left'
-                  }}
-                >
-                  {navIndex === '/' ? mobileTitle : page}
-                </Typography>
-                <IconButton
-                  edge="end"
-                  onClick={toggleDrawer(true)}
-                  color="inherit"
-                  aria-label="menu"
-                >
-                  <MenuIcon sx={fontColor && { color: fontColor }}/>
-                </IconButton>
-              </Toolbar>
-            </AppBar>
+          {siteBanner && <SiteBanner siteBanner={siteBanner} />}
+          <Toolbar sx={{ justifyContent: 'space-between' }}>
+            {showBackButton ? (
+              <IconButton
+                onClick={onBackClick}
+                edge="start"
+                sx={{
+                  mr: '10px',
+                  ...(fontColor && { color: fontColor })
+                }}
+              >
+                <ArrowBackIcon />
+              </IconButton>
+            ) : (
+              <IconButton
+                component={Link}
+                to={mobileData.IconLink}
+                edge="start"
+                sx={{
+                  mr: '10px',
+                  ...(fontColor && { color: fontColor })
+                }}
+              >
+                <img style={{ width: '2.2rem' }} src={mobileData.MobileIcon.url} alt="Logo" />
+              </IconButton>
+            )}
+            <Drawer anchor="right" open={isOpen} onClose={toggleDrawer(false)}>
+              <MobileDrawer
+                links={content}
+                drawerLink={mobileData.DrawerLink}
+                drawerText={mobileData.DrawerText}
+                toggleDrawer={toggleDrawer}
+                fontColor={fontColor}
+                active={active}
+              />
+            </Drawer>
+            <Typography
+              variant="h6"
+              sx={{
+                flexGrow: 1,
+                textAlign: 'left'
+              }}
+            >
+              {navIndex === '/' ? mobileTitle : page}
+            </Typography>
+            <IconButton edge="end" onClick={toggleDrawer(true)} color="inherit" aria-label="menu">
+              <MenuIcon sx={fontColor && { color: fontColor }} />
+            </IconButton>
+          </Toolbar>
+        </AppBar>
 
         {/* Extra toolbar for spacing */}
         <Box sx={{ height: mobileNavHeight }} />

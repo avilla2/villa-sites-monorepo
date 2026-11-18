@@ -6,9 +6,21 @@ import Intro from './Intro'
 import Contact from './Contact'
 import Slideshow from './Slideshow'
 
-jest.mock('react-markdown', () => function Markdown ({ children }) { return <p>{children}</p> })
+jest.mock(
+  'react-markdown',
+  () =>
+    function Markdown({ children }) {
+      return <p>{children}</p>
+    }
+)
 jest.mock('./Slideshow', () => jest.fn(() => <div data-testid="slideshow" />))
-jest.mock('../../shared/Button', () => function Button ({ children, link }) { return <a href={link}>{children}</a> })
+jest.mock(
+  '../../shared/Button',
+  () =>
+    function Button({ children, link }) {
+      return <a href={link}>{children}</a>
+    }
+)
 
 const theme = createTheme()
 const desktopFile = { url: '/desktop.jpg', mime: 'image/jpeg', alternativeText: 'Desktop hero' }
@@ -33,11 +45,12 @@ const content = {
   FormFields: formFields
 }
 
-const renderIntro = (overrides = {}) => render(
-  <ThemeProvider theme={theme}>
-    <Intro content={{ ...content, ...overrides }} siteName="Example Builders" />
-  </ThemeProvider>
-)
+const renderIntro = (overrides = {}) =>
+  render(
+    <ThemeProvider theme={theme}>
+      <Intro content={{ ...content, ...overrides }} siteName="Example Builders" />
+    </ThemeProvider>
+  )
 
 beforeEach(() => {
   jest.clearAllMocks()
@@ -84,7 +97,11 @@ test('supports an intro without background media', () => {
 })
 
 test('selects mobile media and falls back to desktop media when absent', () => {
-  window.matchMedia.mockImplementation(() => ({ matches: true, addEventListener: jest.fn(), removeEventListener: jest.fn() }))
+  window.matchMedia.mockImplementation(() => ({
+    matches: true,
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn()
+  }))
   const { unmount } = renderIntro()
   expect(screen.getByRole('img').getAttribute('src')).toBe(mobileFile.url)
 
@@ -97,7 +114,10 @@ test('provides both responsive slide arrays to the slideshow', () => {
   const slides = [desktopFile, { ...desktopFile, url: '/second.jpg' }]
   renderIntro({ File: slides })
 
-  expect(Slideshow.mock.calls[0][0].content).toEqual({ slidesDesktop: slides, slidesMobile: slides })
+  expect(Slideshow.mock.calls[0][0].content).toEqual({
+    slidesDesktop: slides,
+    slidesMobile: slides
+  })
 })
 
 test('preserves CTA links and video backgrounds', () => {

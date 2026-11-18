@@ -29,7 +29,7 @@ const classes = {
  * @param {string} props.locale - Current locale/language code
  * @returns {JSX.Element} The SiteMapPage component
  */
-export default function SiteMapPage ({ setPage, contentPages, locale }) {
+export default function SiteMapPage({ setPage, contentPages, locale }) {
   useEffect(() => {
     setPage('Site Map')
     if (typeof window.gtag === 'function') {
@@ -43,7 +43,9 @@ export default function SiteMapPage ({ setPage, contentPages, locale }) {
     <Box sx={classes.root}>
       <Box aria-hidden="true" sx={classes.main} />
       <Box sx={classes.content}>
-        <Typography component="h1" gutterBottom>Site Map</Typography>
+        <Typography component="h1" gutterBottom>
+          Site Map
+        </Typography>
         {contentPages.map((page, index) => (
           <Link
             key={index}
