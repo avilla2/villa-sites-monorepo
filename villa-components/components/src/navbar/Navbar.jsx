@@ -48,6 +48,7 @@ export default function Navbar ({
   const [isOpen, setIsOpen] = useState(false)
   const showBackButton = navIndex !== '/'
   const mobileAppBarRef = useRef(null)
+  const desktopAppBarRef = useRef(null)
   const [mobileNavHeight, setMobileNavHeight] = useState(0)
 
   // Safety checks for required props
@@ -58,6 +59,31 @@ export default function Navbar ({
   useEffect(() => {
     setMounted(true)
   }, [])
+
+  useEffect(() => {
+    const navbar = desktopAppBarRef.current
+    if (!navbar) return
+
+    const property = '--villa-navbar-overlay-height'
+    const root = document.documentElement
+    const previousValue = root.style.getPropertyValue(property)
+    const updateHeight = () => {
+      // The mobile navbar already provides its own in-flow spacer.
+      root.style.setProperty(property, `${navbar.getBoundingClientRect().height}px`)
+    }
+    const observer = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(updateHeight) : null
+
+    updateHeight()
+    observer?.observe(navbar)
+    window.addEventListener('resize', updateHeight)
+
+    return () => {
+      observer?.disconnect()
+      window.removeEventListener('resize', updateHeight)
+      if (previousValue) root.style.setProperty(property, previousValue)
+      else root.style.removeProperty(property)
+    }
+  }, [style, minSize, siteBanner])
 
   useEffect(() => {
     const updateNavHeight = () => {
@@ -132,6 +158,7 @@ export default function Navbar ({
         {style === 'Split'
           ? (
               <AppBar
+                ref={desktopAppBarRef}
                 sx={{ color: 'inherit' }}
                 position="fixed"
                 elevation={!mounted ? 1 : (!trigger ? 0 : 1)}
@@ -196,6 +223,7 @@ export default function Navbar ({
             )
           : (
             <AppBar
+              ref={desktopAppBarRef}
               sx={{ color: 'inherit' }}
               position="fixed"
               elevation={!mounted ? 1 : (!trigger ? 0 : 1)}

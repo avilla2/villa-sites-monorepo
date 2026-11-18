@@ -57,7 +57,7 @@ Use this context only for relevant terminology, never to invent visible details:
     '--attachment',
     imagePath,
     '--model',
-    process.env.COPILOT_IMAGE_MODEL || 'gpt-5.4-mini',
+    process.env.COPILOT_IMAGE_MODEL || 'gemini-3.8-flash',
     '--silent',
     '--stream',
     'off',

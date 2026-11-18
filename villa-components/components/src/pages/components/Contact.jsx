@@ -51,12 +51,13 @@ const MaskedTextField = IMaskMixin(
  * @param {string} params.type - The type of the form field (e.g., 'phone')
  * @returns {JSX.Element} The FormField component
  */
-const FormField = ({ value, error, handleFormChange, id, label, fullWidth, type }) => {
+const FormField = ({ value, error, handleFormChange, id, label, fullWidth, type, embedded }) => {
   return (
     <Grid
+      sx={{ minWidth: 0 }}
       size={{
         md: fullWidth ? 12 : 6,
-        xs: 12
+        xs: embedded && !fullWidth ? 6 : 12
       }}>
       {type === 'phone'
         ? <MaskedTextField
@@ -98,9 +99,10 @@ const FormField = ({ value, error, handleFormChange, id, label, fullWidth, type 
  * @param {Object} props - Contact props
  * @param {FormComponent} props.content - Contact content object
  * @param {string} props.siteName - The name of the site, used in the email subject line
+ * @param {boolean} [props.embedded=false] - Use compact spacing inside an intro form card
  * @returns {JSX.Element} The Contact component
  */
-export default function Contact ({ content, siteName }) {
+export default function Contact ({ content, siteName, embedded = false }) {
   const defaultDataFields = content.formFields.reduce((allFields, newField) => ({ ...allFields, [newField.name]: '' }), {})
   const defaultErrorFields = content.formFields.reduce((allFields, newField) => ({ ...allFields, [newField.name]: false }), {})
   const defaultValidationFields = content.formFields.reduce((allFields, newField) => ({ ...allFields, [newField.name]: newField.validation ? new RegExp(newField.validation) : /./ }), {})
@@ -184,8 +186,8 @@ export default function Contact ({ content, siteName }) {
   }
 
   return (
-    <Box sx={classes.root}>
-      <form style={classes.root} noValidate autoComplete="off">
+    <Box sx={embedded ? { margin: 0 } : classes.root}>
+      <form style={embedded ? { margin: 0 } : classes.root} noValidate autoComplete="off">
           <Grid
               container
               columns={12}
@@ -202,6 +204,7 @@ export default function Contact ({ content, siteName }) {
                   label={field.label}
                   fullWidth={field.fullWidth}
                   type={field.type}
+                  embedded={embedded}
                 />
               )
             })}
@@ -218,7 +221,7 @@ export default function Contact ({ content, siteName }) {
                       fullWidth
                       required
                       multiline
-                      rows={8}
+                      rows={embedded ? 4 : 8}
                   />
                 </AnimationProvider>
               </Grid>

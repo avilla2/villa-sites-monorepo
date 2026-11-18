@@ -23,7 +23,7 @@
     "build:dev": "rollup -c",
     "dev": "rollup -c -w",
     "lint": "eslint src --ext .js,.jsx",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "react-scripts test --watchAll=false"
   },
   "peerDependencies": {
     "@emotion/react": "^11.0.0",

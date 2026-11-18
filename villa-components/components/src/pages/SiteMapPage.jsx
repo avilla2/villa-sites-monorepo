@@ -11,14 +11,13 @@ const classes = {
     height: '100%'
   },
   content: {
-    margin: 'auto 5vw'
+    margin: 'auto 5vw',
+    paddingBlock: 4
   },
   main: (theme) => ({
-    backgroundColor: theme.palette.warning.main,
+    backgroundColor: theme.palette.primary.main,
     width: '100%',
-    height: '15vh',
-    marginBottom: '10vh',
-    borderRadius: '0 0 20px 20px'
+    height: 'var(--villa-navbar-overlay-height, 128px)'
   })
 }
 
@@ -42,7 +41,7 @@ export default function SiteMapPage ({ setPage, contentPages, locale }) {
   })
   return (
     <Box sx={classes.root}>
-      <Box sx={classes.main} />
+      <Box aria-hidden="true" sx={classes.main} />
       <Box sx={classes.content}>
         <Typography component="h1" gutterBottom>Site Map</Typography>
         {contentPages.map((page, index) => (

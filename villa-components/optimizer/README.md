@@ -59,7 +59,7 @@ Optimizer environment:
 | Variable                                               | Purpose                                                                                         |
 | ------------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
 | `ASSET_PIPELINE_TOKEN`                                 | Required shared bearer secret protecting the new endpoint                                       |
-| `COPILOT_IMAGE_MODEL`                                  | Vision-capable model; defaults to `gpt-5.4-mini`; availability and price depend on your account |
+| `COPILOT_IMAGE_MODEL`                                  | Vision-capable model; defaults to `gemini-3.8-flash`; availability and price depend on your account |
 | `COPILOT_CLI_PATH`                                     | CLI executable, default `copilot`                                                               |
 | `STRAPI_REST_ENDPOINT`, `STRAPI_API_TOKEN`             | Upload credentials used by the child local Strapi MCP                                           |
 | `STRAPI_OFFICIAL_MCP_URL`, `STRAPI_OFFICIAL_MCP_TOKEN` | Official Streamable HTTP MCP endpoint and its admin bearer credential                           |
